@@ -9,8 +9,8 @@ on:
 env:
   AWS_REGION: ap-northeast-2
   S3_BUCKET_NAME: codesquad-s3
-  CODE_DEPLOY_APPLICATION_NAME: second-hand
-  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: second-hand
+  CODE_DEPLOY_APPLICATION_NAME: codesquad-project
+  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: was-cd
   working-directory: ./be
 
 permissions:

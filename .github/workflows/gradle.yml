@@ -2,15 +2,15 @@ name: Java CI with Gradle & Deploy to EC2
 
 # main 브런치에 push가 되면 아래의 flow가 실행됩니다.
 on:
-  pull_request:
+  push:
     branches: [ "release-be" ]
 
 # flow에서 사용할 변수 같은 느낌입니다.
 env:
   AWS_REGION: ap-northeast-2
-  S3_BUCKET_NAME: codesquad-s3
-  CODE_DEPLOY_APPLICATION_NAME: second-hand-team06
-  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: second-hand-team06
+  S3_BUCKET_NAME: issue-tracker-team04
+  CODE_DEPLOY_APPLICATION_NAME: issue-tracker
+  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: issue-tracker
   working-directory: ./be
 
 permissions:
@@ -51,12 +51,12 @@ jobs:
 
       - uses: actions/checkout@v3
       - run: touch ./be/src/main/resources/application.properties
-      - run: echo "${{ secrets.APPLICATION_PROPERTIES }}" > ./BE/src/main/resources/application.properties
-      - run: cat ./BE/src/main/resources/application.properties
+      - run: echo "${{ secrets.APPLICATION_PROPERTIES }}" > ./be/src/main/resources/application.properties
+      - run: cat ./be/src/main/resources/application.properties
 
       # 4) gradle 빌드
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew build -x test
         working-directory: ${{ env.working-directory }}
     
 

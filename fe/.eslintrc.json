@@ -11,7 +11,5 @@
     "sourceType": "module"
   },
   "plugins": ["react", "@typescript-eslint"],
-  "rules": {
-    "ignorePatterns": ["./craco.config.js"]
-  }
+  "rules": {}
 }

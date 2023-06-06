@@ -8,9 +8,9 @@ on:
 # flow에서 사용할 변수 같은 느낌입니다.
 env:
   AWS_REGION: ap-northeast-2
-  S3_BUCKET_NAME: issue-tracker-team04
-  CODE_DEPLOY_APPLICATION_NAME: issue-tracker
-  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: issue-tracker
+  S3_BUCKET_NAME: codesquad-s3
+  CODE_DEPLOY_APPLICATION_NAME: second-hand
+  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: second-hand
   working-directory: ./be
 
 permissions:

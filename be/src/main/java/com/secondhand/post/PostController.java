@@ -69,13 +69,42 @@ public class PostController {
     }
 
     @PutMapping("/{postId}")
-    public ResponseEntity<CustomResponse<PostSaveDto>> updatePost(@PathVariable Long postId, @RequestBody PostSaveDto updatePostDto) {
+    public ResponseEntity<CustomResponse> updatePost(@PathVariable Long postId, @RequestBody PostSaveDto updatePostDto) {
         return ResponseEntity
                 .ok()
                 .body(new CustomResponse(
                         "success",
                         200,
-                        "판매글 수정 성공",
-                        new PostSaveDto()));
+                        "판매글 수정 성공"));
+    }
+
+    @DeleteMapping("/{postId}")
+    public ResponseEntity<CustomResponse> deletePost(@PathVariable Long postId) {
+        return ResponseEntity
+                .ok()
+                .body(new CustomResponse(
+                        "success",
+                        200,
+                        "판매글 삭제 성공"));
+    }
+
+    @PostMapping("/{postId}")
+    public ResponseEntity<CustomResponse> changeInterestPost(@PathVariable Long postId) {
+        return ResponseEntity
+                .ok()
+                .body(new CustomResponse(
+                        "success",
+                        200,
+                        "관심상품 추가/삭제 성공"));
+    }
+
+    @PatchMapping("/{postId}")
+    public ResponseEntity<CustomResponse> changePostStatus(@PathVariable Long postId, @RequestBody UpdatePostStatusDto statusDto) {
+        return ResponseEntity
+                .ok()
+                .body(new CustomResponse(
+                        "success",
+                        200,
+                        "판매 상품 상태 변경 성공"));
     }
 }

@@ -95,7 +95,7 @@ public class PostController {
                 .body(new CustomResponse(
                         "success",
                         200,
-                        "관심상품 추가/삭제 성공"));
+                        "관심상품 추가 / 삭제 성공"));
     }
 
     @PatchMapping("/{postId}")

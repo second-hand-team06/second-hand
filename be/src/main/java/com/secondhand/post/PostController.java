@@ -23,7 +23,7 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<CustomResponse> createPost(@RequestBody CreatePostDto createPostDto) {
+    public ResponseEntity<CustomResponse> createPost(@RequestBody PostSaveDto createPostDto) {
         return ResponseEntity
                 .ok()
                 .body(new CustomResponse(
@@ -66,5 +66,16 @@ public class PostController {
                         200,
                         "판매글 상세 조회 성공",
                         new PostDetailDto()));
+    }
+
+    @PutMapping("/{postId}")
+    public ResponseEntity<CustomResponse<PostSaveDto>> updatePost(@PathVariable Long postId, @RequestBody PostSaveDto updatePostDto) {
+        return ResponseEntity
+                .ok()
+                .body(new CustomResponse(
+                        "success",
+                        200,
+                        "판매글 수정 성공",
+                        new PostSaveDto()));
     }
 }

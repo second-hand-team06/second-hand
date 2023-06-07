@@ -6,7 +6,7 @@ import java.util.List;
 
 
 @Getter
-public class CreatePostDto {
+public class PostSaveDto {
 
     private String title;
     private String region;

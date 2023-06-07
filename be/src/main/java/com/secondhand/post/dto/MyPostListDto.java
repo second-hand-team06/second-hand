@@ -7,6 +7,6 @@ import java.util.List;
 
 @Getter
 @AllArgsConstructor
-public class CreatePostListDto {
-    List<CreatePostDto> postList;
+public class MyPostListDto {
+    List<MyPostDto> postList;
 }

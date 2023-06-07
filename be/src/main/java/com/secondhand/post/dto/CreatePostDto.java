@@ -2,6 +2,8 @@ package com.secondhand.post.dto;
 
 import lombok.Getter;
 
+import java.util.List;
+
 
 @Getter
 public class CreatePostDto {
@@ -11,6 +13,6 @@ public class CreatePostDto {
     private int categoryId;
     private Long price;
     private String content;
-    private String photoUrl;
+    private List<String> photoUrl;
 
 }

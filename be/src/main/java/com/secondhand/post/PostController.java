@@ -17,20 +17,13 @@ public class PostController {
 
     @GetMapping
     public ResponseEntity<CustomResponse<PostMetaListDto>> getPost() {
-
-        PostMetaDto postMetaDto = new PostMetaDto();
-        postMetaDto.setPostedAt(LocalDateTime.now());
-
-        ArrayList<PostMetaDto> postMetaDtos = new ArrayList<>();
-        postMetaDtos.add(postMetaDto);
-
         return ResponseEntity
                 .ok()
                 .body(new CustomResponse(
                         "success",
                         200,
                         "조회 성공",
-                        new PostMetaListDto(postMetaDtos)));
+                        new PostMetaListDto(new ArrayList<>())));
     }
 
 }

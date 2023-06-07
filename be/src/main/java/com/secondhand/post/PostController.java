@@ -1,6 +1,5 @@
 package com.secondhand.post;
 
-import com.secondhand.post.dto.PostMetaDto;
 import com.secondhand.post.dto.PostMetaListDto;
 import com.secondhand.util.CustomResponse;
 import org.springframework.http.ResponseEntity;
@@ -15,19 +14,15 @@ import java.util.ArrayList;
 public class PostController {
 
     @GetMapping
-    public ResponseEntity<CustomResponse> getPost() {
+    public ResponseEntity<CustomResponse<PostMetaListDto>> getPost() {
 
-        PostMetaDto postMetaDto = new PostMetaDto();
-        postMetaDto.setId(1);
-
-        ArrayList<PostMetaDto> list = new ArrayList<>();
-        list.add(postMetaDto);
         return ResponseEntity
                 .ok()
                 .body(new CustomResponse(
                         "success",
                         200,
                         "조회 성공",
-                        new PostMetaListDto(list)));
+                        new PostMetaListDto(new ArrayList<>())));
     }
+
 }

@@ -7,9 +7,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class CustomResponse {
+public class CustomResponse<Data> {
     private String status;
     private int code;
     private String message;
-    private Object data;
+    private Data data;
 }

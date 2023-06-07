@@ -12,4 +12,10 @@ public class CustomResponse<Data> {
     private int code;
     private String message;
     private Data data;
+
+    public CustomResponse(String status, int code, String message) {
+        this.status = status;
+        this.code = code;
+        this.message = message;
+    }
 }

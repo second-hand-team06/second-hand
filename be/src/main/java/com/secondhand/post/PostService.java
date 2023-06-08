@@ -15,9 +15,9 @@ public class PostService {
 
     private final PostRepository postRepository;
 
-    public List<PostMetaDto> createPost() {
+    public List<PostMetaDto> createPost(int pageNum) {
 
-        List<PostMeta> postMetaList = postRepository.findPost();
+        List<PostMeta> postMetaList = postRepository.findPost(pageNum);
 
         return postMetaList.stream()
                 .map(PostMapper.INSTANCE::toPostMetaDto)

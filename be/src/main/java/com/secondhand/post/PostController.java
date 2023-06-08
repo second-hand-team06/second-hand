@@ -16,14 +16,14 @@ public class PostController {
     private final PostService postService;
 
     @GetMapping
-    public ResponseEntity<CustomResponse<PostMetaListDto>> getPost() {
+    public ResponseEntity<CustomResponse<PostMetaListDto>> getPost(@RequestParam int pageNum) {
         return ResponseEntity
                 .ok()
                 .body(new CustomResponse(
                         "success",
                         200,
                         "메인 화면 조회 성공",
-                        new PostMetaListDto(postService.createPost())));
+                        new PostMetaListDto(postService.createPost(pageNum))));
     }
 
     @PostMapping

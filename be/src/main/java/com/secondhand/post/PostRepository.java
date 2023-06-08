@@ -19,7 +19,7 @@ public class PostRepository {
 
         int startIndex = (pageNum - 1) * pageSize;
 
-        return em.createQuery("SELECT p FROM PostMeta p", PostMeta.class)
+        return em.createQuery("SELECT p FROM PostMeta p WHERE deleted IS FALSE ORDER BY postedAt DESC", PostMeta.class)
                 .setFirstResult(startIndex)
                 .setMaxResults(pageSize)
                 .getResultList();

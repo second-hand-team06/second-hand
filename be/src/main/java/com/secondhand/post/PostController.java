@@ -16,7 +16,7 @@ public class PostController {
     private final PostService postService;
 
     @GetMapping
-    public ResponseEntity<CustomResponse<PostMetaListDto>> getPost(@RequestParam int pageNum) {
+    public ResponseEntity<CustomResponse<PostMetaListDto>> getPost(@RequestParam(defaultValue = "1") int pageNum) {
         return ResponseEntity
                 .ok()
                 .body(new CustomResponse(

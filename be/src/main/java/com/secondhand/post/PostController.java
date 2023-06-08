@@ -2,6 +2,7 @@ package com.secondhand.post;
 
 import com.secondhand.post.dto.*;
 import com.secondhand.util.CustomResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,7 +10,10 @@ import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/posts")
+@RequiredArgsConstructor
 public class PostController {
+
+    private final PostService postService;
 
     @GetMapping
     public ResponseEntity<CustomResponse<PostMetaListDto>> getPost() {
@@ -19,7 +23,7 @@ public class PostController {
                         "success",
                         200,
                         "메인 화면 조회 성공",
-                        new PostMetaListDto(new ArrayList<>())));
+                        new PostMetaListDto(postService.createPost())));
     }
 
     @PostMapping

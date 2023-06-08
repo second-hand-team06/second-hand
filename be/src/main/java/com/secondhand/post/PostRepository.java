@@ -13,8 +13,15 @@ public class PostRepository {
 
     private final EntityManager em;
 
-    public List<PostMeta> findPost() {
+    public List<PostMeta> findPost(int pageNum) {
+        int pageSize = 10;
+
+
+        int startIndex = (pageNum - 1) * pageSize;
+
         return em.createQuery("SELECT p FROM PostMeta p", PostMeta.class)
+                .setFirstResult(startIndex)
+                .setMaxResults(pageSize)
                 .getResultList();
     }
 

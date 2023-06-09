@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
-interface FetchOptions {
+interface UseFetchProps {
   url: string;
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
   body?: object | null;
 }
 
-const useFetch = ({ url, method = 'GET', body = null }: FetchOptions) => {
+const useFetch = ({ url, method = 'GET', body = null }: UseFetchProps) => {
   const [data, setData] = useState(null);
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState(false);

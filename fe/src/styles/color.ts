@@ -11,7 +11,7 @@ const PALETTE = {
   GRAY_800: 'rgba(60, 60, 67, 0.6)',
   GRAY_900: '#3C3C43',
   BLACK: '#000000',
-  MINT: '##00C7BE',
+  MINT: '#00C7BE',
   ORANGE: '#FF9500',
   BLUE: '#007AFF',
   RED: '#FF3B30',

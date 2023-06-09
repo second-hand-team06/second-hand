@@ -14,6 +14,6 @@ public interface PostMapper {
     PostMetaDto toPostMetaDto(PostMeta postMeta);
 
     default String mapRegionToString(Region region) {
-        return region != null ? region.getName() : null;
+        return region.getName();
     }
 }

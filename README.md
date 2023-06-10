@@ -1,4 +1,5 @@
 
+## 🥕 Second-Hand
  <img src="https://github.com/second-hand-team06/second-hand/assets/115435784/adcf994c-cd7a-4e40-a9f0-b61fc6dc433d" width="600px" />
 
 ## 👥 Team Members
@@ -24,6 +25,9 @@
 ![Github Actions](https://img.shields.io/badge/Github%20Actions-2088FF?style=flat&logo=GithubActions&logoColor=white)
 ![AWS Codedeploy](https://img.shields.io/badge/AWS%20Codedeploy-yellowgreen?style=flat)
 
+
+## 🗂️ 팀 관리 노션
+[노션 링크](https://yielding-effect-d6a.notion.site/Second-Hand-team06-2ffd62e597074a5a89781298be87713a?pvs=4)
 
 ## 📜 그라운드 룰
 
@@ -77,6 +81,3 @@
 ### 4. 회고 시간
 
 금요일 오후 3시 ~ 오후 3시 30분
-
-## 🗂️ 팀 관리 노션
-[노션 링크](https://yielding-effect-d6a.notion.site/Second-Hand-team06-2ffd62e597074a5a89781298be87713a?pvs=4)

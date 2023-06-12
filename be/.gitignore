@@ -205,3 +205,5 @@ gradle-app.setting
 .idea
 
 src/main/resources/application.properties
+../.idea
+/src/main/generated/com/secondhand/post/mapper/PostMapperImpl.java

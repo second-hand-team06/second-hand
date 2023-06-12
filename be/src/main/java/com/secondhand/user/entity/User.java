@@ -17,7 +17,6 @@ public class User {
 
     private String profileUrl;
 
-    // 이걸 List<Region> 으로 바꾸는건?
     private int firstRegionId;
 
     private Integer secondRegionId;

@@ -5,6 +5,7 @@ import com.secondhand.util.CustomResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<CustomResponse> createPost(@RequestBody PostSaveDto createPostDto) {
+    public ResponseEntity<CustomResponse> createPost(@Validated @RequestBody PostSaveDto createPostDto) {
         return ResponseEntity
                 .ok()
                 .body(new CustomResponse(

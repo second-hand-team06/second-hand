@@ -29,7 +29,7 @@ public class PostRepositoryImpl implements PostRepositoryCustom{
 
         QueryResults<PostMetaDto> result = queryFactory
                 .select(Projections.constructor(PostMetaDto.class,
-                                postMeta.id,
+                            postMeta.id,
                             postMeta.region,
                             postMeta.title,
                             postMeta.price,

@@ -1,10 +1,10 @@
 package com.secondhand.region.repository;
 
 import com.secondhand.region.dto.RegionDto;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface RegionRepositoryCustom {
 
-    List<RegionDto> findAllRegions();
+    Page<RegionDto> findAllRegions(Pageable pageable);
 }

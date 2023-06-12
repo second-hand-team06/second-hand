@@ -4,6 +4,7 @@ import com.secondhand.region.dto.PostMyRegionDto;
 import com.secondhand.region.dto.RegionsDto;
 import com.secondhand.util.CustomResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,14 +16,14 @@ public class RegionController {
     private final RegionService regionService;
 
     @GetMapping
-    public ResponseEntity<CustomResponse<RegionsDto>> getRegionList() {
+    public ResponseEntity<CustomResponse<RegionsDto>> getRegionList(Pageable pageable) {
         return ResponseEntity
                 .ok()
                 .body(new CustomResponse<>(
                         "success",
                         200,
                         "지역 목록 조회 성공",
-                        regionService.findAllRegions())
+                        regionService.findAllRegions(pageable))
                 );
     }
 

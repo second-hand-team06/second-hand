@@ -7,6 +7,6 @@ import java.util.List;
 
 @Getter
 @AllArgsConstructor
-public class RegionListDto {
-    private List<RegionDto> regionList;
+public class RegionsDto {
+    private List<RegionDto> regions;
 }

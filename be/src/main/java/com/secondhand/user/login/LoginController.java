@@ -26,6 +26,8 @@ public class LoginController {
 
         UserProfileResponse userProfile = loginService.getUserProfile(githubToken.getAccessToken());
 
+        loginService.createUser(userProfile);
+
         String token = jwtUtil.createToken(userProfile);
         return ResponseEntity.ok(new JWTResponse("login success", token));
     }

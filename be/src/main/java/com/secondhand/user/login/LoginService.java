@@ -1,7 +1,10 @@
 package com.secondhand.user.login;
 
+import com.secondhand.user.entity.User;
 import com.secondhand.user.login.dto.GithubToken;
 import com.secondhand.user.login.dto.UserProfileResponse;
+import com.secondhand.user.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -10,12 +13,17 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import javax.transaction.Transactional;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class LoginService {
+
+    private final UserRepository userRepository;
 
     @Value("${OAUTH_GITHUB_URL}")
     private String url;
@@ -60,5 +68,17 @@ public class LoginService {
                         requestEntity,
                         UserProfileResponse.class)
                 .getBody();
+    }
+
+    @Transactional
+    public void createUser(UserProfileResponse userProfile) {
+
+        Optional<User> signedUser = userRepository.findByGithubId(userProfile.getId());
+
+        if (signedUser.isPresent()) {
+            return;
+        }
+
+        userRepository.save(new User(userProfile));
     }
 }

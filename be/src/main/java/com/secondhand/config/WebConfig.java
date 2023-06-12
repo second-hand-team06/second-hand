@@ -1,9 +1,7 @@
 package com.secondhand.config;
 
-import com.secondhand.interceptor.LoginInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 // TODO : CORS 학습 후 addMapping, allowedOrigin, allowedMethods 설정
@@ -16,10 +14,10 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedMethods("*");
     }
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginInterceptor())
-                .addPathPatterns("/posts/**")
-                .excludePathPatterns("/posts");
-    }
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        registry.addInterceptor(new LoginInterceptor(new JwtUtil()))
+//                .addPathPatterns("/posts/**")
+//                .excludePathPatterns("/posts");
+//    }
 }

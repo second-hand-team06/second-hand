@@ -1,15 +1,17 @@
 package com.secondhand.user.login;
 
 import com.secondhand.user.login.dto.UserProfileResponse;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.crypto.spec.SecretKeySpec;
+import java.security.Key;
+import java.util.Base64;
 import java.util.Date;
 
+@Slf4j
 @Component
 public class JwtUtil {
 
@@ -17,6 +19,7 @@ public class JwtUtil {
     private String secret; // 시크릿 키를 설정
 
     public String createToken(UserProfileResponse userProfile) {
+        log.info(secret);
         return Jwts.builder()
                 .setHeaderParam("typ", "JWT")
                 .setSubject("login_member")
@@ -26,7 +29,8 @@ public class JwtUtil {
                 .compact(); // 토큰을 생성하세요.
     }
 
-    public boolean validateToken(String token) {
+    public boolean validateTokenIsExpired(String token) {
+
         try {
             // 토큰 검증
             Jws<Claims> claimsJws = Jwts.parser()
@@ -39,8 +43,27 @@ public class JwtUtil {
             }
 
             return true; // 토큰이 유효합니다.
-
         } catch (Exception e) {
+            return false; // 토큰 검증에 실패했습니다.
+        }
+    }
+
+    public boolean validateTokenIsManipulated(String token) {
+
+        try {
+
+            log.info(secret);
+
+            byte[] decodedSecretKey = Base64.getDecoder().decode(secret);
+            Key key = new SecretKeySpec(decodedSecretKey, 0, decodedSecretKey.length, "HmacSHA256");
+
+            Jwts.parser()
+                    .setSigningKey(key) // 비밀 키를 사용하여 서명을 검증
+                    .parseClaimsJws(token);
+
+            return true;
+        } catch (JwtException e) {
+            log.info(e.getMessage() + " 토근 검증 실패");
             return false; // 토큰 검증에 실패했습니다.
         }
     }

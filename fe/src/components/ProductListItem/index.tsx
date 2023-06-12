@@ -1,10 +1,10 @@
-import React from 'react';
+import { ICON_NAME } from '@constants/index';
 
 import Icon from '@components/common/Icon';
 import * as S from './style';
 
 export interface ProductListItemProps {
-  id?: number;
+  id: number;
   title: string;
   photoUrl: string | null;
   region: string;
@@ -39,13 +39,13 @@ const ProductListItem = ({
         <S.ChatAndLike>
           {chattingCount > 0 && (
             <S.IconTextBox>
-              <Icon name="message" />
+              <Icon name={ICON_NAME.MESSAGE} />
               <span>{chattingCount}</span>
             </S.IconTextBox>
           )}
           {interestCount > 0 && (
             <S.IconTextBox>
-              <Icon name="like" />
+              <Icon name={ICON_NAME.LIKE} />
               <span>{interestCount}</span>
             </S.IconTextBox>
           )}

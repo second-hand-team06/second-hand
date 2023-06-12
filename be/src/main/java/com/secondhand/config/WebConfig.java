@@ -13,4 +13,11 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedOrigins("*")
                 .allowedMethods("*");
     }
+
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        registry.addInterceptor(new LoginInterceptor(new JwtUtil()))
+//                .addPathPatterns("/posts/**")
+//                .excludePathPatterns("/posts");
+//    }
 }

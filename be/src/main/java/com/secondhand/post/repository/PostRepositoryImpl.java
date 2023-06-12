@@ -29,12 +29,14 @@ public class PostRepositoryImpl implements PostRepositoryCustom{
 
         QueryResults<PostMetaDto> result = queryFactory
                 .select(Projections.constructor(PostMetaDto.class,
-                        postMeta.id,
-                        postMeta.region,
-                        postMeta.title,
-                        postMeta.price,
-                        postMeta.badge,
-                        postMeta.postedAt))
+                                postMeta.id,
+                            postMeta.region,
+                            postMeta.title,
+                            postMeta.price,
+                            postMeta.photoUrl,
+                            postMeta.viewCount,
+                            postMeta.badge,
+                            postMeta.postedAt))
                 .from(postMeta)
                 .where(categoryEq(searchCondition.getCategory()), regionEq(searchCondition.getRegion()), postMeta.deleted.eq(false))
                 .orderBy(postMeta.postedAt.desc())

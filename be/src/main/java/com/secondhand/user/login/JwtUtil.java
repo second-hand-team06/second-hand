@@ -1,6 +1,9 @@
 package com.secondhand.user.login;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.secondhand.user.entity.User;
+import com.secondhand.user.login.dto.LoggedInUser;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +13,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
 import java.util.Base64;
 import java.util.Date;
+import java.util.LinkedHashMap;
 
 @Slf4j
 @Component
@@ -66,5 +70,23 @@ public class JwtUtil {
             log.info(e.getMessage() + " 토근 검증 실패");
             return false; // 토큰 검증에 실패했습니다.
         }
+    }
+
+    public LoggedInUser extractedUserFromToken(String token) throws JsonProcessingException {
+
+        String[] jwtParts = token.split("\\.");
+        String encodedPayload = jwtParts[1]; // 페이로드는 두 번째 부분
+
+        byte[] decodedBytes = Base64.getUrlDecoder().decode(encodedPayload);
+        String decodedPayload = new String(decodedBytes);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        LinkedHashMap<String, Object> payloadMap = objectMapper.readValue(decodedPayload, LinkedHashMap.class);
+
+        Object userProfile = payloadMap.get("userProfile");
+        String userProfileJson = objectMapper.writeValueAsString(userProfile);// JSON 문자열로 변환 (로그인 유저 정보)
+
+        return objectMapper.readValue(userProfileJson, LoggedInUser.class);
     }
 }

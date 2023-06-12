@@ -1,5 +1,9 @@
 package com.secondhand.interceptor;
 
+import com.secondhand.exception.login.ExpiredTokenException;
+import com.secondhand.exception.login.ManipulatedTokenException;
+import com.secondhand.exception.login.NoAuthorizationException;
+import com.secondhand.exception.login.NoBearerException;
 import com.secondhand.user.login.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,24 +21,24 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        log.info("preHandle : {}", request.getRequestURI());
-
         if (request.getHeader("Authorization") == null) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().write("Access denied");
-            return false;
+            throw new NoAuthorizationException();
         }
 
         String token = request.getHeader("Authorization").split(" ")[1];
-
-        if (jwtUtil.validateTokenIsExpired(token)) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.getWriter().write("Token is expired");
-            return false;
+        if (!request.getHeader("Authorization").split(" ")[0].equals("Bearer")) {
+            throw new NoBearerException();
         }
 
-        return true;
+        if (!jwtUtil.validateTokenIsManipulated(token)) {
+            throw new ManipulatedTokenException();
+        }
 
-//        return jwtUtil.validateTokenIsManipulated(token);
+        if (!jwtUtil.validateTokenIsExpired(token)) {
+            throw new ExpiredTokenException();
+        }
+
+        log.info("Token is valid");
+        return true;
     }
 }

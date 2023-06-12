@@ -14,5 +14,4 @@ public class PostSaveDto {
     private Long price;
     private String content;
     private List<String> photoUrl;
-
 }

@@ -1,5 +1,6 @@
 package com.secondhand.user.login;
 
+import com.secondhand.user.entity.User;
 import com.secondhand.user.login.dto.GithubToken;
 import com.secondhand.user.login.dto.JWTResponse;
 import com.secondhand.user.login.dto.UserProfileResponse;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginController {
 
     private final LoginService loginService;
+    private final JwtUtil jwtUtil;
 
     @GetMapping("/oauth")
     public ResponseEntity<JWTResponse> githubLogin(String code, HttpServletResponse response) {
@@ -25,11 +27,12 @@ public class LoginController {
 
         UserProfileResponse userProfile = loginService.getUserProfile(githubToken.getAccessToken());
 
-        loginService.createUser(userProfile);
+        User loggedInUser = loginService.createUser(userProfile);
 
-        String token = JwtUtil.createToken(userProfile);
+        String token = jwtUtil.createToken(loggedInUser);
 
         log.info(token);
+
         return ResponseEntity.ok(new JWTResponse("login success", token));
     }
 }

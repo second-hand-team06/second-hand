@@ -70,14 +70,14 @@ public class LoginService {
     }
 
     @Transactional
-    public void createUser(UserProfileResponse userProfile) {
+    public User createUser(UserProfileResponse userProfile) {
 
         Optional<User> signedUser = userRepository.findByGithubId(userProfile.getId());
 
         if (signedUser.isPresent()) {
-            return;
+            return signedUser.get();
         }
 
-        userRepository.save(new User(userProfile));
+        return userRepository.save(new User(userProfile));
     }
 }

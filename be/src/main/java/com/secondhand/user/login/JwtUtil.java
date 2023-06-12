@@ -1,6 +1,6 @@
 package com.secondhand.user.login;
 
-import com.secondhand.user.login.dto.UserProfileResponse;
+import com.secondhand.user.entity.User;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,14 +16,14 @@ import java.util.Date;
 public class JwtUtil {
 
     @Value("${JWT_SECRET_KEY}")
-    private static String secret; // 시크릿 키를 설정
+    private String secret; // 시크릿 키를 설정
 
-    public static String createToken(UserProfileResponse userProfile) {
+    public String createToken(User loggedInUser) {
         log.info(secret);
         return Jwts.builder()
                 .setHeaderParam("typ", "JWT")
                 .setSubject("login_member")
-                .claim("userProfile", userProfile)
+                .claim("userProfile", loggedInUser)
                 .setExpiration(new Date((new Date()).getTime() + 3600000)) // 토큰의 만료일을 설정 : 현재 1시간
                 .signWith(SignatureAlgorithm.HS256, secret) // HS256 알고리즘과 시크릿 키를 사용하여 서명
                 .compact(); // 토큰을 생성하세요.

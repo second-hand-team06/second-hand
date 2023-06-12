@@ -19,7 +19,7 @@ public class LoginController {
         private final LoginService loginService;
         private final JwtUtil jwtUtil;
 
-        @GetMapping("/githublogin")
+        @GetMapping("/oauth")
         public ResponseEntity<JWTResponse> githubLogin(String code, HttpServletResponse response) {
                 log.info("로그인 시작 = {}", code);
                 GithubToken githubToken = loginService.getAccessToken(code);

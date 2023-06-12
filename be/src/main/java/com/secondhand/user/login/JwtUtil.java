@@ -16,9 +16,9 @@ import java.util.Date;
 public class JwtUtil {
 
     @Value("${JWT_SECRET_KEY}")
-    private String secret; // 시크릿 키를 설정
+    private static String secret; // 시크릿 키를 설정
 
-    public String createToken(UserProfileResponse userProfile) {
+    public static String createToken(UserProfileResponse userProfile) {
         log.info(secret);
         return Jwts.builder()
                 .setHeaderParam("typ", "JWT")

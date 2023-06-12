@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginController {
 
     private final LoginService loginService;
-    private final JwtUtil jwtUtil;
 
     @GetMapping("/oauth")
     public ResponseEntity<JWTResponse> githubLogin(String code, HttpServletResponse response) {
@@ -28,7 +27,7 @@ public class LoginController {
 
         loginService.createUser(userProfile);
 
-        String token = jwtUtil.createToken(userProfile);
+        String token = JwtUtil.createToken(userProfile);
 
         log.info(token);
         return ResponseEntity.ok(new JWTResponse("login success", token));

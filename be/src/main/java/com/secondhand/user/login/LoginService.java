@@ -47,7 +47,6 @@ public class LoginService {
         requestPayload.put("client_id", clientId);
         requestPayload.put("client_secret", clientSecret);
         requestPayload.put("code", code);
-//        requestPayload.put("redirect_url",redirectUrl);
         requestPayloads.setAll(requestPayload);
 
         HttpEntity<?> request = new HttpEntity<>(requestPayloads, headers);

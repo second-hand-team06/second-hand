@@ -29,6 +29,8 @@ public class LoginController {
         loginService.createUser(userProfile);
 
         String token = jwtUtil.createToken(userProfile);
+
+        log.info(token);
         return ResponseEntity.ok(new JWTResponse("login success", token));
     }
 }

@@ -3,6 +3,7 @@ package com.secondhand.post;
 import com.secondhand.post.dto.*;
 import com.secondhand.util.CustomResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,14 +17,15 @@ public class PostController {
     private final PostService postService;
 
     @GetMapping
-    public ResponseEntity<CustomResponse<PostMetaListDto>> getPost(@RequestParam(defaultValue = "1") int pageNum) {
+    public ResponseEntity<CustomResponse<MainPagePostsDto>> getPost(Pageable pageable, SearchCondition searchCondition) {
+
         return ResponseEntity
                 .ok()
                 .body(new CustomResponse(
                         "success",
                         200,
                         "메인 화면 조회 성공",
-                        new PostMetaListDto(postService.createPost(pageNum))));
+                        postService.findMainPagePosts(pageable, searchCondition)));
     }
 
     @PostMapping

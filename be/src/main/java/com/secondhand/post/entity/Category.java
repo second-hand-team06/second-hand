@@ -1,17 +1,15 @@
-package com.secondhand.region.entity;
-
-import lombok.Getter;
+package com.secondhand.post.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-@Getter
-public class Region {
+public class Category {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private int id;
-
     private String name;
+    private String photoUrl;
 }

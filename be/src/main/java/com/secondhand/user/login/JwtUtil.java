@@ -44,5 +44,4 @@ public class JwtUtil {
             return false; // 토큰 검증에 실패했습니다.
         }
     }
-
 }

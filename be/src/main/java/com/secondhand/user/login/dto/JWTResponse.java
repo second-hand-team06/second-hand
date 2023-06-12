@@ -9,5 +9,4 @@ public class JWTResponse {
 
     private String message;
     private String token;
-
 }

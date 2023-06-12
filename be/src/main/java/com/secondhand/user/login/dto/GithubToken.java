@@ -16,5 +16,4 @@ public class GithubToken {
     private String tokenType;
     @JsonProperty("scope")
     private String scope;
-
 }

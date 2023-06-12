@@ -16,20 +16,17 @@ import javax.servlet.http.HttpServletResponse;
 @RequiredArgsConstructor
 public class LoginController {
 
-        private final LoginService loginService;
-        private final JwtUtil jwtUtil;
+    private final LoginService loginService;
+    private final JwtUtil jwtUtil;
 
-        @GetMapping("/oauth")
-        public ResponseEntity<JWTResponse> githubLogin(String code, HttpServletResponse response) {
-                log.info("로그인 시작 = {}", code);
-                GithubToken githubToken = loginService.getAccessToken(code);
-                response.setHeader("Authorization", "application/json");
-                log.info("토큰 검증 = {}", githubToken.getAccessToken());
-                UserProfileResponse userProfile = loginService.getUserProfile(githubToken.getAccessToken());
+    @GetMapping("/oauth")
+    public ResponseEntity<JWTResponse> githubLogin(String code, HttpServletResponse response) {
+        GithubToken githubToken = loginService.getAccessToken(code);
+        response.setHeader("Authorization", "application/json");
 
-                String token = jwtUtil.createToken(userProfile);
-                log.info("로그인 완료 = {}", token);
-                return ResponseEntity.ok(new JWTResponse("login success", token));
-        }
+        UserProfileResponse userProfile = loginService.getUserProfile(githubToken.getAccessToken());
 
+        String token = jwtUtil.createToken(userProfile);
+        return ResponseEntity.ok(new JWTResponse("login success", token));
+    }
 }

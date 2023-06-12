@@ -14,10 +14,7 @@ public class User {
     private long id;
 
     private String loginId;
-
     private String profileUrl;
-
     private int firstRegionId;
-
     private Integer secondRegionId;
 }

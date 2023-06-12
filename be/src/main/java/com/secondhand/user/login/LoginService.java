@@ -55,7 +55,7 @@ public class LoginService {
         HttpEntity<?> requestEntity = new HttpEntity<>(headers);
 
         return new RestTemplate().exchange(
-                    "https://api.github.com/user",
+                        "https://api.github.com/user",
                         HttpMethod.GET,
                         requestEntity,
                         UserProfileResponse.class)

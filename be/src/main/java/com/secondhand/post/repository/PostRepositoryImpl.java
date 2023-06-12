@@ -36,7 +36,7 @@ public class PostRepositoryImpl implements PostRepositoryCustom{
                         postMeta.badge,
                         postMeta.postedAt))
                 .from(postMeta)
-                .where(categoryEq(searchCondition.getCategory()), regionEq(searchCondition.getRegion()))
+                .where(categoryEq(searchCondition.getCategory()), regionEq(searchCondition.getRegion()), postMeta.deleted.eq(false))
                 .orderBy(postMeta.postedAt.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())

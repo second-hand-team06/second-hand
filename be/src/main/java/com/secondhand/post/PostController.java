@@ -1,6 +1,9 @@
 package com.secondhand.post;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.secondhand.post.dto.*;
+import com.secondhand.user.login.JwtUtil;
+import com.secondhand.user.login.dto.LoggedInUser;
 import com.secondhand.util.CustomResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +19,7 @@ import java.util.ArrayList;
 public class PostController {
 
     private final PostService postService;
+    private final JwtUtil jwtUtil;
 
     @GetMapping
     public ResponseEntity<CustomResponse<MainPagePostsDto>> getPost(Pageable pageable, SearchCondition searchCondition) {
@@ -30,9 +34,16 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<CustomResponse> createPost(@Validated @RequestBody PostSaveDto createPostDto) {
+    public ResponseEntity<CustomResponse> createPost(@Validated @RequestBody PostSaveDto createPostDto, @RequestHeader("Authorization") String token) {
 
+        LoggedInUser loggedInUser = new LoggedInUser();
 
+        // TODO: 예외 처리 어떻게???????? Riako.......~~~~~~~~~~~~~~
+        try {
+             loggedInUser = jwtUtil.extractedUserFromToken(token);
+        } catch (JsonProcessingException e) {
+
+        }
 
         return ResponseEntity
                 .ok()

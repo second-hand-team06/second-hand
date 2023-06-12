@@ -1,4 +1,4 @@
-package com.secondhand.region.entity;
+package com.secondhand.post.entity;
 
 import lombok.Getter;
 
@@ -8,10 +8,12 @@ import javax.persistence.Id;
 
 @Entity
 @Getter
-public class Region {
+public class Badge {
 
     @Id @GeneratedValue
     private int id;
 
-    private String name;
+    private String state;
+    private String backgroundColor;
+    private String fontColor;
 }

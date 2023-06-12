@@ -1,6 +1,7 @@
 package com.secondhand.post.dto;
 
 import lombok.Getter;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -13,6 +14,5 @@ public class PostSaveDto {
     private int categoryId;
     private Long price;
     private String content;
-    private List<String> photoUrl;
-
+    private List<MultipartFile> photos;
 }

@@ -6,6 +6,7 @@ import com.secondhand.user.login.dto.LoggedInUser;
 import com.secondhand.util.CustomResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -60,15 +61,17 @@ public class PostController {
     }
 
     @GetMapping("/interests")
-    public ResponseEntity<CustomResponse<InterestPostListDto>> getInterestPost() {
+    public ResponseEntity<CustomResponse<Page<PostMetaDto>>> getInterestPost(Pageable pageable, @RequestHeader("Authorization") String token) {
+
+        LoggedInUser loggedInUser = jwtUtil.extractedUserFromToken(token);
+
         return ResponseEntity
                 .ok()
                 .body(new CustomResponse(
                         "success"
                         , 200
                         , "관심상품 목록 조회 성공"
-                        , new InterestPostListDto(new ArrayList<>(), new ArrayList<>())));
-
+                        , postService.findInterestPosts(pageable, loggedInUser)));
     }
 
     @GetMapping("/{postId}")

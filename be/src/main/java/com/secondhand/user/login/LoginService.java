@@ -2,6 +2,7 @@ package com.secondhand.user.login;
 
 import com.secondhand.user.entity.User;
 import com.secondhand.user.login.dto.GithubToken;
+import com.secondhand.user.login.dto.LoggedInUser;
 import com.secondhand.user.login.dto.UserProfileResponse;
 import com.secondhand.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -70,14 +71,14 @@ public class LoginService {
     }
 
     @Transactional
-    public User createUser(UserProfileResponse userProfile) {
+    public LoggedInUser createUser(UserProfileResponse userProfile) {
 
         Optional<User> signedUser = userRepository.findByGithubId(userProfile.getId());
 
         if (signedUser.isPresent()) {
-            return signedUser.get();
+            return new LoggedInUser(signedUser.get());
         }
 
-        return userRepository.save(new User(userProfile));
+        return new LoggedInUser(userRepository.save(new User(userProfile)));
     }
 }

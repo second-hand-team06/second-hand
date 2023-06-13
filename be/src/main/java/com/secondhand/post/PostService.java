@@ -1,10 +1,7 @@
 package com.secondhand.post;
 
 import com.secondhand.fileupload.FileUploadService;
-import com.secondhand.post.dto.CreatePostResponseDto;
-import com.secondhand.post.dto.MainPagePostsDto;
-import com.secondhand.post.dto.PostSaveDto;
-import com.secondhand.post.dto.SearchCondition;
+import com.secondhand.post.dto.*;
 import com.secondhand.post.entity.*;
 import com.secondhand.post.repository.*;
 import com.secondhand.region.entity.Region;
@@ -14,6 +11,7 @@ import com.secondhand.user.login.dto.LoggedInUser;
 import com.secondhand.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,6 +29,7 @@ public class PostService {
     private final PostMetaRepository postMetaRepository;
     private final PostDetailRepository postDetailRepository;
     private final PostPhotoRepository postPhotoRepository;
+    private final InterestRepository interestRepository;
     private final RegionRepository regionRepository;
     private final CategoryRepository categoryRepository;
     private final BadgeRepository badgeRepository;
@@ -47,6 +46,11 @@ public class PostService {
         PostMeta savedPostMeta = savePost(postSaveDto, loggedInUser);
 
         return new CreatePostResponseDto(savedPostMeta.getId());
+    }
+
+    public Page<PostMetaDto> findInterestPosts(Pageable pageable, LoggedInUser loggedInUser) {
+
+        return interestRepository.findMyInterestsPosts(pageable, loggedInUser.getId());
     }
 
     private PostMeta savePost(PostSaveDto postSaveDto, LoggedInUser loggedInUser) {

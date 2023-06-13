@@ -1,17 +1,16 @@
 package com.secondhand.post.repository;
 
 import com.querydsl.core.QueryResults;
-import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.secondhand.post.dto.PostMetaDto;
+import com.secondhand.post.dto.QPostMetaDto;
 import com.secondhand.post.dto.SearchCondition;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import javax.persistence.EntityManager;
-
 import java.util.List;
 
 import static com.secondhand.post.entity.QPostMeta.postMeta;
@@ -28,7 +27,7 @@ public class PostMetaRepositoryImpl implements PostMetaRepositoryCustom {
     public Page<PostMetaDto> findMainPage(Pageable pageable, SearchCondition searchCondition) {
 
         QueryResults<PostMetaDto> result = queryFactory
-                .select(Projections.constructor(PostMetaDto.class,
+                .select(new QPostMetaDto(
                             postMeta.id,
                             postMeta.region,
                             postMeta.title,

@@ -1,6 +1,7 @@
 package com.secondhand.post;
 
 import com.secondhand.post.dto.*;
+import com.secondhand.post.repository.InterestRepository;
 import com.secondhand.user.login.JwtUtil;
 import com.secondhand.user.login.dto.LoggedInUser;
 import com.secondhand.util.CustomResponse;
@@ -124,4 +125,5 @@ public class PostController {
                         200,
                         "판매 상품 상태 변경 성공"));
     }
+
 }

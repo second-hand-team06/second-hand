@@ -40,7 +40,7 @@ public class PostService {
         return new MainPagePostsDto(postRepository.findMainPage(pageable, searchCondition));
     }
 
-    public void createPost(PostSaveDto postSaveDto, LoggedInUser loggedInUser) {
+    public long createPost(PostSaveDto postSaveDto, LoggedInUser loggedInUser) {
 
         List<String> photos = getPhotosUrl(postSaveDto);
 
@@ -54,7 +54,7 @@ public class PostService {
 
         PostMeta savedPostMeta = postRepository.save(newPostMeta);
 
-        log.info("savedPostMeta = {}", savedPostMeta.getId());
+        return savedPostMeta.getId();
     }
 
     private List<String> getPhotosUrl(PostSaveDto postSaveDto) {

@@ -39,14 +39,13 @@ public class PostController {
 
         LoggedInUser loggedInUser = jwtUtil.extractedUserFromToken(token);
 
-        postService.createPost(postSaveDto, loggedInUser);
-
         return ResponseEntity
                 .ok()
                 .body(new CustomResponse(
                         "success",
                         200,
-                        "판매글 생성 성공"));
+                        "판매글 생성 성공",
+                        postService.createPost(postSaveDto, loggedInUser)));
     }
 
     @GetMapping("/sales")
@@ -60,7 +59,6 @@ public class PostController {
                         new MyPostListDto(new ArrayList<>())));
     }
 
-
     @GetMapping("/interests")
     public ResponseEntity<CustomResponse<InterestPostListDto>> getInterestPost() {
         return ResponseEntity
@@ -72,7 +70,6 @@ public class PostController {
                         , new InterestPostListDto(new ArrayList<>(), new ArrayList<>())));
 
     }
-
 
     @GetMapping("/{postId}")
     public ResponseEntity<CustomResponse<PostDetailDto>> getPostDetail() {

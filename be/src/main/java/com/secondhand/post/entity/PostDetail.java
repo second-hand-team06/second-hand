@@ -1,13 +1,17 @@
 package com.secondhand.post.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class PostDetail {
 
-    @Id @GeneratedValue
+    @Id
     private long id;
 
     private String content;

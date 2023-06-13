@@ -16,11 +16,11 @@ import java.util.List;
 
 import static com.secondhand.post.entity.QPostMeta.postMeta;
 
-public class PostRepositoryImpl implements PostRepositoryCustom{
+public class PostMetaRepositoryImpl implements PostMetaRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
 
-    public PostRepositoryImpl(EntityManager em) {
+    public PostMetaRepositoryImpl(EntityManager em) {
         this.queryFactory = new JPAQueryFactory(em);
     }
 

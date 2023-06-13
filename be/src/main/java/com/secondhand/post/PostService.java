@@ -5,12 +5,8 @@ import com.secondhand.post.dto.CreatePostResponseDto;
 import com.secondhand.post.dto.MainPagePostsDto;
 import com.secondhand.post.dto.PostSaveDto;
 import com.secondhand.post.dto.SearchCondition;
-import com.secondhand.post.entity.Badge;
-import com.secondhand.post.entity.Category;
-import com.secondhand.post.entity.PostMeta;
-import com.secondhand.post.repository.BadgeRepository;
-import com.secondhand.post.repository.CategoryRepository;
-import com.secondhand.post.repository.PostRepository;
+import com.secondhand.post.entity.*;
+import com.secondhand.post.repository.*;
 import com.secondhand.region.entity.Region;
 import com.secondhand.region.repository.RegionRepository;
 import com.secondhand.user.entity.User;
@@ -22,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +28,9 @@ import java.util.List;
 public class PostService {
 
     private final UserRepository userRepository;
-    private final PostRepository postRepository;
+    private final PostMetaRepository postMetaRepository;
+    private final PostDetailRepository postDetailRepository;
+    private final PostPhotoRepository postPhotoRepository;
     private final RegionRepository regionRepository;
     private final CategoryRepository categoryRepository;
     private final BadgeRepository badgeRepository;
@@ -39,13 +38,19 @@ public class PostService {
 
     public MainPagePostsDto findMainPagePosts(Pageable pageable, SearchCondition searchCondition) {
 
-        return new MainPagePostsDto(postRepository.findMainPage(pageable, searchCondition));
+        return new MainPagePostsDto(postMetaRepository.findMainPage(pageable, searchCondition));
     }
 
+    @Transactional
     public CreatePostResponseDto createPost(PostSaveDto postSaveDto, LoggedInUser loggedInUser) {
 
-        List<String> photos = getPhotosUrl(postSaveDto);
+        PostMeta savedPostMeta = savePost(postSaveDto, loggedInUser);
 
+        return new CreatePostResponseDto(savedPostMeta.getId());
+    }
+
+    private PostMeta savePost(PostSaveDto postSaveDto, LoggedInUser loggedInUser) {
+        List<String> photos = getPhotosUrl(postSaveDto);
         User seller = userRepository.findById(loggedInUser.getId()).orElseThrow();
         Region region = regionRepository.findById(postSaveDto.getRegionId()).orElseThrow();
         Category category = categoryRepository.findById(postSaveDto.getCategoryId()).orElseThrow();
@@ -54,11 +59,26 @@ public class PostService {
 
         PostMeta newPostMeta = PostMeta.ofCreated(seller, region, category, badge, postSaveDto, thumbnail);
 
-        PostMeta savedPostMeta = postRepository.save(newPostMeta);
+        PostMeta savedPostMeta = postMetaRepository.save(newPostMeta);
 
-        long createdPostId = savedPostMeta.getId();
+        long savedPostId = savedPostMeta.getId();
 
-        return new CreatePostResponseDto(createdPostId);
+        savePhotos(photos, savedPostId);
+        savePostDetail(postSaveDto, savedPostId);
+
+        return savedPostMeta;
+    }
+
+    private void savePostDetail(PostSaveDto postSaveDto, long createdPostId) {
+        PostDetail postDetail = new PostDetail(createdPostId, postSaveDto.getContent());
+        postDetailRepository.save(postDetail);
+    }
+
+    private void savePhotos(List<String> photos, long savedPostId) {
+
+        for (String photo : photos) {
+            postPhotoRepository.save(new PostPhoto(savedPostId, photo));
+        }
     }
 
     private List<String> getPhotosUrl(PostSaveDto postSaveDto) {
@@ -67,9 +87,6 @@ public class PostService {
         for (MultipartFile photo : postSaveDto.getPhotos()) {
             photos.add(fileUploadService.uploadFile(photo));
         }
-
-//        photos.add("https://images.unsplash.com/photo-1567696911980-2eed69a46042?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8JUVCJUE3JUE1JUVDJUEzJUJDfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60");
-//        photos.add("https://images.unsplash.com/photo-1567696911980-2eed69a46042?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8JUVCJUE3JUE1JUVDJUEzJUJDfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60");
 
         return photos;
     }

@@ -1,12 +1,12 @@
 package com.secondhand.post;
 
 import com.secondhand.post.dto.*;
-import com.secondhand.post.repository.InterestRepository;
 import com.secondhand.user.login.JwtUtil;
 import com.secondhand.user.login.dto.LoggedInUser;
 import com.secondhand.util.CustomResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -20,7 +20,6 @@ import java.util.ArrayList;
 @RequiredArgsConstructor
 public class PostController {
 
-    private final InterestRepository repository;
     private final PostService postService;
     private final JwtUtil jwtUtil;
 
@@ -62,11 +61,9 @@ public class PostController {
     }
 
     @GetMapping("/interests")
-    public ResponseEntity<CustomResponse<InterestPostListDto>> getInterestPost(@RequestHeader("Authorization") String token) {
+    public ResponseEntity<CustomResponse<Page<PostMetaDto>>> getInterestPost(Pageable pageable, @RequestHeader("Authorization") String token) {
 
         LoggedInUser loggedInUser = jwtUtil.extractedUserFromToken(token);
-
-        repository.findMyInterestsPosts(loggedInUser.getId());
 
         return ResponseEntity
                 .ok()
@@ -74,8 +71,7 @@ public class PostController {
                         "success"
                         , 200
                         , "관심상품 목록 조회 성공"
-                        , new InterestPostListDto(new ArrayList<>(), new ArrayList<>())));
-
+                        , postService.findInterestPosts(pageable, loggedInUser)));
     }
 
     @GetMapping("/{postId}")

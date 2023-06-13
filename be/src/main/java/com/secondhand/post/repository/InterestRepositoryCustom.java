@@ -1,9 +1,9 @@
 package com.secondhand.post.repository;
 
-import com.secondhand.post.entity.PostMeta;
-
-import java.util.List;
+import com.secondhand.post.dto.PostMetaDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface InterestRepositoryCustom {
-    List<PostMeta> findMyInterestsPosts(Long loggedInUserId);
+    Page<PostMetaDto> findMyInterestsPosts(Pageable pageable, Long loggedInUserId);
 }

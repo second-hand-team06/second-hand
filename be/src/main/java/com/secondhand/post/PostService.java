@@ -11,6 +11,7 @@ import com.secondhand.user.login.dto.LoggedInUser;
 import com.secondhand.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,6 +29,7 @@ public class PostService {
     private final PostMetaRepository postMetaRepository;
     private final PostDetailRepository postDetailRepository;
     private final PostPhotoRepository postPhotoRepository;
+    private final InterestRepository interestRepository;
     private final RegionRepository regionRepository;
     private final CategoryRepository categoryRepository;
     private final BadgeRepository badgeRepository;
@@ -46,10 +48,9 @@ public class PostService {
         return new CreatePostResponseDto(savedPostMeta.getId());
     }
 
-    public PostMetaDto findInteresPosts(LoggedInUser loggedInUser) {
+    public Page<PostMetaDto> findInterestPosts(Pageable pageable, LoggedInUser loggedInUser) {
 
-
-        return null;
+        return interestRepository.findMyInterestsPosts(pageable, loggedInUser.getId());
     }
 
     private PostMeta savePost(PostSaveDto postSaveDto, LoggedInUser loggedInUser) {

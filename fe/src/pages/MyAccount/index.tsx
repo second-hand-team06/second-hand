@@ -1,5 +1,12 @@
+import TabBar from '@components/TabBar';
+
 const MyAccount = () => {
-  return <div>MyAccount</div>;
+  return (
+    <div>
+      <span>MyAccount</span>
+      <TabBar activeTab="myAccount" />
+    </div>
+  );
 };
 
 export default MyAccount;

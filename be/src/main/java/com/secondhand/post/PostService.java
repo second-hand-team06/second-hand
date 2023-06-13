@@ -1,10 +1,7 @@
 package com.secondhand.post;
 
 import com.secondhand.fileupload.FileUploadService;
-import com.secondhand.post.dto.CreatePostResponseDto;
-import com.secondhand.post.dto.MainPagePostsDto;
-import com.secondhand.post.dto.PostSaveDto;
-import com.secondhand.post.dto.SearchCondition;
+import com.secondhand.post.dto.*;
 import com.secondhand.post.entity.*;
 import com.secondhand.post.repository.*;
 import com.secondhand.region.entity.Region;
@@ -47,6 +44,12 @@ public class PostService {
         PostMeta savedPostMeta = savePost(postSaveDto, loggedInUser);
 
         return new CreatePostResponseDto(savedPostMeta.getId());
+    }
+
+    public PostMetaDto findInteresPosts(LoggedInUser loggedInUser) {
+
+
+        return null;
     }
 
     private PostMeta savePost(PostSaveDto postSaveDto, LoggedInUser loggedInUser) {

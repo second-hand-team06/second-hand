@@ -9,7 +9,6 @@ import java.util.List;
 @AllArgsConstructor
 public class InterestPostListDto {
 
-    private List<InterestPostDto> postList;
-    private List<String> categoryList;
-
+    private List<InterestPostDto> posts;
+    private List<String> categories;
 }

@@ -1,6 +1,7 @@
 package com.secondhand.post;
 
 import com.secondhand.post.dto.*;
+import com.secondhand.post.repository.InterestRepository;
 import com.secondhand.user.login.JwtUtil;
 import com.secondhand.user.login.dto.LoggedInUser;
 import com.secondhand.util.CustomResponse;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 @RequiredArgsConstructor
 public class PostController {
 
+    private final InterestRepository repository;
     private final PostService postService;
     private final JwtUtil jwtUtil;
 
@@ -60,7 +62,12 @@ public class PostController {
     }
 
     @GetMapping("/interests")
-    public ResponseEntity<CustomResponse<InterestPostListDto>> getInterestPost() {
+    public ResponseEntity<CustomResponse<InterestPostListDto>> getInterestPost(@RequestHeader("Authorization") String token) {
+
+        LoggedInUser loggedInUser = jwtUtil.extractedUserFromToken(token);
+
+        repository.findMyInterestsPosts(loggedInUser.getId());
+
         return ResponseEntity
                 .ok()
                 .body(new CustomResponse(

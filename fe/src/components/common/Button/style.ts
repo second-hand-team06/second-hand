@@ -3,13 +3,11 @@ import styled, { css } from 'styled-components';
 interface ButtonProps {
   buttontype: 'circle' | 'rectangle' | 'category';
   buttonstate: 'default' | 'active';
-  justifycontent: 'center' | 'between';
 }
 
 const Button = styled.button<ButtonProps>`
   ${({ buttontype }) => typeStyles[buttontype]}
   ${({ buttonstate }) => buttonStateStyles[buttonstate]}
-  ${({ justifycontent }) => justifycontentStyles[justifycontent]}
 
   display: flex;
   flex-direction: row;
@@ -51,23 +49,18 @@ const typeStyles = {
 
 const buttonStateStyles = {
   default: css`
+    justify-content: center;
+
     background-color: ${({ theme }) => theme.colors.neutral.background.default};
 
     color: ${({ theme }) => theme.colors.neutral.text.strong};
   `,
   active: css`
+    justify-content: space-between;
+
     background-color: ${({ theme }) => theme.colors.accent.background.primary};
 
     color: ${({ theme }) => theme.colors.accent.text.default};
-  `,
-};
-
-const justifycontentStyles = {
-  center: css`
-    justify-content: center;
-  `,
-  between: css`
-    justify-content: space-between;
   `,
 };
 

@@ -2,6 +2,9 @@ package com.secondhand.post.repository;
 
 import com.querydsl.core.QueryResults;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.secondhand.category.dto.CategoryDto;
+import com.secondhand.category.dto.CategoryInInterestDto;
+import com.secondhand.category.dto.QCategoryInInterestDto;
 import com.secondhand.post.dto.PostMetaDto;
 import com.secondhand.post.dto.QPostMetaDto;
 import org.springframework.data.domain.Page;
@@ -48,5 +51,17 @@ public class InterestRepositoryImpl implements InterestRepositoryCustom{
         long total = results.getTotal();
 
         return new PageImpl<>(postMetaDtos, pageable, total);
+    }
+
+    public List<CategoryInInterestDto> interestCategory() {
+        return queryFactory
+                .select(new QCategoryInInterestDto(
+                        postMeta.category.id,
+                        postMeta.category.name))
+                .from(interest)
+                .innerJoin(interest.postMeta, postMeta)
+                .orderBy(postMeta.category.id.asc())
+                .distinct()
+                .fetch();
     }
 }

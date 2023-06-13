@@ -14,11 +14,11 @@ export interface ProductListItemProps {
   postedAt: string;
   badge: {
     id: number;
-    state: '광고' | '예약 중' | '판매 중\n' | '판매 완료' | null;
+    state: '광고' | '예약 중' | '판매 중' | '판매 완료' | null;
     fontColor: string | null;
     backgroundColor: string | null;
   };
-  price: number;
+  price: number | null;
   chattingCount: number;
   interestCount: number;
 }
@@ -41,12 +41,12 @@ const ProductListItem = ({
         <S.Title>{title}</S.Title>
         <S.LocationAndTime>{`${region.name} ${postedAt}`}</S.LocationAndTime>
         <S.StateAndPrice>
-          {badge.state !== '판매 중\n' && (
+          {badge.state !== '판매 중' && (
             <S.StateBadge fontcolor={badge.fontColor} backgroundcolor={badge.backgroundColor}>
               {badge.state}
             </S.StateBadge>
           )}
-          <S.Price>{`${price}원`}</S.Price>
+          {price && <S.Price>{`${price}원`}</S.Price>}
         </S.StateAndPrice>
         <S.ChatAndLike>
           {chattingCount > 0 && (

@@ -35,7 +35,7 @@ public class PostController {
     }
 
     @PostMapping(consumes = {"multipart/form-data"})
-    public ResponseEntity<CustomResponse> createPost(@Validated @ModelAttribute PostSaveDto postSaveDto, @RequestHeader("Authorization") String token) {
+    public ResponseEntity<CustomResponse<CreatePostResponseDto>> createPost(@Validated @ModelAttribute PostSaveDto postSaveDto, @RequestHeader("Authorization") String token) {
 
         LoggedInUser loggedInUser = jwtUtil.extractedUserFromToken(token);
 

@@ -1,6 +1,7 @@
 package com.secondhand.post;
 
 import com.secondhand.fileupload.FileUploadService;
+import com.secondhand.post.dto.CreatePostResponseDto;
 import com.secondhand.post.dto.MainPagePostsDto;
 import com.secondhand.post.dto.PostSaveDto;
 import com.secondhand.post.dto.SearchCondition;
@@ -19,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +42,7 @@ public class PostService {
         return new MainPagePostsDto(postRepository.findMainPage(pageable, searchCondition));
     }
 
-    public long createPost(PostSaveDto postSaveDto, LoggedInUser loggedInUser) {
+    public CreatePostResponseDto createPost(PostSaveDto postSaveDto, LoggedInUser loggedInUser) {
 
         List<String> photos = getPhotosUrl(postSaveDto);
 
@@ -54,18 +56,20 @@ public class PostService {
 
         PostMeta savedPostMeta = postRepository.save(newPostMeta);
 
-        return savedPostMeta.getId();
+        long createdPostId = savedPostMeta.getId();
+
+        return new CreatePostResponseDto(createdPostId);
     }
 
     private List<String> getPhotosUrl(PostSaveDto postSaveDto) {
         List<String> photos = new ArrayList<>();
 
-//        for (MultipartFile photo : postSaveDto.getPhotos()) {
-//            photos.add(fileUploadService.uploadFile(photo));
-//        }
+        for (MultipartFile photo : postSaveDto.getPhotos()) {
+            photos.add(fileUploadService.uploadFile(photo));
+        }
 
-        photos.add("https://images.unsplash.com/photo-1567696911980-2eed69a46042?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8JUVCJUE3JUE1JUVDJUEzJUJDfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60");
-        photos.add("https://images.unsplash.com/photo-1567696911980-2eed69a46042?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8JUVCJUE3JUE1JUVDJUEzJUJDfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60");
+//        photos.add("https://images.unsplash.com/photo-1567696911980-2eed69a46042?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8JUVCJUE3JUE1JUVDJUEzJUJDfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60");
+//        photos.add("https://images.unsplash.com/photo-1567696911980-2eed69a46042?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8JUVCJUE3JUE1JUVDJUEzJUJDfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60");
 
         return photos;
     }

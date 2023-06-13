@@ -16,11 +16,11 @@ import java.util.List;
 
 import static com.secondhand.post.entity.QPostMeta.postMeta;
 
-public class PostRepositoryImpl implements PostRepositoryCustom{
+public class PostMetaRepositoryImpl implements PostMetaRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
 
-    public PostRepositoryImpl(EntityManager em) {
+    public PostMetaRepositoryImpl(EntityManager em) {
         this.queryFactory = new JPAQueryFactory(em);
     }
 
@@ -29,7 +29,7 @@ public class PostRepositoryImpl implements PostRepositoryCustom{
 
         QueryResults<PostMetaDto> result = queryFactory
                 .select(Projections.constructor(PostMetaDto.class,
-                                postMeta.id,
+                            postMeta.id,
                             postMeta.region,
                             postMeta.title,
                             postMeta.price,

@@ -17,24 +17,24 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        log.info("preHandle : {}", request.getRequestURI());
+//        if (request.getHeader("Authorization") == null) {
+//            throw new NoAuthorizationException();
+//        }
+//
+//        String token = request.getHeader("Authorization").split(" ")[1];
+//        if (!request.getHeader("Authorization").split(" ")[0].equals("Bearer")) {
+//            throw new NoBearerException();
+//        }
+//
+//        if (!jwtUtil.validateTokenIsManipulated(token)) {
+//            throw new ManipulatedTokenException();
+//        }
+//
+//        if (!jwtUtil.validateTokenIsExpired(token)) {
+//            throw new ExpiredTokenException();
+//        }
 
-        if (request.getHeader("Authorization") == null) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().write("Access denied");
-            return false;
-        }
-
-        String token = request.getHeader("Authorization").split(" ")[1];
-
-        if (jwtUtil.validateTokenIsExpired(token)) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.getWriter().write("Token is expired");
-            return false;
-        }
-
+        log.info("Token is valid");
         return true;
-
-//        return jwtUtil.validateTokenIsManipulated(token);
     }
 }

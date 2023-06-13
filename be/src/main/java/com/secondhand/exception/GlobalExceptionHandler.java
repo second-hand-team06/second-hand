@@ -32,5 +32,4 @@ public class GlobalExceptionHandler {
                 .badRequest()
                 .body(new CustomErrorResponse(HttpStatusCode.BAD_REQUEST, e.getMessage()));
     }
-
 }

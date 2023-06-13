@@ -1,20 +1,26 @@
 package com.secondhand.post;
 
 import com.secondhand.post.dto.*;
+import com.secondhand.user.login.JwtUtil;
+import com.secondhand.user.login.dto.LoggedInUser;
 import com.secondhand.util.CustomResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
+@Slf4j
 @RestController
 @RequestMapping("/posts")
 @RequiredArgsConstructor
 public class PostController {
 
     private final PostService postService;
+    private final JwtUtil jwtUtil;
 
     @GetMapping
     public ResponseEntity<CustomResponse<MainPagePostsDto>> getPost(Pageable pageable, SearchCondition searchCondition) {
@@ -28,8 +34,13 @@ public class PostController {
                         postService.findMainPagePosts(pageable, searchCondition)));
     }
 
-    @PostMapping
-    public ResponseEntity<CustomResponse> createPost(@RequestBody PostSaveDto createPostDto) {
+    @PostMapping(consumes = {"multipart/form-data"})
+    public ResponseEntity<CustomResponse> createPost(@Validated @ModelAttribute PostSaveDto postSaveDto, @RequestHeader("Authorization") String token) {
+
+        LoggedInUser loggedInUser = jwtUtil.extractedUserFromToken(token);
+
+        postService.createPost(postSaveDto, loggedInUser);
+
         return ResponseEntity
                 .ok()
                 .body(new CustomResponse(

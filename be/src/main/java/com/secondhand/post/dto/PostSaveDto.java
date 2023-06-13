@@ -1,6 +1,8 @@
 package com.secondhand.post.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -9,7 +11,7 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 
-@Getter
+@Getter @Setter @AllArgsConstructor
 public class PostSaveDto {
 
     @NotNull
@@ -19,6 +21,7 @@ public class PostSaveDto {
     private int regionId;
     @NotNull
     private int categoryId;
+    private int badgeId;
     @Range(min = 0, max = 100000000)
     private Long price;
     @NotNull

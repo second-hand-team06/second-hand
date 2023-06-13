@@ -72,7 +72,7 @@ public class JwtUtil {
         }
     }
 
-    public LoggedInUser extractedUserFromToken(String token) throws JsonProcessingException {
+    public LoggedInUser extractedUserFromToken(String token) {
 
         String[] jwtParts = token.split("\\.");
         String encodedPayload = jwtParts[1]; // 페이로드는 두 번째 부분
@@ -82,11 +82,23 @@ public class JwtUtil {
 
         ObjectMapper objectMapper = new ObjectMapper();
 
-        LinkedHashMap<String, Object> payloadMap = objectMapper.readValue(decodedPayload, LinkedHashMap.class);
+        return parseUserFromJwt(decodedPayload, objectMapper);
+    }
 
-        Object userProfile = payloadMap.get("userProfile");
-        String userProfileJson = objectMapper.writeValueAsString(userProfile);// JSON 문자열로 변환 (로그인 유저 정보)
+    private LoggedInUser parseUserFromJwt(String decodedPayload, ObjectMapper objectMapper) {
 
-        return objectMapper.readValue(userProfileJson, LoggedInUser.class);
+        LoggedInUser loggedInUser = new LoggedInUser();
+
+        try {
+            LinkedHashMap<String, Object> payloadMap = objectMapper.readValue(decodedPayload, LinkedHashMap.class);
+
+            Object userProfile = payloadMap.get("userProfile");
+            String userProfileJson = objectMapper.writeValueAsString(userProfile);// JSON 문자열로 변환 (로그인 유저 정보)
+
+            loggedInUser = objectMapper.readValue(userProfileJson, LoggedInUser.class);
+        } catch (JsonProcessingException e) {
+           log.info("json 파싱 실패");
+        }
+        return loggedInUser;
     }
 }

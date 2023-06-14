@@ -2,11 +2,14 @@ package com.secondhand.category;
 
 import com.secondhand.category.dto.CategoriesDto;
 import com.secondhand.category.dto.CategoryInterestsDto;
+import com.secondhand.category.dto.PostTitleDto;
+import com.secondhand.category.dto.RecommendedCategoriesDto;
 import com.secondhand.post.repository.InterestRepository;
 import com.secondhand.util.CustomResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,6 +20,7 @@ public class CategoryController {
 
     private final CategoryService categoryService;
     private final InterestRepository interestRepository;
+
     @GetMapping
     public ResponseEntity<CustomResponse<CategoriesDto>> getCategoryList() {
         return ResponseEntity
@@ -38,6 +42,21 @@ public class CategoryController {
                         200,
                         "관심 카테고리 목록 조회 성공",
                         new CategoryInterestsDto(interestRepository.interestCategory()))
+                );
+    }
+
+    @GetMapping("/recommend")
+    public ResponseEntity<CustomResponse<RecommendedCategoriesDto>> findRecommendedCategories(@RequestBody PostTitleDto postTitleDto) {
+
+
+
+        return ResponseEntity
+                .ok()
+                .body(new CustomResponse<>(
+                        "success",
+                        200,
+                        "관심 카테고리 목록 조회 성공",
+                        null)
                 );
     }
 }

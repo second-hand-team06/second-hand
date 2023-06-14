@@ -20,6 +20,8 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.secondhand.post.validator.PostValidator.validatePostOwnershipMismatch;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -100,6 +102,9 @@ public class PostService {
     public void editPost(long postId, PostUpdateDto updatePostDto, LoggedInUser loggedInUser) {
 
         PostMeta postMeta = postMetaRepository.findById(postId).orElseThrow();
+
+        validatePostOwnershipMismatch(loggedInUser, postMeta);
+
         PostDetail postDetail = postDetailRepository.findById(postId).orElseThrow();
         Region region = regionRepository.findById(updatePostDto.getRegionId()).orElseThrow();
         Category category = categoryRepository.findById(updatePostDto.getCategoryId()).orElseThrow();
@@ -115,14 +120,21 @@ public class PostService {
 
     @Transactional
     public void deletePost(long postId, LoggedInUser loggedInUser) {
+
         PostMeta postMeta = postMetaRepository.findById(postId).orElseThrow();
+
+        validatePostOwnershipMismatch(loggedInUser, postMeta);
 
         postMeta.deletePost();
     }
 
     @Transactional
     public void updateBadge(long postId, UpdatePostStateDto postStateDto, LoggedInUser loggedInUser) {
+
         PostMeta postMeta = postMetaRepository.findById(postId).orElseThrow();
+
+        validatePostOwnershipMismatch(loggedInUser, postMeta);
+
         Badge badge = badgeRepository.findById(postStateDto.getState()).orElseThrow();
 
         postMeta.updateBadge(badge);

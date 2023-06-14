@@ -141,7 +141,7 @@ public class PostController {
                 .body(new CustomResponse(
                         "success",
                         200,
-                        "판매 상품 상태 변경 성공",
+                        "뱃지 목록 조회 성공",
                         postService.findBadges()));
     }
 }

@@ -79,8 +79,6 @@ public class PostController {
 
         LoggedInUser loggedInUser = jwtUtil.extractedUserFromToken(token);
 
-
-
         return ResponseEntity
                 .ok()
                 .body(new CustomResponse(

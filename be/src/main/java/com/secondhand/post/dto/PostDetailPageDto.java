@@ -1,6 +1,6 @@
 package com.secondhand.post.dto;
 
-import com.querydsl.core.annotations.QueryProjection;
+import com.secondhand.post.entity.PostMeta;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,19 +28,18 @@ public class PostDetailPageDto {
     private boolean isSeller;
     private List<String> photoUrls;
 
-    @QueryProjection
-    public PostDetailPageDto(long id, long sellerId, String sellerName, String title, String category, LocalDateTime postedAt, String content, long viewCount, long price, String postState) {
-        this.id = id;
-        this.sellerId = sellerId;
-        this.sellerName = sellerName;
-        this.title = title;
-        this.category = category;
-        this.postedAt = postedAt;
-        this.content = content;
+
+    public PostDetailPageDto(PostMeta postMeta) {
+        this.id = postMeta.getId();
+        this.sellerId = postMeta.getSeller().getId();
+        this.sellerName = postMeta.getSeller().getLoginId();
+        this.title = postMeta.getTitle();
+        this.category = postMeta.findPostCategoryName();
+        this.postedAt = postMeta.getPostedAt();
         this.chatCount = 0;
         this.interestCount = 0;
-        this.viewCount = viewCount;
-        this.price = price;
-        this.postState = postState;
+        this.viewCount = postMeta.getViewCount();
+        this.price = postMeta.getPrice();
+        this.postState = postMeta.findPostMetaState();
     }
 }

@@ -55,16 +55,21 @@ public class PostService {
         return interestRepository.findMyInterestsPosts(pageable, loggedInUser.getId());
     }
 
+    @Transactional
     public PostDetailPageDto findPostDetailPage(long postId, LoggedInUser loggedInUser) {
 
-        PostDetailPageDto postDetailPage = postMetaRepository.findPostDetailPage(postId);
-
+        PostMeta postMeta = postMetaRepository.findById(postId).orElseThrow();
+        PostDetail postDetail = postDetailRepository.findById(postId).orElseThrow();
         User user = userRepository.findById(loggedInUser.getId()).orElseThrow();
+
+        postMeta.updateViewCount();
+        PostDetailPageDto postDetailPage = new PostDetailPageDto(postMeta);
 
         if (loggedInUser.getId() == user.getId()) {
             postDetailPage.setSeller(true);
         }
 
+        postDetailPage.setContent(postDetail.getContent());
         postDetailPage.setPhotoUrls(postPhotoRepository.findAllPhotoUrlsByPostMetaId(postId));
 
         return postDetailPage;

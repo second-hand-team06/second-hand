@@ -85,10 +85,17 @@ public class PostService {
 
         String thumbnail = photoUrls.get(0);
 
-        postMeta.update(updatePostDto, thumbnail, region, category);
+        postMeta.updatePost(updatePostDto, thumbnail, region, category);
         postDetail.updateContent(updatePostDto.getContent());
         postPhotoRepository.deleteAllByPostMetaId(postId);
         savePhotos(photoUrls, postId);
+    }
+
+    @Transactional
+    public void deletePost(long postId, LoggedInUser loggedInUser) {
+        PostMeta postMeta = postMetaRepository.findById(postId).orElseThrow();
+
+        postMeta.deletePost();
     }
 
     private void savePostDetail(PostSaveDto postSaveDto, long createdPostId) {

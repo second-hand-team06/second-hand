@@ -3,7 +3,7 @@ package com.secondhand.post.repository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.secondhand.category.dto.CategoriesDto;
 import com.secondhand.category.dto.QCategoryDto;
-import com.secondhand.post.repository.CategoryRepositoryCustom;
+import com.secondhand.category.dto.RecommendedCategoriesDto;
 
 import javax.persistence.EntityManager;
 
@@ -29,4 +29,5 @@ public class CategoryRepositoryImpl implements CategoryRepositoryCustom {
                 .from(category)
                 .fetch());
     }
+
 }

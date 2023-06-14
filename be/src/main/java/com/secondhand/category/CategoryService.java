@@ -19,7 +19,7 @@ public class CategoryService {
         return categoryRepository.findAllCategories();
     }
 
-    public CategoriesDto getRecommendedCategories() {
+    public CategoriesDto getRecommendedCategories(String postTitle) {
 
         return recommendCategories(categoryRepository.findAllCategories().getCategories());
     }

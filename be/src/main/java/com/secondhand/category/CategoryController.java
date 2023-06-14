@@ -3,7 +3,6 @@ package com.secondhand.category;
 import com.secondhand.category.dto.CategoriesDto;
 import com.secondhand.category.dto.CategoryInterestsDto;
 import com.secondhand.category.dto.PostTitleDto;
-import com.secondhand.category.dto.RecommendedCategoriesDto;
 import com.secondhand.post.repository.InterestRepository;
 import com.secondhand.util.CustomResponse;
 import lombok.RequiredArgsConstructor;
@@ -46,9 +45,7 @@ public class CategoryController {
     }
 
     @GetMapping("/recommend")
-    public ResponseEntity<CustomResponse<RecommendedCategoriesDto>> findRecommendedCategories(@RequestBody PostTitleDto postTitleDto) {
-
-
+    public ResponseEntity<CustomResponse<CategoriesDto>> findRecommendedCategories(@RequestBody PostTitleDto postTitleDto) {
 
         return ResponseEntity
                 .ok()
@@ -56,7 +53,7 @@ public class CategoryController {
                         "success",
                         200,
                         "관심 카테고리 목록 조회 성공",
-                        null)
-                );
+                        categoryService.getRecommendedCategories(postTitleDto.getTitle())
+                ));
     }
 }

@@ -9,10 +9,12 @@ import com.secondhand.user.entity.User;
 import com.secondhand.user.login.dto.LoggedInUser;
 import com.secondhand.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -40,5 +42,16 @@ public class UserService {
 
         Interest interest = new Interest(user, postMeta);
         interestRepository.save(interest);
+    }
+
+    @Transactional
+    public void deleteInterestPost(long postId, LoggedInUser loggedInUser) {
+
+        PostMeta postMeta = postMetaRepository.findById(postId).orElseThrow();
+        User user = userRepository.findById(loggedInUser.getId()).orElseThrow();
+
+        Interest interest = interestRepository.findByUserAndPostMeta(user, postMeta).orElseThrow();
+
+        interestRepository.delete(interest);
     }
 }

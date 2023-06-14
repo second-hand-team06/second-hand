@@ -55,6 +55,21 @@ public class PostService {
         return interestRepository.findMyInterestsPosts(pageable, loggedInUser.getId());
     }
 
+    public PostDetailPageDto findPostDetailPage(long postId, LoggedInUser loggedInUser) {
+
+        PostDetailPageDto postDetailPage = postMetaRepository.findPostDetailPage(postId);
+
+        User user = userRepository.findById(loggedInUser.getId()).orElseThrow();
+
+        if (loggedInUser.getId() == user.getId()) {
+            postDetailPage.setSeller(true);
+        }
+
+        postDetailPage.setPhotoUrls(postPhotoRepository.findAllPhotoUrlsByPostMetaId(postId));
+
+        return postDetailPage;
+    }
+
     private PostMeta savePost(PostSaveDto postSaveDto, LoggedInUser loggedInUser) {
 
         List<String> photos = getPhotosUrl(postSaveDto.getPhotos());

@@ -89,4 +89,8 @@ public class PostMeta {
    public String findPostCategoryName() {
         return this.category.getName();
    }
+
+   public long getSellerId() {
+        return this.seller.getId();
+   }
 }

@@ -44,9 +44,9 @@ const useFetch = <T>({ url, method = 'GET', body = null }: UseFetchProps) => {
     }
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
   return { fetchData, fetchState };
 };

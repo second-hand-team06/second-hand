@@ -4,4 +4,6 @@ import com.secondhand.post.entity.PostPhoto;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PostPhotoRepository extends JpaRepository<PostPhoto, Long> {
+
+    void deleteAllByPostMetaId(Long postMetaId);
 }

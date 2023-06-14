@@ -54,7 +54,8 @@ public class PostService {
     }
 
     private PostMeta savePost(PostSaveDto postSaveDto, LoggedInUser loggedInUser) {
-        List<String> photos = getPhotosUrl(postSaveDto);
+
+        List<String> photos = getPhotosUrl(postSaveDto.getPhotos());
         User seller = userRepository.findById(loggedInUser.getId()).orElseThrow();
         Region region = regionRepository.findById(postSaveDto.getRegionId()).orElseThrow();
         Category category = categoryRepository.findById(postSaveDto.getCategoryId()).orElseThrow();
@@ -73,7 +74,25 @@ public class PostService {
         return savedPostMeta;
     }
 
+    @Transactional
+    public void editPost(long postId, PostUpdateDto updatePostDto, LoggedInUser loggedInUser) {
+
+        PostMeta postMeta = postMetaRepository.findById(postId).orElseThrow();
+        PostDetail postDetail = postDetailRepository.findById(postId).orElseThrow();
+        Region region = regionRepository.findById(updatePostDto.getRegionId()).orElseThrow();
+        Category category = categoryRepository.findById(updatePostDto.getCategoryId()).orElseThrow();
+        List<String> photoUrls = getPhotosUrl(updatePostDto.getPhotos());
+
+        String thumbnail = photoUrls.get(0);
+
+        postMeta.update(updatePostDto, thumbnail, region, category);
+        postDetail.updateContent(updatePostDto.getContent());
+        postPhotoRepository.deleteAllByPostMetaId(postId);
+        savePhotos(photoUrls, postId);
+    }
+
     private void savePostDetail(PostSaveDto postSaveDto, long createdPostId) {
+
         PostDetail postDetail = new PostDetail(createdPostId, postSaveDto.getContent());
         postDetailRepository.save(postDetail);
     }
@@ -85,10 +104,11 @@ public class PostService {
         }
     }
 
-    private List<String> getPhotosUrl(PostSaveDto postSaveDto) {
+    private List<String> getPhotosUrl(List<MultipartFile> photosFile) {
+
         List<String> photos = new ArrayList<>();
 
-        for (MultipartFile photo : postSaveDto.getPhotos()) {
+        for (MultipartFile photo : photosFile) {
             photos.add(fileUploadService.uploadFile(photo));
         }
 

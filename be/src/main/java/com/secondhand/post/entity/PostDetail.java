@@ -15,4 +15,8 @@ public class PostDetail {
     private long id;
 
     private String content;
+
+    public void updateContent(String content) {
+        this.content = content;
+    }
 }

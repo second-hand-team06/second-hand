@@ -1,7 +1,6 @@
 package com.secondhand.post;
 
 import com.secondhand.post.dto.*;
-import com.secondhand.post.repository.InterestRepository;
 import com.secondhand.user.login.JwtUtil;
 import com.secondhand.user.login.dto.LoggedInUser;
 import com.secondhand.util.CustomResponse;
@@ -87,7 +86,13 @@ public class PostController {
     }
 
     @PutMapping("/{postId}")
-    public ResponseEntity<CustomResponse> updatePost(@PathVariable Long postId, @RequestBody PostSaveDto updatePostDto) {
+    public ResponseEntity<CustomResponse> updatePost(@PathVariable Long postId, @ModelAttribute PostUpdateDto updatePostDto, @RequestHeader("Authorization") String token) {
+
+        LoggedInUser loggedInUser = jwtUtil.extractedUserFromToken(token);
+        postService.editPost(postId, updatePostDto, loggedInUser);
+
+
+
         return ResponseEntity
                 .ok()
                 .body(new CustomResponse(

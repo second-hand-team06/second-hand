@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import java.io.IOException;
@@ -20,7 +21,6 @@ public class FileUploadService {
 
     @Value("${AWS_S3_BUCKET}")
     private String bucketName;
-
 
     public String uploadFile(MultipartFile file) {
 
@@ -45,5 +45,23 @@ public class FileUploadService {
         } catch (IOException e) {
             throw new IllegalStateException("Failed to upload file", e);
         }
+    }
+
+    public void deleteFile(String imgUrl) {
+
+        String key = parseKey(imgUrl);
+
+        DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
+                .bucket(bucketName)
+                .key(key)
+                .build();
+
+        s3Client.deleteObject(deleteObjectRequest);
+    }
+
+    private String parseKey(String url) {
+
+        String[] splitUrl = url.split("/");
+        return splitUrl[splitUrl.length - 2] + "/" + splitUrl[splitUrl.length - 1];
     }
 }

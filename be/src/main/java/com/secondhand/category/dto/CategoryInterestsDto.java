@@ -7,8 +7,7 @@ import java.util.List;
 
 @Getter
 @AllArgsConstructor
-public class CategoryListDto {
+public class CategoryInterestsDto {
 
-    private List<CategoryDto> categoryList;
-
+    List<CategoryInInterestDto> categories;
 }

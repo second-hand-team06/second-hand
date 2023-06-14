@@ -1,5 +1,6 @@
 package com.secondhand.post.dto;
 
+import com.secondhand.post.entity.Badge;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -7,8 +8,7 @@ import java.util.List;
 
 @Getter
 @AllArgsConstructor
-public class InterestPostListDto {
+public class BadgesDto {
 
-    private List<InterestPostDto> posts;
-    private List<String> categories;
+    private List<Badge> badges;
 }

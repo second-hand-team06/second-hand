@@ -2,7 +2,6 @@ package com.secondhand.user.login;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.secondhand.user.entity.User;
 import com.secondhand.user.login.dto.LoggedInUser;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
@@ -22,15 +21,15 @@ public class JwtUtil {
     @Value("${JWT_SECRET_KEY}")
     private String secret; // 시크릿 키를 설정
 
-    public String createToken(User loggedInUser) {
-        log.info(secret);
+    public String createToken(LoggedInUser loggedInUser) {
+        log.info("create Token start");
         return Jwts.builder()
                 .setHeaderParam("typ", "JWT")
                 .setSubject("login_member")
                 .claim("userProfile", loggedInUser)
-                .setExpiration(new Date((new Date()).getTime() + 3600000)) // 토큰의 만료일을 설정 : 현재 1시간
-                .signWith(SignatureAlgorithm.HS256, secret) // HS256 알고리즘과 시크릿 키를 사용하여 서명
-                .compact(); // 토큰을 생성하세요.
+                .setExpiration(new Date((new Date()).getTime() + 3600000))
+                .signWith(SignatureAlgorithm.HS256, secret)
+                .compact();
     }
 
     public boolean validateTokenIsExpired(String token) {
@@ -55,8 +54,6 @@ public class JwtUtil {
     public boolean validateTokenIsManipulated(String token) {
 
         try {
-
-            log.info(secret);
 
             byte[] decodedSecretKey = Base64.getDecoder().decode(secret);
             Key key = new SecretKeySpec(decodedSecretKey, 0, decodedSecretKey.length, "HmacSHA256");

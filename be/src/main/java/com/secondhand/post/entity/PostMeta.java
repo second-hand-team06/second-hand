@@ -2,6 +2,7 @@ package com.secondhand.post.entity;
 
 
 import com.secondhand.post.dto.PostSaveDto;
+import com.secondhand.post.dto.PostUpdateDto;
 import com.secondhand.region.entity.Region;
 import com.secondhand.user.entity.User;
 import lombok.AllArgsConstructor;
@@ -60,4 +61,32 @@ public class PostMeta {
                 .deleted(false)
                 .build();
     }
+
+   public void updatePost(PostUpdateDto updateDto, String photoUrl, Region region, Category category) {
+        this.title = updateDto.getTitle();
+        this.price = updateDto.getPrice();
+        this.photoUrl = photoUrl;
+        this.category = category;
+        this.region = region;
+   }
+
+   public void deletePost() {
+        this.deleted = true;
+   }
+
+   public void updateBadge(Badge badge) {
+        this.badge = badge;
+   }
+
+   public void updateViewCount() {
+        this.viewCount++;
+   }
+
+   public String findPostMetaState() {
+        return this.badge.getState();
+   }
+
+   public String findPostCategoryName() {
+        return this.category.getName();
+   }
 }

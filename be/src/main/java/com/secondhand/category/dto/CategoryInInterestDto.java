@@ -4,16 +4,14 @@ import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
 
 @Getter
-public class CategoryDto {
+public class CategoryInInterestDto {
 
     private int id;
     private String name;
-    private String photoUrl;
 
     @QueryProjection
-    public CategoryDto(int id, String name, String photoUrl) {
+    public CategoryInInterestDto(int id, String name) {
         this.id = id;
         this.name = name;
-        this.photoUrl = photoUrl;
     }
 }

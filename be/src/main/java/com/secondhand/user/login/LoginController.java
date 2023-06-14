@@ -3,6 +3,7 @@ package com.secondhand.user.login;
 import com.secondhand.user.entity.User;
 import com.secondhand.user.login.dto.GithubToken;
 import com.secondhand.user.login.dto.JWTResponse;
+import com.secondhand.user.login.dto.LoggedInUser;
 import com.secondhand.user.login.dto.UserProfileResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,12 +27,9 @@ public class LoginController {
         response.setHeader("Authorization", "application/json");
 
         UserProfileResponse userProfile = loginService.getUserProfile(githubToken.getAccessToken());
-
-        User loggedInUser = loginService.createUser(userProfile);
+        LoggedInUser loggedInUser = loginService.createUser(userProfile);
 
         String token = jwtUtil.createToken(loggedInUser);
-
-        log.info(token);
 
         return ResponseEntity.ok(new JWTResponse("login success", token));
     }

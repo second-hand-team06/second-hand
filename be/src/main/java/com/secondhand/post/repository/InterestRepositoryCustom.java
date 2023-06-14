@@ -17,4 +17,6 @@ public interface InterestRepositoryCustom {
     List<CategoryInInterestDto> interestCategory();
 
     Optional<Interest> findByUserAndPostMeta(User user, PostMeta postMeta);
+
+    long countInterestByPostMetaId(long postMetaId);
 }

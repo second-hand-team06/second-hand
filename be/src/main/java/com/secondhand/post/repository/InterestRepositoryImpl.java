@@ -77,4 +77,13 @@ public class InterestRepositoryImpl implements InterestRepositoryCustom{
                 .fetchOne());
     }
 
+    @Override
+    public long countInterestByPostMetaId(long postMetaId) {
+        return queryFactory
+                .select(interest)
+                .from(interest)
+                .where(interest.postMeta.id.eq(postMetaId))
+                .fetchCount();
+    }
+
 }

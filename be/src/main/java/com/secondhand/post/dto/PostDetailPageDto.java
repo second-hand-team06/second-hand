@@ -37,7 +37,6 @@ public class PostDetailPageDto {
         this.category = postMeta.findPostCategoryName();
         this.postedAt = postMeta.getPostedAt();
         this.chatCount = 0;
-        this.interestCount = 0;
         this.viewCount = postMeta.getViewCount();
         this.price = postMeta.getPrice();
         this.postState = postMeta.findPostMetaState();

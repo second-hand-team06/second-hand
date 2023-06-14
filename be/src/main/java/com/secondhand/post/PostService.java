@@ -71,7 +71,7 @@ public class PostService {
 
         postDetailPage.setContent(postDetail.getContent());
         postDetailPage.setPhotoUrls(postPhotoRepository.findAllPhotoUrlsByPostMetaId(postId));
-
+        postDetailPage.setInterestCount(interestRepository.countInterestByPostMetaId(postId));
         return postDetailPage;
     }
 

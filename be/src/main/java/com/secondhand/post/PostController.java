@@ -115,16 +115,6 @@ public class PostController {
                         "판매글 삭제 성공"));
     }
 
-    @PostMapping("/{postId}")
-    public ResponseEntity<CustomResponse> changeInterestPost(@PathVariable Long postId) {
-        return ResponseEntity
-                .ok()
-                .body(new CustomResponse(
-                        "success",
-                        200,
-                        "관심상품 추가 / 삭제 성공"));
-    }
-
     @PatchMapping("/{postId}")
     public ResponseEntity<CustomResponse> changePostStatus(@PathVariable Long postId, @RequestBody UpdatePostStateDto stateDto, @RequestHeader("Authorization") String token) {
 

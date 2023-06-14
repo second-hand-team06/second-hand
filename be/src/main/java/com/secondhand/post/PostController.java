@@ -89,9 +89,8 @@ public class PostController {
     public ResponseEntity<CustomResponse> updatePost(@PathVariable Long postId, @ModelAttribute PostUpdateDto updatePostDto, @RequestHeader("Authorization") String token) {
 
         LoggedInUser loggedInUser = jwtUtil.extractedUserFromToken(token);
+
         postService.editPost(postId, updatePostDto, loggedInUser);
-
-
 
         return ResponseEntity
                 .ok()
@@ -102,7 +101,12 @@ public class PostController {
     }
 
     @DeleteMapping("/{postId}")
-    public ResponseEntity<CustomResponse> deletePost(@PathVariable Long postId) {
+    public ResponseEntity<CustomResponse> deletePost(@PathVariable Long postId, @RequestHeader("Authorization") String token) {
+
+        LoggedInUser loggedInUser = jwtUtil.extractedUserFromToken(token);
+
+        postService.deletePost(postId, loggedInUser);
+
         return ResponseEntity
                 .ok()
                 .body(new CustomResponse(

@@ -62,11 +62,15 @@ public class PostMeta {
                 .build();
     }
 
-   public void update(PostUpdateDto updateDto, String photoUrl, Region region, Category category) {
+   public void updatePost(PostUpdateDto updateDto, String photoUrl, Region region, Category category) {
         this.title = updateDto.getTitle();
         this.price = updateDto.getPrice();
         this.photoUrl = photoUrl;
         this.category = category;
         this.region = region;
+   }
+
+   public void deletePost() {
+        this.deleted = true;
    }
 }

@@ -73,4 +73,8 @@ public class PostMeta {
    public void deletePost() {
         this.deleted = true;
    }
+
+   public void updateBadge(Badge badge) {
+        this.badge = badge;
+   }
 }

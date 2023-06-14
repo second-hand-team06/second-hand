@@ -126,7 +126,12 @@ public class PostController {
     }
 
     @PatchMapping("/{postId}")
-    public ResponseEntity<CustomResponse> changePostStatus(@PathVariable Long postId, @RequestBody UpdatePostStatusDto statusDto) {
+    public ResponseEntity<CustomResponse> changePostStatus(@PathVariable Long postId, @RequestBody UpdatePostStateDto stateDto, @RequestHeader("Authorization") String token) {
+
+        LoggedInUser loggedInUser = jwtUtil.extractedUserFromToken(token);
+
+        postService.updateBadge(postId, stateDto, loggedInUser);
+
         return ResponseEntity
                 .ok()
                 .body(new CustomResponse(

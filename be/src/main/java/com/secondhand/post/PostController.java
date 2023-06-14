@@ -75,14 +75,17 @@ public class PostController {
     }
 
     @GetMapping("/{postId}")
-    public ResponseEntity<CustomResponse<PostDetailDto>> getPostDetail() {
+    public ResponseEntity<CustomResponse<PostDetailPageDto>> getPostDetail(@PathVariable Long postId, @RequestHeader("Authorization") String token) {
+
+        LoggedInUser loggedInUser = jwtUtil.extractedUserFromToken(token);
+
         return ResponseEntity
                 .ok()
                 .body(new CustomResponse(
                         "success",
                         200,
                         "판매글 상세 조회 성공",
-                        new PostDetailDto()));
+                        postService.findPostDetailPage(postId, loggedInUser)));
     }
 
     @PutMapping("/{postId}")

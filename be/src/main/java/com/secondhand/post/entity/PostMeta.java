@@ -77,4 +77,16 @@ public class PostMeta {
    public void updateBadge(Badge badge) {
         this.badge = badge;
    }
+
+   public void updateViewCount() {
+        this.viewCount++;
+   }
+
+   public String findPostMetaState() {
+        return this.badge.getState();
+   }
+
+   public String findPostCategoryName() {
+        return this.category.getName();
+   }
 }

@@ -46,6 +46,21 @@ public class UserController {
                 .body(new CustomResponse(
                         "success",
                         200,
-                        "관심상품 추가 / 삭제 성공"));
+                        "관심상품 추가 성공"));
+    }
+
+    @DeleteMapping("/{postId}")
+    public ResponseEntity<CustomResponse> deleteInterestPost(@PathVariable Long postId, @RequestHeader("Authorization") String token) {
+
+        LoggedInUser loggedInUser = jwtUtil.extractedUserFromToken(token);
+
+        userService.deleteInterestPost(postId, loggedInUser);
+
+        return ResponseEntity
+                .ok()
+                .body(new CustomResponse(
+                        "success",
+                        200,
+                        "관심상품 삭제 성공"));
     }
 }

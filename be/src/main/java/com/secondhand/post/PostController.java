@@ -130,4 +130,15 @@ public class PostController {
                         "판매 상품 상태 변경 성공"));
     }
 
+    @GetMapping("/badges")
+    public ResponseEntity<CustomResponse<BadgesDto>> findBadges() {
+
+        return ResponseEntity
+                .ok()
+                .body(new CustomResponse(
+                        "success",
+                        200,
+                        "판매 상품 상태 변경 성공",
+                        postService.findBadges()));
+    }
 }

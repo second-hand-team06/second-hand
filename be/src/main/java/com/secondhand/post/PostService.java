@@ -108,6 +108,11 @@ public class PostService {
         postMeta.updateBadge(badge);
     }
 
+    public BadgesDto findBadges() {
+
+        return new BadgesDto(badgeRepository.findAll());
+    }
+
     private void savePostDetail(PostSaveDto postSaveDto, long createdPostId) {
 
         PostDetail postDetail = new PostDetail(createdPostId, postSaveDto.getContent());

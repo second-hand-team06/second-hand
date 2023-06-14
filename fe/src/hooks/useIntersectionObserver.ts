@@ -4,7 +4,7 @@ interface UseIntersectionObserverProps {
   intersectHandler: IntersectionObserverCallback;
   root?: null;
   rootMargin?: string;
-  threshold: number;
+  threshold?: number;
 }
 
 const useIntersectionObserver = ({

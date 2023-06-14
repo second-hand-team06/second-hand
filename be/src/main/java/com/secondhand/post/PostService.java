@@ -25,6 +25,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PostService {
 
+    // TODO: 로그인한 유저가 상품을 수정하는지 예외처리 로직 추가
+
     private final UserRepository userRepository;
     private final PostMetaRepository postMetaRepository;
     private final PostDetailRepository postDetailRepository;
@@ -96,6 +98,14 @@ public class PostService {
         PostMeta postMeta = postMetaRepository.findById(postId).orElseThrow();
 
         postMeta.deletePost();
+    }
+
+    @Transactional
+    public void updateBadge(long postId, UpdatePostStateDto postStateDto, LoggedInUser loggedInUser) {
+        PostMeta postMeta = postMetaRepository.findById(postId).orElseThrow();
+        Badge badge = badgeRepository.findById(postStateDto.getState()).orElseThrow();
+
+        postMeta.updateBadge(badge);
     }
 
     private void savePostDetail(PostSaveDto postSaveDto, long createdPostId) {

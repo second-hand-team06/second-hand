@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.transaction.Transactional;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -94,6 +96,27 @@ class JwtUtilTest {
         // then
         assertThat(user.getId()).isEqualTo(foundUser.getId());
     }
+
+    @DisplayName("이미 가입된 유저는 회원가입을 하지 않는다.")
+    @Transactional
+    @Test
+    void testDuplicatedUser() {
+
+        // given
+        UserProfileResponse userProfileResponse = new UserProfileResponse();
+        userProfileResponse.setId(200L);
+        userProfileResponse.setName("test");
+        userProfileResponse.setAvatarUrl("test");
+
+        // when
+        LoggedInUser user = loginService.createUser(userProfileResponse);
+        LoggedInUser duplicatedUser = loginService.createUser(userProfileResponse);
+        List<User> signedInUsers = userRepository.findAllById(Collections.singleton(user.getId()));
+
+        // then
+        assertThat(signedInUsers).hasSize(1);
+    }
+
 
     private LoggedInUser getLoggedInUser() {
         UserProfileResponse userProfileResponse = new UserProfileResponse();

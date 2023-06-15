@@ -52,8 +52,7 @@ public class JwtUtil {
     }
 
     public boolean validateTokenIsManipulated(String token) {
-        log.info("validateTokenIsManipulated start");
-        log.info("토큰 검증 : {} " ,token);
+
         try {
 
             byte[] decodedSecretKey = Base64.getDecoder().decode(secret);

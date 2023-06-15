@@ -12,7 +12,7 @@ const IconColorStyles = css<TabProps>`
   }
 `;
 
-const Tab = styled.nav<TabProps>`
+const Tab = styled.div<TabProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,7 +26,7 @@ const Tab = styled.nav<TabProps>`
   ${IconColorStyles}
 `;
 
-const TabBar = styled.div`
+const TabBar = styled.nav`
   display: flex;
   justify-content: space-between;
   position: absolute;

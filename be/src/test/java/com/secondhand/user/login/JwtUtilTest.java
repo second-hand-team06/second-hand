@@ -3,12 +3,14 @@ package com.secondhand.user.login;
 import com.secondhand.user.entity.User;
 import com.secondhand.user.login.dto.LoggedInUser;
 import com.secondhand.user.login.dto.UserProfileResponse;
+import com.secondhand.user.repository.UserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.transaction.Transactional;
+import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -18,8 +20,13 @@ class JwtUtilTest {
     @Autowired
     private JwtUtil jwtUtil;
 
+    @Autowired
+    private LoginService loginService;
+
+    @Autowired
+    private UserRepository userRepository;
+
     @DisplayName("유저가 로그인을 하면 해당 유저의 정보가 담긴 JWT 토근을 만들 수 있다.")
-    @Transactional
     @Test
     void testCreateToken() {
 
@@ -27,7 +34,7 @@ class JwtUtilTest {
         LoggedInUser loggedInUser = getLoggedInUser();
 
         // when
-        String token = jwtUtil.createToken(loggedInUser);
+        String token = jwtUtil.createToken(loggedInUser, new Date(new Date().getTime() + 3600000));
         LoggedInUser extractedUserFromToken = jwtUtil.extractedUserFromToken(token);
 
         // then
@@ -39,19 +46,53 @@ class JwtUtilTest {
         assertThat(loggedInUser.getSecondRegionId()).isEqualTo(extractedUserFromToken.getSecondRegionId());
     }
 
-    @DisplayName("조작된 토큰이 들어오면 ManipulatedTokenException이 발생한다.")
+    @DisplayName("조작된 토큰이 들어오면 false를 반환한다")
     @Test
     void testManipulatedToken() {
 
         // given
         LoggedInUser loggedInUser = getLoggedInUser();
-        String token = jwtUtil.createToken(loggedInUser);
+        String token = jwtUtil.createToken(loggedInUser, new Date(new Date().getTime() + 3600000));
 
         // when
         boolean validated = jwtUtil.validateTokenIsManipulated(token + "a");
 
         // then
         assertThat(validated).isFalse();
+    }
+
+    @DisplayName("만료된 토큰이 들어오면 false를 반환한다.")
+    @Test
+    void testExpiredToken() {
+
+        // given
+        LoggedInUser loggedInUser = getLoggedInUser();
+        String token = jwtUtil.createToken(loggedInUser, new Date(new Date().getTime() - 3600000));
+
+        // when
+        boolean validated = jwtUtil.validateTokenIsExpired(token);
+
+        // then
+        assertThat(validated).isFalse();
+    }
+
+    @DisplayName("회원가입을 하면 유저 정보를 저장한다.")
+    @Transactional
+    @Test
+    void testCreateUser() {
+
+        // given
+        UserProfileResponse userProfileResponse = new UserProfileResponse();
+        userProfileResponse.setId(200L);
+        userProfileResponse.setName("test");
+        userProfileResponse.setAvatarUrl("test");
+
+        // when
+        LoggedInUser user = loginService.createUser(userProfileResponse);
+        User foundUser = userRepository.findById(user.getId()).orElseThrow();
+
+        // then
+        assertThat(user.getId()).isEqualTo(foundUser.getId());
     }
 
     private LoggedInUser getLoggedInUser() {

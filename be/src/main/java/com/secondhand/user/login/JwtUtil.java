@@ -21,13 +21,13 @@ public class JwtUtil {
     @Value("${JWT_SECRET_KEY}")
     private String secret; // 시크릿 키를 설정
 
-    public String createToken(LoggedInUser loggedInUser) {
+    public String createToken(LoggedInUser loggedInUser, Date expiredDate) {
         log.info("create Token start");
         return Jwts.builder()
                 .setHeaderParam("typ", "JWT")
                 .setSubject("login_member")
                 .claim("userProfile", loggedInUser)
-                .setExpiration(new Date((new Date()).getTime() + 3600000))
+                .setExpiration(expiredDate)
                 .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
     }

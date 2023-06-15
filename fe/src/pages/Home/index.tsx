@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import { ICON_NAME } from '@constants/index';
 
 import Icon from '@components/common/Icon';
@@ -13,7 +15,9 @@ const Home = () => {
           <span>역삼 1동</span>
           <Icon name={ICON_NAME.CHEVRON_DOWN} />
         </S.NeighborhoodSettingLink>
-        <Icon name={ICON_NAME.HAMBURGER} />
+        <Link to="/category">
+          <Icon name={ICON_NAME.HAMBURGER} />
+        </Link>
       </S.NavigationBar>
       <ProductList />
       <TabBar activeTab="home" />

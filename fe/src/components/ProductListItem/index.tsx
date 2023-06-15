@@ -1,4 +1,5 @@
 import { ICON_NAME } from '@constants/index';
+import { getTextWithTimeStamp } from '@utils/index';
 
 import Icon from '@components/common/Icon';
 import * as S from './style';
@@ -39,7 +40,9 @@ const ProductListItem = ({
       {photoUrl && <S.Img src={photoUrl} alt={title} />}
       <S.ItemInformation>
         <S.Title>{title}</S.Title>
-        <S.LocationAndTime>{`${region.name} ${postedAt}`}</S.LocationAndTime>
+        <S.LocationAndTime>
+          {getTextWithTimeStamp({ text: region.name, time: new Date(postedAt) })}
+        </S.LocationAndTime>
         <S.StateAndPrice>
           {badge.state !== '판매 중' && (
             <S.StateBadge fontcolor={badge.fontColor} backgroundcolor={badge.backgroundColor}>

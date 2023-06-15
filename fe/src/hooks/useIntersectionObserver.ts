@@ -4,7 +4,7 @@ interface UseIntersectionObserverProps {
   intersectHandler: IntersectionObserverCallback;
   root?: null;
   rootMargin?: string;
-  threshold: number;
+  threshold?: number;
 }
 
 const useIntersectionObserver = ({
@@ -26,7 +26,7 @@ const useIntersectionObserver = ({
 
     observer.observe(target);
 
-    return () => observer.unobserve(target);
+    return () => observer.disconnect();
   }, [target, intersectHandler, root, rootMargin, threshold]);
 
   return { setTarget };

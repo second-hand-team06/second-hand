@@ -7,10 +7,18 @@ export interface ProductListItemProps {
   id: number;
   title: string;
   photoUrl: string | null;
-  region: string;
+  region: {
+    id: number;
+    name: string;
+  };
   postedAt: string;
-  status: string;
-  price: number;
+  badge: {
+    id: number;
+    state: '광고' | '예약 중' | '판매 중' | '판매 완료' | null;
+    fontColor: string | null;
+    backgroundColor: string | null;
+  };
+  price: number | null;
   chattingCount: number;
   interestCount: number;
 }
@@ -21,20 +29,24 @@ const ProductListItem = ({
   photoUrl,
   region,
   postedAt,
-  status,
+  badge,
   price,
   chattingCount = 0,
   interestCount = 0,
 }: ProductListItemProps) => {
   return (
     <S.ProductListItem>
-      {photoUrl && <img src={photoUrl} alt={title} />}
+      {photoUrl && <S.Img src={photoUrl} alt={title} />}
       <S.ItemInformation>
         <S.Title>{title}</S.Title>
-        <S.LocationAndTime>{`${region} ${postedAt}`}</S.LocationAndTime>
+        <S.LocationAndTime>{`${region.name} ${postedAt}`}</S.LocationAndTime>
         <S.StateAndPrice>
-          {status !== '0' && <S.StateBadge>예약중</S.StateBadge>}
-          <S.Price>{`${price}원`}</S.Price>
+          {badge.state !== '판매 중' && (
+            <S.StateBadge fontcolor={badge.fontColor} backgroundcolor={badge.backgroundColor}>
+              {badge.state}
+            </S.StateBadge>
+          )}
+          {price && <S.Price>{`${price}원`}</S.Price>}
         </S.StateAndPrice>
         <S.ChatAndLike>
           {chattingCount > 0 && (

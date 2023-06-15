@@ -1,5 +1,13 @@
 import styled from 'styled-components';
 
+const Img = styled.img`
+  width: 120px;
+  height: 120px;
+
+  border: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
+  border-radius: 8px;
+`;
+
 const Title = styled.header`
   font-size: ${({ theme }) => theme.fonts.subhead.fontSize};
   font-weight: ${({ theme }) => theme.fonts.subhead.fontWeight};
@@ -14,21 +22,21 @@ const LocationAndTime = styled.span`
   color: ${({ theme }) => theme.colors.neutral.text.weak};
 `;
 
-const StateBadge = styled.div`
+const StateBadge = styled.div<{ fontcolor: string | null; backgroundcolor: string | null }>`
   display: flex;
   justify-content: center;
   align-items: center;
 
-  width: 50px;
   height: 22px;
+  padding: 0 10px;
 
-  background-color: ${({ theme }) => theme.colors.accent.background.secondary};
+  background-color: ${({ backgroundcolor }) => backgroundcolor};
   border-radius: 8px;
 
   font-size: ${({ theme }) => theme.fonts.caption1.fontSize};
   font-weight: ${({ theme }) => theme.fonts.caption1.fontWeight};
   line-height: ${({ theme }) => theme.fonts.caption1.lineHeight};
-  color: ${({ theme }) => theme.colors.neutral.text.default};
+  color: ${({ fontcolor }) => fontcolor};
 `;
 
 const Price = styled.span`
@@ -78,6 +86,7 @@ const ProductListItem = styled.div`
 `;
 
 export {
+  Img,
   Title,
   LocationAndTime,
   StateBadge,

@@ -37,4 +37,8 @@ const getTextWithTimeStamp = ({ text, time }: { text: string; time: Date }) => {
   return `${text} · ${getTimeStamp(time)}`;
 };
 
-export { getTextWithTimeStamp };
+const forMatMoney = (money: number) => {
+  return `${money.toLocaleString()}원`;
+};
+
+export { getTextWithTimeStamp, forMatMoney };

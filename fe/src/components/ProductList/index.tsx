@@ -15,7 +15,7 @@ const ProductList = () => {
   const [postList, setPostList] = useState<ProductListItemProps[]>([]);
 
   const { fetchData, fetchState } = useFetch<PostsApiResponse>({
-    url: `http://13.124.150.120:8080/posts?page=${pageNum}&size=10&category=1`,
+    url: `http://13.124.150.120:8080/posts?page=${pageNum}&size=10`,
     method: 'GET',
   });
 

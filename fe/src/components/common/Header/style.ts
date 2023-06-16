@@ -14,7 +14,7 @@ const Header = styled.header`
   border-bottom: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
 `;
 
-const Neighborhoods = styled.div`
+const NeighborhoodDropdown = styled.div`
   display: flex;
   align-items: center;
   gap: 6px;
@@ -57,4 +57,4 @@ const Modal = styled.div`
   ${MenuBorderStyles}
 `;
 
-export { Header, Neighborhoods, Modal, Menu };
+export { Header, NeighborhoodDropdown, Modal, Menu };

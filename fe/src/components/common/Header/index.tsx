@@ -11,10 +11,18 @@ const Header = () => {
 
   return (
     <S.Header>
-      <S.NeighborhoodSettingLink onClick={() => setIsModalOpen(!isModalOpen)}>
+      <S.Neighborhoods onClick={() => setIsModalOpen(!isModalOpen)}>
         <span>역삼 1동</span>
         <Icon name={ICON_NAME.CHEVRON_DOWN} />
-      </S.NeighborhoodSettingLink>
+        {isModalOpen && (
+          <S.Modal>
+            <S.Menu defaultregion="역삼 1동" region="역삼 1동">
+              역삼 1동
+            </S.Menu>
+            <S.Menu>내 동네 설정하기</S.Menu>
+          </S.Modal>
+        )}
+      </S.Neighborhoods>
       <Link to="/category">
         <Icon name={ICON_NAME.HAMBURGER} />
       </Link>

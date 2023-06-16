@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const Header = styled.header`
   position: sticky;
@@ -14,10 +14,11 @@ const Header = styled.header`
   border-bottom: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
 `;
 
-const NeighborhoodSettingLink = styled.div`
+const Neighborhoods = styled.div`
   display: flex;
   align-items: center;
   gap: 6px;
+  position: relative;
 
   color: ${({ theme }) => theme.colors.neutral.text.strong};
   font-size: ${({ theme }) => theme.fonts.headline.fontSize};
@@ -25,4 +26,35 @@ const NeighborhoodSettingLink = styled.div`
   line-height: ${({ theme }) => theme.fonts.headline.lineHeight};
 `;
 
-export { Header, NeighborhoodSettingLink };
+const Menu = styled.div<{ defaultregion?: string; region?: string }>`
+  display: flex;
+  align-items: center;
+
+  height: 45px;
+  padding: 0 10px;
+
+  font-size: ${({ theme }) => theme.fonts.callout.fontSize};
+  font-weight: ${({ defaultregion, region }) => (region && defaultregion === region ? 590 : 400)};
+  line-height: ${({ theme }) => theme.fonts.callout.lineHeight};
+`;
+
+const MenuBorderStyles = css`
+  & > div:not(:last-child) {
+    border-bottom: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
+  }
+`;
+
+const Modal = styled.div`
+  position: absolute;
+  top: calc(100% + 4px);
+
+  width: 240px;
+
+  background-color: ${({ theme }) => theme.colors.system.background.default};
+  border: 1px solid ${({ theme }) => theme.colors.neutral.border.strong};
+  border-radius: 12px;
+
+  ${MenuBorderStyles}
+`;
+
+export { Header, Neighborhoods, Modal, Menu };

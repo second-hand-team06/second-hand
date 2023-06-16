@@ -11,7 +11,7 @@ const Header = () => {
 
   return (
     <S.Header>
-      <S.Neighborhoods onClick={() => setIsModalOpen(!isModalOpen)}>
+      <S.NeighborhoodDropdown onClick={() => setIsModalOpen(!isModalOpen)}>
         <span>역삼 1동</span>
         <Icon name={ICON_NAME.CHEVRON_DOWN} />
         {isModalOpen && (
@@ -24,7 +24,7 @@ const Header = () => {
             </Link>
           </S.Modal>
         )}
-      </S.Neighborhoods>
+      </S.NeighborhoodDropdown>
       <Link to="/category">
         <Icon name={ICON_NAME.HAMBURGER} />
       </Link>

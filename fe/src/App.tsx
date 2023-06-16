@@ -9,6 +9,7 @@ import Sales from '@pages/Sales';
 import Interests from '@pages/Interests';
 import Chatting from '@pages/Chatting';
 import MyAccount from '@pages/MyAccount';
+import Oauth from '@pages/Oauth';
 
 import GlobalStyle from '@styles/GlobalStyle';
 
@@ -24,6 +25,7 @@ const App = () => {
           <Route path="/interests" element={<Interests />} />
           <Route path="/chatting" element={<Chatting />} />
           <Route path="/my-account" element={<MyAccount />} />
+          <Route path="/oauth" element={<Oauth />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

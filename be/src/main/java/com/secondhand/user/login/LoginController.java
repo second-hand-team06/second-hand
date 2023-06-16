@@ -1,6 +1,5 @@
 package com.secondhand.user.login;
 
-import com.secondhand.user.entity.User;
 import com.secondhand.user.login.dto.GithubToken;
 import com.secondhand.user.login.dto.JWTResponse;
 import com.secondhand.user.login.dto.LoggedInUser;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 
 @Slf4j
 @RestController
@@ -29,7 +29,9 @@ public class LoginController {
         UserProfileResponse userProfile = loginService.getUserProfile(githubToken.getAccessToken());
         LoggedInUser loggedInUser = loginService.createUser(userProfile);
 
-        String token = jwtUtil.createToken(loggedInUser);
+        Date expiredDate = new Date(new Date().getTime() + 3600000);
+
+        String token = jwtUtil.createToken(loggedInUser, expiredDate);
 
         return ResponseEntity.ok(new JWTResponse("login success", token));
     }

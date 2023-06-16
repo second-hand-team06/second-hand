@@ -1,6 +1,7 @@
 package com.secondhand.exception;
 
 import com.secondhand.exception.login.JwtTokenException;
+import com.secondhand.exception.post.PostAuthorizationException;
 import com.secondhand.util.CustomErrorResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -22,7 +23,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NoHandlerFoundException.class)
     public ResponseEntity<CustomErrorResponse> handleNotFoundError(NoHandlerFoundException e) {
         return ResponseEntity
-                .badRequest()
+                .status(HttpStatusCode.NOT_FOUND)
                 .body(new CustomErrorResponse(HttpStatusCode.NOT_FOUND, e.getMessage()));
     }
 
@@ -31,5 +32,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .badRequest()
                 .body(new CustomErrorResponse(HttpStatusCode.BAD_REQUEST, e.getMessage()));
+    }
+
+    @ExceptionHandler(PostAuthorizationException.class)
+    public ResponseEntity<CustomErrorResponse> handlePostAuthorizationException(PostAuthorizationException e) {
+        return ResponseEntity
+                .status(HttpStatusCode.FORBIDDEN)
+                .body(new CustomErrorResponse(HttpStatusCode.FORBIDDEN, e.getMessage()));
     }
 }

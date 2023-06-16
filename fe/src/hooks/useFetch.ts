@@ -26,7 +26,7 @@ const useFetch = <T>({ url, method = 'GET', body = null }: UseFetchProps) => {
         },
       };
 
-      if (method !== 'GET') {
+      if (body && method !== 'GET') {
         options.body = JSON.stringify(body);
       }
 

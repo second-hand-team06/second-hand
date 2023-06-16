@@ -1,13 +1,14 @@
-import TabBar from '@components/TabBar';
+import Header from '@components/common/Header';
 import ProductList from '@components/ProductList';
+import TabBar from '@components/TabBar';
 
 const Home = () => {
   return (
-    <div>
-      <span>Home</span>
-      <ProductList />;
+    <>
+      <Header />
+      <ProductList />
       <TabBar activeTab="home" />
-    </div>
+    </>
   );
 };
 

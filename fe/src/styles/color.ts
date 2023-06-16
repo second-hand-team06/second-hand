@@ -56,4 +56,4 @@ const lightColors = {
   },
 };
 
-export { lightColors };
+export { PALETTE, lightColors };

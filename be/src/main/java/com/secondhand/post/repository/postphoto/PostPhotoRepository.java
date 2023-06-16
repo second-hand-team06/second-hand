@@ -1,4 +1,4 @@
-package com.secondhand.post.repository;
+package com.secondhand.post.repository.postphoto;
 
 import com.secondhand.post.entity.PostPhoto;
 import org.springframework.data.jpa.repository.JpaRepository;

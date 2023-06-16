@@ -3,7 +3,7 @@ package com.secondhand.category;
 import com.secondhand.category.dto.CategoriesDto;
 import com.secondhand.category.dto.CategoryInterestsDto;
 import com.secondhand.category.dto.PostTitleDto;
-import com.secondhand.post.repository.InterestRepository;
+import com.secondhand.post.repository.interest.InterestRepository;
 import com.secondhand.util.CustomResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

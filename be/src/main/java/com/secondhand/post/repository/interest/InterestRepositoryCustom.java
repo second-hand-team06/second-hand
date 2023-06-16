@@ -1,4 +1,4 @@
-package com.secondhand.post.repository;
+package com.secondhand.post.repository.interest;
 
 import com.secondhand.category.dto.CategoryInInterestDto;
 import com.secondhand.post.dto.PostMetaDto;

@@ -1,4 +1,4 @@
-package com.secondhand.post.repository;
+package com.secondhand.post.repository.interest;
 
 import com.querydsl.core.QueryResults;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -8,6 +8,7 @@ import com.secondhand.post.dto.PostMetaDto;
 import com.secondhand.post.dto.QPostMetaDto;
 import com.secondhand.post.entity.Interest;
 import com.secondhand.post.entity.PostMeta;
+import com.secondhand.post.repository.interest.InterestRepositoryCustom;
 import com.secondhand.user.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -21,7 +22,7 @@ import static com.secondhand.post.entity.QInterest.interest;
 import static com.secondhand.post.entity.QPostMeta.postMeta;
 
 
-public class InterestRepositoryImpl implements InterestRepositoryCustom{
+public class InterestRepositoryImpl implements InterestRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
 

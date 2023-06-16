@@ -2,8 +2,8 @@ package com.secondhand.user;
 
 import com.secondhand.post.entity.Interest;
 import com.secondhand.post.entity.PostMeta;
-import com.secondhand.post.repository.InterestRepository;
-import com.secondhand.post.repository.PostMetaRepository;
+import com.secondhand.post.repository.interest.InterestRepository;
+import com.secondhand.post.repository.postmeta.PostMetaRepository;
 import com.secondhand.region.dto.PostMyRegionDto;
 import com.secondhand.user.entity.User;
 import com.secondhand.user.login.dto.LoggedInUser;

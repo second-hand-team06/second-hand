@@ -2,7 +2,7 @@ package com.secondhand.category;
 
 import com.secondhand.category.dto.CategoriesDto;
 import com.secondhand.category.dto.CategoryDto;
-import com.secondhand.post.repository.CategoryRepository;
+import com.secondhand.post.repository.category.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

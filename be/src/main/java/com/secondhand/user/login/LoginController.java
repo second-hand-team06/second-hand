@@ -32,7 +32,7 @@ public class LoginController {
         Date expiredDate = new Date(new Date().getTime() + 3600000);
 
         String token = jwtUtil.createToken(loggedInUser, expiredDate);
-
+        log.info("token create success = {}", token);
         return ResponseEntity.ok(new JWTResponse("login success", token));
     }
 }

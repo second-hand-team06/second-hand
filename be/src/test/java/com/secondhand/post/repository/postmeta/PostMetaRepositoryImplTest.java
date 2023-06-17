@@ -2,7 +2,6 @@ package com.secondhand.post.repository.postmeta;
 
 import com.secondhand.post.dto.PostMetaDto;
 import com.secondhand.post.dto.SearchCondition;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @SpringBootTest
 class PostMetaRepositoryImplTest {
 
@@ -22,7 +23,7 @@ class PostMetaRepositoryImplTest {
     @DisplayName("첫 번째 페이지 1번 지역과 1번 카테고리로, 10개의 사이즈를 조회하면, 10개의 사이즈가 조회된다.")
     @Test
     @Transactional
-    public void testFindMainPagePosts() {
+    void testFindMainPagePosts() {
         // Given
         Pageable pageable = PageRequest.of(0, 10);
         SearchCondition searchCondition = new SearchCondition();
@@ -33,6 +34,6 @@ class PostMetaRepositoryImplTest {
         List<PostMetaDto> content = postMetaRepository.findMainPage(pageable, searchCondition).getContent();
 
         // Then
-        Assertions.assertThat(content).hasSize(10);
+        assertThat(content).hasSize(10);
     }
 }

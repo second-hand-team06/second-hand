@@ -84,26 +84,6 @@ public class PostService {
         return postDetailPage;
     }
 
-    private PostMeta savePost(PostSaveDto postSaveDto, LoggedInUser loggedInUser) {
-
-        List<String> photos = getPhotosUrl(postSaveDto.getPhotos());
-        User seller = userRepository.findById(loggedInUser.getId()).orElseThrow();
-        Region region = regionRepository.findById(postSaveDto.getRegionId()).orElseThrow();
-        Category category = categoryRepository.findById(postSaveDto.getCategoryId()).orElseThrow();
-        Badge badge = badgeRepository.findById(postSaveDto.getBadgeId()).orElseThrow();
-        String thumbnail = photos.get(0);
-
-        PostMeta newPostMeta = PostMeta.ofCreated(seller, region, category, badge, postSaveDto, thumbnail);
-
-        PostMeta savedPostMeta = postMetaRepository.save(newPostMeta);
-
-        long savedPostId = savedPostMeta.getId();
-
-        savePhotos(photos, savedPostId);
-        savePostDetail(postSaveDto, savedPostId);
-
-        return savedPostMeta;
-    }
 
     @Transactional
     public void editPost(long postId, PostUpdateDto updatePostDto, LoggedInUser loggedInUser) {
@@ -147,9 +127,31 @@ public class PostService {
         postMeta.updateBadge(badge);
     }
 
+    @Transactional(readOnly = true)
     public BadgesDto findBadges() {
 
         return new BadgesDto(badgeRepository.findAll());
+    }
+
+    private PostMeta savePost(PostSaveDto postSaveDto, LoggedInUser loggedInUser) {
+
+        List<String> photos = getPhotosUrl(postSaveDto.getPhotos());
+        User seller = userRepository.findById(loggedInUser.getId()).orElseThrow();
+        Region region = regionRepository.findById(postSaveDto.getRegionId()).orElseThrow();
+        Category category = categoryRepository.findById(postSaveDto.getCategoryId()).orElseThrow();
+        Badge badge = badgeRepository.findById(postSaveDto.getBadgeId()).orElseThrow();
+        String thumbnail = photos.get(0);
+
+        PostMeta newPostMeta = PostMeta.ofCreated(seller, region, category, badge, postSaveDto, thumbnail);
+
+        PostMeta savedPostMeta = postMetaRepository.save(newPostMeta);
+
+        long savedPostId = savedPostMeta.getId();
+
+        savePhotos(photos, savedPostId);
+        savePostDetail(postSaveDto, savedPostId);
+
+        return savedPostMeta;
     }
 
     private void savePostDetail(PostSaveDto postSaveDto, long createdPostId) {

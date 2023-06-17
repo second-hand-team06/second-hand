@@ -19,9 +19,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +44,7 @@ public class PostService {
     private final BadgeRepository badgeRepository;
     private final FileUploadService fileUploadService;
 
+    @Transactional(readOnly = true)
     public MainPagePostsDto findMainPagePosts(Pageable pageable, SearchCondition searchCondition) {
 
         return new MainPagePostsDto(postMetaRepository.findMainPage(pageable, searchCondition));
@@ -57,12 +58,13 @@ public class PostService {
         return new CreatePostResponseDto(savedPostMeta.getId());
     }
 
+    @Transactional(readOnly = true)
     public Page<PostMetaDto> findInterestPosts(Pageable pageable, LoggedInUser loggedInUser) {
 
         return interestRepository.findMyInterestsPosts(pageable, loggedInUser.getId());
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public PostDetailPageDto findPostDetailPage(long postId, LoggedInUser loggedInUser) {
 
         PostMeta postMeta = postMetaRepository.findById(postId).orElseThrow();

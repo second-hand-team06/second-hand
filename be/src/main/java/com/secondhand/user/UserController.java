@@ -1,7 +1,6 @@
 package com.secondhand.user;
 
 import com.secondhand.region.dto.PostMyRegionDto;
-import com.secondhand.user.login.JwtUtil;
 import com.secondhand.user.login.dto.LoggedInUser;
 import com.secondhand.util.CustomResponse;
 import lombok.RequiredArgsConstructor;
@@ -16,10 +15,9 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
-    private final JwtUtil jwtUtil;
 
     @PutMapping("/regions")
-    public ResponseEntity<CustomResponse> updateMyRegion(@RequestBody PostMyRegionDto postMyRegionDto, @RequestHeader("Authorization") String bearerToken) {
+    public ResponseEntity<CustomResponse> updateMyRegion(@RequestBody PostMyRegionDto postMyRegionDto, @RequestAttribute LoggedInUser loggedInUser) {
 
         // TODO: 토근 처리
 
@@ -35,9 +33,7 @@ public class UserController {
     }
 
     @PostMapping("/{postId}")
-    public ResponseEntity<CustomResponse> addInterestPost(@PathVariable Long postId, @RequestHeader("Authorization") String token) {
-
-        LoggedInUser loggedInUser = jwtUtil.extractedUserFromToken(token);
+    public ResponseEntity<CustomResponse> addInterestPost(@PathVariable Long postId, @RequestAttribute LoggedInUser loggedInUser) {
 
         userService.addInterestPost(postId, loggedInUser);
 
@@ -50,9 +46,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{postId}")
-    public ResponseEntity<CustomResponse> deleteInterestPost(@PathVariable Long postId, @RequestHeader("Authorization") String token) {
-
-        LoggedInUser loggedInUser = jwtUtil.extractedUserFromToken(token);
+    public ResponseEntity<CustomResponse> deleteInterestPost(@PathVariable Long postId, @RequestAttribute LoggedInUser loggedInUser) {
 
         userService.deleteInterestPost(postId, loggedInUser);
 

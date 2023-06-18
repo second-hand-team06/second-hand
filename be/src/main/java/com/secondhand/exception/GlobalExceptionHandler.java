@@ -17,7 +17,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<CustomErrorResponse> loginExceptionHandler(JwtTokenException e) {
         return ResponseEntity
                 .badRequest()
-                .body(new CustomErrorResponse(HttpStatusCode.BAD_REQUEST, e.getMessage()));
+                .body(new CustomErrorResponse(HttpStatusCode.UNAUTHORIZED, e.getMessage()));
     }
 
     @ExceptionHandler(NoHandlerFoundException.class)

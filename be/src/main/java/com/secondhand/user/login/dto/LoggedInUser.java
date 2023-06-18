@@ -18,7 +18,6 @@ public class LoggedInUser {
 
     @Builder
     public LoggedInUser(User user) {
-        System.out.println("loggedin user id = " + user.getId());
         this.id = user.getId();
         this.githubId = user.getGithubId();
         this.loginId = user.getLoginId();

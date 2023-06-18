@@ -132,6 +132,7 @@ public class PostService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
 
         validatePostOwnershipMismatch(loggedInUser, postMeta);
+        validatePostDeleted(postMeta);
 
         Badge badge = badgeRepository.findById(postStateDto.getState())
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 배지입니다."));

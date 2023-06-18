@@ -47,6 +47,21 @@ class PostServiceTest {
         Assertions.assertThat(postMeta.getId()).isEqualTo(post.getId());
     }
 
+    @Transactional
+    @Test
+    @DisplayName("사용자는 저장한 상품에 대해 soft delete를 할 수 있다.")
+    void test() {
+        PostSaveDto postSaveDto = getPostSaveDto();
+        LoggedInUser loggedInUser = getLoggedInUser();
+
+        // when
+        CreatePostResponseDto post = postService.createPost(postSaveDto, loggedInUser);
+        postService.deletePost(post.getId(), loggedInUser);
+        PostMeta postMeta = postMetaRepository.findById(post.getId()).get();
+
+        // then
+        Assertions.assertThat(postMeta.isDeleted()).isTrue();
+    }
 
     private PostMeta createPostMeta() {
 

@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.tuple;
 
 @SpringBootTest
 class PostServiceTest {
@@ -81,6 +82,26 @@ class PostServiceTest {
 
         // then
         assertThat(postMeta.getBadge().getId()).isEqualTo(2);
+    }
+
+    @Transactional(readOnly = true)
+    @Test
+    @DisplayName("사용자는 상품 상태 업데이트를 위해 모든 배지를 조회할 수 있다.")
+    void findAllBadgesTest() {
+        // given
+
+        // when
+        List<Badge> badges = postService.findBadges().getBadges();
+
+        // then
+        assertThat(badges).hasSize(4)
+                .extracting("id", "state", "backgroundColor", "fontColor")
+                .containsExactlyInAnyOrder(
+                        tuple(1, "판매 중", null, null),
+                        tuple(2, "예약 중", "#abab12", "#ff0000"),
+                        tuple(3, "판매 완료", "#00ff00", "#ff00ff"),
+                        tuple(4, "광고", "#000000", "#00ffff")
+                );
     }
 
     private PostMeta createPostMeta() {

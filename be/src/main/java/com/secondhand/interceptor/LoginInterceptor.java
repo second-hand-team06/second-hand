@@ -8,12 +8,14 @@ import com.secondhand.user.login.JwtUtil;
 import com.secondhand.user.login.dto.LoggedInUser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Slf4j
+@Component
 @RequiredArgsConstructor
 public class LoginInterceptor implements HandlerInterceptor {
 

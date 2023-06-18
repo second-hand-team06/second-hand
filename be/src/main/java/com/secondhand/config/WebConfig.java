@@ -15,12 +15,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig implements WebMvcConfigurer {
 
     private final JwtUtil jwtUtil;
-
+    // TODO : 배포시 allowedOrigins "http://3.37.72.34" 로 변경
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins("*")
-                .allowedMethods("*");
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH");
     }
 
     @Override

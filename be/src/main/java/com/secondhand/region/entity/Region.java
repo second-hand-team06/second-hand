@@ -11,7 +11,7 @@ import javax.persistence.Id;
 public class Region {
 
     @Id @GeneratedValue
-    private long id;
+    private int id;
 
     private String name;
 }

@@ -2,11 +2,10 @@ package com.secondhand.region.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 @Getter
 @AllArgsConstructor
-public class RegionListDto {
-    private List<RegionDto> regionList;
+public class RegionsDto {
+    private Page<RegionDto> regions;
 }

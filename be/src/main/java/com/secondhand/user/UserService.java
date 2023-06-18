@@ -5,6 +5,8 @@ import com.secondhand.post.entity.PostMeta;
 import com.secondhand.post.repository.interest.InterestRepository;
 import com.secondhand.post.repository.postmeta.PostMetaRepository;
 import com.secondhand.region.dto.PostMyRegionDto;
+import com.secondhand.region.repository.RegionRepository;
+import com.secondhand.region.validator.RegionValidator;
 import com.secondhand.user.entity.User;
 import com.secondhand.user.login.dto.LoggedInUser;
 import com.secondhand.user.repository.UserRepository;
@@ -22,10 +24,11 @@ public class UserService {
     private final UserRepository userRepository;
     private final PostMetaRepository postMetaRepository;
     private final InterestRepository interestRepository;
+    private final RegionRepository regionRepository;
 
     @Transactional
     public void updateMyRegion(long userId, PostMyRegionDto postMyRegionDto) {
-
+        RegionValidator.isValidRegionId(postMyRegionDto, regionRepository);
         User loggedInUser = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다."));
 

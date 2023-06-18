@@ -67,9 +67,12 @@ public class PostService {
     @Transactional(readOnly = true)
     public PostDetailPageDto findPostDetailPage(long postId, LoggedInUser loggedInUser) {
 
-        PostMeta postMeta = postMetaRepository.findById(postId).orElseThrow();
-        PostDetail postDetail = postDetailRepository.findById(postId).orElseThrow();
-        User user = userRepository.findById(loggedInUser.getId()).orElseThrow();
+        PostMeta postMeta = postMetaRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
+        PostDetail postDetail = postDetailRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글의 상세 내용이 존재하지 않습니다."));
+        User user = userRepository.findById(loggedInUser.getId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다."));
 
         postMeta.updateViewCount();
         PostDetailPageDto postDetailPage = new PostDetailPageDto(postMeta);
@@ -88,13 +91,17 @@ public class PostService {
     @Transactional
     public void editPost(long postId, PostUpdateDto updatePostDto, LoggedInUser loggedInUser) {
 
-        PostMeta postMeta = postMetaRepository.findById(postId).orElseThrow();
+        PostMeta postMeta = postMetaRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
 
         validatePostOwnershipMismatch(loggedInUser, postMeta);
 
-        PostDetail postDetail = postDetailRepository.findById(postId).orElseThrow();
-        Region region = regionRepository.findById(updatePostDto.getRegionId()).orElseThrow();
-        Category category = categoryRepository.findById(updatePostDto.getCategoryId()).orElseThrow();
+        PostDetail postDetail = postDetailRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글의 상세 내용이 존재하지 않습니다."));
+        Region region = regionRepository.findById(updatePostDto.getRegionId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 지역이 존재하지 않습니다."));
+        Category category = categoryRepository.findById(updatePostDto.getCategoryId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 카테고리가 존재하지 않습니다."));
         List<String> photoUrls = getPhotosUrl(updatePostDto.getPhotos());
 
         String thumbnail = photoUrls.get(0);
@@ -108,7 +115,8 @@ public class PostService {
     @Transactional
     public void deletePost(long postId, LoggedInUser loggedInUser) {
 
-        PostMeta postMeta = postMetaRepository.findById(postId).orElseThrow();
+        PostMeta postMeta = postMetaRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
 
         validatePostOwnershipMismatch(loggedInUser, postMeta);
 
@@ -118,11 +126,13 @@ public class PostService {
     @Transactional
     public void updateBadge(long postId, UpdatePostStateDto postStateDto, LoggedInUser loggedInUser) {
 
-        PostMeta postMeta = postMetaRepository.findById(postId).orElseThrow();
+        PostMeta postMeta = postMetaRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
 
         validatePostOwnershipMismatch(loggedInUser, postMeta);
 
-        Badge badge = badgeRepository.findById(postStateDto.getState()).orElseThrow();
+        Badge badge = badgeRepository.findById(postStateDto.getState())
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 배지입니다."));
 
         postMeta.updateBadge(badge);
     }
@@ -136,10 +146,14 @@ public class PostService {
     private PostMeta savePost(PostSaveDto postSaveDto, LoggedInUser loggedInUser) {
 
         List<String> photos = getPhotosUrl(postSaveDto.getPhotos());
-        User seller = userRepository.findById(loggedInUser.getId()).orElseThrow();
-        Region region = regionRepository.findById(postSaveDto.getRegionId()).orElseThrow();
-        Category category = categoryRepository.findById(postSaveDto.getCategoryId()).orElseThrow();
-        Badge badge = badgeRepository.findById(postSaveDto.getBadgeId()).orElseThrow();
+        User seller = userRepository.findById(loggedInUser.getId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다."));
+        Region region = regionRepository.findById(postSaveDto.getRegionId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 지역이 존재하지 않습니다."));
+        Category category = categoryRepository.findById(postSaveDto.getCategoryId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 카테고리가 존재하지 않습니다."));
+        Badge badge = badgeRepository.findById(postSaveDto.getBadgeId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 배지가 존재하지 않습니다."));
         String thumbnail = photos.get(0);
 
         PostMeta newPostMeta = PostMeta.ofCreated(seller, region, category, badge, postSaveDto, thumbnail);

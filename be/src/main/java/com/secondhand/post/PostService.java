@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.secondhand.post.validator.PostValidator.validatePostDeleted;
 import static com.secondhand.post.validator.PostValidator.validatePostOwnershipMismatch;
 
 @Slf4j
@@ -95,6 +96,7 @@ public class PostService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
 
         validatePostOwnershipMismatch(loggedInUser, postMeta);
+        validatePostDeleted(postMeta);
 
         PostDetail postDetail = postDetailRepository.findById(postId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글의 상세 내용이 존재하지 않습니다."));

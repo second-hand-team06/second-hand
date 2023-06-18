@@ -71,6 +71,9 @@ public class PostMeta {
    }
 
    public void deletePost() {
+       if (this.deleted == true) {
+           throw new IllegalArgumentException("이미 삭제된 상품입니다.");
+       }
         this.deleted = true;
    }
 

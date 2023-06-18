@@ -2,9 +2,11 @@ package com.secondhand.user;
 
 import com.secondhand.post.entity.Interest;
 import com.secondhand.post.entity.PostMeta;
-import com.secondhand.post.repository.InterestRepository;
-import com.secondhand.post.repository.PostMetaRepository;
+import com.secondhand.post.repository.interest.InterestRepository;
+import com.secondhand.post.repository.postmeta.PostMetaRepository;
 import com.secondhand.region.dto.PostMyRegionDto;
+import com.secondhand.region.repository.RegionRepository;
+import com.secondhand.region.validator.RegionValidator;
 import com.secondhand.user.entity.User;
 import com.secondhand.user.login.dto.LoggedInUser;
 import com.secondhand.user.repository.UserRepository;
@@ -22,10 +24,11 @@ public class UserService {
     private final UserRepository userRepository;
     private final PostMetaRepository postMetaRepository;
     private final InterestRepository interestRepository;
+    private final RegionRepository regionRepository;
 
     @Transactional
     public void updateMyRegion(long userId, PostMyRegionDto postMyRegionDto) {
-
+        RegionValidator.isValidRegionId(postMyRegionDto, regionRepository);
         User loggedInUser = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다."));
 
@@ -37,8 +40,10 @@ public class UserService {
     @Transactional
     public void addInterestPost(long postId, LoggedInUser loggedInUser) {
 
-        User user = userRepository.findById(loggedInUser.getId()).orElseThrow();
-        PostMeta postMeta = postMetaRepository.findById(postId).orElseThrow();
+        User user = userRepository.findById(loggedInUser.getId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다."));
+        PostMeta postMeta = postMetaRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
 
         Interest interest = new Interest(user, postMeta);
         interestRepository.save(interest);
@@ -47,10 +52,12 @@ public class UserService {
     @Transactional
     public void deleteInterestPost(long postId, LoggedInUser loggedInUser) {
 
-        PostMeta postMeta = postMetaRepository.findById(postId).orElseThrow();
-        User user = userRepository.findById(loggedInUser.getId()).orElseThrow();
-
-        Interest interest = interestRepository.findByUserAndPostMeta(user, postMeta).orElseThrow();
+        PostMeta postMeta = postMetaRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
+        User user = userRepository.findById(loggedInUser.getId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다."));
+        Interest interest = interestRepository.findByUserAndPostMeta(user, postMeta)
+                .orElseThrow(() -> new IllegalArgumentException("해당 관심상품이 존재하지 않습니다."));
 
         interestRepository.delete(interest);
     }

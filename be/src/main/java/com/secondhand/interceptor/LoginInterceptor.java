@@ -5,14 +5,17 @@ import com.secondhand.exception.login.ManipulatedTokenException;
 import com.secondhand.exception.login.NoAuthorizationException;
 import com.secondhand.exception.login.NoBearerException;
 import com.secondhand.user.login.JwtUtil;
+import com.secondhand.user.login.dto.LoggedInUser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Slf4j
+@Component
 @RequiredArgsConstructor
 public class LoginInterceptor implements HandlerInterceptor {
 
@@ -38,6 +41,8 @@ public class LoginInterceptor implements HandlerInterceptor {
             throw new ExpiredTokenException();
         }
 
+        LoggedInUser loggedInUser = jwtUtil.extractedUserFromToken(token);
+        request.setAttribute("loggedInUser", loggedInUser);
         return true;
     }
 }

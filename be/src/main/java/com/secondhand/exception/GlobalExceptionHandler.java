@@ -17,7 +17,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<CustomErrorResponse> loginExceptionHandler(JwtTokenException e) {
         return ResponseEntity
                 .badRequest()
-                .body(new CustomErrorResponse(HttpStatusCode.BAD_REQUEST, e.getMessage()));
+                .body(new CustomErrorResponse(HttpStatusCode.UNAUTHORIZED, e.getMessage()));
     }
 
     @ExceptionHandler(NoHandlerFoundException.class)
@@ -39,5 +39,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .status(HttpStatusCode.FORBIDDEN)
                 .body(new CustomErrorResponse(HttpStatusCode.FORBIDDEN, e.getMessage()));
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<CustomErrorResponse> handleIllegalArgumentException(IllegalArgumentException e) {
+        return ResponseEntity
+                .badRequest()
+                .body(new CustomErrorResponse(HttpStatusCode.NOT_FOUND, e.getMessage()));
     }
 }

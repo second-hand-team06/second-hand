@@ -6,6 +6,7 @@ import com.secondhand.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -14,6 +15,7 @@ public class RegionService {
     private final UserRepository userRepository;
     private final RegionRepository regionRepository;
 
+    @Transactional(readOnly = true)
     public RegionsDto findAllRegions(Pageable pageable) {
 
         return new RegionsDto(regionRepository.findAllRegions(pageable));

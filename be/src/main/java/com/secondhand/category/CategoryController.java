@@ -44,7 +44,7 @@ public class CategoryController {
                 );
     }
 
-    @GetMapping("/recommend")
+    @GetMapping("/recommended")
     public ResponseEntity<CustomResponse<CategoriesDto>> findRecommendedCategories(@RequestBody PostTitleDto postTitleDto) {
 
         return ResponseEntity

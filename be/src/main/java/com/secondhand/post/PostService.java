@@ -64,7 +64,7 @@ public class PostService {
         return interestRepository.findMyInterestsPosts(pageable, loggedInUser.getId());
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public PostDetailPageDto findPostDetailPage(long postId, LoggedInUser loggedInUser) {
 
         PostMeta postMeta = postMetaRepository.findById(postId)

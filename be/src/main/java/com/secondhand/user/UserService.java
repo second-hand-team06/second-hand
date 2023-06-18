@@ -37,8 +37,10 @@ public class UserService {
     @Transactional
     public void addInterestPost(long postId, LoggedInUser loggedInUser) {
 
-        User user = userRepository.findById(loggedInUser.getId()).orElseThrow();
-        PostMeta postMeta = postMetaRepository.findById(postId).orElseThrow();
+        User user = userRepository.findById(loggedInUser.getId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다."));
+        PostMeta postMeta = postMetaRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
 
         Interest interest = new Interest(user, postMeta);
         interestRepository.save(interest);
@@ -47,8 +49,10 @@ public class UserService {
     @Transactional
     public void deleteInterestPost(long postId, LoggedInUser loggedInUser) {
 
-        PostMeta postMeta = postMetaRepository.findById(postId).orElseThrow();
-        User user = userRepository.findById(loggedInUser.getId()).orElseThrow();
+        PostMeta postMeta = postMetaRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
+        User user = userRepository.findById(loggedInUser.getId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다."));
 
         Interest interest = interestRepository.findByUserAndPostMeta(user, postMeta).orElseThrow();
 

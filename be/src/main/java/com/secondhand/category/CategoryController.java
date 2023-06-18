@@ -42,7 +42,7 @@ public class CategoryController {
     }
 
     @GetMapping("/recommended")
-    public ResponseEntity<CustomResponse<CategoriesDto>> findRecommendedCategories(@PathVariable PostTitleDto postTitleDto) {
+    public ResponseEntity<CustomResponse<CategoriesDto>> findRecommendedCategories(@RequestParam PostTitleDto postTitleDto) {
 
         return ResponseEntity
                 .ok()

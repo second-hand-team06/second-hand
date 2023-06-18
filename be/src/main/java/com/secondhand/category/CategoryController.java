@@ -7,10 +7,7 @@ import com.secondhand.post.repository.interest.InterestRepository;
 import com.secondhand.util.CustomResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -45,7 +42,7 @@ public class CategoryController {
     }
 
     @GetMapping("/recommended")
-    public ResponseEntity<CustomResponse<CategoriesDto>> findRecommendedCategories(@RequestBody PostTitleDto postTitleDto) {
+    public ResponseEntity<CustomResponse<CategoriesDto>> findRecommendedCategories(@PathVariable PostTitleDto postTitleDto) {
 
         return ResponseEntity
                 .ok()

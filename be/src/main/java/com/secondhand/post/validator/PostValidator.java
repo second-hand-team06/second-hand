@@ -15,7 +15,7 @@ public class PostValidator {
 
     public static void validatePostDeleted(PostMeta postMeta) {
         if (postMeta.isDeleted()) {
-            throw new IllegalArgumentException("해당 게시글이 삭제되었습니다.");
+            throw new IllegalArgumentException("존재하지 않는 게시글입니다.");
         }
     }
 }

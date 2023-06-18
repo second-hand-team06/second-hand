@@ -2,6 +2,7 @@ package com.secondhand.post;
 
 import com.secondhand.post.dto.CreatePostResponseDto;
 import com.secondhand.post.dto.PostSaveDto;
+import com.secondhand.post.dto.UpdatePostStateDto;
 import com.secondhand.post.entity.Badge;
 import com.secondhand.post.entity.Category;
 import com.secondhand.post.entity.PostMeta;
@@ -10,7 +11,6 @@ import com.secondhand.region.entity.Region;
 import com.secondhand.user.entity.User;
 import com.secondhand.user.login.dto.LoggedInUser;
 import com.secondhand.user.login.dto.UserProfileResponse;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 class PostServiceTest {
@@ -44,13 +46,13 @@ class PostServiceTest {
         PostMeta postMeta = postMetaRepository.findById(post.getId()).get();
 
         // then
-        Assertions.assertThat(postMeta.getId()).isEqualTo(post.getId());
+        assertThat(postMeta.getId()).isEqualTo(post.getId());
     }
 
     @Transactional
     @Test
     @DisplayName("사용자는 저장한 상품에 대해 soft delete를 할 수 있다.")
-    void test() {
+    void softDeleteTest() {
         PostSaveDto postSaveDto = getPostSaveDto();
         LoggedInUser loggedInUser = getLoggedInUser();
 
@@ -60,7 +62,25 @@ class PostServiceTest {
         PostMeta postMeta = postMetaRepository.findById(post.getId()).get();
 
         // then
-        Assertions.assertThat(postMeta.isDeleted()).isTrue();
+        assertThat(postMeta.isDeleted()).isTrue();
+    }
+
+    @Transactional
+    @Test
+    @DisplayName("사용자는 특정 상품을 판매중에서 예약중으로 변경할 수 있다.")
+    void updateBadgeTest() {
+        // given
+        PostSaveDto postSaveDto = getPostSaveDto();
+        LoggedInUser loggedInUser = getLoggedInUser();
+        UpdatePostStateDto updatePostStateDto = new UpdatePostStateDto(2);
+
+        // when
+        CreatePostResponseDto post = postService.createPost(postSaveDto, loggedInUser);
+        postService.updateBadge(post.getId(), updatePostStateDto, loggedInUser);
+        PostMeta postMeta = postMetaRepository.findById(post.getId()).get();
+
+        // then
+        assertThat(postMeta.getBadge().getId()).isEqualTo(2);
     }
 
     private PostMeta createPostMeta() {

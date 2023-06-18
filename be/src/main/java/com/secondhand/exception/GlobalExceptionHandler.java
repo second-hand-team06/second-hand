@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<CustomErrorResponse> handleNotFoundError(NoHandlerFoundException e) {
         return ResponseEntity
                 .status(HttpStatusCode.NOT_FOUND)
-                .body(new CustomErrorResponse(HttpStatusCode.METHOD_NOT_ALLOWED, e.getMessage()));
+                .body(new CustomErrorResponse(HttpStatusCode.NOT_FOUND, e.getMessage()));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

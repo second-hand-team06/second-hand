@@ -26,7 +26,8 @@ const lightColors = {
     },
     background: {
       default: PALETTE.WHITE,
-      bold: PALETTE.GRAY_50,
+      weak: PALETTE.GRAY_50,
+      bold: PALETTE.GRAY_400,
       blur: PALETTE.GRAY_100,
     },
     border: {
@@ -55,4 +56,4 @@ const lightColors = {
   },
 };
 
-export { lightColors };
+export { PALETTE, lightColors };

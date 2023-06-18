@@ -1,16 +1,25 @@
-import React from 'react';
+import { ICON_NAME } from '@constants/index';
+import { forMatMoney, getTextWithTimeStamp } from '@utils/index';
 
 import Icon from '@components/common/Icon';
 import * as S from './style';
 
 export interface ProductListItemProps {
-  id?: number;
+  id: number;
   title: string;
   photoUrl: string | null;
-  region: string;
+  region: {
+    id: number;
+    name: string;
+  };
   postedAt: string;
-  status: string;
-  price: number;
+  badge: {
+    id: number;
+    state: '광고' | '예약 중' | '판매 중' | '판매 완료' | null;
+    fontColor: string | null;
+    backgroundColor: string | null;
+  };
+  price: number | null;
   chattingCount: number;
   interestCount: number;
 }
@@ -21,31 +30,37 @@ const ProductListItem = ({
   photoUrl,
   region,
   postedAt,
-  status,
+  badge,
   price,
   chattingCount = 0,
   interestCount = 0,
 }: ProductListItemProps) => {
   return (
     <S.ProductListItem>
-      {photoUrl && <img src={photoUrl} alt={title} />}
+      {photoUrl && <S.Img src={photoUrl} alt={title} />}
       <S.ItemInformation>
         <S.Title>{title}</S.Title>
-        <S.LocationAndTime>{`${region} ${postedAt}`}</S.LocationAndTime>
+        <S.LocationAndTime>
+          {getTextWithTimeStamp({ text: region.name, time: new Date(postedAt) })}
+        </S.LocationAndTime>
         <S.StateAndPrice>
-          {status !== '0' && <S.StateBadge>예약중</S.StateBadge>}
-          <S.Price>{`${price}원`}</S.Price>
+          {badge.state !== '판매 중' && (
+            <S.StateBadge fontcolor={badge.fontColor} backgroundcolor={badge.backgroundColor}>
+              {badge.state}
+            </S.StateBadge>
+          )}
+          {price && <S.Price>{forMatMoney(price)}</S.Price>}
         </S.StateAndPrice>
         <S.ChatAndLike>
           {chattingCount > 0 && (
             <S.IconTextBox>
-              <Icon name="message" />
+              <Icon name={ICON_NAME.MESSAGE} />
               <span>{chattingCount}</span>
             </S.IconTextBox>
           )}
           {interestCount > 0 && (
             <S.IconTextBox>
-              <Icon name="like" />
+              <Icon name={ICON_NAME.LIKE} />
               <span>{interestCount}</span>
             </S.IconTextBox>
           )}

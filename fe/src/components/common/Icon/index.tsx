@@ -17,33 +17,36 @@ import { ReactComponent as Person } from '@assets/person.svg';
 import { ReactComponent as Plus } from '@assets/plus.svg';
 import { ReactComponent as Search } from '@assets/search.svg';
 
+import { ICON_NAME } from '@constants/index';
+
+export type IconName = (typeof ICON_NAME)[keyof typeof ICON_NAME];
+
 interface IconProps {
-  name: string;
+  name: IconName;
   fill?: string;
 }
 
 const ICONS: Record<string, React.FunctionComponent<React.SVGProps<SVGSVGElement>>> = {
-  arrowup: ArrowUp,
-  camera: Camera,
-  chevrondown: ChevronDown,
-  chevronleft: ChevronLeft,
-  circlefill: CircleFill,
-  ellipsis: Ellipsis,
-  hamburger: Hamburger,
-  home: Home,
-  keyboard: Keyboard,
-  like: Like,
-  message: Message,
-  multiply: Multiply,
-  newspaper: Newspaper,
-  person: Person,
-  plus: Plus,
-  search: Search,
+  [ICON_NAME.ARROW_UP]: ArrowUp,
+  [ICON_NAME.CAMERA]: Camera,
+  [ICON_NAME.CHEVRON_DOWN]: ChevronDown,
+  [ICON_NAME.CHEVRON_LEFT]: ChevronLeft,
+  [ICON_NAME.CIRCLE_FILL]: CircleFill,
+  [ICON_NAME.ELLIPSIS]: Ellipsis,
+  [ICON_NAME.HAMBURGER]: Hamburger,
+  [ICON_NAME.HOME]: Home,
+  [ICON_NAME.KEYBOARD]: Keyboard,
+  [ICON_NAME.LIKE]: Like,
+  [ICON_NAME.MESSAGE]: Message,
+  [ICON_NAME.MULTIPLY]: Multiply,
+  [ICON_NAME.NEWSPAPER]: Newspaper,
+  [ICON_NAME.PERSON]: Person,
+  [ICON_NAME.PLUS]: Plus,
+  [ICON_NAME.SEARCH]: Search,
 };
 
 const Icon = ({ name, fill }: IconProps) => {
-  const iconName = name.toLowerCase();
-  const IconComponent = ICONS[iconName];
+  const IconComponent = ICONS[name];
 
   if (IconComponent) {
     return <IconComponent fill={fill} />;

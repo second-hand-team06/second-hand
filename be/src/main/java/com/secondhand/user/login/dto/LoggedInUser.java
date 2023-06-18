@@ -1,10 +1,7 @@
 package com.secondhand.user.login.dto;
 
 import com.secondhand.user.entity.User;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Getter
 @Setter
@@ -19,7 +16,9 @@ public class LoggedInUser {
     private int firstRegionId;
     private Integer secondRegionId;
 
+    @Builder
     public LoggedInUser(User user) {
+        System.out.println("loggedin user id = " + user.getId());
         this.id = user.getId();
         this.githubId = user.getGithubId();
         this.loginId = user.getLoginId();

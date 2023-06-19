@@ -25,7 +25,7 @@ const Header = () => {
           </S.Modal>
         )}
       </S.NeighborhoodDropdown>
-      <Link to="/category">
+      <Link to="/categories">
         <Icon name={ICON_NAME.HAMBURGER} />
       </Link>
     </S.Header>

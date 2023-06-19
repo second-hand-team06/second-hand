@@ -16,3 +16,9 @@ export const HomeHeader: HeaderStory = {
     type: 'home',
   },
 };
+
+export const SearchHeader: HeaderStory = {
+  args: {
+    type: 'search',
+  },
+};

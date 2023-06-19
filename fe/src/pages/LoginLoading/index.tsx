@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Oauth = () => {
+const LoginLoading = () => {
   const navigate = useNavigate();
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -25,11 +25,11 @@ const Oauth = () => {
 
   useEffect(() => {
     if (!codeParam) return;
-    
+
     getToken();
   }, []);
 
   return <div>loading</div>;
 };
 
-export default Oauth;
+export default LoginLoading;

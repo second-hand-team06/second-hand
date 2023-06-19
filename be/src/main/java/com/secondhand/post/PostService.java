@@ -104,6 +104,9 @@ public class PostService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 지역이 존재하지 않습니다."));
         Category category = categoryRepository.findById(updatePostDto.getCategoryId())
                 .orElseThrow(() -> new IllegalArgumentException("해당 카테고리가 존재하지 않습니다."));
+
+        deleteOriginPhotos(postId);
+
         List<String> photoUrls = getPhotosUrl(updatePostDto.getPhotos());
 
         String thumbnail = photoUrls.get(0);
@@ -193,5 +196,10 @@ public class PostService {
         }
 
         return photos;
+    }
+
+    private void deleteOriginPhotos(long postId) {
+        postPhotoRepository.findAllPhotoUrlsByPostMetaId(postId).stream()
+                .forEach(photoUrl -> fileUploadService.deleteFile(photoUrl));
     }
 }

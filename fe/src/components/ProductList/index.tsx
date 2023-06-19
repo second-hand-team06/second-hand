@@ -22,7 +22,7 @@ const ProductList = () => {
   const intersectHandler: IntersectionObserverCallback = ([entry]) => {
     if (!entry.isIntersecting) return;
 
-    if (fetchState.state === 'SUCCESS') {
+    if (fetchState.state === 'SUCCESS' && !fetchState.data?.posts.last) {
       setPageNum((previousPageNum) => previousPageNum + 1);
     }
   };
@@ -47,7 +47,7 @@ const ProductList = () => {
           {postList.map((item) => (
             <ProductListItem key={item.id} {...item} />
           ))}
-          {!fetchState.data.posts.last && <div ref={setTarget}></div>}
+          {!fetchState.data.posts.last && <S.Target ref={setTarget}></S.Target>}
         </>
       )}
 

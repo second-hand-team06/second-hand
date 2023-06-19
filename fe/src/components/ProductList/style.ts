@@ -5,4 +5,8 @@ const ProductList = styled.div`
   padding: 0 16px;
 `;
 
-export { ProductList };
+const Target = styled.div`
+  height: 1px;
+`;
+
+export { ProductList, Target };

@@ -1,4 +1,6 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+
 import type { Preview } from '@storybook/react';
 
 import { ThemeProvider } from '../src/context/themeContext';
@@ -20,7 +22,9 @@ export const decorators = [
   (Story) => (
     <ThemeProvider>
       <GlobalStyle />
-      <Story />
+      <BrowserRouter>
+        <Story />
+      </BrowserRouter>
     </ThemeProvider>
   ),
 ];

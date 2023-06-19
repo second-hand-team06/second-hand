@@ -14,6 +14,7 @@ interface UseFetchProps {
 
 const useFetch = <T>({ url, method = 'GET', body = null }: UseFetchProps) => {
   const [fetchState, setFetchState] = useState<UseFetchState<T>>({ state: 'IDLE', data: null, error: null });
+  const token = localStorage.getItem('Token');
 
   const fetchData = async () => {
     try {
@@ -23,6 +24,10 @@ const useFetch = <T>({ url, method = 'GET', body = null }: UseFetchProps) => {
         method,
         headers: {},
       };
+
+      if (token) {
+        options.headers = { Authorization: `Bearer ${token}` };
+      }
 
       if (body) {
         options.body = JSON.stringify(body);

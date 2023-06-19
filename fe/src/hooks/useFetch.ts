@@ -21,13 +21,12 @@ const useFetch = <T>({ url, method = 'GET', body = null }: UseFetchProps) => {
 
       const options: RequestInit = {
         method,
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: {},
       };
 
-      if (body && method !== 'GET') {
+      if (body) {
         options.body = JSON.stringify(body);
+        options.headers = { 'Content-Type': 'application/json' };
       }
 
       const response = await fetch(url, options);

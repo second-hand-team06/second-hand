@@ -1,13 +1,15 @@
 import styled, { css } from 'styled-components';
 
+type ButtonType = 'circle' | 'rectangle' | 'category';
+type ButtonState = 'default' | 'active';
+
 interface ButtonProps {
-  buttontype: 'circle' | 'rectangle' | 'category';
-  buttonstate: 'default' | 'active';
+  buttontype: ButtonType;
+  buttonstate: ButtonState;
 }
 
 const Button = styled.button<ButtonProps>`
   ${({ buttontype }) => typeStyles[buttontype]}
-  ${({ buttonstate }) => buttonStateStyles[buttonstate]}
 
   display: flex;
   flex-direction: row;
@@ -16,6 +18,8 @@ const Button = styled.button<ButtonProps>`
 
 const typeStyles = {
   circle: css`
+    justify-content: center;
+
     width: 56px;
     height: 56px;
     padding: 10px;
@@ -23,44 +27,63 @@ const typeStyles = {
     border-radius: 56px;
     background-color: ${({ theme }) => theme.colors.accent.background.primary};
 
-    color: ${({ theme }) => theme.colors.accent.text.default};
+    & > svg {
+      fill: ${({ theme }) => theme.colors.accent.text.default};
+    }
   `,
 
-  rectangle: css`
+  rectangle: css<{ buttonstate: ButtonState }>`
+    justify-content: ${({ buttonstate }) => (buttonstate === 'default' ? 'center' : 'space-between')};
+
     width: 178px;
     height: 52px;
     padding: 16px 20px;
 
     border-radius: 8px;
 
-    font-size: 15px;
+    font-size: ${({ theme }) => theme.fonts.subhead.fontSize};
+    font-weight: ${({ theme }) => theme.fonts.subhead.fontWeight};
+    line-height: ${({ theme }) => theme.fonts.subhead.lineHeight};
+
+    ${({ buttonstate }) => colorStyles[buttonstate]}
   `,
 
-  category: css`
+  category: css<{ buttonstate: ButtonState }>`
+    justify-content: center;
+
     width: 63px;
     height: 32px;
     padding: 0px 16px;
 
     border-radius: 50px;
 
-    font-size: 12px;
+    font-size: ${({ theme }) => theme.fonts.caption1.fontSize};
+    font-weight: ${({ theme }) => theme.fonts.caption1.fontWeight};
+    line-height: ${({ theme }) => theme.fonts.caption1.lineHeight};
+
+    ${({ buttonstate }) => colorStyles[buttonstate]}
   `,
 };
 
-const buttonStateStyles = {
+const colorStyles = {
   default: css`
-    justify-content: center;
-
     background-color: ${({ theme }) => theme.colors.neutral.background.default};
+    border: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
 
     color: ${({ theme }) => theme.colors.neutral.text.strong};
+
+    & > svg {
+      fill: ${({ theme }) => theme.colors.neutral.text.strong};
+    }
   `,
   active: css`
-    justify-content: space-between;
-
     background-color: ${({ theme }) => theme.colors.accent.background.primary};
 
     color: ${({ theme }) => theme.colors.accent.text.default};
+
+    & > svg {
+      fill: ${({ theme }) => theme.colors.accent.text.default};
+    }
   `,
 };
 

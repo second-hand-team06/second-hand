@@ -11,6 +11,7 @@ import Interests from '@pages/Interests';
 import Chatting from '@pages/Chatting';
 import MyAccount from '@pages/MyAccount';
 import Oauth from '@pages/Oauth';
+import NewProduct from '@pages/NewProduct';
 
 import GlobalStyle from '@styles/GlobalStyle';
 
@@ -22,12 +23,13 @@ const App = () => {
         <Routes>
           <Route index path="/" element={<Home />} />
           <Route path="/neighborhood-setting" element={<NeighborhoodSetting />} />
-          <Route path="/category" element={<Category />} />
+          <Route path="/categories" element={<Category />} />
           <Route path="/sales" element={<Sales />} />
           <Route path="/interests" element={<Interests />} />
           <Route path="/chatting" element={<Chatting />} />
           <Route path="/my-account" element={<MyAccount />} />
           <Route path="/oauth" element={<Oauth />} />
+          <Route path="/new-product" element={<NewProduct />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

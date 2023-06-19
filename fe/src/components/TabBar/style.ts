@@ -29,7 +29,7 @@ const Tab = styled.div<TabProps>`
 const TabBar = styled.nav`
   display: flex;
   justify-content: space-between;
-  position: sticky;
+  position: fixed;
   bottom: 0;
 
   width: 100%;

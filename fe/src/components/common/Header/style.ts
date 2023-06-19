@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 const Header = styled.header`
-  position: sticky;
+  position: fixed;
   top: 0;
   display: flex;
   justify-content: space-between;

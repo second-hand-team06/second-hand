@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 const Home = () => {
   return (
     <>
-      <Header />
+      <Header type="home" />
       <S.ProductListLayout>
         <ProductList />
       </S.ProductListLayout>

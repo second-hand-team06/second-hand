@@ -5,6 +5,7 @@ import { RESPONSE_STATE, REQUEST_METHOD } from '@constants/index';
 type ResponseState = (typeof RESPONSE_STATE)[keyof typeof RESPONSE_STATE];
 type DataState<T> = null | T;
 type ErrorState = null | Error;
+
 type Method = (typeof REQUEST_METHOD)[keyof typeof REQUEST_METHOD];
 
 interface UseFetchProps {
@@ -32,11 +33,11 @@ const useFetch = <T>({ url, method = REQUEST_METHOD.GET, body = null }: UseFetch
         options.headers = { Authorization: `Bearer ${token}` };
       }
 
-      if (['POST', 'PUT', 'PATCH'].includes(method) && !options.body) {
-        throw new Error('body가 없습니다');
-      }
+      if (['POST', 'PUT', 'PATCH'].includes(method)) {
+        if (!options.body) {
+          throw new Error(`Request failed for ${method} ${url}. Please provide a valid request body.`);
+        }
 
-      if (body) {
         options.body = JSON.stringify(body);
         options.headers = { 'Content-Type': 'application/json' };
       }
@@ -44,7 +45,7 @@ const useFetch = <T>({ url, method = REQUEST_METHOD.GET, body = null }: UseFetch
       const response = await fetch(url, options);
 
       if (!response.ok) {
-        throw new Error(`${response.status}`);
+        throw new Error(`Request failed for ${method} ${url}. Status: ${response.status}.`);
       }
 
       const result = await response.json();

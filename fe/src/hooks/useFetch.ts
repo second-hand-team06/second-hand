@@ -1,24 +1,27 @@
 import { useState, useEffect } from 'react';
 
-interface UseFetchState<T> {
-  state: 'IDLE' | 'LOADING' | 'ERROR' | 'SUCCESS';
-  data: null | T;
-  error: null | Error;
-}
+import { RESPONSE_STATE, REQUEST_METHOD } from '@constants/index';
+
+type ResponseState = (typeof RESPONSE_STATE)[keyof typeof RESPONSE_STATE];
+type DataState<T> = null | T;
+type ErrorState = null | Error;
+type Method = (typeof REQUEST_METHOD)[keyof typeof REQUEST_METHOD];
 
 interface UseFetchProps {
   url: string;
-  method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
+  method?: Method;
   body?: object | null;
 }
 
-const useFetch = <T>({ url, method = 'GET', body = null }: UseFetchProps) => {
-  const [fetchState, setFetchState] = useState<UseFetchState<T>>({ state: 'IDLE', data: null, error: null });
+const useFetch = <T>({ url, method = REQUEST_METHOD.GET, body = null }: UseFetchProps) => {
+  const [responseState, setResponseState] = useState<ResponseState>(RESPONSE_STATE.IDLE);
+  const [data, setData] = useState<DataState<T>>(null);
+  const [error, setError] = useState<ErrorState>(null);
   const token = localStorage.getItem('Token');
 
   const fetchData = async () => {
     try {
-      setFetchState((previous) => ({ ...previous, state: 'LOADING' }));
+      setResponseState(RESPONSE_STATE.LOADING);
 
       const options: RequestInit = {
         method,
@@ -30,7 +33,7 @@ const useFetch = <T>({ url, method = 'GET', body = null }: UseFetchProps) => {
       }
 
       if (['POST', 'PUT', 'PATCH'].includes(method) && !options.body) {
-        throw new Error('body가 없습니다')
+        throw new Error('body가 없습니다');
       }
 
       if (body) {
@@ -48,13 +51,19 @@ const useFetch = <T>({ url, method = 'GET', body = null }: UseFetchProps) => {
 
       // todo: 백엔드와 데이터 형식 협의
       if (result.token) {
-        setFetchState({ state: 'SUCCESS', data: result.token, error: null });
+        setResponseState(RESPONSE_STATE.SUCCESS);
+        setData(result.token);
+        setError(null);
         return;
       }
 
-      setFetchState({ state: 'SUCCESS', data: result.data, error: null });
+      setResponseState(RESPONSE_STATE.SUCCESS);
+      setData(result.data);
+      setError(null);
     } catch (err) {
-      setFetchState({ state: 'ERROR', data: null, error: err as Error });
+      setResponseState(RESPONSE_STATE.ERROR);
+      setData(null);
+      setError(err as Error);
     }
   };
 
@@ -62,7 +71,7 @@ const useFetch = <T>({ url, method = 'GET', body = null }: UseFetchProps) => {
     fetchData();
   }, []);
 
-  return { fetchData, fetchState };
+  return { fetchData, responseState, data, error };
 };
 
 export default useFetch;

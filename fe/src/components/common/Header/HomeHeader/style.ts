@@ -1,11 +1,11 @@
 import styled, { css } from 'styled-components';
 
 const HomeHeader = styled.header`
-  position: fixed;
-  top: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: fixed;
+  top: 0;
 
   width: 100%;
   height: 44px;

@@ -25,7 +25,6 @@ export interface ProductListItemProps {
 }
 
 const ProductListItem = ({
-  id,
   title,
   photoUrl,
   region,

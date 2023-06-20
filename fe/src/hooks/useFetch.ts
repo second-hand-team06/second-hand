@@ -14,6 +14,7 @@ interface UseFetchProps {
 
 const useFetch = <T>({ url, method = 'GET', body = null }: UseFetchProps) => {
   const [fetchState, setFetchState] = useState<UseFetchState<T>>({ state: 'IDLE', data: null, error: null });
+  const token = localStorage.getItem('Token');
 
   const fetchData = async () => {
     try {
@@ -21,13 +22,20 @@ const useFetch = <T>({ url, method = 'GET', body = null }: UseFetchProps) => {
 
       const options: RequestInit = {
         method,
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: {},
       };
 
-      if (body && method !== 'GET') {
+      if (token) {
+        options.headers = { Authorization: `Bearer ${token}` };
+      }
+
+      if (['POST', 'PUT', 'PATCH'].includes(method) && !options.body) {
+        throw new Error('body가 없습니다')
+      }
+
+      if (body) {
         options.body = JSON.stringify(body);
+        options.headers = { 'Content-Type': 'application/json' };
       }
 
       const response = await fetch(url, options);
@@ -37,6 +45,12 @@ const useFetch = <T>({ url, method = 'GET', body = null }: UseFetchProps) => {
       }
 
       const result = await response.json();
+
+      // todo: 백엔드와 데이터 형식 협의
+      if (result.token) {
+        setFetchState({ state: 'SUCCESS', data: result.token, error: null });
+        return;
+      }
 
       setFetchState({ state: 'SUCCESS', data: result.data, error: null });
     } catch (err) {

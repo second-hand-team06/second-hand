@@ -29,6 +29,10 @@ const useFetch = <T>({ url, method = 'GET', body = null }: UseFetchProps) => {
         options.headers = { Authorization: `Bearer ${token}` };
       }
 
+      if (['POST', 'PUT', 'PATCH'].includes(method)) {
+        !options.body ?? console.log('body가 없습니다!');
+      }
+
       if (body) {
         options.body = JSON.stringify(body);
         options.headers = { 'Content-Type': 'application/json' };

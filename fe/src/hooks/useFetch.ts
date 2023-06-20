@@ -29,8 +29,8 @@ const useFetch = <T>({ url, method = 'GET', body = null }: UseFetchProps) => {
         options.headers = { Authorization: `Bearer ${token}` };
       }
 
-      if (['POST', 'PUT', 'PATCH'].includes(method)) {
-        !options.body ?? console.log('body가 없습니다!');
+      if (['POST', 'PUT', 'PATCH'].includes(method) && !options.body) {
+        throw new Error('body가 없습니다')
       }
 
       if (body) {
@@ -45,6 +45,12 @@ const useFetch = <T>({ url, method = 'GET', body = null }: UseFetchProps) => {
       }
 
       const result = await response.json();
+
+      // todo: 백엔드와 데이터 형식 협의
+      if (result.token) {
+        setFetchState({ state: 'SUCCESS', data: result.token, error: null });
+        return;
+      }
 
       setFetchState({ state: 'SUCCESS', data: result.data, error: null });
     } catch (err) {

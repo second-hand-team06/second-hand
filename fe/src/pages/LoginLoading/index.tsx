@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { REQUEST_METHOD } from '@constants/index';
+import { REQUEST_METHOD, RESPONSE_STATE } from '@constants/index';
 
 import useFetch from '@hooks/useFetch';
 
@@ -14,17 +14,24 @@ const LoginLoading = () => {
   const urlParams = new URLSearchParams(queryString);
   const codeParam = urlParams.get('code');
 
-  const { data: token } = useFetch<Data>({
+  const { responseState, data: token } = useFetch<Data>({
     url: `http://13.124.150.120:8080/oauth?code=${codeParam}`,
     method: REQUEST_METHOD.GET,
   });
 
   useEffect(() => {
-    if (token && !localStorage.getItem('Token')) {
+    const isLoggedIn = localStorage.getItem('Token');
+
+    if (isLoggedIn) navigate('/');
+
+    if (responseState !== RESPONSE_STATE.SUCCESS) return;
+
+    if (token) {
       localStorage.setItem('Token', token);
-      navigate('/');
     }
-  }, [token]);
+
+    navigate('/');
+  }, [responseState, token]);
 
   return <div>loading</div>;
 };

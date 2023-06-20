@@ -5,7 +5,6 @@ import { RESPONSE_STATE, REQUEST_METHOD } from '@constants/index';
 type ResponseState = (typeof RESPONSE_STATE)[keyof typeof RESPONSE_STATE];
 type DataState<T> = null | T;
 type ErrorState = null | Error;
-
 type Method = (typeof REQUEST_METHOD)[keyof typeof REQUEST_METHOD];
 
 interface UseFetchProps {
@@ -33,7 +32,11 @@ const useFetch = <T>({ url, method = REQUEST_METHOD.GET, body = null }: UseFetch
         options.headers = { Authorization: `Bearer ${token}` };
       }
 
-      if (['POST', 'PUT', 'PATCH'].includes(method)) {
+      if (
+        method === REQUEST_METHOD.PATCH ||
+        method === REQUEST_METHOD.POST ||
+        method === REQUEST_METHOD.PUT
+      ) {
         if (!options.body) {
           throw new Error(`Request failed for ${method} ${url}. Please provide a valid request body.`);
         }

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { ICON_NAME, REQUEST_METHOD, RESPONSE_STATE } from '@constants/index';
@@ -17,7 +18,11 @@ interface CategoriesData {
   categories: Category[];
 }
 
+type ClickedCategoryState<T> = null | T;
+
 const Category = () => {
+  const [clickedCategory, setClickedCategory] =
+    useState<ClickedCategoryState<{ id: number; name: string }>>(null);
   const { responseState, data } = useFetch<CategoriesData>({
     url: 'http://13.124.150.120:8080/categories',
     method: REQUEST_METHOD.GET,
@@ -40,10 +45,10 @@ const Category = () => {
       {responseState === RESPONSE_STATE.ERROR && <div>error</div>}
       {responseState === RESPONSE_STATE.SUCCESS && (
         <S.CategoryList>
-          {data?.categories.map((item) => (
-            <S.CategoryItem key={item.id}>
-              <S.CategoryImg src={item.photoUrl} />
-              <span>{item.name}</span>
+          {data?.categories.map(({ id, name, photoUrl }) => (
+            <S.CategoryItem key={id} onClick={() => setClickedCategory({ id, name })}>
+              <S.CategoryImg src={photoUrl} alt={name} />
+              <span>{name}</span>
             </S.CategoryItem>
           ))}
         </S.CategoryList>

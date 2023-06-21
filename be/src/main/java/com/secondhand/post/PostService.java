@@ -5,6 +5,7 @@ import com.secondhand.post.dto.*;
 import com.secondhand.post.entity.*;
 import com.secondhand.post.repository.badge.BadgeRepository;
 import com.secondhand.post.repository.category.CategoryRepository;
+import com.secondhand.post.repository.chattingroom.ChattingRoomRepository;
 import com.secondhand.post.repository.interest.InterestRepository;
 import com.secondhand.post.repository.postdetail.PostDetailRepository;
 import com.secondhand.post.repository.postmeta.PostMetaRepository;
@@ -24,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static com.secondhand.post.validator.PostValidator.validatePostDeleted;
 import static com.secondhand.post.validator.PostValidator.validatePostOwnershipMismatch;
@@ -43,6 +45,7 @@ public class PostService {
     private final RegionRepository regionRepository;
     private final CategoryRepository categoryRepository;
     private final BadgeRepository badgeRepository;
+    private final ChattingRoomRepository chattingRoomRepository;
     private final FileUploadService fileUploadService;
 
     @Transactional(readOnly = true)
@@ -147,6 +150,25 @@ public class PostService {
     public BadgesDto findBadges() {
 
         return new BadgesDto(badgeRepository.findAll());
+    }
+
+    @Transactional
+    public ChattingRoomDto createChattingRoom(Long postId, LoggedInUser loggedInUser) {
+
+        PostMeta postMeta = postMetaRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
+        User buyer = userRepository.findById(loggedInUser.getId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다."));
+
+        Optional<ChattingRoom> createdChattingRoom = chattingRoomRepository.findByPostMetaIdAndBuyerId(postMeta.getId(), buyer.getId());
+
+        if (createdChattingRoom.isPresent()) {
+            return new ChattingRoomDto(createdChattingRoom.get().getId());
+        }
+
+        ChattingRoom newChattingRoom = chattingRoomRepository.save(new ChattingRoom(postMeta, buyer));
+
+        return new ChattingRoomDto(newChattingRoom.getId());
     }
 
     private PostMeta savePost(PostSaveDto postSaveDto, LoggedInUser loggedInUser) {

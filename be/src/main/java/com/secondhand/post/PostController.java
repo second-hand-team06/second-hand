@@ -130,4 +130,16 @@ public class PostController {
                         "뱃지 목록 조회 성공",
                         postService.findBadges()));
     }
+
+    @PostMapping("/{postId}/chattingRoom")
+    public ResponseEntity<CustomResponse<ChattingRoomDto>> createChattingRoom(@RequestAttribute LoggedInUser loggedInUser, @PathVariable Long postId) {
+
+        return ResponseEntity
+                .ok()
+                .body(new CustomResponse(
+                        "success",
+                        200,
+                        "채팅방 생성 성공",
+                        postService.createChattingRoom(postId, loggedInUser)));
+    }
 }

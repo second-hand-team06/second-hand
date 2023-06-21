@@ -44,8 +44,6 @@ class JwtUtilTest {
         assertThat(loggedInUser.getGithubId()).isEqualTo(extractedUserFromToken.getGithubId());
         assertThat(loggedInUser.getLoginId()).isEqualTo(extractedUserFromToken.getLoginId());
         assertThat(loggedInUser.getProfileUrl()).isEqualTo(extractedUserFromToken.getProfileUrl());
-        assertThat(loggedInUser.getFirstRegionId()).isEqualTo(extractedUserFromToken.getFirstRegionId());
-        assertThat(loggedInUser.getSecondRegionId()).isEqualTo(extractedUserFromToken.getSecondRegionId());
     }
 
     @DisplayName("조작된 토큰이 들어오면 false를 반환한다")

@@ -12,12 +12,18 @@ interface PostsData {
   posts: { content: ProductListItemProps[]; last: boolean };
 }
 
-const ProductList = () => {
+interface ProductListProps {
+  categoryId?: number;
+}
+
+const ProductList = ({ categoryId }: ProductListProps) => {
   const [pageNum, setPageNum] = useState(0);
   const [postList, setPostList] = useState<ProductListItemProps[]>([]);
 
   const { fetchData, responseState, data } = useFetch<PostsData>({
-    url: `http://13.124.150.120:8080/posts?page=${pageNum}&size=10`,
+    url: `http://13.124.150.120:8080/posts?page=${pageNum}&size=10${
+      categoryId ? `&category=${categoryId}` : ''
+    }`,
     method: REQUEST_METHOD.GET,
   });
 

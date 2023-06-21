@@ -51,9 +51,12 @@ const ProductList = ({ categoryId }: ProductListProps) => {
     <S.ProductList>
       {responseState === RESPONSE_STATE.SUCCESS && data && (
         <>
-          {postList.map((item) => (
-            <ProductListItem key={item.id} {...item} />
-          ))}
+          {postList.length > 0 ? (
+            postList.map((item) => <ProductListItem key={item.id} {...item} />)
+          ) : (
+            <S.ProductNotFound>해당 상품이 없어요.</S.ProductNotFound>
+          )}
+
           {!data.posts.last && <S.Target ref={setTarget}></S.Target>}
         </>
       )}

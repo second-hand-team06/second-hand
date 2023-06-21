@@ -10,8 +10,9 @@ import Sales from '@pages/Sales';
 import Interests from '@pages/Interests';
 import Chatting from '@pages/Chatting';
 import MyAccount from '@pages/MyAccount';
-import LoginLoading from '@pages/LoginLoading'
+import LoginLoading from '@pages/LoginLoading';
 import NewProduct from '@pages/NewProduct';
+import NotFound from '@pages/NotFound';
 
 import GlobalStyle from '@styles/GlobalStyle';
 
@@ -30,6 +31,7 @@ const App = () => {
           <Route path="/my-account" element={<MyAccount />} />
           <Route path="/login-loading" element={<LoginLoading />} />
           <Route path="/new-product" element={<NewProduct />} />
+          <Route path="/*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

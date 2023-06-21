@@ -13,8 +13,6 @@ public class LoggedInUser {
     private long githubId;
     private String loginId;
     private String profileUrl;
-    private int firstRegionId;
-    private Integer secondRegionId;
 
     @Builder
     public LoggedInUser(User user) {
@@ -22,7 +20,5 @@ public class LoggedInUser {
         this.githubId = user.getGithubId();
         this.loginId = user.getLoginId();
         this.profileUrl = user.getProfileUrl();
-        this.firstRegionId = user.getFirstRegionId();
-        this.secondRegionId = user.getSecondRegionId();
     }
 }

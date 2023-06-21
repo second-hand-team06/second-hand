@@ -7,6 +7,7 @@ import com.secondhand.post.repository.postmeta.PostMetaRepository;
 import com.secondhand.region.dto.PostMyRegionDto;
 import com.secondhand.region.repository.RegionRepository;
 import com.secondhand.region.validator.RegionValidator;
+import com.secondhand.user.dto.UserRegionsDto;
 import com.secondhand.user.entity.User;
 import com.secondhand.user.login.dto.LoggedInUser;
 import com.secondhand.user.repository.UserRepository;
@@ -15,6 +16,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -25,6 +28,17 @@ public class UserService {
     private final PostMetaRepository postMetaRepository;
     private final InterestRepository interestRepository;
     private final RegionRepository regionRepository;
+
+    @Transactional
+    public UserRegionsDto getMyRegion(Long userId) {
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다."));
+
+        List<Integer> regionIds = getUserRegionIds(user);
+
+        return new UserRegionsDto(regionRepository.findAllRegionsByIdIn(regionIds));
+    }
 
     @Transactional
     public void updateMyRegion(long userId, PostMyRegionDto postMyRegionDto) {
@@ -60,5 +74,18 @@ public class UserService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 관심상품이 존재하지 않습니다."));
 
         interestRepository.delete(interest);
+    }
+
+
+    private List<Integer> getUserRegionIds(User user) {
+
+        List<Integer> regionIds = new ArrayList<>();
+
+        regionIds.add(user.getFirstRegionId());
+
+        if (user.getSecondRegionId() != null) {
+            regionIds.add(user.getSecondRegionId());
+        }
+        return regionIds;
     }
 }

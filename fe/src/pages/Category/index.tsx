@@ -6,6 +6,7 @@ import { ICON_NAME, REQUEST_METHOD, RESPONSE_STATE } from '@constants/index';
 import useFetch from '@hooks/useFetch';
 
 import Icon from '@components/common/Icon';
+import ProductList from '@components/ProductList';
 import * as S from './style';
 
 interface Category {
@@ -23,10 +24,26 @@ type ClickedCategoryState<T> = null | T;
 const Category = () => {
   const [clickedCategory, setClickedCategory] =
     useState<ClickedCategoryState<{ id: number; name: string }>>(null);
+
   const { responseState, data } = useFetch<CategoriesData>({
     url: 'http://13.124.150.120:8080/categories',
     method: REQUEST_METHOD.GET,
   });
+
+  if (clickedCategory) {
+    return (
+      <>
+        <S.Header>
+          <S.BackButton onClick={() => setClickedCategory(null)}>
+            <Icon name={ICON_NAME.CHEVRON_LEFT} />
+          </S.BackButton>
+          <S.HeaderTitle>{clickedCategory.name}</S.HeaderTitle>
+          <S.EmptyTag></S.EmptyTag>
+        </S.Header>
+        <ProductList categoryId={clickedCategory.id} />
+      </>
+    );
+  }
 
   return (
     <>

@@ -24,12 +24,38 @@ const BackButton = styled.button`
   align-items: center;
   gap: 10px;
 
+  width: 100px;
+
   font-size: ${({ theme }) => theme.fonts.body.regular.fontSize};
   font-weight: ${({ theme }) => theme.fonts.body.regular.fontWeight};
   line-height: ${({ theme }) => theme.fonts.body.regular.lineHeight};
   color: ${({ theme }) => theme.colors.neutral.text.strong};
 `;
 
-const EmptyTag = styled.div``;
+const EmptyTag = styled.div`
+  width: 100px;
+`;
 
-export { Header, BackButton, HeaderTitle, EmptyTag };
+const CategoryImg = styled.img`
+  width: 44px;
+  height: 44px;
+
+  border-radius: 8px;
+`;
+
+const CategoryItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 80px;
+  height: 68px;
+
+  font-size: ${({ theme }) => theme.fonts.fontnote.fontSize};
+  font-weight: ${({ theme }) => theme.fonts.fontnote.fontWeight};
+  line-height: ${({ theme }) => theme.fonts.fontnote.lineHeight};
+  color: ${({ theme }) => theme.colors.neutral.text.default};
+`;
+
+export { Header, BackButton, HeaderTitle, EmptyTag, CategoryImg, CategoryItem };

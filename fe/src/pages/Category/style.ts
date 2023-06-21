@@ -37,10 +37,12 @@ const EmptyTag = styled.div`
 `;
 
 const CategoryImg = styled.img`
-  width: 44px;
-  height: 44px;
+  width: 70%;
+  height: 70%;
 
   border-radius: 8px;
+
+  object-fit: cover;
 `;
 
 const CategoryItem = styled.div`
@@ -50,12 +52,23 @@ const CategoryItem = styled.div`
   align-items: center;
 
   width: 80px;
-  height: 68px;
+  height: 80px;
 
   font-size: ${({ theme }) => theme.fonts.fontnote.fontSize};
   font-weight: ${({ theme }) => theme.fonts.fontnote.fontWeight};
   line-height: ${({ theme }) => theme.fonts.fontnote.lineHeight};
   color: ${({ theme }) => theme.colors.neutral.text.default};
+
+  cursor: pointer;
 `;
 
-export { Header, BackButton, HeaderTitle, EmptyTag, CategoryImg, CategoryItem };
+const CategoryList = styled.section`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  justify-items: center;
+  gap: 27px;
+
+  padding: 40px;
+`;
+
+export { Header, BackButton, HeaderTitle, EmptyTag, CategoryImg, CategoryItem, CategoryList };

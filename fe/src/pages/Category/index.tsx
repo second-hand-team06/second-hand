@@ -38,13 +38,16 @@ const Category = () => {
 
       {responseState === RESPONSE_STATE.LOADING && <div>loading</div>}
       {responseState === RESPONSE_STATE.ERROR && <div>error</div>}
-      {responseState === RESPONSE_STATE.SUCCESS &&
-        data?.categories.map((item) => (
-          <S.CategoryItem key={item.id}>
-            <S.CategoryImg src={item.photoUrl} />
-            <span>{item.name}</span>
-          </S.CategoryItem>
-        ))}
+      {responseState === RESPONSE_STATE.SUCCESS && (
+        <S.CategoryList>
+          {data?.categories.map((item) => (
+            <S.CategoryItem key={item.id}>
+              <S.CategoryImg src={item.photoUrl} />
+              <span>{item.name}</span>
+            </S.CategoryItem>
+          ))}
+        </S.CategoryList>
+      )}
     </>
   );
 };

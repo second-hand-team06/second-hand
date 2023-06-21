@@ -1,12 +1,10 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { ICON_NAME, REQUEST_METHOD, RESPONSE_STATE } from '@constants/index';
 
 import useFetch from '@hooks/useFetch';
 
 import Icon from '@components/common/Icon';
-import ProductList from '@components/ProductList';
 import * as S from './style';
 
 interface Category {
@@ -19,31 +17,13 @@ interface CategoriesData {
   categories: Category[];
 }
 
-type ClickedCategoryState<T> = null | T;
-
 const Category = () => {
-  const [clickedCategory, setClickedCategory] =
-    useState<ClickedCategoryState<{ id: number; name: string }>>(null);
+  const navigate = useNavigate();
 
   const { responseState, data } = useFetch<CategoriesData>({
     url: 'http://13.124.150.120:8080/categories',
     method: REQUEST_METHOD.GET,
   });
-
-  if (clickedCategory) {
-    return (
-      <>
-        <S.Header>
-          <S.BackButton onClick={() => setClickedCategory(null)}>
-            <Icon name={ICON_NAME.CHEVRON_LEFT} />
-          </S.BackButton>
-          <S.HeaderTitle>{clickedCategory.name}</S.HeaderTitle>
-          <S.EmptyTag></S.EmptyTag>
-        </S.Header>
-        <ProductList categoryId={clickedCategory.id} />
-      </>
-    );
-  }
 
   return (
     <>
@@ -63,7 +43,7 @@ const Category = () => {
       {responseState === RESPONSE_STATE.SUCCESS && (
         <S.CategoryList>
           {data?.categories.map(({ id, name, photoUrl }) => (
-            <S.CategoryItem key={id} onClick={() => setClickedCategory({ id, name })}>
+            <S.CategoryItem key={id} onClick={() => navigate(`/categories/detail?id=${id}&name=${name}`)}>
               <S.CategoryImg src={photoUrl} alt={name} />
               <span>{name}</span>
             </S.CategoryItem>

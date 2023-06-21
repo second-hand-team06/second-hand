@@ -15,6 +15,7 @@ import NewProduct from '@pages/NewProduct';
 import NotFound from '@pages/NotFound';
 
 import GlobalStyle from '@styles/GlobalStyle';
+import CategoryDetail from '@pages/CategoryDetail';
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
           <Route index path="/" element={<Home />} />
           <Route path="/region-setting" element={<RegionSetting />} />
           <Route path="/categories" element={<Category />} />
+          <Route path="/categories/detail" element={<CategoryDetail />} />
           <Route path="/sales" element={<Sales />} />
           <Route path="/interests" element={<Interests />} />
           <Route path="/chatting" element={<Chatting />} />

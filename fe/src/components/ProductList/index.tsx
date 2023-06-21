@@ -8,7 +8,7 @@ import { RESPONSE_STATE, REQUEST_METHOD } from '@constants/index';
 import ProductListItem, { ProductListItemProps } from '@components/ProductListItem';
 import * as S from './style';
 
-interface Data {
+interface PostsData {
   posts: { content: ProductListItemProps[]; last: boolean };
 }
 
@@ -16,7 +16,7 @@ const ProductList = () => {
   const [pageNum, setPageNum] = useState(0);
   const [postList, setPostList] = useState<ProductListItemProps[]>([]);
 
-  const { fetchData, responseState, data } = useFetch<Data>({
+  const { fetchData, responseState, data } = useFetch<PostsData>({
     url: `http://13.124.150.120:8080/posts?page=${pageNum}&size=10`,
     method: REQUEST_METHOD.GET,
   });

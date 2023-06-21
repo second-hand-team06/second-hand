@@ -3,10 +3,12 @@ import { useState, useEffect } from 'react';
 import useFetch from '@hooks/useFetch';
 import useIntersectionObserver from '@hooks/useIntersectionObserver';
 
+import { RESPONSE_STATE, REQUEST_METHOD } from '@constants/index';
+
 import ProductListItem, { ProductListItemProps } from '@components/ProductListItem';
 import * as S from './style';
 
-interface PostsApiResponse {
+interface PostsData {
   posts: { content: ProductListItemProps[]; last: boolean };
 }
 
@@ -14,15 +16,15 @@ const ProductList = () => {
   const [pageNum, setPageNum] = useState(0);
   const [postList, setPostList] = useState<ProductListItemProps[]>([]);
 
-  const { fetchData, fetchState } = useFetch<PostsApiResponse>({
+  const { fetchData, responseState, data } = useFetch<PostsData>({
     url: `http://13.124.150.120:8080/posts?page=${pageNum}&size=10`,
-    method: 'GET',
+    method: REQUEST_METHOD.GET,
   });
 
   const intersectHandler: IntersectionObserverCallback = ([entry]) => {
     if (!entry.isIntersecting) return;
 
-    if (fetchState.state === 'SUCCESS' && !fetchState.data?.posts.last) {
+    if (responseState === RESPONSE_STATE.SUCCESS && !data?.posts.last) {
       setPageNum((previousPageNum) => previousPageNum + 1);
     }
   };
@@ -34,24 +36,23 @@ const ProductList = () => {
   }, [pageNum]);
 
   useEffect(() => {
-    if (fetchState.state !== 'SUCCESS' || !fetchState.data) return;
+    if (responseState !== RESPONSE_STATE.SUCCESS || !data) return;
 
-    const { posts } = fetchState.data;
-    setPostList((previous) => [...previous, ...posts.content]);
-  }, [fetchState.state, fetchState.data]);
+    setPostList((previous) => [...previous, ...data.posts.content]);
+  }, [responseState, data]);
 
   return (
     <S.ProductList>
-      {fetchState.state === 'SUCCESS' && fetchState.data && (
+      {responseState === RESPONSE_STATE.SUCCESS && data && (
         <>
           {postList.map((item) => (
             <ProductListItem key={item.id} {...item} />
           ))}
-          {!fetchState.data.posts.last && <S.Target ref={setTarget}></S.Target>}
+          {!data.posts.last && <S.Target ref={setTarget}></S.Target>}
         </>
       )}
 
-      {fetchState.state === 'LOADING' && (
+      {responseState === RESPONSE_STATE.LOADING && (
         <>
           {postList.length > 0 ? (
             <>
@@ -66,7 +67,7 @@ const ProductList = () => {
         </>
       )}
 
-      {fetchState.state === 'ERROR' && <h1>Error</h1>}
+      {responseState === RESPONSE_STATE.ERROR && <h1>Error</h1>}
     </S.ProductList>
   );
 };

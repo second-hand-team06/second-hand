@@ -1,6 +1,7 @@
 package com.secondhand.user;
 
 import com.secondhand.region.dto.PostMyRegionDto;
+import com.secondhand.user.dto.UserRegionsDto;
 import com.secondhand.user.login.dto.LoggedInUser;
 import com.secondhand.util.CustomResponse;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,18 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+
+    @GetMapping("/regions")
+    public ResponseEntity<CustomResponse<UserRegionsDto>> getMyRegion(@RequestAttribute LoggedInUser loggedInUser) {
+
+        return ResponseEntity
+                .ok()
+                .body(new CustomResponse(
+                        "success",
+                        200,
+                        "지역 조회 성공",
+                        userService.getMyRegion(loggedInUser.getId())));
+    }
 
     @PutMapping("/regions")
     public ResponseEntity<CustomResponse> updateMyRegion(@Validated @RequestBody PostMyRegionDto postMyRegionDto, @RequestAttribute LoggedInUser loggedInUser) {

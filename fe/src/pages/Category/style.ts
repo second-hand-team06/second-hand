@@ -12,7 +12,7 @@ const Header = styled.header`
   border-bottom: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
 `;
 
-const Title = styled.span`
+const HeaderTitle = styled.span`
   font-size: ${({ theme }) => theme.fonts.body.bold.fontSize};
   font-weight: ${({ theme }) => theme.fonts.body.bold.fontWeight};
   line-height: ${({ theme }) => theme.fonts.body.bold.lineHeight};
@@ -32,4 +32,4 @@ const BackButton = styled.button`
 
 const EmptyTag = styled.div``;
 
-export { Header, BackButton, Title, EmptyTag };
+export { Header, BackButton, HeaderTitle, EmptyTag };

@@ -13,7 +13,7 @@ const Category = () => {
           <span>뒤로</span>
         </S.BackButton>
       </Link>
-      <S.Title>카테고리</S.Title>
+      <S.HeaderTitle>카테고리</S.HeaderTitle>
       <S.EmptyTag></S.EmptyTag>
     </S.Header>
   );

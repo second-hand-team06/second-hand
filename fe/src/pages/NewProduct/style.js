@@ -5,10 +5,10 @@ const NewProduct = styled.div``;
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
 
   width: 100%;
-  height: 98px;
+  height: 44px;
   padding: 11px 16px;
   
   background-color: ${({ theme }) => theme.colors.neutral.background.blur};

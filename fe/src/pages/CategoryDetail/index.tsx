@@ -22,7 +22,10 @@ const CategoryDetail = () => {
         <S.HeaderTitle>{nameParams}</S.HeaderTitle>
         <S.EmptyTag></S.EmptyTag>
       </S.Header>
-      <ProductList categoryId={Number(idParams)} />
+
+      <S.ProductListLayout>
+        <ProductList categoryId={Number(idParams)} />
+      </S.ProductListLayout>
     </>
   );
 };

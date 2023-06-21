@@ -36,4 +36,9 @@ const EmptyTag = styled.div`
   width: 100px;
 `;
 
-export { Header, BackButton, HeaderTitle, EmptyTag };
+const ProductListLayout = styled.div`
+  height: calc(100vh - 44px);
+  overflow-y: scroll;
+`;
+
+export { Header, BackButton, HeaderTitle, EmptyTag, ProductListLayout };

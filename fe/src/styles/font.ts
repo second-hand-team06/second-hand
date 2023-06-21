@@ -32,9 +32,16 @@ const fonts = {
     lineHeight: '22px',
   },
   body: {
-    fontSize: '17px',
-    fontWeight: `${FONT.WEIGHT.REGULAR}`,
-    lineHeight: '24px',
+    regular: {
+      fontSize: '17px',
+      fontWeight: `${FONT.WEIGHT.REGULAR}`,
+      lineHeight: '22px',
+    },
+    bold: {
+      fontSize: '17px',
+      fontWeight: `${FONT.WEIGHT.SEMIBOLD}`,
+      lineHeight: '22px',
+    },
   },
   callout: {
     fontSize: '16px',

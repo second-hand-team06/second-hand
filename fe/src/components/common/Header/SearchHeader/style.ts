@@ -17,9 +17,9 @@ const CloseButton = styled.button`
   width: 105px;
   height: 42px;
 
-  font-size: ${({ theme }) => theme.fonts.body.fontSize};
-  font-weight: ${({ theme }) => theme.fonts.body.fontWeight};
-  line-height: ${({ theme }) => theme.fonts.body.lineHeight};
+  font-size: ${({ theme }) => theme.fonts.body.regular.fontSize};
+  font-weight: ${({ theme }) => theme.fonts.body.regular.fontWeight};
+  line-height: ${({ theme }) => theme.fonts.body.regular.lineHeight};
   color: ${({ theme }) => theme.colors.neutral.text.default};
 `;
 

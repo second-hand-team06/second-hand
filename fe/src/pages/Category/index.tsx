@@ -1,5 +1,22 @@
+import { ICON_NAME } from '@constants/index';
+
+import Icon from '@components/common/Icon';
+import * as S from './style';
+import { Link } from 'react-router-dom';
+
 const Category = () => {
-  return <div>Category</div>;
+  return (
+    <S.Header>
+      <Link to="/">
+        <S.BackButton>
+          <Icon name={ICON_NAME.CHEVRON_LEFT} />
+          <span>뒤로</span>
+        </S.BackButton>
+      </Link>
+      <S.HeaderTitle>카테고리</S.HeaderTitle>
+      <S.EmptyTag></S.EmptyTag>
+    </S.Header>
+  );
 };
 
 export default Category;

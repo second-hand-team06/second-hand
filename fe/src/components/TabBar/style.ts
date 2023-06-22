@@ -18,9 +18,9 @@ const Tab = styled.div<TabProps>`
   align-items: center;
   gap: 7px;
 
-  font-size: ${({ theme }) => theme.fonts.fontnote.fontSize};
-  line-height: ${({ theme }) => theme.fonts.fontnote.lineHeight};
-  font-weight: ${({ theme }) => theme.fonts.fontnote.fontWeight};
+  font-size: ${({ theme }) => theme.fonts.footnote.fontSize};
+  line-height: ${({ theme }) => theme.fonts.footnote.lineHeight};
+  font-weight: ${({ theme }) => theme.fonts.footnote.fontWeight};
   color: ${({ name, activetab, theme }) => theme.colors.neutral.text[name === activetab ? 'strong' : 'weak']};
 
   ${IconColorStyles}

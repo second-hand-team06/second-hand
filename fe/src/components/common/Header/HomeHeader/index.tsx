@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
 import { ICON_NAME, REQUEST_METHOD } from '@constants/index';
+import { getRegion } from '@utils/index';
 
 import useFetch from '@hooks/useFetch';
 
@@ -16,10 +17,6 @@ interface Region {
 interface RegionsData {
   regions: Region[];
 }
-
-const getRegion = (address: string) => {
-  return address.split(' ').at(-1);
-};
 
 const HomeHeader = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

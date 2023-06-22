@@ -41,4 +41,8 @@ const forMatMoney = (money: number) => {
   return `${money.toLocaleString()}원`;
 };
 
-export { getTextWithTimeStamp, forMatMoney };
+const getRegion = (address: string) => {
+  return address.split(' ').at(-1);
+};
+
+export { getTextWithTimeStamp, forMatMoney, getRegion };

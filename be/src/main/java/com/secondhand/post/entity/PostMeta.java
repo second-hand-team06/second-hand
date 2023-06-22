@@ -20,8 +20,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class PostMeta {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @OneToOne

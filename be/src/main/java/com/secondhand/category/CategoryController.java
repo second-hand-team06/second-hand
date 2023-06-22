@@ -19,6 +19,7 @@ public class CategoryController {
 
     @GetMapping
     public ResponseEntity<CustomResponse<CategoriesDto>> getCategoryList() {
+
         return ResponseEntity
                 .ok()
                 .body(new CustomResponse<>(
@@ -31,6 +32,7 @@ public class CategoryController {
 
     @GetMapping("/interests")
     public ResponseEntity<CustomResponse<CategoryInterestsDto>> getInterestCategoryList() {
+
         return ResponseEntity
                 .ok()
                 .body(new CustomResponse<>(

@@ -47,6 +47,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
         LoggedInUser loggedInUser = jwtUtil.extractedUserFromToken(token);
         request.setAttribute("loggedInUser", loggedInUser);
+
         return true;
     }
 }

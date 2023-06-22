@@ -18,6 +18,7 @@ public class RegionController {
 
     @GetMapping
     public ResponseEntity<CustomResponse<RegionsDto>> getRegionList(Pageable pageable) {
+
         return ResponseEntity
                 .ok()
                 .body(new CustomResponse<>(

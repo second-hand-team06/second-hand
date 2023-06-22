@@ -6,6 +6,7 @@ import { ThemeProvider } from '@context/themeContext';
 import Home from '@pages/Home';
 import RegionSetting from '@pages/RegionSetting';
 import Category from '@pages/Category';
+import CategoryDetail from '@pages/CategoryDetail';
 import Sales from '@pages/Sales';
 import Interests from '@pages/Interests';
 import Chatting from '@pages/Chatting';
@@ -15,7 +16,6 @@ import NewProduct from '@pages/NewProduct';
 import NotFound from '@pages/NotFound';
 
 import GlobalStyle from '@styles/GlobalStyle';
-import CategoryDetail from '@pages/CategoryDetail';
 
 const App = () => {
   return (

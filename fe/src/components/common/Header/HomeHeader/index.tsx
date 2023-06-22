@@ -19,7 +19,7 @@ const HomeHeader = () => {
             <S.Menu defaultregion="역삼 1동" region="역삼 1동">
               역삼 1동
             </S.Menu>
-            <Link to="/neighborhood-setting">
+            <Link to="/region-setting">
               <S.Menu>내 동네 설정하기</S.Menu>
             </Link>
           </S.Modal>

@@ -15,6 +15,7 @@ const ICON_NAME = {
   PERSON: 'person',
   PLUS: 'plus',
   SEARCH: 'search',
+  REGION_SETTING: 'regionSetting',
 } as const;
 
 const RESPONSE_STATE = {

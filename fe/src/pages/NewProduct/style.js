@@ -9,8 +9,8 @@ const Header = styled.div`
 
   width: 100%;
   height: 44px;
-  padding: 11px 16px;
-  
+  padding: 16px;
+
   background-color: ${({ theme }) => theme.colors.neutral.background.blur};
   border-bottom: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
 `;
@@ -35,4 +35,32 @@ const CompleteButton = styled.button`
   color: ${({ theme }) => theme.colors.neutral.text.default};
 `;
 
-export { NewProduct, Header, HeaderTitle, CloseButton, CompleteButton };
+const TabBar = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+
+  width: 100%;
+  height: 83px;
+  padding: 16px;
+
+  background-color: ${({ theme }) => theme.colors.neutral.background.weak};
+  border-top: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
+`;
+
+// todo: 동네 설정, 키보드 아이콘 색상 설정
+const RegionSetting = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  font-size: ${({ theme }) => theme.fonts.fontnote.fontSize};
+  font-weight: ${({ theme }) => theme.fonts.fontnote.fontWeight};
+  line-height: ${({ theme }) => theme.fonts.fontnote.lineHeight};
+`;
+
+const Keyboard = styled.button``;
+
+export { NewProduct, Header, HeaderTitle, CloseButton, CompleteButton, TabBar, RegionSetting, Keyboard };

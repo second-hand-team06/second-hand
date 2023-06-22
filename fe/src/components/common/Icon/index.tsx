@@ -16,6 +16,7 @@ import { ReactComponent as Newspaper } from '@assets/newspaper.svg';
 import { ReactComponent as Person } from '@assets/person.svg';
 import { ReactComponent as Plus } from '@assets/plus.svg';
 import { ReactComponent as Search } from '@assets/search.svg';
+import { ReactComponent as RegionSetting } from '@assets/regionSetting.svg';
 
 import { ICON_NAME } from '@constants/index';
 
@@ -43,6 +44,7 @@ const ICONS: Record<string, React.FunctionComponent<React.SVGProps<SVGSVGElement
   [ICON_NAME.PERSON]: Person,
   [ICON_NAME.PLUS]: Plus,
   [ICON_NAME.SEARCH]: Search,
+  [ICON_NAME.REGION_SETTING]: RegionSetting,
 };
 
 const Icon = ({ name, fill }: IconProps) => {

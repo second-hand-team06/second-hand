@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import Button from '@components/common/Button';
+
 const Header = styled.header`
   display: flex;
   justify-content: space-between;
@@ -33,4 +35,28 @@ const SellerInfo = styled.div`
   color: ${({ theme }) => theme.colors.neutral.text.default};
 `;
 
-export { Header, ProductInfo, SellerInfo };
+const PostStateDropDown = styled.div`
+  width: 106px;
+`;
+
+const OpenModalButton = styled.button`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 106px;
+  height: 32px;
+  padding: 0px 16px;
+  border: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
+
+  font-size: ${({ theme }) => theme.fonts.caption1.fontSize};
+  font-weight: ${({ theme }) => theme.fonts.caption1.fontWeight};
+  line-height: ${({ theme }) => theme.fonts.caption1.lineHeight};
+  color: ${({ theme }) => theme.colors.neutral.text.strong};
+
+  & svg {
+    fill: ${({ theme }) => theme.colors.neutral.text.strong};
+  }
+`;
+
+export { Header, ProductInfo, SellerInfo, PostStateDropDown, OpenModalButton };

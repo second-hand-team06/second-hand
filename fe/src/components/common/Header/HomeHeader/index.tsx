@@ -17,6 +17,10 @@ interface RegionsData {
   regions: Region[];
 }
 
+const getRegion = (address: string) => {
+  return address.split(' ').at(-1);
+};
+
 const HomeHeader = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { data } = useFetch<RegionsData>({
@@ -25,30 +29,45 @@ const HomeHeader = () => {
   });
   const isLoggedIn = localStorage.getItem('Token');
 
-  const firstDefaultRegion = '역삼 1동';
   const defaultRegion = useMemo(() => {
+    if (!isLoggedIn) return '역삼 1동';
     if (!data) return;
 
     const address = data.regions[0].name;
+    const region = getRegion(address);
 
-    return address.split(' ').at(-1);
+    return region;
   }, [data]);
+
+  const getDropDownMenuTemplate = () => {
+    if (!isLoggedIn) {
+      return (
+        <S.Menu defaultregion={defaultRegion} region={defaultRegion}>
+          {defaultRegion}
+        </S.Menu>
+      );
+    }
+
+    return (
+      <>
+        {data?.regions.map(({ id, name }) => (
+          <S.Menu key={id} defaultregion={defaultRegion} region={getRegion(name)}>
+            {getRegion(name)}
+          </S.Menu>
+        ))}
+        <Link to="/region-setting">
+          <S.Menu>내 동네 설정하기</S.Menu>
+        </Link>
+      </>
+    );
+  };
 
   return (
     <S.HomeHeader>
       <S.NeighborhoodDropdown onClick={() => setIsModalOpen(!isModalOpen)}>
-        <span>{isLoggedIn ? defaultRegion : firstDefaultRegion}</span>
+        <span>{defaultRegion}</span>
         <Icon name={ICON_NAME.CHEVRON_DOWN} />
-        {isModalOpen && (
-          <S.Modal>
-            <S.Menu defaultregion="역삼 1동" region="역삼 1동">
-              역삼 1동
-            </S.Menu>
-            <Link to="/region-setting">
-              <S.Menu>내 동네 설정하기</S.Menu>
-            </Link>
-          </S.Modal>
-        )}
+        {isModalOpen && <S.Modal>{getDropDownMenuTemplate()}</S.Modal>}
       </S.NeighborhoodDropdown>
       <Link to="/categories">
         <Icon name={ICON_NAME.HAMBURGER} />

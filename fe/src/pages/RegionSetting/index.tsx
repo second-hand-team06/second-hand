@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import { Link } from 'react-router-dom';
 
 import { ICON_NAME, REQUEST_METHOD } from '@constants/index';
 import { getRegion } from '@utils/index';
@@ -30,7 +31,9 @@ const RegionSetting = () => {
   return (
     <>
       <S.Header>
-        <S.CloseButton>닫기</S.CloseButton>
+        <Link to="/">
+          <S.CloseButton>닫기</S.CloseButton>
+        </Link>
         <S.HeaderTitle>동네 설정</S.HeaderTitle>
         <S.EmptyTag />
       </S.Header>

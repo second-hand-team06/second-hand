@@ -10,6 +10,12 @@ const ProductDetail = () => {
         <Icon name={ICON_NAME.CHEVRON_LEFT} />
         <Icon name={ICON_NAME.ELLIPSIS} />
       </S.Header>
+      <S.ProductInfo>
+        <S.SellerInfo>
+          <span>판매자 정보</span>
+          <span>아켄</span>
+        </S.SellerInfo>
+      </S.ProductInfo>
     </>
   );
 };

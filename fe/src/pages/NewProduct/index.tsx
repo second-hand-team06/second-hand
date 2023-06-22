@@ -13,10 +13,10 @@ const NewProduct = () => {
       </S.Header>
 
       <S.TabBar>
-        <S.RegionSetting>
+        <S.RegionSettingButton>
           <Icon name={ICON_NAME.REGION_SETTING} fill="black" />
           역삼1동
-        </S.RegionSetting>
+        </S.RegionSettingButton>
         <S.Keyboard>
           <Icon name={ICON_NAME.KEYBOARD} fill="black" />
         </S.Keyboard>

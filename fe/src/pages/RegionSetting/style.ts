@@ -35,4 +35,13 @@ const EmptyTag = styled.div`
   width: 105px;
 `;
 
-export { Header, HeaderTitle, CloseButton, EmptyTag };
+const RegionButtonsLayout = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, minmax(auto, 300px));
+  justify-content: center;
+  gap: 16px 8px;
+
+  padding: 0 20px;
+`;
+
+export { Header, HeaderTitle, CloseButton, EmptyTag, RegionButtonsLayout };

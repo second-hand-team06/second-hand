@@ -1,4 +1,7 @@
+import { useCallback } from 'react';
+
 import { ICON_NAME, REQUEST_METHOD } from '@constants/index';
+import { getRegion } from '@utils/index';
 
 import useFetch from '@hooks/useFetch';
 
@@ -21,6 +24,8 @@ const RegionSetting = () => {
     method: REQUEST_METHOD.GET,
   });
 
+  const validateSelectedRegion = useCallback((idx: number) => idx === 0, []);
+
   return (
     <>
       <S.Header>
@@ -28,15 +33,21 @@ const RegionSetting = () => {
         <S.HeaderTitle>동네 설정</S.HeaderTitle>
         <S.EmptyTag />
       </S.Header>
-      {data?.regions.map(({ id, name }, idx) => (
-        <Button key={id} buttonType="rectangle" buttonState={idx === 0 ? 'active' : 'default'}>
-          <span>{name}</span>
-          <Icon name={ICON_NAME.MULTIPLY} />
+      <S.RegionButtonsLayout>
+        {data?.regions.map(({ id, name }, idx) => (
+          <Button
+            key={id}
+            buttonType="rectangle"
+            buttonState={validateSelectedRegion(idx) ? 'active' : 'default'}
+          >
+            <span>{getRegion(name)}</span>
+            <Icon name={ICON_NAME.MULTIPLY} />
+          </Button>
+        ))}
+        <Button buttonType="rectangle" buttonState="default">
+          <Icon name={ICON_NAME.PLUS} />
         </Button>
-      ))}
-      <Button buttonType="rectangle" buttonState="default">
-        <Icon name={ICON_NAME.PLUS} />
-      </Button>
+      </S.RegionButtonsLayout>
     </>
   );
 };

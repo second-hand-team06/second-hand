@@ -36,39 +36,26 @@ const EmptyTag = styled.div`
   width: 100px;
 `;
 
-const CategoryImg = styled.img`
-  width: 70%;
-  height: 70%;
-
-  border-radius: 8px;
-
-  object-fit: cover;
+const ProductListLayout = styled.div`
+  height: calc(100vh - 44px);
+  overflow-y: scroll;
 `;
 
-const CategoryItem = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+const GoToTopButton = styled.button`
+  position: fixed;
+  bottom: 18px;
+  right: 18px;
 
-  width: 80px;
-  height: 80px;
+  width: 56px;
+  height: 56px;
 
-  font-size: ${({ theme }) => theme.fonts.fontnote.fontSize};
-  font-weight: ${({ theme }) => theme.fonts.fontnote.fontWeight};
-  line-height: ${({ theme }) => theme.fonts.fontnote.lineHeight};
-  color: ${({ theme }) => theme.colors.neutral.text.default};
+  background-color: ${({ theme }) => theme.colors.accent.background.primary};
+  border: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
+  border-radius: 56px;
 
-  cursor: pointer;
+  & > svg {
+    fill: ${({ theme }) => theme.colors.accent.text.default};
+  }
 `;
 
-const CategoryList = styled.section`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-  justify-items: center;
-  gap: 27px;
-
-  padding: 40px;
-`;
-
-export { Header, BackButton, HeaderTitle, EmptyTag, CategoryImg, CategoryItem, CategoryList };
+export { Header, BackButton, HeaderTitle, EmptyTag, ProductListLayout, GoToTopButton };

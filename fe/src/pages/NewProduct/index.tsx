@@ -14,11 +14,11 @@ const NewProduct = () => {
 
       <S.TabBar>
         <S.RegionSetting>
-          <Icon name={ICON_NAME.REGION_SETTING} fill="black" width={20} height={18} />
+          <Icon name={ICON_NAME.REGION_SETTING} fill="black" />
           역삼1동
         </S.RegionSetting>
         <S.Keyboard>
-          <Icon name={ICON_NAME.KEYBOARD} fill="black" width={20} height={18} />
+          <Icon name={ICON_NAME.KEYBOARD} fill="black" />
         </S.Keyboard>
       </S.TabBar>
     </S.NewProduct>

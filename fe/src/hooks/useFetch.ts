@@ -53,14 +53,6 @@ const useFetch = <T>({ url, method = REQUEST_METHOD.GET, body = null }: UseFetch
 
       const result = await response.json();
 
-      // todo: 백엔드와 데이터 형식 협의
-      if (result.token) {
-        setResponseState(RESPONSE_STATE.SUCCESS);
-        setData(result.token);
-        setError(null);
-        return;
-      }
-
       setResponseState(RESPONSE_STATE.SUCCESS);
       setData(result.data);
       setError(null);

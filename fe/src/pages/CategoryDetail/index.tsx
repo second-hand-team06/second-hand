@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 
 import { ICON_NAME } from '@constants/index';
@@ -10,6 +11,11 @@ const CategoryDetail = () => {
   const [searchParams] = useSearchParams();
   const idParams = searchParams.get('id');
   const nameParams = searchParams.get('name');
+  const listRef = useRef<HTMLDivElement | null>(null);
+
+  const goToTopHandler = () => {
+    listRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <>
@@ -23,9 +29,13 @@ const CategoryDetail = () => {
         <S.EmptyTag></S.EmptyTag>
       </S.Header>
 
-      <S.ProductListLayout>
+      <S.ProductListLayout ref={listRef}>
         <ProductList categoryId={Number(idParams)} />
       </S.ProductListLayout>
+
+      <S.GoToTopButton onClick={goToTopHandler}>
+        <Icon name={ICON_NAME.ARROW_UP} />
+      </S.GoToTopButton>
     </>
   );
 };

@@ -41,4 +41,21 @@ const ProductListLayout = styled.div`
   overflow-y: scroll;
 `;
 
-export { Header, BackButton, HeaderTitle, EmptyTag, ProductListLayout };
+const GoToTopButton = styled.button`
+  position: fixed;
+  bottom: 18px;
+  right: 18px;
+
+  width: 56px;
+  height: 56px;
+
+  background-color: ${({ theme }) => theme.colors.accent.background.primary};
+  border: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
+  border-radius: 56px;
+
+  & > svg {
+    fill: ${({ theme }) => theme.colors.accent.text.default};
+  }
+`;
+
+export { Header, BackButton, HeaderTitle, EmptyTag, ProductListLayout, GoToTopButton };

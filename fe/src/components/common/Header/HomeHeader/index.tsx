@@ -26,7 +26,7 @@ const HomeHeader = () => {
   });
   const isLoggedIn = localStorage.getItem('Token');
 
-  const defaultRegion = useMemo(() => {
+  const selectedRegion = useMemo(() => {
     if (!isLoggedIn) return '역삼 1동';
     if (!data) return;
 
@@ -39,8 +39,8 @@ const HomeHeader = () => {
   const getDropDownMenuTemplate = () => {
     if (!isLoggedIn) {
       return (
-        <S.Menu defaultregion={defaultRegion} region={defaultRegion}>
-          {defaultRegion}
+        <S.Menu selectedregion={selectedRegion} region={selectedRegion}>
+          {selectedRegion}
         </S.Menu>
       );
     }
@@ -48,7 +48,7 @@ const HomeHeader = () => {
     return (
       <>
         {data?.regions.map(({ id, name }) => (
-          <S.Menu key={id} defaultregion={defaultRegion} region={getRegion(name)}>
+          <S.Menu key={id} selectedregion={selectedRegion} region={getRegion(name)}>
             {getRegion(name)}
           </S.Menu>
         ))}
@@ -62,7 +62,7 @@ const HomeHeader = () => {
   return (
     <S.HomeHeader>
       <S.NeighborhoodDropdown onClick={() => setIsModalOpen(!isModalOpen)}>
-        <span>{defaultRegion}</span>
+        <span>{selectedRegion}</span>
         <Icon name={ICON_NAME.CHEVRON_DOWN} />
         {isModalOpen && <S.Modal>{getDropDownMenuTemplate()}</S.Modal>}
       </S.NeighborhoodDropdown>

@@ -33,6 +33,10 @@ const RegionSetting = () => {
         <S.HeaderTitle>동네 설정</S.HeaderTitle>
         <S.EmptyTag />
       </S.Header>
+      <S.RegionCountLimitMessage>
+        <span>지역은 최소 1개,</span>
+        <span>최대 2개까지 설정 가능해요.</span>
+      </S.RegionCountLimitMessage>
       <S.RegionButtonsLayout>
         {data?.regions.map(({ id, name }, idx) => (
           <Button

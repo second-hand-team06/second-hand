@@ -35,6 +35,19 @@ const EmptyTag = styled.div`
   width: 105px;
 `;
 
+const RegionCountLimitMessage = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 40px 0;
+
+  font-size: ${({ theme }) => theme.fonts.fontnote.fontSize};
+  font-weight: ${({ theme }) => theme.fonts.fontnote.fontWeight};
+  line-height: ${({ theme }) => theme.fonts.fontnote.lineHeight};
+  color: ${({ theme }) => theme.colors.neutral.text.strong};
+`;
+
 const RegionButtonsLayout = styled.div`
   display: grid;
   grid-template-columns: repeat(2, minmax(auto, 300px));
@@ -44,4 +57,4 @@ const RegionButtonsLayout = styled.div`
   padding: 0 20px;
 `;
 
-export { Header, HeaderTitle, CloseButton, EmptyTag, RegionButtonsLayout };
+export { Header, HeaderTitle, CloseButton, EmptyTag, RegionCountLimitMessage, RegionButtonsLayout };

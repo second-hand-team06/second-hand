@@ -1,9 +1,9 @@
-package com.secondhand.post.repository;
+package com.secondhand.post.repository.category;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.secondhand.category.dto.CategoriesDto;
 import com.secondhand.category.dto.QCategoryDto;
-import com.secondhand.category.dto.RecommendedCategoriesDto;
+import com.secondhand.post.repository.category.CategoryRepositoryCustom;
 
 import javax.persistence.EntityManager;
 

@@ -12,4 +12,10 @@ public class PostValidator {
             throw new PostOwnershipMismatchException();
         }
     }
+
+    public static void validatePostDeleted(PostMeta postMeta) {
+        if (postMeta.isDeleted()) {
+            throw new IllegalArgumentException("존재하지 않는 게시글입니다.");
+        }
+    }
 }

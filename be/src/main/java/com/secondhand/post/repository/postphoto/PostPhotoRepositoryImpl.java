@@ -1,6 +1,7 @@
-package com.secondhand.post.repository;
+package com.secondhand.post.repository.postphoto;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.secondhand.post.repository.postphoto.PostPhotoRepositoryCustom;
 
 import javax.persistence.EntityManager;
 import java.util.List;

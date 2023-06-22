@@ -1,12 +1,13 @@
 package com.secondhand.user;
 
 import com.secondhand.region.dto.PostMyRegionDto;
-import com.secondhand.user.login.JwtUtil;
+import com.secondhand.user.dto.UserRegionsDto;
 import com.secondhand.user.login.dto.LoggedInUser;
 import com.secondhand.util.CustomResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -16,14 +17,23 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
-    private final JwtUtil jwtUtil;
+
+    @GetMapping("/regions")
+    public ResponseEntity<CustomResponse<UserRegionsDto>> getMyRegion(@RequestAttribute LoggedInUser loggedInUser) {
+
+        return ResponseEntity
+                .ok()
+                .body(new CustomResponse(
+                        "success",
+                        200,
+                        "지역 조회 성공",
+                        userService.getMyRegion(loggedInUser.getId())));
+    }
 
     @PutMapping("/regions")
-    public ResponseEntity<CustomResponse> updateMyRegion(@RequestBody PostMyRegionDto postMyRegionDto, @RequestHeader("Authorization") String bearerToken) {
+    public ResponseEntity<CustomResponse> updateMyRegion(@Validated @RequestBody PostMyRegionDto postMyRegionDto, @RequestAttribute LoggedInUser loggedInUser) {
 
-        // TODO: 토근 처리
-
-        userService.updateMyRegion(2, postMyRegionDto);
+        userService.updateMyRegion(loggedInUser.getId(), postMyRegionDto);
 
         return ResponseEntity
                 .ok()
@@ -35,9 +45,7 @@ public class UserController {
     }
 
     @PostMapping("/{postId}")
-    public ResponseEntity<CustomResponse> addInterestPost(@PathVariable Long postId, @RequestHeader("Authorization") String token) {
-
-        LoggedInUser loggedInUser = jwtUtil.extractedUserFromToken(token);
+    public ResponseEntity<CustomResponse> addInterestPost(@PathVariable Long postId, @RequestAttribute LoggedInUser loggedInUser) {
 
         userService.addInterestPost(postId, loggedInUser);
 
@@ -50,9 +58,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{postId}")
-    public ResponseEntity<CustomResponse> deleteInterestPost(@PathVariable Long postId, @RequestHeader("Authorization") String token) {
-
-        LoggedInUser loggedInUser = jwtUtil.extractedUserFromToken(token);
+    public ResponseEntity<CustomResponse> deleteInterestPost(@PathVariable Long postId, @RequestAttribute LoggedInUser loggedInUser) {
 
         userService.deleteInterestPost(postId, loggedInUser);
 

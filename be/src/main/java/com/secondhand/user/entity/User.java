@@ -3,6 +3,7 @@ package com.secondhand.user.entity;
 import com.secondhand.post.entity.Interest;
 import com.secondhand.region.dto.PostMyRegionDto;
 import com.secondhand.user.login.dto.UserProfileResponse;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -45,5 +46,16 @@ public class User {
         if (myRegions.size() == 2) {
             this.secondRegionId = myRegions.get(1);
         }
+    }
+
+    // TODO: 테스트에서 사용하기 위한 Builder, 테스트용 코드를 만들어서 사용해도 괜찮을지 학습해보기
+    @Builder
+    public User(long id, Long githubId, String loginId, String profileUrl, int firstRegionId, Integer secondRegionId) {
+        this.id = id;
+        this.githubId = githubId;
+        this.loginId = loginId;
+        this.profileUrl = profileUrl;
+        this.firstRegionId = firstRegionId;
+        this.secondRegionId = secondRegionId;
     }
 }

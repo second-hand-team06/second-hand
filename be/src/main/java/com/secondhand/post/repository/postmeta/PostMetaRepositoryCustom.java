@@ -1,4 +1,4 @@
-package com.secondhand.post.repository;
+package com.secondhand.post.repository.postmeta;
 
 import com.secondhand.post.dto.PostMetaDto;
 import com.secondhand.post.dto.SearchCondition;

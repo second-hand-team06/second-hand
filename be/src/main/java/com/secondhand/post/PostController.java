@@ -1,7 +1,6 @@
 package com.secondhand.post;
 
 import com.secondhand.post.dto.*;
-import com.secondhand.user.login.JwtUtil;
 import com.secondhand.user.login.dto.LoggedInUser;
 import com.secondhand.util.CustomResponse;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +20,6 @@ import java.util.ArrayList;
 public class PostController {
 
     private final PostService postService;
-    private final JwtUtil jwtUtil;
 
     @GetMapping
     public ResponseEntity<CustomResponse<MainPagePostsDto>> getPost(Pageable pageable, SearchCondition searchCondition) {
@@ -36,9 +34,7 @@ public class PostController {
     }
 
     @PostMapping(consumes = {"multipart/form-data"})
-    public ResponseEntity<CustomResponse<CreatePostResponseDto>> createPost(@Validated @ModelAttribute PostSaveDto postSaveDto, @RequestHeader("Authorization") String token) {
-
-        LoggedInUser loggedInUser = jwtUtil.extractedUserFromToken(token);
+    public ResponseEntity<CustomResponse<CreatePostResponseDto>> createPost(@Validated @ModelAttribute PostSaveDto postSaveDto, @RequestAttribute LoggedInUser loggedInUser) {
 
         return ResponseEntity
                 .ok()
@@ -61,9 +57,7 @@ public class PostController {
     }
 
     @GetMapping("/interests")
-    public ResponseEntity<CustomResponse<Page<PostMetaDto>>> getInterestPost(Pageable pageable, @RequestHeader("Authorization") String token) {
-
-        LoggedInUser loggedInUser = jwtUtil.extractedUserFromToken(token);
+    public ResponseEntity<CustomResponse<Page<PostMetaDto>>> getInterestPost(Pageable pageable, @RequestAttribute LoggedInUser loggedInUser) {
 
         return ResponseEntity
                 .ok()
@@ -75,9 +69,7 @@ public class PostController {
     }
 
     @GetMapping("/{postId}")
-    public ResponseEntity<CustomResponse<PostDetailPageDto>> getPostDetail(@PathVariable Long postId, @RequestHeader("Authorization") String token) {
-
-        LoggedInUser loggedInUser = jwtUtil.extractedUserFromToken(token);
+    public ResponseEntity<CustomResponse<PostDetailPageDto>> getPostDetail(@PathVariable Long postId, @RequestAttribute LoggedInUser loggedInUser) {
 
         return ResponseEntity
                 .ok()
@@ -89,9 +81,7 @@ public class PostController {
     }
 
     @PutMapping("/{postId}")
-    public ResponseEntity<CustomResponse> updatePost(@PathVariable Long postId, @ModelAttribute PostUpdateDto updatePostDto, @RequestHeader("Authorization") String token) {
-
-        LoggedInUser loggedInUser = jwtUtil.extractedUserFromToken(token);
+    public ResponseEntity<CustomResponse> updatePost(@PathVariable Long postId, @ModelAttribute PostUpdateDto updatePostDto,@RequestAttribute LoggedInUser loggedInUser) {
 
         postService.editPost(postId, updatePostDto, loggedInUser);
 
@@ -104,9 +94,7 @@ public class PostController {
     }
 
     @DeleteMapping("/{postId}")
-    public ResponseEntity<CustomResponse> deletePost(@PathVariable Long postId, @RequestHeader("Authorization") String token) {
-
-        LoggedInUser loggedInUser = jwtUtil.extractedUserFromToken(token);
+    public ResponseEntity<CustomResponse> deletePost(@PathVariable Long postId, @RequestAttribute LoggedInUser loggedInUser) {
 
         postService.deletePost(postId, loggedInUser);
 
@@ -119,9 +107,7 @@ public class PostController {
     }
 
     @PatchMapping("/{postId}")
-    public ResponseEntity<CustomResponse> changePostStatus(@PathVariable Long postId, @RequestBody UpdatePostStateDto stateDto, @RequestHeader("Authorization") String token) {
-
-        LoggedInUser loggedInUser = jwtUtil.extractedUserFromToken(token);
+    public ResponseEntity<CustomResponse> changePostStatus(@PathVariable Long postId, @RequestBody UpdatePostStateDto stateDto, @RequestAttribute LoggedInUser loggedInUser) {
 
         postService.updateBadge(postId, stateDto, loggedInUser);
 

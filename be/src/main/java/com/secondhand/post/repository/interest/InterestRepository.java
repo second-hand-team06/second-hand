@@ -1,4 +1,4 @@
-package com.secondhand.post.repository;
+package com.secondhand.post.repository.interest;
 
 import com.secondhand.post.entity.Interest;
 import org.springframework.data.jpa.repository.JpaRepository;

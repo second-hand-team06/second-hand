@@ -1,4 +1,4 @@
-package com.secondhand.post.repository;
+package com.secondhand.post.repository.badge;
 
 import com.secondhand.post.entity.Badge;
 import org.springframework.data.jpa.repository.JpaRepository;

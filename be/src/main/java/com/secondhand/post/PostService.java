@@ -3,7 +3,12 @@ package com.secondhand.post;
 import com.secondhand.fileupload.FileUploadService;
 import com.secondhand.post.dto.*;
 import com.secondhand.post.entity.*;
-import com.secondhand.post.repository.*;
+import com.secondhand.post.repository.badge.BadgeRepository;
+import com.secondhand.post.repository.category.CategoryRepository;
+import com.secondhand.post.repository.interest.InterestRepository;
+import com.secondhand.post.repository.postdetail.PostDetailRepository;
+import com.secondhand.post.repository.postmeta.PostMetaRepository;
+import com.secondhand.post.repository.postphoto.PostPhotoRepository;
 import com.secondhand.region.entity.Region;
 import com.secondhand.region.repository.RegionRepository;
 import com.secondhand.user.entity.User;
@@ -14,12 +19,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.secondhand.post.validator.PostValidator.validatePostDeleted;
 import static com.secondhand.post.validator.PostValidator.validatePostOwnershipMismatch;
 
 @Slf4j
@@ -39,6 +45,7 @@ public class PostService {
     private final BadgeRepository badgeRepository;
     private final FileUploadService fileUploadService;
 
+    @Transactional(readOnly = true)
     public MainPagePostsDto findMainPagePosts(Pageable pageable, SearchCondition searchCondition) {
 
         return new MainPagePostsDto(postMetaRepository.findMainPage(pageable, searchCondition));
@@ -52,6 +59,7 @@ public class PostService {
         return new CreatePostResponseDto(savedPostMeta.getId());
     }
 
+    @Transactional(readOnly = true)
     public Page<PostMetaDto> findInterestPosts(Pageable pageable, LoggedInUser loggedInUser) {
 
         return interestRepository.findMyInterestsPosts(pageable, loggedInUser.getId());
@@ -60,11 +68,14 @@ public class PostService {
     @Transactional
     public PostDetailPageDto findPostDetailPage(long postId, LoggedInUser loggedInUser) {
 
-        PostMeta postMeta = postMetaRepository.findById(postId).orElseThrow();
-        PostDetail postDetail = postDetailRepository.findById(postId).orElseThrow();
-        User user = userRepository.findById(loggedInUser.getId()).orElseThrow();
+        postMetaRepository.updatePostMetaViewCount(postId);
+        PostMeta postMeta = postMetaRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
+        PostDetail postDetail = postDetailRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글의 상세 내용이 존재하지 않습니다."));
+        User user = userRepository.findById(loggedInUser.getId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다."));
 
-        postMeta.updateViewCount();
         PostDetailPageDto postDetailPage = new PostDetailPageDto(postMeta);
 
         if (loggedInUser.getId() == user.getId()) {
@@ -77,37 +88,25 @@ public class PostService {
         return postDetailPage;
     }
 
-    private PostMeta savePost(PostSaveDto postSaveDto, LoggedInUser loggedInUser) {
-
-        List<String> photos = getPhotosUrl(postSaveDto.getPhotos());
-        User seller = userRepository.findById(loggedInUser.getId()).orElseThrow();
-        Region region = regionRepository.findById(postSaveDto.getRegionId()).orElseThrow();
-        Category category = categoryRepository.findById(postSaveDto.getCategoryId()).orElseThrow();
-        Badge badge = badgeRepository.findById(postSaveDto.getBadgeId()).orElseThrow();
-        String thumbnail = photos.get(0);
-
-        PostMeta newPostMeta = PostMeta.ofCreated(seller, region, category, badge, postSaveDto, thumbnail);
-
-        PostMeta savedPostMeta = postMetaRepository.save(newPostMeta);
-
-        long savedPostId = savedPostMeta.getId();
-
-        savePhotos(photos, savedPostId);
-        savePostDetail(postSaveDto, savedPostId);
-
-        return savedPostMeta;
-    }
 
     @Transactional
     public void editPost(long postId, PostUpdateDto updatePostDto, LoggedInUser loggedInUser) {
 
-        PostMeta postMeta = postMetaRepository.findById(postId).orElseThrow();
+        PostMeta postMeta = postMetaRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
 
         validatePostOwnershipMismatch(loggedInUser, postMeta);
+        validatePostDeleted(postMeta);
 
-        PostDetail postDetail = postDetailRepository.findById(postId).orElseThrow();
-        Region region = regionRepository.findById(updatePostDto.getRegionId()).orElseThrow();
-        Category category = categoryRepository.findById(updatePostDto.getCategoryId()).orElseThrow();
+        PostDetail postDetail = postDetailRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글의 상세 내용이 존재하지 않습니다."));
+        Region region = regionRepository.findById(updatePostDto.getRegionId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 지역이 존재하지 않습니다."));
+        Category category = categoryRepository.findById(updatePostDto.getCategoryId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 카테고리가 존재하지 않습니다."));
+
+        deleteOriginPhotos(postId);
+
         List<String> photoUrls = getPhotosUrl(updatePostDto.getPhotos());
 
         String thumbnail = photoUrls.get(0);
@@ -121,7 +120,8 @@ public class PostService {
     @Transactional
     public void deletePost(long postId, LoggedInUser loggedInUser) {
 
-        PostMeta postMeta = postMetaRepository.findById(postId).orElseThrow();
+        PostMeta postMeta = postMetaRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
 
         validatePostOwnershipMismatch(loggedInUser, postMeta);
 
@@ -131,18 +131,47 @@ public class PostService {
     @Transactional
     public void updateBadge(long postId, UpdatePostStateDto postStateDto, LoggedInUser loggedInUser) {
 
-        PostMeta postMeta = postMetaRepository.findById(postId).orElseThrow();
+        PostMeta postMeta = postMetaRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
 
         validatePostOwnershipMismatch(loggedInUser, postMeta);
+        validatePostDeleted(postMeta);
 
-        Badge badge = badgeRepository.findById(postStateDto.getState()).orElseThrow();
+        Badge badge = badgeRepository.findById(postStateDto.getState())
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 배지입니다."));
 
         postMeta.updateBadge(badge);
     }
 
+    @Transactional(readOnly = true)
     public BadgesDto findBadges() {
 
         return new BadgesDto(badgeRepository.findAll());
+    }
+
+    private PostMeta savePost(PostSaveDto postSaveDto, LoggedInUser loggedInUser) {
+
+        List<String> photos = getPhotosUrl(postSaveDto.getPhotos());
+        User seller = userRepository.findById(loggedInUser.getId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다."));
+        Region region = regionRepository.findById(postSaveDto.getRegionId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 지역이 존재하지 않습니다."));
+        Category category = categoryRepository.findById(postSaveDto.getCategoryId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 카테고리가 존재하지 않습니다."));
+        Badge badge = badgeRepository.findById(postSaveDto.getBadgeId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 배지가 존재하지 않습니다."));
+        String thumbnail = photos.get(0);
+
+        PostMeta newPostMeta = PostMeta.ofCreated(seller, region, category, badge, postSaveDto, thumbnail);
+
+        PostMeta savedPostMeta = postMetaRepository.save(newPostMeta);
+
+        long savedPostId = savedPostMeta.getId();
+
+        savePhotos(photos, savedPostId);
+        savePostDetail(postSaveDto, savedPostId);
+
+        return savedPostMeta;
     }
 
     private void savePostDetail(PostSaveDto postSaveDto, long createdPostId) {
@@ -167,5 +196,10 @@ public class PostService {
         }
 
         return photos;
+    }
+
+    private void deleteOriginPhotos(long postId) {
+        postPhotoRepository.findAllPhotoUrlsByPostMetaId(postId).stream()
+                .forEach(photoUrl -> fileUploadService.deleteFile(photoUrl));
     }
 }

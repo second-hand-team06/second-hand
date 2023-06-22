@@ -15,10 +15,10 @@ spring:
       enabled: true
 
   mvc:
-    throw-exception-if-no-handler-found: true # Throw an exception if no handler is found for the request
+    throw-exception-if-no-handler-found: false # Throw an exception if no handler is found for the request
   web:
     resources:
-      add-mappings: false
+      add-mappings: true
 
 logging:
   level:

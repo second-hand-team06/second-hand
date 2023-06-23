@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 public class RegionValidator {
 
     public static void isValidRegionId(PostMyRegionDto postMyRegionDto, RegionRepository repository) {
+
         List<Integer> regions = postMyRegionDto.getRegions();
 
         List<Integer> validatedRegions = repository.findAllById(regions)

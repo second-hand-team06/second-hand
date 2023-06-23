@@ -14,8 +14,7 @@ import javax.persistence.Id;
 @AllArgsConstructor
 public class Category {
 
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue
     private int id;
     private String name;
     private String photoUrl;

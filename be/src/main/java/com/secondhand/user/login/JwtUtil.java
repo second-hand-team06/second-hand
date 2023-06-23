@@ -22,7 +22,7 @@ public class JwtUtil {
     private String secret; // 시크릿 키를 설정
 
     public String createToken(LoggedInUser loggedInUser, Date expiredDate) {
-        log.info("create Token start");
+
         return Jwts.builder()
                 .setHeaderParam("typ", "JWT")
                 .setSubject("login_member")
@@ -35,19 +35,17 @@ public class JwtUtil {
     public boolean validateTokenIsExpired(String token) {
 
         try {
-            // 토큰 검증
             Jws<Claims> claimsJws = Jwts.parser()
                     .setSigningKey(secret)
                     .parseClaimsJws(token);
 
-            // 토큰이 만료되었는지 확인
             if (claimsJws.getBody().getExpiration().before(new Date())) {
-                return false; // 토큰이 만료되었습니다.
+                return false;
             }
 
-            return true; // 토큰이 유효합니다.
+            return true;
         } catch (Exception e) {
-            return false; // 토큰 검증에 실패했습니다.
+            return false;
         }
     }
 
@@ -65,7 +63,7 @@ public class JwtUtil {
             return true;
         } catch (JwtException e) {
             log.info(e.getMessage() + " 토근 검증 실패");
-            return false; // 토큰 검증에 실패했습니다.
+            return false;
         }
     }
 
@@ -87,6 +85,7 @@ public class JwtUtil {
         LoggedInUser loggedInUser = new LoggedInUser();
 
         try {
+
             LinkedHashMap<String, Object> payloadMap = objectMapper.readValue(decodedPayload, LinkedHashMap.class);
 
             Object userProfile = payloadMap.get("userProfile");

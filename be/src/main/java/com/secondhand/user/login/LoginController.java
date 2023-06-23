@@ -24,6 +24,7 @@ public class LoginController {
 
     @GetMapping("/oauth")
     public ResponseEntity<CustomResponse<JWTResponse>> githubLogin(String code, HttpServletResponse response) {
+
         GithubToken githubToken = loginService.getAccessToken(code);
         response.setHeader("Authorization", "application/json");
 
@@ -33,7 +34,7 @@ public class LoginController {
         Date expiredDate = new Date(new Date().getTime() + 3600000);
 
         String token = jwtUtil.createToken(loggedInUser, expiredDate);
-        log.info("token create success = {}", token);
+
         return ResponseEntity
                 .ok()
                 .body(new CustomResponse(

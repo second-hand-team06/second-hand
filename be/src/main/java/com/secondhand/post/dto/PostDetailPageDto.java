@@ -23,7 +23,7 @@ public class PostDetailPageDto {
     private long chatCount;
     private long interestCount;
     private long viewCount;
-    private long price;
+    private Long price;
     private String postState;
     private boolean isSeller;
     private List<String> photoUrls;

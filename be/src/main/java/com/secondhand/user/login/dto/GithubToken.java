@@ -1,6 +1,7 @@
 package com.secondhand.user.login.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
@@ -8,12 +9,10 @@ import org.springframework.stereotype.Component;
 @Component
 @Getter
 @Setter
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class GithubToken {
 
-    @JsonProperty("access_token")
     private String accessToken;
-    @JsonProperty("token_type")
     private String tokenType;
-    @JsonProperty("scope")
     private String scope;
 }

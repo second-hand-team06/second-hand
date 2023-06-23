@@ -38,6 +38,7 @@ public class LoginService {
     private String redirectUrl;
 
     public GithubToken getAccessToken(String code) {
+
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
         Map<String, String> header = new HashMap<>();
         header.put("Accept", "application/json"); //json 형식으로 응답 받음
@@ -52,6 +53,7 @@ public class LoginService {
 
         HttpEntity<?> request = new HttpEntity<>(requestPayloads, headers);
         ResponseEntity<?> response = new RestTemplate().postForEntity(url, request, GithubToken.class); //미리 정의해둔 GithubToken 클래스 형태로 Response Body를 파싱해서 담아서 리턴
+
         return (GithubToken) response.getBody();
     }
 

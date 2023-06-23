@@ -16,10 +16,10 @@ public class WebConfig implements WebMvcConfigurer {
     private final LoginInterceptor loginInterceptor;
     private final CreatePostInterceptor createPostInterceptor;
 
-
     // TODO : 배포시 allowedOrigins "http://3.37.72.34" 로 변경
     @Override
     public void addCorsMappings(CorsRegistry registry) {
+
         registry.addMapping("/**")
                 .allowedOrigins("*")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH");

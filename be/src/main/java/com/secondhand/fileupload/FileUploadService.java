@@ -62,6 +62,7 @@ public class FileUploadService {
     private String parseKey(String url) {
 
         String[] splitUrl = url.split("/");
+
         return splitUrl[splitUrl.length - 2] + "/" + splitUrl[splitUrl.length - 1];
     }
 }

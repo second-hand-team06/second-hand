@@ -1,8 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom';
 
-import { ICON_NAME, REQUEST_METHOD, RESPONSE_STATE } from '@constants/index';
+import { ICON_NAME } from '@constants/index';
 
-import useFetch from '@hooks/useFetch';
+import useFetch, { REQUEST_METHOD, RESPONSE_STATE } from '@hooks/useFetch';
 
 import Icon from '@components/common/Icon';
 import * as S from './style';

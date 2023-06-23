@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { REQUEST_METHOD, RESPONSE_STATE } from '@constants/index';
-
-import useFetch from '@hooks/useFetch';
+import useFetch, { REQUEST_METHOD, RESPONSE_STATE } from '@hooks/useFetch';
 
 interface TokenData {
   token: string;

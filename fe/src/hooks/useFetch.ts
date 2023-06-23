@@ -1,6 +1,21 @@
 import { useState, useEffect } from 'react';
 
-import { RESPONSE_STATE, REQUEST_METHOD } from '@constants/index';
+const RESPONSE_STATE = {
+  IDLE: 'IDLE',
+  LOADING: 'LOADING',
+  ERROR: 'ERROR',
+  SUCCESS: 'SUCCESS',
+} as const;
+
+const REQUEST_METHOD = {
+  GET: 'GET',
+  POST: 'POST',
+  PUT: 'PUT',
+  DELETE: 'DELETE',
+  PATCH: 'PATCH',
+} as const;
+
+export { RESPONSE_STATE, REQUEST_METHOD };
 
 type ResponseState = (typeof RESPONSE_STATE)[keyof typeof RESPONSE_STATE];
 type DataState<T> = null | T;

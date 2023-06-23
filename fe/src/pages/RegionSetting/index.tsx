@@ -1,10 +1,10 @@
 import { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
-import { ICON_NAME, REQUEST_METHOD } from '@constants/index';
+import { ICON_NAME } from '@constants/index';
 import { getRegion } from '@utils/index';
 
-import useFetch from '@hooks/useFetch';
+import useFetch, { REQUEST_METHOD } from '@hooks/useFetch';
 
 import Icon from '@components/common/Icon';
 import Button from '@components/common/Button';

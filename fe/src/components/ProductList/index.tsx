@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
 
-import useFetch from '@hooks/useFetch';
+import useFetch, { RESPONSE_STATE, REQUEST_METHOD } from '@hooks/useFetch';
 import useIntersectionObserver from '@hooks/useIntersectionObserver';
-
-import { RESPONSE_STATE, REQUEST_METHOD } from '@constants/index';
 
 import ProductListItem, { ProductListItemProps } from '@components/ProductListItem';
 import * as S from './style';

@@ -8,9 +8,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 
 @Slf4j
@@ -34,7 +34,7 @@ public class PostController {
     }
 
     @PostMapping(consumes = {"multipart/form-data"})
-    public ResponseEntity<CustomResponse<CreatePostResponseDto>> createPost(@Validated @ModelAttribute PostSaveDto postSaveDto, @RequestAttribute LoggedInUser loggedInUser) {
+    public ResponseEntity<CustomResponse<CreatePostResponseDto>> createPost(@Valid @ModelAttribute PostSaveDto postSaveDto, @RequestAttribute LoggedInUser loggedInUser) {
 
         return ResponseEntity
                 .ok()

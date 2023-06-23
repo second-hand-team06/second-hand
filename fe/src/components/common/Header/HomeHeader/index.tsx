@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
-import { ICON_NAME } from '@constants/index';
+import { ICON_NAME, PATH } from '@constants/index';
 import { getRegion } from '@utils/index';
 
 import useFetch, { REQUEST_METHOD } from '@hooks/useFetch';
@@ -52,7 +52,7 @@ const HomeHeader = () => {
             {getRegion(name)}
           </S.Menu>
         ))}
-        <Link to="/region-setting">
+        <Link to={PATH.REGION_SETTING}>
           <S.Menu>내 동네 설정하기</S.Menu>
         </Link>
       </>
@@ -66,7 +66,7 @@ const HomeHeader = () => {
         <Icon name={ICON_NAME.CHEVRON_DOWN} />
         {isModalOpen && <S.Modal>{getDropDownMenuTemplate()}</S.Modal>}
       </S.NeighborhoodDropdown>
-      <Link to="/categories">
+      <Link to={PATH.CATEGORY}>
         <Icon name={ICON_NAME.HAMBURGER} />
       </Link>
     </S.HomeHeader>

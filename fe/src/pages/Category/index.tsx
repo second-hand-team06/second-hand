@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 
-import { ICON_NAME } from '@constants/index';
+import { ICON_NAME, PATH } from '@constants/index';
 
 import useFetch, { REQUEST_METHOD, RESPONSE_STATE } from '@hooks/useFetch';
 
@@ -28,7 +28,7 @@ const Category = () => {
   return (
     <>
       <S.Header>
-        <Link to="/">
+        <Link to={PATH.HOME}>
           <S.BackButton>
             <Icon name={ICON_NAME.CHEVRON_LEFT} />
             <span>뒤로</span>

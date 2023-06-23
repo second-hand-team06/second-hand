@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
-import { ICON_NAME } from '@constants/index';
+import { ICON_NAME, PATH } from '@constants/index';
 import { getRegion } from '@utils/index';
 
 import useFetch, { REQUEST_METHOD } from '@hooks/useFetch';
@@ -31,7 +31,7 @@ const RegionSetting = () => {
   return (
     <>
       <S.Header>
-        <Link to="/">
+        <Link to={PATH.HOME}>
           <S.CloseButton>닫기</S.CloseButton>
         </Link>
         <S.HeaderTitle>동네 설정</S.HeaderTitle>

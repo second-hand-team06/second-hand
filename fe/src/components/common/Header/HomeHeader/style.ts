@@ -27,7 +27,7 @@ const NeighborhoodDropdown = styled.div`
   line-height: ${({ theme }) => theme.fonts.headline.lineHeight};
 `;
 
-const Menu = styled.div<{ defaultregion?: string; region?: string }>`
+const Menu = styled.div<{ selectedregion?: string; region?: string }>`
   display: flex;
   align-items: center;
 
@@ -35,7 +35,7 @@ const Menu = styled.div<{ defaultregion?: string; region?: string }>`
   padding: 0 10px;
 
   font-size: ${({ theme }) => theme.fonts.callout.fontSize};
-  font-weight: ${({ defaultregion, region }) => (region && defaultregion === region ? 590 : 400)};
+  font-weight: ${({ selectedregion, region }) => (region && selectedregion === region ? 590 : 400)};
   line-height: ${({ theme }) => theme.fonts.callout.lineHeight};
 `;
 

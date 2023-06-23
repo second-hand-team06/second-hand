@@ -53,7 +53,7 @@ const fonts = {
     fontWeight: `${FONT.WEIGHT.REGULAR}`,
     lineHeight: '20px',
   },
-  fontnote: {
+  footnote: {
     fontSize: '13px',
     fontWeight: `${FONT.WEIGHT.REGULAR}`,
     lineHeight: '18px',

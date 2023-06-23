@@ -1,15 +1,16 @@
 import { useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 import { ICON_NAME } from '@constants/index';
 
 import Icon from '@components/common/Icon';
-import Header from '@components/common/Header';
 import ProductList from '@components/ProductList';
-import TabBar from '@components/TabBar';
 import * as S from './style';
 
-const Home = () => {
+const CategoryDetail = () => {
+  const [searchParams] = useSearchParams();
+  const idParams = searchParams.get('id');
+  const nameParams = searchParams.get('name');
   const listRef = useRef<HTMLDivElement | null>(null);
 
   const goToTopHandler = () => {
@@ -18,24 +19,25 @@ const Home = () => {
 
   return (
     <>
-      <Header type="home" />
-      <S.ProductListLayout ref={listRef}>
-        <ProductList />
-      </S.ProductListLayout>
+      <S.Header>
+        <Link to="/categories">
+          <S.BackButton>
+            <Icon name={ICON_NAME.CHEVRON_LEFT} />
+          </S.BackButton>
+        </Link>
+        <S.HeaderTitle>{nameParams}</S.HeaderTitle>
+        <S.EmptyTag></S.EmptyTag>
+      </S.Header>
 
-      <TabBar activeTab="home" />
+      <S.ProductListLayout ref={listRef}>
+        <ProductList categoryId={Number(idParams)} />
+      </S.ProductListLayout>
 
       <S.GoToTopButton onClick={goToTopHandler}>
         <Icon name={ICON_NAME.ARROW_UP} />
       </S.GoToTopButton>
-
-      <Link to="/new-product">
-        <S.NewProductButton buttonType="circle">
-          <Icon name={ICON_NAME.PLUS} />
-        </S.NewProductButton>
-      </Link>
     </>
   );
 };
 
-export default Home;
+export default CategoryDetail;

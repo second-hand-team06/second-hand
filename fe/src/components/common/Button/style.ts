@@ -35,7 +35,7 @@ const typeStyles = {
   rectangle: css<{ buttonstate: ButtonState }>`
     justify-content: ${({ buttonstate }) => (buttonstate === 'default' ? 'center' : 'space-between')};
 
-    width: 178px;
+    width: 100%;
     height: 52px;
     padding: 16px 20px;
 

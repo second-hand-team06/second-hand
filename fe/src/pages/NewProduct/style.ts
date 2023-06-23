@@ -51,7 +51,7 @@ const TabBar = styled.div`
 `;
 
 // todo: 동네 설정, 키보드 아이콘 색상 설정
-const RegionSetting = styled.button`
+const RegionSettingButton = styled.button`
   display: flex;
   align-items: center;
   gap: 4px;
@@ -63,4 +63,4 @@ const RegionSetting = styled.button`
 
 const Keyboard = styled.button``;
 
-export { NewProduct, Header, HeaderTitle, CloseButton, CompleteButton, TabBar, RegionSetting, Keyboard };
+export { NewProduct, Header, HeaderTitle, CloseButton, CompleteButton, TabBar, RegionSettingButton, Keyboard };

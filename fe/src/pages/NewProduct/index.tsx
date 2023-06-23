@@ -1,7 +1,9 @@
 import { ICON_NAME } from '@constants/index';
 
 import Icon from '@components/common/Icon';
+import ImageInput from '@components/ImageIput';
 import * as S from './style';
+
 
 const NewProduct = () => {
   return (
@@ -12,11 +14,13 @@ const NewProduct = () => {
         <S.CompleteButton>완료</S.CompleteButton>
       </S.Header>
 
+      <ImageInput></ImageInput>
+
       <S.TabBar>
-        <S.RegionSetting>
+        <S.RegionSettingButton>
           <Icon name={ICON_NAME.REGION_SETTING} fill="black" />
-          역삼1동
-        </S.RegionSetting>
+          <span>역삼1동</span>
+        </S.RegionSettingButton>
         <S.Keyboard>
           <Icon name={ICON_NAME.KEYBOARD} fill="black" />
         </S.Keyboard>

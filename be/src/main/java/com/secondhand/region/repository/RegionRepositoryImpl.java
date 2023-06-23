@@ -8,8 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
-import javax.persistence.EntityManager;
-
 import java.util.List;
 
 import static com.secondhand.region.entity.QRegion.region;
@@ -18,8 +16,8 @@ public class RegionRepositoryImpl implements RegionRepositoryCustom{
 
     private final JPAQueryFactory queryFactory;
 
-    public RegionRepositoryImpl(EntityManager em) {
-        this.queryFactory = new JPAQueryFactory(em);
+    public RegionRepositoryImpl(JPAQueryFactory queryFactory) {
+        this.queryFactory = queryFactory;
     }
 
     @Override

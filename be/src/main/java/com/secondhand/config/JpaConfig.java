@@ -22,4 +22,3 @@ public class JpaConfig {
         return new JPAQueryFactory(entityManager);
     }
 }
-

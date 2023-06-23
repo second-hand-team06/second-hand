@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 
-import { ICON_NAME, PATH } from '@constants/index';
+import { ICON_NAME, PATH, REQUEST_URL } from '@constants/index';
 
 import useFetch, { REQUEST_METHOD, RESPONSE_STATE } from '@hooks/useFetch';
 
@@ -21,7 +21,7 @@ const Category = () => {
   const navigate = useNavigate();
 
   const { responseState, data } = useFetch<CategoriesData>({
-    url: 'http://13.124.150.120:8080/categories',
+    url: REQUEST_URL.CATEGORY,
     method: REQUEST_METHOD.GET,
   });
 

@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { REQUEST_METHOD, RESPONSE_STATE } from '@constants/index';
+import { REQUEST_URL } from '@constants/requestUrl';
 
-import useFetch from '@hooks/useFetch';
+import useFetch, { REQUEST_METHOD, RESPONSE_STATE } from '@hooks/useFetch';
 
 interface TokenData {
   token: string;
@@ -16,7 +16,7 @@ const LoginLoading = () => {
   const codeParam = urlParams.get('code');
 
   const { responseState, data } = useFetch<TokenData>({
-    url: `http://13.124.150.120:8080/oauth?code=${codeParam}`,
+    url: `${REQUEST_URL.OAUTH}?code=${codeParam}`,
     method: REQUEST_METHOD.GET,
   });
 

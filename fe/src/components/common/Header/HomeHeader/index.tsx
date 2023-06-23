@@ -1,10 +1,10 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
-import { ICON_NAME, REQUEST_METHOD } from '@constants/index';
+import { ICON_NAME, PATH, REQUEST_URL } from '@constants/index';
 import { getRegion } from '@utils/index';
 
-import useFetch from '@hooks/useFetch';
+import useFetch, { REQUEST_METHOD } from '@hooks/useFetch';
 
 import Icon from '@components/common/Icon';
 import * as S from './style';
@@ -21,7 +21,7 @@ interface RegionsData {
 const HomeHeader = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { data } = useFetch<RegionsData>({
-    url: 'http://13.124.150.120:8080/users/regions',
+    url: REQUEST_URL.USER_REGIONS,
     method: REQUEST_METHOD.GET,
   });
   const isLoggedIn = localStorage.getItem('Token');
@@ -52,7 +52,7 @@ const HomeHeader = () => {
             {getRegion(name)}
           </S.Menu>
         ))}
-        <Link to="/region-setting">
+        <Link to={PATH.REGION_SETTING}>
           <S.Menu>내 동네 설정하기</S.Menu>
         </Link>
       </>
@@ -66,7 +66,7 @@ const HomeHeader = () => {
         <Icon name={ICON_NAME.CHEVRON_DOWN} />
         {isModalOpen && <S.Modal>{getDropDownMenuTemplate()}</S.Modal>}
       </S.NeighborhoodDropdown>
-      <Link to="/categories">
+      <Link to={PATH.CATEGORY}>
         <Icon name={ICON_NAME.HAMBURGER} />
       </Link>
     </S.HomeHeader>

@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 
-import { ICON_NAME } from '@constants/index';
+import { ICON_NAME, PATH } from '@constants/index';
 
 import Icon from '@components/common/Icon';
 import ProductList from '@components/ProductList';
@@ -20,7 +20,7 @@ const CategoryDetail = () => {
   return (
     <>
       <S.Header>
-        <Link to="/categories">
+        <Link to={PATH.CATEGORY}>
           <S.BackButton>
             <Icon name={ICON_NAME.CHEVRON_LEFT} />
           </S.BackButton>

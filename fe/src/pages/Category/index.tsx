@@ -1,8 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom';
 
-import { ICON_NAME, REQUEST_METHOD, RESPONSE_STATE } from '@constants/index';
+import { ICON_NAME, PATH, REQUEST_URL } from '@constants/index';
 
-import useFetch from '@hooks/useFetch';
+import useFetch, { REQUEST_METHOD, RESPONSE_STATE } from '@hooks/useFetch';
 
 import Icon from '@components/common/Icon';
 import * as S from './style';
@@ -21,14 +21,14 @@ const Category = () => {
   const navigate = useNavigate();
 
   const { responseState, data } = useFetch<CategoriesData>({
-    url: 'http://13.124.150.120:8080/categories',
+    url: REQUEST_URL.CATEGORY,
     method: REQUEST_METHOD.GET,
   });
 
   return (
     <>
       <S.Header>
-        <Link to="/">
+        <Link to={PATH.HOME}>
           <S.BackButton>
             <Icon name={ICON_NAME.CHEVRON_LEFT} />
             <span>뒤로</span>

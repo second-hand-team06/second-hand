@@ -1,10 +1,10 @@
 import { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
-import { ICON_NAME, REQUEST_METHOD } from '@constants/index';
+import { ICON_NAME, PATH, REQUEST_URL } from '@constants/index';
 import { getRegion } from '@utils/index';
 
-import useFetch from '@hooks/useFetch';
+import useFetch, { REQUEST_METHOD } from '@hooks/useFetch';
 
 import Icon from '@components/common/Icon';
 import Button from '@components/common/Button';
@@ -21,7 +21,7 @@ interface RegionsData {
 
 const RegionSetting = () => {
   const { data } = useFetch<RegionsData>({
-    url: 'http://13.124.150.120:8080/users/regions',
+    url: REQUEST_URL.USER_REGIONS,
     method: REQUEST_METHOD.GET,
   });
 
@@ -31,7 +31,7 @@ const RegionSetting = () => {
   return (
     <>
       <S.Header>
-        <Link to="/">
+        <Link to={PATH.HOME}>
           <S.CloseButton>닫기</S.CloseButton>
         </Link>
         <S.HeaderTitle>동네 설정</S.HeaderTitle>

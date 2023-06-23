@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 
-import useFetch from '@hooks/useFetch';
-import useIntersectionObserver from '@hooks/useIntersectionObserver';
+import { REQUEST_URL } from '@constants/requestUrl';
 
-import { RESPONSE_STATE, REQUEST_METHOD } from '@constants/index';
+import useFetch, { RESPONSE_STATE, REQUEST_METHOD } from '@hooks/useFetch';
+import useIntersectionObserver from '@hooks/useIntersectionObserver';
 
 import ProductListItem, { ProductListItemProps } from '@components/ProductListItem';
 import * as S from './style';
@@ -21,9 +21,7 @@ const ProductList = ({ categoryId }: ProductListProps) => {
   const [postList, setPostList] = useState<ProductListItemProps[]>([]);
 
   const { fetchData, responseState, data } = useFetch<PostsData>({
-    url: `http://13.124.150.120:8080/posts?page=${pageNum}&size=10${
-      categoryId ? `&category=${categoryId}` : ''
-    }`,
+    url: `${REQUEST_URL.POSTS}?page=${pageNum}&size=10${categoryId ? `&category=${categoryId}` : ''}`,
     method: REQUEST_METHOD.GET,
   });
 

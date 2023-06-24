@@ -23,14 +23,15 @@ const getTimeStamp = (time: Date) => {
   if (diffInDays >= TIME_UNIT.ONE_DAY) {
     return `${diffInDays}일 전`;
   }
-  if (diffInHours < TIME_UNIT.HOURS) {
+  if (diffInHours >= 1) {
     return `${diffInHours}시간 전`;
   }
-  if (diffInMinutes < TIME_UNIT.MINUTES) {
+  if (diffInMinutes >= 1) {
     return `${diffInMinutes}분 전`;
   }
-
-  return `${diffInSeconds}초 전`;
+  if (diffInSeconds >= 0) {
+    return `${diffInSeconds}초 전`;
+  }
 };
 
 const getTextWithTimeStamp = ({ text, time }: { text: string; time: Date }) => {

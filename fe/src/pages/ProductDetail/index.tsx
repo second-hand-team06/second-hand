@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { ICON_NAME } from '@constants/index';
 
 import { getTextWithTimeStamp } from '@utils/index';
@@ -6,6 +8,8 @@ import Icon from '@components/common/Icon';
 import * as S from './style';
 
 const ProductDetail = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <>
       <S.Header>
@@ -19,9 +23,18 @@ const ProductDetail = () => {
           <span>아켄</span>
         </S.SellerInfo>
 
-        <S.PostStateDropDown>
+        <S.PostStateDropDown onClick={() => setIsModalOpen(!isModalOpen)}>
           <span>판매 중</span>
           <Icon name={ICON_NAME.CHEVRON_DOWN} />
+          {isModalOpen && (
+            <S.Modal>
+              {['예약 중', '판매 중', '판매 완료'].map((state) => (
+                <S.Menu key={state} selectedstate={'판매 중'} state={state}>
+                  {state}
+                </S.Menu>
+              ))}
+            </S.Modal>
+          )}
         </S.PostStateDropDown>
 
         <S.Title>빈티지 롤러 스케이트</S.Title>

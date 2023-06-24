@@ -18,6 +18,10 @@ const ProductInfo = styled.div`
   padding: 16px;
 `;
 
+const ProductImg = styled.img`
+  object-fit: cover;
+`;
+
 const SellerInfo = styled.div`
   display: flex;
   justify-content: space-between;
@@ -130,6 +134,7 @@ const CountLayout = styled.div`
 export {
   Header,
   ProductInfo,
+  ProductImg,
   SellerInfo,
   PostStateDropDown,
   Menu,

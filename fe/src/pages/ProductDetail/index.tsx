@@ -17,6 +17,8 @@ const ProductDetail = () => {
         <Icon name={ICON_NAME.ELLIPSIS} />
       </S.Header>
 
+      <S.ProductImg src="https://image.yes24.com/goods/86234361/XL" />
+
       <S.ProductInfo>
         <S.SellerInfo>
           <span>판매자 정보</span>

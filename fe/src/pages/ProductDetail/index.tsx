@@ -1,5 +1,7 @@
 import { ICON_NAME } from '@constants/index';
 
+import { getTextWithTimeStamp } from '@utils/index';
+
 import Icon from '@components/common/Icon';
 import * as S from './style';
 
@@ -23,6 +25,10 @@ const ProductDetail = () => {
         </S.PostStateDropDown>
 
         <S.Title>빈티지 롤러 스케이트</S.Title>
+
+        <S.CategoryAndTime>
+          {getTextWithTimeStamp({ text: '가구/인테리어', time: new Date() })}
+        </S.CategoryAndTime>
       </S.ProductInfo>
     </>
   );

@@ -64,4 +64,11 @@ const Title = styled.div`
   color: ${({ theme }) => theme.colors.neutral.text.strong};
 `;
 
-export { Header, ProductInfo, SellerInfo, PostStateDropDown, Title };
+const CategoryAndTime = styled.span`
+  font-size: ${({ theme }) => theme.fonts.footnote.fontSize};
+  font-weight: ${({ theme }) => theme.fonts.footnote.fontWeight};
+  line-height: ${({ theme }) => theme.fonts.footnote.lineHeight};
+  color: ${({ theme }) => theme.colors.neutral.text.weak};
+`;
+
+export { Header, ProductInfo, SellerInfo, PostStateDropDown, Title, CategoryAndTime };

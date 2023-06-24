@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import Button from '@components/common/Button';
-
 const Header = styled.header`
   display: flex;
   justify-content: space-between;
@@ -42,6 +40,7 @@ const PostStateDropDown = styled.div`
 
   width: 106px;
   height: 32px;
+  margin: 16px 0;
   padding: 0px 16px;
   border: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
   border-radius: 8px;
@@ -56,4 +55,13 @@ const PostStateDropDown = styled.div`
   }
 `;
 
-export { Header, ProductInfo, SellerInfo, PostStateDropDown };
+const Title = styled.div`
+  margin-bottom: 8px;
+
+  font-size: ${({ theme }) => theme.fonts.headline.fontSize};
+  font-weight: ${({ theme }) => theme.fonts.headline.fontWeight};
+  line-height: ${({ theme }) => theme.fonts.headline.lineHeight};
+  color: ${({ theme }) => theme.colors.neutral.text.strong};
+`;
+
+export { Header, ProductInfo, SellerInfo, PostStateDropDown, Title };

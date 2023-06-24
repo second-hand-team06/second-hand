@@ -36,10 +36,6 @@ const SellerInfo = styled.div`
 `;
 
 const PostStateDropDown = styled.div`
-  width: 106px;
-`;
-
-const OpenModalButton = styled.button`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -48,6 +44,7 @@ const OpenModalButton = styled.button`
   height: 32px;
   padding: 0px 16px;
   border: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
+  border-radius: 8px;
 
   font-size: ${({ theme }) => theme.fonts.caption1.fontSize};
   font-weight: ${({ theme }) => theme.fonts.caption1.fontWeight};
@@ -59,4 +56,4 @@ const OpenModalButton = styled.button`
   }
 `;
 
-export { Header, ProductInfo, SellerInfo, PostStateDropDown, OpenModalButton };
+export { Header, ProductInfo, SellerInfo, PostStateDropDown };

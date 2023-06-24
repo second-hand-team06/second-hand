@@ -19,10 +19,8 @@ const ProductDetail = () => {
         </S.SellerInfo>
 
         <S.PostStateDropDown>
-          <S.OpenModalButton>
-            <span>판매 중</span>
-            <Icon name={ICON_NAME.CHEVRON_DOWN} />
-          </S.OpenModalButton>
+          <span>판매 중</span>
+          <Icon name={ICON_NAME.CHEVRON_DOWN} />
         </S.PostStateDropDown>
       </S.ProductInfo>
     </>

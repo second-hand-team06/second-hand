@@ -1,5 +1,5 @@
 import { ICON_NAME } from '@constants/index';
-import { forMatMoney, getTextWithTimeStamp } from '@utils/index';
+import { formatMoney, getTextWithTimeStamp } from '@utils/index';
 
 import Icon from '@components/common/Icon';
 import * as S from './style';
@@ -48,7 +48,7 @@ const ProductListItem = ({
               {badge.state}
             </S.StateBadge>
           )}
-          {price && <S.Price>{forMatMoney(price)}</S.Price>}
+          {price && <S.Price>{formatMoney(price)}</S.Price>}
         </S.StateAndPrice>
         <S.ChatAndLike>
           {chattingCount > 0 && (

@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { ICON_NAME } from '@constants/index';
 
-import { getTextWithTimeStamp, forMatMoney } from '@utils/index';
+import { getTextWithTimeStamp, formatMoney } from '@utils/index';
 
 import Icon from '@components/common/Icon';
 import * as S from './style';
@@ -63,7 +63,7 @@ const ProductDetail = () => {
       <S.ToolBar>
         <S.LikeAndPrice>
           <Icon name={ICON_NAME.LIKE} />
-          <span>{forMatMoney(169000)}</span>
+          <span>{formatMoney(169000)}</span>
         </S.LikeAndPrice>
 
         <S.ChattingButton buttonType="rectangle" buttonState="active">

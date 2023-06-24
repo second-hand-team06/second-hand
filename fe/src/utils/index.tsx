@@ -38,7 +38,7 @@ const getTextWithTimeStamp = ({ text, time }: { text: string; time: Date }) => {
   return `${text} · ${getTimeStamp(time)}`;
 };
 
-const forMatMoney = (money: number) => {
+const formatMoney = (money: number) => {
   return `${money.toLocaleString()}원`;
 };
 
@@ -46,4 +46,4 @@ const getRegion = (address: string) => {
   return address.split(' ').at(-1);
 };
 
-export { getTextWithTimeStamp, forMatMoney, getRegion };
+export { getTextWithTimeStamp, formatMoney, getRegion };

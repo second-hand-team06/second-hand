@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components';
 
+import Button from '@components/common/Button';
+
 const Header = styled.header`
   display: flex;
   justify-content: space-between;
@@ -10,15 +12,21 @@ const Header = styled.header`
   height: 44px;
   padding: 16px;
 `;
+const Product = styled.section`
+  overflow-y: scroll;
+
+  height: calc(100vh - 83px);
+`;
 
 const ProductInfo = styled.div`
   display: flex;
   flex-direction: column;
-
   padding: 16px;
 `;
 
 const ProductImg = styled.img`
+  width: 100%;
+
   object-fit: cover;
 `;
 
@@ -131,8 +139,39 @@ const CountLayout = styled.div`
   gap: 8px;
 `;
 
+const ToolBar = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+
+  width: 100%;
+  height: 83px;
+  padding: 16px;
+
+  background-color: ${({ theme }) => theme.colors.neutral.background.weak};
+  border-top: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
+`;
+
+const LikeAndPrice = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  font-size: ${({ theme }) => theme.fonts.footnote.fontSize};
+  font-weight: ${({ theme }) => theme.fonts.footnote.fontWeight};
+  line-height: ${({ theme }) => theme.fonts.footnote.lineHeight};
+  color: ${({ theme }) => theme.colors.neutral.text.strong};
+`;
+
+const ChattingButton = styled(Button)`
+  width: fit-content;
+`;
+
 export {
   Header,
+  Product,
   ProductInfo,
   ProductImg,
   SellerInfo,
@@ -144,4 +183,7 @@ export {
   Content,
   Count,
   CountLayout,
+  ToolBar,
+  LikeAndPrice,
+  ChattingButton,
 };

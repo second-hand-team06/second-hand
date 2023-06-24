@@ -71,4 +71,15 @@ const CategoryAndTime = styled.span`
   color: ${({ theme }) => theme.colors.neutral.text.weak};
 `;
 
-export { Header, ProductInfo, SellerInfo, PostStateDropDown, Title, CategoryAndTime };
+const Content = styled.div`
+  margin: 16px 0;
+
+  font-size: ${({ theme }) => theme.fonts.body.regular.fontSize};
+  font-weight: ${({ theme }) => theme.fonts.body.regular.fontWeight};
+  line-height: ${({ theme }) => theme.fonts.body.regular.lineHeight};
+  color: ${({ theme }) => theme.colors.neutral.text.default};
+
+  white-space: pre-line;
+`;
+
+export { Header, ProductInfo, SellerInfo, PostStateDropDown, Title, CategoryAndTime, Content };

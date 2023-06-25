@@ -58,11 +58,15 @@ public class UserService {
         User user = userRepository.findById(loggedInUser.getId())
                 .orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다."));
         PostMeta postMeta = postMetaRepository.findById(postId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
+                .orElseThrow(() -> new IllegalArgumentException("해당 상품이 존재하지 않습니다."));
+
+        if (postMeta.isDeleted()) {
+            throw new IllegalArgumentException("없는 상품입니다.");
+        }
 
         interestRepository.findByUserAndPostMeta(user, postMeta)
                 .ifPresent(interest -> {
-                    throw new IllegalArgumentException("이미 관심상품으로 등록된 게시글입니다.");
+                    throw new IllegalArgumentException("이미 관심 상품으로 등록된 상품입니다.");
                 });
 
         Interest interest = new Interest(user, postMeta);
@@ -73,11 +77,11 @@ public class UserService {
     public void deleteInterestPost(long postId, LoggedInUser loggedInUser) {
 
         PostMeta postMeta = postMetaRepository.findById(postId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
+                .orElseThrow(() -> new IllegalArgumentException("해당 상품이 존재하지 않습니다."));
         User user = userRepository.findById(loggedInUser.getId())
                 .orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다."));
         Interest interest = interestRepository.findByUserAndPostMeta(user, postMeta)
-                .orElseThrow(() -> new IllegalArgumentException("해당 관심상품이 존재하지 않습니다."));
+                .orElseThrow(() -> new IllegalArgumentException("해당 관심 상품이 존재하지 않습니다."));
 
         interestRepository.delete(interest);
     }

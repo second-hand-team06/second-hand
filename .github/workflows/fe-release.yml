@@ -56,7 +56,7 @@ jobs:
     - name: docker build and push
       run: |
         sudo docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-        sudo docker build --platform amd64 --build-arg DEPENDENCY=build/dependency -f /Dockerfile -t ${{secrets.DOCKER_USERNAME}}/birdieweb .
+        sudo docker build --platform amd64 --build-arg DEPENDENCY=build/dependency -f ./Dockerfile -t ${{secrets.DOCKER_USERNAME}}/birdieweb .
         sudo docker push ${{ secrets.DOCKER_USERNAME }}/birdieweb
 
     - name: executing remote ssh commands using password

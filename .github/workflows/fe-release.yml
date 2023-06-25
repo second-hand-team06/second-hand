@@ -68,6 +68,5 @@ jobs:
         script: |
           sudo docker rm -f ${{ secrets.DOCKER_USERNAME }}/birdieweb
           sudo docker pull ${{ secrets.DOCKER_USERNAME }}/birdieweb 
-          sudo docker image prune -a -f
           sudo docker ps -a
           sudo docker run -d --rm --name birdiehyun/birdieweb -p 80:80 birdiehyun/birdieweb

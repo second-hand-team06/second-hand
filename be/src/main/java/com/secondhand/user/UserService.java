@@ -60,6 +60,11 @@ public class UserService {
         PostMeta postMeta = postMetaRepository.findById(postId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
 
+        interestRepository.findByUserAndPostMeta(user, postMeta)
+                .ifPresent(interest -> {
+                    throw new IllegalArgumentException("이미 관심상품으로 등록된 게시글입니다.");
+                });
+
         Interest interest = new Interest(user, postMeta);
         interestRepository.save(interest);
     }

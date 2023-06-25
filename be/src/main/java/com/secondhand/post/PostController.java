@@ -21,6 +21,7 @@ public class PostController {
 
     private final PostService postService;
 
+    // TODO: 내가 관심 목록에 등록한 것인지 여부도 포함해서 반환, 관심 목록에 등록한 사람의 수 반환
     @GetMapping
     public ResponseEntity<CustomResponse<MainPagePostsDto>> getPost(Pageable pageable, SearchCondition searchCondition) {
 
@@ -68,6 +69,7 @@ public class PostController {
                         , postService.findInterestPosts(pageable, loggedInUser)));
     }
 
+    // TODO: 삭제된 상품은 상세 조회 불가능
     @GetMapping("/{postId}")
     public ResponseEntity<CustomResponse<PostDetailPageDto>> getPostDetail(@PathVariable Long postId, @RequestAttribute LoggedInUser loggedInUser) {
 

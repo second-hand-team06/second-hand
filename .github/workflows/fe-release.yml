@@ -49,9 +49,6 @@ jobs:
       run: npm run build
       working-directory: ${{ env.working-directory }}
 
-    - name: List directory contents
-      run: ls -la ./second-hand
-
     - name: check current directory
       run: pwd
     

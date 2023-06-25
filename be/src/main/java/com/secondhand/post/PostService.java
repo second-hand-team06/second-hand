@@ -69,7 +69,7 @@ public class PostService {
     public PostDetailPageDto findPostDetailPage(long postId, LoggedInUser loggedInUser) {
 
         postMetaRepository.updatePostMetaViewCount(postId);
-        PostMeta postMeta = postMetaRepository.findById(postId)
+        PostMeta postMeta = postMetaRepository.findByIdAndDeletedFalse(postId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
         PostDetail postDetail = postDetailRepository.findById(postId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글의 상세 내용이 존재하지 않습니다."));

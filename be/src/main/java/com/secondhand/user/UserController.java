@@ -44,7 +44,6 @@ public class UserController {
                 ));
     }
 
-    // TODO: 삭제된 상품은 관심 상품에 등록 불가능, 이미 관심 목록에 등록된 상품은 등록 불가능
     @PostMapping("/{postId}")
     public ResponseEntity<CustomResponse> addInterestPost(@PathVariable Long postId, @RequestAttribute LoggedInUser loggedInUser) {
 

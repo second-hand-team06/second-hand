@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class FindMainPageInterceptor implements HandlerInterceptor {
+public class NotLoggedInUserInterceptor implements HandlerInterceptor {
 
     private final DefaultInterceptor defaultInterceptor;
 

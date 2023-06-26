@@ -19,10 +19,17 @@ interface CategoriesData {
 
 const Category = () => {
   const navigate = useNavigate();
+  const token = localStorage.getItem('Token');
+  const options: RequestInit = {
+    method: REQUEST_METHOD.GET,
+    headers: {},
+  };
+
+  if (token) options.headers = { ...options.headers, Authorization: `Bearer ${token}` };
 
   const { responseState, data } = useFetch<CategoriesData>({
     url: REQUEST_URL.CATEGORY,
-    method: REQUEST_METHOD.GET,
+    options,
   });
 
   return (

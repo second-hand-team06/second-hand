@@ -19,10 +19,17 @@ interface ProductListProps {
 const ProductList = ({ categoryId }: ProductListProps) => {
   const [pageNum, setPageNum] = useState(0);
   const [postList, setPostList] = useState<ProductListItemProps[]>([]);
+  const token = localStorage.getItem('Token');
+  const options: RequestInit = {
+    method: REQUEST_METHOD.GET,
+    headers: {},
+  };
+
+  if (token) options.headers = { ...options.headers, Authorization: `Bearer ${token}` };
 
   const { fetchData, responseState, data } = useFetch<PostsData>({
     url: `${REQUEST_URL.POSTS}?page=${pageNum}&size=10${categoryId ? `&category=${categoryId}` : ''}`,
-    method: REQUEST_METHOD.GET,
+    options,
   });
 
   const intersectHandler: IntersectionObserverCallback = ([entry]) => {

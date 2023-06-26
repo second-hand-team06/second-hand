@@ -17,7 +17,7 @@ const LoginLoading = () => {
 
   const { responseState, data } = useFetch<TokenData>({
     url: `${REQUEST_URL.OAUTH}?code=${codeParam}`,
-    method: REQUEST_METHOD.GET,
+    options: { method: REQUEST_METHOD.GET },
   });
 
   useEffect(() => {

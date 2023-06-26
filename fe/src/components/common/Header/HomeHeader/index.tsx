@@ -20,14 +20,21 @@ interface RegionsData {
 
 const HomeHeader = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const token = localStorage.getItem('Token');
+  const options: RequestInit = {
+    method: REQUEST_METHOD.GET,
+    headers: {},
+  };
+
+  if (token) options.headers = { ...options.headers, Authorization: `Bearer ${token}` };
+
   const { data } = useFetch<RegionsData>({
     url: REQUEST_URL.USER_REGIONS,
-    method: REQUEST_METHOD.GET,
+    options,
   });
-  const isLoggedIn = localStorage.getItem('Token');
 
   const selectedRegion = useMemo(() => {
-    if (!isLoggedIn) return '역삼 1동';
+    if (!token) return '역삼 1동';
     if (!data) return;
 
     const address = data.regions[0].name;
@@ -37,7 +44,7 @@ const HomeHeader = () => {
   }, [data]);
 
   const getDropDownMenuTemplate = () => {
-    if (!isLoggedIn) {
+    if (!token) {
       return (
         <S.Menu selectedregion={selectedRegion} region={selectedRegion}>
           {selectedRegion}

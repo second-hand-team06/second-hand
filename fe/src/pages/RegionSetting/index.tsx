@@ -20,9 +20,17 @@ interface RegionsData {
 }
 
 const RegionSetting = () => {
+  const token = localStorage.getItem('Token');
+  const options: RequestInit = {
+    method: REQUEST_METHOD.GET,
+    headers: {},
+  };
+
+  if (token) options.headers = { ...options.headers, Authorization: `Bearer ${token}` };
+
   const { data } = useFetch<RegionsData>({
     url: REQUEST_URL.USER_REGIONS,
-    method: REQUEST_METHOD.GET,
+    options,
   });
 
   // * data.regions의 첫 번째 요소 === 사용자가 선택한 기본 동네

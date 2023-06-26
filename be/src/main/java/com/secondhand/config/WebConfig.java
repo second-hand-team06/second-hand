@@ -24,7 +24,7 @@ public class WebConfig implements WebMvcConfigurer {
 
         registry.addMapping("/**")
                 .allowedOrigins("*")
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH");
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS");
     }
 
     // TODO: 댓글 interceptor 추가

@@ -4,6 +4,7 @@ import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.JPAExpressions;
+import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.secondhand.post.dto.PostMetaDto;
 import com.secondhand.post.dto.QPostMetaDto;
@@ -38,6 +39,7 @@ public class PostMetaRepositoryImpl implements PostMetaRepositoryCustom {
                         postMeta.viewCount,
                         postMeta.badge,
                         postMeta.postedAt,
+                        countInterested(),
                         isInterestedEq(userId)))
                 .from(postMeta)
                 .where(categoryEq(searchCondition.getCategory()), regionEq(searchCondition.getRegion()), postMeta.deleted.eq(false))
@@ -50,6 +52,13 @@ public class PostMetaRepositoryImpl implements PostMetaRepositoryCustom {
         long total = result.getTotal();
 
         return new PageImpl<>(content, pageable, total);
+    }
+
+    private JPQLQuery<Long> countInterested() {
+
+        return JPAExpressions.select(interest.count())  // 서브쿼리로 interest 카운트
+                .from(interest)
+                .where(interest.postMeta.id.eq(postMeta.id));
     }
 
     private BooleanExpression isInterestedEq(Long userId) {

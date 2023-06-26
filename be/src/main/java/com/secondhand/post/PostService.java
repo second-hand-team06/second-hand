@@ -53,6 +53,7 @@ public class PostService {
         Integer region = searchCondition.getRegion();
 
         if (userId != null) {
+
             User user = userRepository.findById(userId)
                     .orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다."));
 

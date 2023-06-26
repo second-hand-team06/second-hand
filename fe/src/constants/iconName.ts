@@ -3,6 +3,7 @@ const ICON_NAME = {
   CAMERA: 'camera',
   CHEVRON_DOWN: 'chevronDown',
   CHEVRON_LEFT: 'chevronLeft',
+  CHEVRON_RIGHT: 'chevronRight',
   CIRCLE_FILL: 'circleFill',
   ELLIPSIS: 'ellipsis',
   HAMBURGER: 'hamburger',

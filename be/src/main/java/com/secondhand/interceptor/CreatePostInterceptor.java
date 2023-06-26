@@ -16,6 +16,10 @@ public class CreatePostInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
+        if (request.getMethod().equals("OPTIONS")) {
+            return true;
+        }
+
         if (request.getMethod().equals("POST")) {
             loginInterceptor.preHandle(request, response, handler);
         }

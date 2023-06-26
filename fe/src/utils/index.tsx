@@ -45,4 +45,26 @@ const getRegion = (address: string) => {
   return address.split(' ').at(-1);
 };
 
-export { getTextWithTimeStamp, forMatMoney, getRegion };
+const parseJWT = (token: string) => {
+  const parts = token.split('.');
+
+  if (parts.length !== 3) return null;
+
+  try {
+    const decodedToken = {
+      header: JSON.parse(atob(parts[0])),
+      payload: JSON.parse(atob(parts[1])),
+      signature: parts[2],
+    };
+
+    return decodedToken;
+  } catch (error) {
+    return null;
+  }
+};
+
+const getUserInfo = (token: string) => {
+  return parseJWT(token)?.payload.userProfile;
+};
+
+export { getTextWithTimeStamp, forMatMoney, getRegion, getUserInfo };

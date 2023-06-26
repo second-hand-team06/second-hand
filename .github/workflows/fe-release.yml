@@ -23,6 +23,16 @@ jobs:
     # 1) 기본 체크아웃
     - name: Checkout
       uses: actions/checkout@v3
+
+    - uses: actions/checkout@v3
+    - run: touch ./fe/.env.development
+    - run: echo "${{ secrets.FE_DEV }}" > ./fe/.env.development
+    - run: cat ./fe/.env.development
+
+    - uses: actions/checkout@v3
+    - run: touch ./fe/.env.production
+    - run: echo "${{ secrets.FE_PROD }}" > ./fe/.env.production
+    - run: cat ./fe/.env.production
     
     # 2) node 셋팅
     - name: Set node@v1

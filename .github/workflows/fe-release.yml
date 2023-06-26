@@ -76,6 +76,6 @@ jobs:
         username: ubuntu
         key: ${{ secrets.KEY }}
         script: |
-          sudo docker rm -f ${{ secrets.DOCKER_USERNAME }}/birdieweb
+          sudo docker rm -f birdieweb
           sudo docker pull ${{ secrets.DOCKER_USERNAME }}/birdieweb 
           sudo docker run -d --rm --name birdieweb -p 80:80 birdiehyun/birdieweb

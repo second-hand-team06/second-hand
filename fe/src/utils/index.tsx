@@ -34,11 +34,19 @@ const getTimeStamp = (time: Date) => {
   }
 };
 
-const getTextWithTimeStamp = ({ text, time }: { text: string; time: Date }) => {
-  return `${text} · ${getTimeStamp(time)}`;
+const getTextWithTimeStamp = ({ text, time }: { text: string; time: string }) => {
+  if (!text || !time) {
+    return '';
+  }
+
+  return `${text} · ${getTimeStamp(new Date(time))}`;
 };
 
 const formatMoney = (money: number) => {
+  if (isNaN(money)) {
+    return '가격 x';
+  }
+
   return `${money.toLocaleString()}원`;
 };
 

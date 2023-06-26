@@ -18,6 +18,8 @@ public class ChattingRoomController {
     @GetMapping("/room")
     public String rooms(Model model) {
 
+        System.out.println("rooms() called");
+
         return "chatting/room";
     }
 
@@ -31,6 +33,8 @@ public class ChattingRoomController {
     @PostMapping("/room")
     @ResponseBody
     public ChattingRoomDto createRoom(@RequestParam String name) {
+
+        System.out.println("createRoom() called: " + name);
 
         return chattingRoomRepository.createChattingRoom(name);
     }

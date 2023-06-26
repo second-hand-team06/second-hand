@@ -51,7 +51,7 @@ jobs:
         username: ubuntu
         key: ${{ secrets.KEY }}
         script: |
-          sudo docker rm -f ${{ secrets.DOCKER_USERNAME }}/second-hand 
+          sudo docker rm -f was-application
           sudo docker pull ${{ secrets.DOCKER_USERNAME }}/second-hand 
           sudo docker-compose up -d
           sudo docker image prune -a -f

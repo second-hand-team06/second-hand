@@ -18,7 +18,12 @@ const ProductDetail = () => {
       </S.Header>
 
       <S.Product>
-        <S.ProductImg src="https://image.yes24.com/goods/86234361/XL" />
+        <S.ProductImgListLayout>
+          <S.ProductImgList>
+            <S.ProductImg src="https://image.yes24.com/goods/86234361/XL" />
+            <S.ProductImg src="https://image.yes24.com/goods/86234361/XL" />
+          </S.ProductImgList>
+        </S.ProductImgListLayout>
 
         <S.ProductInfo>
           <S.SellerInfo>
@@ -42,9 +47,7 @@ const ProductDetail = () => {
 
           <S.Title>빈티지 롤러 스케이트</S.Title>
 
-          <S.CategoryAndTime>
-            {getTextWithTimeStamp({ text: '가구/인테리어', time: new Date() })}
-          </S.CategoryAndTime>
+          <S.CategoryAndTime>{getTextWithTimeStamp({ text: '가구/인테리어', time: '' })}</S.CategoryAndTime>
 
           <S.Content>
             {

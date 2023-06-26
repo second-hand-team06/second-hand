@@ -24,8 +24,20 @@ const ProductInfo = styled.div`
   padding: 16px;
 `;
 
+const ProductImgListLayout = styled.div`
+  overflow-x: hidden;
+`;
+
+const ProductImgList = styled.div`
+  display: flex;
+  align-items: center;
+
+  width: fit-content;
+`;
+
 const ProductImg = styled.img`
-  width: 100%;
+  min-width: 100vw;
+  height: 500px;
 
   object-fit: cover;
 `;
@@ -173,6 +185,8 @@ export {
   Header,
   Product,
   ProductInfo,
+  ProductImgListLayout,
+  ProductImgList,
   ProductImg,
   SellerInfo,
   PostStateDropDown,

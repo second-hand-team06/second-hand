@@ -1,6 +1,7 @@
 package com.secondhand.config;
 
 import com.secondhand.interceptor.CreatePostInterceptor;
+import com.secondhand.interceptor.FindMainPageInterceptor;
 import com.secondhand.interceptor.LoginInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +16,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     private final LoginInterceptor loginInterceptor;
     private final CreatePostInterceptor createPostInterceptor;
+    private final FindMainPageInterceptor findMainPageInterceptor;
 
     // TODO : 배포시 allowedOrigins "http://3.37.72.34" 로 변경
     @Override
@@ -38,6 +40,9 @@ public class WebConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/posts");
 
         registry.addInterceptor(createPostInterceptor)
+                .addPathPatterns("/posts");
+
+        registry.addInterceptor(findMainPageInterceptor)
                 .addPathPatterns("/posts");
     }
 }

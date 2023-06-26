@@ -2,6 +2,8 @@ package com.secondhand.post.repository.postmeta;
 
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.secondhand.post.dto.PostMetaDto;
 import com.secondhand.post.dto.QPostMetaDto;
@@ -12,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
+import static com.secondhand.post.entity.QInterest.interest;
 import static com.secondhand.post.entity.QPostMeta.postMeta;
 
 public class PostMetaRepositoryImpl implements PostMetaRepositoryCustom {
@@ -23,7 +26,7 @@ public class PostMetaRepositoryImpl implements PostMetaRepositoryCustom {
     }
 
     @Override
-    public Page<PostMetaDto> findMainPage(Pageable pageable, SearchCondition searchCondition) {
+    public Page<PostMetaDto> findMainPage(Pageable pageable, SearchCondition searchCondition, Long userId) {
 
         QueryResults<PostMetaDto> result = queryFactory
                 .select(new QPostMetaDto(
@@ -34,7 +37,8 @@ public class PostMetaRepositoryImpl implements PostMetaRepositoryCustom {
                         postMeta.photoUrl,
                         postMeta.viewCount,
                         postMeta.badge,
-                        postMeta.postedAt))
+                        postMeta.postedAt,
+                        isInterestedEq(userId)))
                 .from(postMeta)
                 .where(categoryEq(searchCondition.getCategory()), regionEq(searchCondition.getRegion()), postMeta.deleted.eq(false))
                 .orderBy(postMeta.postedAt.desc())
@@ -46,6 +50,18 @@ public class PostMetaRepositoryImpl implements PostMetaRepositoryCustom {
         long total = result.getTotal();
 
         return new PageImpl<>(content, pageable, total);
+    }
+
+    private BooleanExpression isInterestedEq(Long userId) {
+
+        if (userId == null) {
+            return Expressions.asBoolean(false);
+        }
+
+        return JPAExpressions.selectOne()
+                .from(interest)
+                .where(interest.postMeta.id.eq(postMeta.id).and(interest.user.id.eq(userId)))
+                .exists();
     }
 
     private BooleanExpression categoryEq(Integer category) {

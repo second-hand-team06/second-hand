@@ -28,7 +28,6 @@ public class PostDetailPageDto {
     private boolean isSeller;
     private List<String> photoUrls;
 
-
     public PostDetailPageDto(PostMeta postMeta) {
         this.id = postMeta.getId();
         this.sellerId = postMeta.getSeller().getId();

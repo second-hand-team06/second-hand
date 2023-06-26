@@ -26,7 +26,7 @@ public class User {
     private Integer secondRegionId;
 
     @OneToMany(mappedBy = "user")
-    private List<Interest> interest = new ArrayList<>();
+    private List<Interest> interests = new ArrayList<>();
 
     public User(UserProfileResponse userProfileResponse) {
         this.githubId = userProfileResponse.getId();

@@ -22,10 +22,8 @@ const Category = () => {
   const token = localStorage.getItem('Token');
   const options: RequestInit = {
     method: REQUEST_METHOD.GET,
-    headers: {},
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
   };
-
-  if (token) options.headers = { ...options.headers, Authorization: `Bearer ${token}` };
 
   const { responseState, data } = useFetch<CategoriesData>({
     url: REQUEST_URL.CATEGORY,

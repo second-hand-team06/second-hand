@@ -13,23 +13,25 @@ interface PostsData {
 }
 
 interface ProductListProps {
+  regionId: number;
   categoryId?: number;
 }
 
-const ProductList = ({ categoryId }: ProductListProps) => {
+const ProductList = ({ regionId, categoryId }: ProductListProps) => {
   const [pageNum, setPageNum] = useState(0);
   const [postList, setPostList] = useState<ProductListItemProps[]>([]);
   const token = localStorage.getItem('Token');
   const options: RequestInit = {
     method: REQUEST_METHOD.GET,
-    headers: {},
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
   };
 
-  if (token) options.headers = { ...options.headers, Authorization: `Bearer ${token}` };
-
   const { fetchData, responseState, data } = useFetch<PostsData>({
-    url: `${REQUEST_URL.POSTS}?page=${pageNum}&size=10${categoryId ? `&category=${categoryId}` : ''}`,
+    url: `${REQUEST_URL.POSTS}?page=${pageNum}&size=10${categoryId ? `&category=${categoryId}` : ''}${
+      regionId ? `&region=${regionId}` : ''
+    }`,
     options,
+    skip: true,
   });
 
   const intersectHandler: IntersectionObserverCallback = ([entry]) => {
@@ -43,7 +45,7 @@ const ProductList = ({ categoryId }: ProductListProps) => {
   const { setTarget } = useIntersectionObserver({ intersectHandler });
 
   useEffect(() => {
-    if (pageNum > 0) fetchData();
+    fetchData();
   }, [pageNum]);
 
   useEffect(() => {

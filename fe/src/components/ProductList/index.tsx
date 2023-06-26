@@ -13,30 +13,39 @@ interface PostsData {
 }
 
 interface ProductListProps {
+  regionId: number;
   categoryId?: number;
 }
 
-const ProductList = ({ categoryId }: ProductListProps) => {
+const ProductList = ({ regionId, categoryId }: ProductListProps) => {
   const [pageNum, setPageNum] = useState(0);
   const [postList, setPostList] = useState<ProductListItemProps[]>([]);
+  const token = localStorage.getItem('Token');
+  const options: RequestInit = {
+    method: REQUEST_METHOD.GET,
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+  };
 
   const { fetchData, responseState, data } = useFetch<PostsData>({
-    url: `${REQUEST_URL.POSTS}?page=${pageNum}&size=10${categoryId ? `&category=${categoryId}` : ''}`,
-    method: REQUEST_METHOD.GET,
+    url: `${REQUEST_URL.POSTS}?page=${pageNum}&size=10${categoryId ? `&category=${categoryId}` : ''}${
+      regionId ? `&region=${regionId}` : ''
+    }`,
+    options,
+    skip: true,
   });
 
   const intersectHandler: IntersectionObserverCallback = ([entry]) => {
     if (!entry.isIntersecting) return;
 
-    if (responseState === RESPONSE_STATE.SUCCESS && !data?.posts.last) {
-      setPageNum((previousPageNum) => previousPageNum + 1);
-    }
+    if (responseState !== RESPONSE_STATE.SUCCESS || data?.posts.last) return;
+
+    setPageNum((previousPageNum) => previousPageNum + 1);
   };
 
   const { setTarget } = useIntersectionObserver({ intersectHandler });
 
   useEffect(() => {
-    if (pageNum > 0) fetchData();
+    fetchData();
   }, [pageNum]);
 
   useEffect(() => {

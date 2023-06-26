@@ -1,30 +1,23 @@
 package com.secondhand.chatting;
 
-import com.secondhand.chatting.dto.ChattingRoomDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
+import org.springframework.stereotype.Controller;
 
 @RequiredArgsConstructor
-@RestController
-@RequestMapping("/chatting")
+@Controller
 public class ChattingController {
 
-    private final ChattingService chattingService;
+    private final SimpMessageSendingOperations messagingTemplate;
 
-    @PostMapping
-    public ChattingRoomDto createRoom(String name) {
+    @MessageMapping("/chatting/message")
+    public void message(ChattingMessage message) {
 
-        return chattingService.createRoom(name);
-    }
+        if (ChattingMessage.MessageType.ENTER.equals(message.getType())) {
+            message.setMessage(message.getSender() + "님이 입장하셨습니다.");
+        }
 
-    @GetMapping
-    public List<ChattingRoomDto> findAllRomm() {
-
-        return chattingService.findAllRoom();
+        messagingTemplate.convertAndSend("/sub/chatting/room/" + message.getRoomId(), message);
     }
 }

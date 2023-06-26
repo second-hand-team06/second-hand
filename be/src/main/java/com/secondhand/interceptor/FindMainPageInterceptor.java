@@ -1,6 +1,5 @@
 package com.secondhand.interceptor;
 
-import com.secondhand.exception.login.NoAuthorizationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -12,18 +11,22 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class LoginInterceptor implements HandlerInterceptor {
+public class FindMainPageInterceptor implements HandlerInterceptor {
 
     private final DefaultInterceptor defaultInterceptor;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        if (request.getHeader("Authorization") == null) {
-            throw new NoAuthorizationException();
-        }
+        String authorizationHeader = request.getHeader("Authorization");
 
-        defaultInterceptor.preHandle(request, response, handler);
+        if (request.getMethod().equals("GET")) {
+            if (authorizationHeader == null) {
+                return true;
+            }
+
+            defaultInterceptor.preHandle(request, response, handler);
+        }
 
         return true;
     }

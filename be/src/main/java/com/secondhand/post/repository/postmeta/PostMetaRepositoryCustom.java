@@ -7,5 +7,5 @@ import org.springframework.data.domain.Pageable;
 
 public interface PostMetaRepositoryCustom {
 
-    Page<PostMetaDto> findMainPage(Pageable pageable, SearchCondition searchCondition);
+    Page<PostMetaDto> findMainPage(Pageable pageable, SearchCondition searchCondition, Long userId);
 }

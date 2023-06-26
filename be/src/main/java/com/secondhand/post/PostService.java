@@ -12,6 +12,7 @@ import com.secondhand.post.repository.postphoto.PostPhotoRepository;
 import com.secondhand.region.entity.Region;
 import com.secondhand.region.repository.RegionRepository;
 import com.secondhand.user.entity.User;
+import com.secondhand.user.login.JwtUtil;
 import com.secondhand.user.login.dto.LoggedInUser;
 import com.secondhand.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -44,11 +45,27 @@ public class PostService {
     private final CategoryRepository categoryRepository;
     private final BadgeRepository badgeRepository;
     private final FileUploadService fileUploadService;
+    private final JwtUtil jwtUtil;
 
     @Transactional(readOnly = true)
-    public MainPagePostsDto findMainPagePosts(Pageable pageable, SearchCondition searchCondition) {
+    public MainPagePostsDto findMainPagePosts(Pageable pageable, SearchCondition searchCondition, Long userId) {
 
-        return new MainPagePostsDto(postMetaRepository.findMainPage(pageable, searchCondition));
+        Integer region = searchCondition.getRegion();
+
+        if (userId != null) {
+
+            User user = userRepository.findById(userId)
+                    .orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다."));
+
+            validateRegionExists(region);
+            validateMyRegion(region, user);
+        }
+
+        log.info("searchCondition: {}", searchCondition.getCategory());
+        log.info("searchCondition: {}", searchCondition.getRegion());
+        log.info("userId: {}", userId);
+
+        return new MainPagePostsDto(postMetaRepository.findMainPage(pageable, searchCondition, userId));
     }
 
     @Transactional
@@ -69,10 +86,10 @@ public class PostService {
     public PostDetailPageDto findPostDetailPage(long postId, LoggedInUser loggedInUser) {
 
         postMetaRepository.updatePostMetaViewCount(postId);
-        PostMeta postMeta = postMetaRepository.findById(postId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
+        PostMeta postMeta = postMetaRepository.findByIdAndDeletedFalse(postId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 상품이 존재하지 않습니다."));
         PostDetail postDetail = postDetailRepository.findById(postId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글의 상세 내용이 존재하지 않습니다."));
+                .orElseThrow(() -> new IllegalArgumentException("해당 상품의 상세 내용이 존재하지 않습니다."));
         User user = userRepository.findById(loggedInUser.getId())
                 .orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다."));
 
@@ -147,6 +164,20 @@ public class PostService {
     public BadgesDto findBadges() {
 
         return new BadgesDto(badgeRepository.findAll());
+    }
+
+    private static void validateRegionExists(Integer region) {
+
+        if (region == null) {
+            throw new IllegalArgumentException("지역을 선택해주세요.");
+        }
+    }
+
+    private static void validateMyRegion(Integer region, User user) {
+
+        if (user.getFirstRegionId() != region && user.getSecondRegionId() != region) {
+            throw new IllegalArgumentException("해당 지역에 대한 권한이 없습니다.");
+        }
     }
 
     private PostMeta savePost(PostSaveDto postSaveDto, LoggedInUser loggedInUser) {

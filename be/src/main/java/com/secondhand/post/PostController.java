@@ -21,8 +21,11 @@ public class PostController {
 
     private final PostService postService;
 
+    // TODO: 내가 관심 목록에 등록한 것인지 여부도 포함해서 반환, 관심 목록에 등록한 사람의 수 반환
     @GetMapping
-    public ResponseEntity<CustomResponse<MainPagePostsDto>> getPost(Pageable pageable, SearchCondition searchCondition) {
+    public ResponseEntity<CustomResponse<MainPagePostsDto>> getPost(Pageable pageable, @Valid SearchCondition searchCondition, @RequestAttribute(required = false) LoggedInUser loggedInUser) {
+
+        Long userId = loggedInUser != null ? loggedInUser.getId() : null;
 
         return ResponseEntity
                 .ok()
@@ -30,7 +33,7 @@ public class PostController {
                         "success",
                         200,
                         "메인 화면 조회 성공",
-                        postService.findMainPagePosts(pageable, searchCondition)));
+                        postService.findMainPagePosts(pageable, searchCondition, userId)));
     }
 
     @PostMapping(consumes = {"multipart/form-data"})

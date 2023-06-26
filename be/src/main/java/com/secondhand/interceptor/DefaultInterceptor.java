@@ -23,6 +23,7 @@ public class DefaultInterceptor implements Interceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 
+        log.info("defaultInterceptor request.getMethod");
 
         String token = request.getHeader("Authorization").split(" ")[1];
         if (!request.getHeader("Authorization").split(" ")[0].equals("Bearer")) {

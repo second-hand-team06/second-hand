@@ -23,9 +23,13 @@ public class PostController {
 
     // TODO: 내가 관심 목록에 등록한 것인지 여부도 포함해서 반환, 관심 목록에 등록한 사람의 수 반환
     @GetMapping
-    public ResponseEntity<CustomResponse<MainPagePostsDto>> getPost(Pageable pageable, @Valid SearchCondition searchCondition, @RequestAttribute(required = false) LoggedInUser loggedInUser) {
+    public ResponseEntity<CustomResponse<MainPagePostsDto>> getPost(Pageable pageable, SearchCondition searchCondition, @RequestAttribute(required = false) LoggedInUser loggedInUser) {
 
         Long userId = loggedInUser != null ? loggedInUser.getId() : null;
+
+        if (userId == null) {
+            searchCondition.setRegion(1);
+        }
 
         return ResponseEntity
                 .ok()

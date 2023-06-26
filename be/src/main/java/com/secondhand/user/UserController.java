@@ -19,7 +19,9 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/regions")
-    public ResponseEntity<CustomResponse<UserRegionsDto>> getMyRegion(@RequestAttribute LoggedInUser loggedInUser) {
+    public ResponseEntity<CustomResponse<UserRegionsDto>> getMyRegion(@RequestAttribute(required = false) LoggedInUser loggedInUser) {
+
+        Long userId = loggedInUser != null ? loggedInUser.getId() : null;
 
         return ResponseEntity
                 .ok()
@@ -27,7 +29,7 @@ public class UserController {
                         "success",
                         200,
                         "지역 조회 성공",
-                        userService.getMyRegion(loggedInUser.getId())));
+                        userService.getMyRegion(userId)));
     }
 
     @PutMapping("/regions")

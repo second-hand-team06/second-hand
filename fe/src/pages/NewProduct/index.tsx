@@ -1,20 +1,23 @@
-import { ICON_NAME } from '@constants/index';
+import { Link } from 'react-router-dom';
+
+import { ICON_NAME, PATH } from '@constants/index';
 
 import Icon from '@components/common/Icon';
 import ImageInput from '@components/ImageIput';
 import * as S from './style';
 
-
 const NewProduct = () => {
   return (
     <S.NewProduct>
       <S.Header>
-        <S.CloseButton>닫기</S.CloseButton>
+        <Link to={PATH.HOME}>
+          <S.CloseButton>닫기</S.CloseButton>
+        </Link>
         <S.HeaderTitle>내 물건 팔기</S.HeaderTitle>
-        <S.CompleteButton>완료</S.CompleteButton>
+        <Link to={PATH.PRODUCT_DETAIL}>
+          <S.CompleteButton>완료</S.CompleteButton>
+        </Link>
       </S.Header>
-
-      <ImageInput></ImageInput>
 
       <S.TabBar>
         <S.RegionSettingButton>

@@ -17,53 +17,36 @@ const REQUEST_METHOD = {
 
 export { RESPONSE_STATE, REQUEST_METHOD };
 
+interface ErrorResponse {
+  code: number;
+  message: string;
+}
+
 type ResponseState = (typeof RESPONSE_STATE)[keyof typeof RESPONSE_STATE];
-type DataState<T> = null | T;
-type ErrorState = null | Error;
+type DataState<T> = T | null;
+type ErrorState = ErrorResponse | null;
 type Method = (typeof REQUEST_METHOD)[keyof typeof REQUEST_METHOD];
 
 interface UseFetchProps {
   url: string;
-  method?: Method;
-  body?: object | null;
+  options: RequestInit;
+  skip?: boolean;
 }
 
-const useFetch = <T>({ url, method = REQUEST_METHOD.GET, body = null }: UseFetchProps) => {
+const useFetch = <T>({ url, options, skip = false }: UseFetchProps) => {
   const [responseState, setResponseState] = useState<ResponseState>(RESPONSE_STATE.IDLE);
   const [data, setData] = useState<DataState<T>>(null);
   const [error, setError] = useState<ErrorState>(null);
-  const token = localStorage.getItem('Token');
 
   const fetchData = async () => {
     try {
       setResponseState(RESPONSE_STATE.LOADING);
 
-      const options: RequestInit = {
-        method,
-        headers: {},
-      };
-
-      if (token) {
-        options.headers = { Authorization: `Bearer ${token}` };
-      }
-
-      if (
-        method === REQUEST_METHOD.PATCH ||
-        method === REQUEST_METHOD.POST ||
-        method === REQUEST_METHOD.PUT
-      ) {
-        if (!options.body) {
-          throw new Error(`Request failed for ${method} ${url}. Please provide a valid request body.`);
-        }
-
-        options.body = JSON.stringify(body);
-        options.headers = { 'Content-Type': 'application/json' };
-      }
-
       const response = await fetch(url, options);
 
       if (!response.ok) {
-        throw new Error(`Request failed for ${method} ${url}. Status: ${response.status}.`);
+        const errorData: ErrorResponse = await response.json();
+        throw new Error(JSON.stringify(errorData));
       }
 
       const result = await response.json();
@@ -71,15 +54,17 @@ const useFetch = <T>({ url, method = REQUEST_METHOD.GET, body = null }: UseFetch
       setResponseState(RESPONSE_STATE.SUCCESS);
       setData(result.data);
       setError(null);
-    } catch (err) {
+    } catch (error) {
+      const err = error as Error;
+
       setResponseState(RESPONSE_STATE.ERROR);
       setData(null);
-      setError(err as Error);
+      setError(JSON.parse(err.message));
     }
   };
 
   useEffect(() => {
-    fetchData();
+    if (!skip) fetchData();
   }, []);
 
   return { fetchData, responseState, data, error };

@@ -1,5 +1,7 @@
+import { Link } from 'react-router-dom';
+
 import { ICON_NAME } from '@constants/index';
-import { forMatMoney, getTextWithTimeStamp } from '@utils/index';
+import { formatMoney, getTextWithTimeStamp } from '@utils/index';
 
 import Icon from '@components/common/Icon';
 import * as S from './style';
@@ -25,6 +27,7 @@ export interface ProductListItemProps {
 }
 
 const ProductListItem = ({
+  id,
   title,
   photoUrl,
   region,
@@ -37,34 +40,34 @@ const ProductListItem = ({
   return (
     <S.ProductListItem>
       {photoUrl && <S.Img src={photoUrl} alt={title} />}
-      <S.ItemInformation>
-        <S.Title>{title}</S.Title>
-        <S.LocationAndTime>
-          {getTextWithTimeStamp({ text: region.name, time: new Date(postedAt) })}
-        </S.LocationAndTime>
-        <S.StateAndPrice>
-          {badge.state !== '판매 중' && (
-            <S.StateBadge fontcolor={badge.fontColor} backgroundcolor={badge.backgroundColor}>
-              {badge.state}
-            </S.StateBadge>
-          )}
-          {price && <S.Price>{forMatMoney(price)}</S.Price>}
-        </S.StateAndPrice>
-        <S.ChatAndLike>
-          {chattingCount > 0 && (
-            <S.IconTextBox>
-              <Icon name={ICON_NAME.MESSAGE} />
-              <span>{chattingCount}</span>
-            </S.IconTextBox>
-          )}
-          {interestCount > 0 && (
-            <S.IconTextBox>
-              <Icon name={ICON_NAME.LIKE} />
-              <span>{interestCount}</span>
-            </S.IconTextBox>
-          )}
-        </S.ChatAndLike>
-      </S.ItemInformation>
+      <Link to={`/product-detail/${id}`}>
+        <S.ItemInformation>
+          <S.Title>{title}</S.Title>
+          <S.LocationAndTime>{getTextWithTimeStamp({ text: region.name, time: postedAt })}</S.LocationAndTime>
+          <S.StateAndPrice>
+            {badge.state !== '판매 중' && (
+              <S.StateBadge fontcolor={badge.fontColor} backgroundcolor={badge.backgroundColor}>
+                {badge.state}
+              </S.StateBadge>
+            )}
+            {price && <S.Price>{formatMoney(price)}</S.Price>}
+          </S.StateAndPrice>
+          <S.ChatAndLike>
+            {chattingCount > 0 && (
+              <S.IconTextBox>
+                <Icon name={ICON_NAME.MESSAGE} />
+                <span>{chattingCount}</span>
+              </S.IconTextBox>
+            )}
+            {interestCount > 0 && (
+              <S.IconTextBox>
+                <Icon name={ICON_NAME.LIKE} />
+                <span>{interestCount}</span>
+              </S.IconTextBox>
+            )}
+          </S.ChatAndLike>
+        </S.ItemInformation>
+      </Link>
     </S.ProductListItem>
   );
 };

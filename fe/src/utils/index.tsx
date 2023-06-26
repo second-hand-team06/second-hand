@@ -23,21 +23,30 @@ const getTimeStamp = (time: Date) => {
   if (diffInDays >= TIME_UNIT.ONE_DAY) {
     return `${diffInDays}일 전`;
   }
-  if (diffInHours < TIME_UNIT.HOURS) {
+  if (diffInHours >= 1) {
     return `${diffInHours}시간 전`;
   }
-  if (diffInMinutes < TIME_UNIT.MINUTES) {
+  if (diffInMinutes >= 1) {
     return `${diffInMinutes}분 전`;
   }
-
-  return `${diffInSeconds}초 전`;
+  if (diffInSeconds >= 0) {
+    return `${diffInSeconds}초 전`;
+  }
 };
 
-const getTextWithTimeStamp = ({ text, time }: { text: string; time: Date }) => {
-  return `${text} · ${getTimeStamp(time)}`;
+const getTextWithTimeStamp = ({ text, time }: { text: string; time: string }) => {
+  if (!text || !time) {
+    return '';
+  }
+
+  return `${text} · ${getTimeStamp(new Date(time))}`;
 };
 
-const forMatMoney = (money: number) => {
+const formatMoney = (money: number) => {
+  if (isNaN(money)) {
+    return '가격 x';
+  }
+
   return `${money.toLocaleString()}원`;
 };
 
@@ -67,4 +76,4 @@ const getUserInfo = (token: string) => {
   return parseJWT(token)?.payload.userProfile;
 };
 
-export { getTextWithTimeStamp, forMatMoney, getRegion, getUserInfo };
+export { getTextWithTimeStamp, formatMoney, getRegion, getUserInfo };

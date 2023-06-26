@@ -2,17 +2,11 @@ import { createContext, useContext, useState } from 'react';
 
 import { getUserInfo } from '@utils/index';
 
-interface Region {
-  id: number;
-  name: string;
-}
-
 interface User {
   id: number;
   github: number;
   loginId: string;
   profileUrl: string;
-  regions: Region[];
 }
 
 interface UserContextValue {
@@ -20,7 +14,6 @@ interface UserContextValue {
   isLoggedIn: boolean;
   login: (token: string) => void;
   logout: () => void;
-  setRegions: (regions: Region[]) => void;
 }
 
 const UserContext = createContext<UserContextValue>({
@@ -28,7 +21,6 @@ const UserContext = createContext<UserContextValue>({
   isLoggedIn: false,
   login: () => {},
   logout: () => {},
-  setRegions: () => {},
 });
 
 const useUserContext = () => {
@@ -57,15 +49,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     setIsLoggedIn(false);
   };
 
-  const setRegions = (regions: Region[]) => {
-    setUser((previous) => previous && { ...previous, regions: regions });
-  };
-
-  return (
-    <UserContext.Provider value={{ user, isLoggedIn, login, logout, setRegions }}>
-      {children}
-    </UserContext.Provider>
-  );
+  return <UserContext.Provider value={{ user, isLoggedIn, login, logout }}>{children}</UserContext.Provider>;
 };
 
 export { useUserContext, UserProvider };

@@ -61,6 +61,36 @@ const RegionSettingButton = styled.button`
   line-height: ${({ theme }) => theme.fonts.footnote.lineHeight};
 `;
 
-const Keyboard = styled.button``;
+const LayoutContent = styled.div`
+  padding: 0px 16px;
+`;
 
-export { NewProduct, Header, HeaderTitle, CloseButton, CompleteButton, TabBar, RegionSettingButton, Keyboard };
+const TextInput = styled.input`
+  width: 100%;
+  height: 22px;
+  padding: 30px 0px;
+
+  border-bottom: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
+`;
+
+const TextArea = styled.textarea`
+  width: 100%;
+  height: 200px;
+  padding: 25px 0px;
+`;
+
+const Keyboard = styled.div``;
+
+export {
+  NewProduct,
+  Header,
+  HeaderTitle,
+  CloseButton,
+  CompleteButton,
+  TabBar,
+  RegionSettingButton,
+  LayoutContent,
+  TextInput,
+  TextArea,
+  Keyboard,
+};

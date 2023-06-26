@@ -50,7 +50,7 @@ public class PostService {
     @Transactional(readOnly = true)
     public MainPagePostsDto findMainPagePosts(Pageable pageable, SearchCondition searchCondition, Long userId) {
 
-        Integer region = searchCondition.getRegion();
+        int region = searchCondition.getRegion();
 
         if (userId != null) {
 
@@ -60,10 +60,6 @@ public class PostService {
             validateRegionExists(region);
             validateMyRegion(region, user);
         }
-
-        log.info("searchCondition: {}", searchCondition.getCategory());
-        log.info("searchCondition: {}", searchCondition.getRegion());
-        log.info("userId: {}", userId);
 
         return new MainPagePostsDto(postMetaRepository.findMainPage(pageable, searchCondition, userId));
     }

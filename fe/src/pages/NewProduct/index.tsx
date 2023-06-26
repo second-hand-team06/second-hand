@@ -5,6 +5,7 @@ import { ICON_NAME, PATH } from '@constants/index';
 import Icon from '@components/common/Icon';
 import ImageInput from '@components/ImageIput';
 import * as S from './style';
+import InputTitle from '@components/InputTitle';
 
 const NewProduct = () => {
   return (
@@ -21,7 +22,7 @@ const NewProduct = () => {
 
       <S.LayoutContent>
         <ImageInput />
-        <S.TextInput placeholder="글제목" />
+        <InputTitle />
         <S.TextInput placeholder="₩ 가격 (선택사항)" />
         <S.TextArea placeholder="역삼1동에 올릴 게시물 내용을 작성해주세요.(판매금지 물품은 게시가 제한될 수 있어요.)" />
       </S.LayoutContent>

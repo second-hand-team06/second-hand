@@ -15,6 +15,7 @@ import Chatting from '@pages/Chatting';
 import MyAccount from '@pages/MyAccount';
 import LoginLoading from '@pages/LoginLoading';
 import NewProduct from '@pages/NewProduct';
+import ProductDetail from '@pages/ProductDetail';
 import NotFound from '@pages/NotFound';
 
 import GlobalStyle from '@styles/GlobalStyle';
@@ -35,6 +36,7 @@ const App = () => {
           <Route path={PATH.MY_ACCOUNT} element={<MyAccount />} />
           <Route path={PATH.LOGIN_LOADING} element={<LoginLoading />} />
           <Route path={PATH.NEW_PRODUCT} element={<NewProduct />} />
+          <Route path="/product-detail/:id" element={<ProductDetail />} />
           <Route path="/*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

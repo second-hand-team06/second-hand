@@ -24,6 +24,7 @@ interface PostDetailData {
   postState: '광고' | '예약 중' | '판매 중' | '판매 완료';
   photoUrls: string[];
   isSeller: boolean;
+  interested: boolean;
 }
 
 const ProductDetail = () => {
@@ -98,7 +99,7 @@ const ProductDetail = () => {
 
           <S.ToolBar>
             <S.LikeAndPrice>
-              <Icon name={ICON_NAME.LIKE} />
+              <Icon name={postData?.interested ? ICON_NAME.FULL_LIKE : ICON_NAME.LIKE} />
               <span>{formatMoney(postData?.price ?? 0)}</span>
             </S.LikeAndPrice>
 

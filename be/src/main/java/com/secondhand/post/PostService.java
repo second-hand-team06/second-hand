@@ -91,8 +91,8 @@ public class PostService {
 
         PostDetailPageDto postDetailPage = new PostDetailPageDto(postMeta);
 
-        if (loggedInUser.getId() == user.getId()) {
-            postDetailPage.setSeller(true);
+        if (postMeta.getSellerId() == user.getId()) {
+            postDetailPage.setIsSeller(true);
         }
 
         interestRepository.findByUserAndPostMeta(user, postMeta)

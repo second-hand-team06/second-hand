@@ -25,7 +25,7 @@ public class PostDetailPageDto {
     private long viewCount;
     private Long price;
     private String postState;
-    private boolean isSeller;
+    private Boolean isSeller;
     private List<String> photoUrls;
     private boolean interested;
 
@@ -40,5 +40,6 @@ public class PostDetailPageDto {
         this.viewCount = postMeta.getViewCount();
         this.price = postMeta.getPrice();
         this.postState = postMeta.findPostMetaState();
+        this.isSeller = false;
     }
 }

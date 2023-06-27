@@ -55,6 +55,28 @@ const Modal = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
+  position: absolute;
+  bottom: 0;
+
+  width: 100%;
+
+  z-index: 10;
 `;
 
-export { Option, Options, CancelButton, Modal };
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: ${({ theme }) => theme.colors.neutral.overLay};
+
+  z-index: 5;
+`;
+
+export { Option, Options, CancelButton, Modal, Overlay };

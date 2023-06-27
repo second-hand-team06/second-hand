@@ -13,16 +13,19 @@ interface ModalProps {
 
 const Modal = ({ options, closeModalHandler }: ModalProps) => {
   return (
-    <S.Modal>
-      <S.Options>
-        {options.map(({ text, colorType, handler }) => (
-          <S.Option key={text} colortype={colorType} onClick={handler}>
-            {text}
-          </S.Option>
-        ))}
-      </S.Options>
-      <S.CancelButton onClick={closeModalHandler}>취소</S.CancelButton>
-    </S.Modal>
+    <>
+      <S.Modal>
+        <S.Options>
+          {options.map(({ text, colorType, handler }) => (
+            <S.Option key={text} colortype={colorType} onClick={handler}>
+              {text}
+            </S.Option>
+          ))}
+        </S.Options>
+        <S.CancelButton onClick={closeModalHandler}>취소</S.CancelButton>
+      </S.Modal>
+      <S.Overlay />
+    </>
   );
 };
 

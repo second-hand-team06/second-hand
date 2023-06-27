@@ -10,6 +10,7 @@ import { ReactComponent as Hamburger } from '@assets/hamburger.svg';
 import { ReactComponent as Home } from '@assets/home.svg';
 import { ReactComponent as Keyboard } from '@assets/keyboard.svg';
 import { ReactComponent as Like } from '@assets/like.svg';
+import { ReactComponent as FullLike } from '@assets/fullLike.svg';
 import { ReactComponent as Message } from '@assets/message.svg';
 import { ReactComponent as Multiply } from '@assets/multiply.svg';
 import { ReactComponent as Newspaper } from '@assets/newspaper.svg';
@@ -38,6 +39,7 @@ const ICONS: Record<string, React.FunctionComponent<React.SVGProps<SVGSVGElement
   [ICON_NAME.HOME]: Home,
   [ICON_NAME.KEYBOARD]: Keyboard,
   [ICON_NAME.LIKE]: Like,
+  [ICON_NAME.FULL_LIKE]: FullLike,
   [ICON_NAME.MESSAGE]: Message,
   [ICON_NAME.MULTIPLY]: Multiply,
   [ICON_NAME.NEWSPAPER]: Newspaper,

@@ -24,6 +24,7 @@ export interface ProductListItemProps {
   price: number | null;
   chattingCount: number;
   interestCount: number;
+  isInterested: boolean;
 }
 
 const ProductListItem = ({
@@ -36,6 +37,7 @@ const ProductListItem = ({
   price,
   chattingCount = 0,
   interestCount = 0,
+  isInterested,
 }: ProductListItemProps) => {
   return (
     <S.ProductListItem>
@@ -61,7 +63,7 @@ const ProductListItem = ({
             )}
             {interestCount > 0 && (
               <S.IconTextBox>
-                <Icon name={ICON_NAME.LIKE} />
+                <Icon name={isInterested ? ICON_NAME.FULL_LIKE : ICON_NAME.LIKE} />
                 <span>{interestCount}</span>
               </S.IconTextBox>
             )}

@@ -9,6 +9,7 @@ const ICON_NAME = {
   HOME: 'home',
   KEYBOARD: 'keyboard',
   LIKE: 'like',
+  FULL_LIKE: 'fullLike',
   MESSAGE: 'message',
   MULTIPLY: 'multiply',
   NEWSPAPER: 'newspaper',

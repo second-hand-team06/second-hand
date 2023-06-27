@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import { ICON_NAME } from '@constants/index';
 import { getTextWithTimeStamp } from '@utils/index';
@@ -35,17 +34,8 @@ const ProductDetailMain = ({
 }: ProductDetailMainProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const navigate = useNavigate();
-
   return (
     <>
-      <S.Header>
-        <button onClick={() => navigate(-1)}>
-          <Icon name={ICON_NAME.CHEVRON_LEFT} />
-        </button>
-        <Icon name={ICON_NAME.ELLIPSIS} />
-      </S.Header>
-
       <S.Product>
         <S.ProductImgListLayout>
           <S.ProductImgList>

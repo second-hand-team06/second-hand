@@ -3,19 +3,78 @@ import { useState } from 'react';
 import { ICON_NAME } from '@constants/iconName';
 import { formatMoney } from '@utils/index';
 
+import useFetch, { REQUEST_METHOD } from '@hooks/useFetch';
+
 import Icon from '@components/common/Icon';
 import ToastMessage from '@components/ToastMessage';
 import * as S from './style';
+import { REQUEST_URL } from '@constants/requestUrl';
 
 interface ToolBarProps {
+  id: number;
   interested: boolean;
   price: number;
   isSeller: boolean;
   chatCount: number;
 }
 
-const ProductDetailToolBar = ({ interested, price, isSeller, chatCount }: ToolBarProps) => {
+const ProductDetailToolBar = ({ id, interested, price, isSeller, chatCount }: ToolBarProps) => {
+  const [isInterested, setIsInterested] = useState(interested);
   const [showAlertMessage, setShowAlertMessage] = useState(false);
+
+  const { responseState: postInterestedState, fetchData: postInterested } = useFetch({
+    url: `${REQUEST_URL.USERS}/${id}`,
+    options: {
+      method: REQUEST_METHOD.POST,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('Token')}`,
+      },
+    },
+    skip: true,
+  });
+  const { responseState: deleteInterestedState, fetchData: deleteInterested } = useFetch({
+    url: `${REQUEST_URL.USERS}/${id}`,
+    options: {
+      method: REQUEST_METHOD.DELETE,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('Token')}`,
+      },
+    },
+    skip: true,
+  });
+
+  const registerInterested = async () => {
+    await postInterested();
+
+    if (postInterestedState === 'ERROR') {
+      alert('관심 상품 등록에 실패했습니다');
+      return;
+    }
+
+    setIsInterested(true);
+  };
+
+  const unregisterInterested = async () => {
+    await deleteInterested();
+
+    if (deleteInterestedState === 'ERROR') {
+      alert('관심 상품 삭제에 실패했습니다');
+      return;
+    }
+
+    setIsInterested(false);
+  };
+
+  const clickLikeButtonHandler = () => {
+    if (!isInterested) {
+      registerInterested();
+      return;
+    }
+
+    unregisterInterested();
+  };
 
   const openAlertMessage = () => {
     if (isSeller && chatCount === 0) setShowAlertMessage(true);
@@ -26,7 +85,9 @@ const ProductDetailToolBar = ({ interested, price, isSeller, chatCount }: ToolBa
   return (
     <S.ToolBar>
       <S.LikeAndPrice>
-        <Icon name={interested ? ICON_NAME.FULL_LIKE : ICON_NAME.LIKE} />
+        <button onClick={clickLikeButtonHandler}>
+          <Icon name={isInterested ? ICON_NAME.FULL_LIKE : ICON_NAME.LIKE} />
+        </button>
         <span>{formatMoney(price ?? 0)}</span>
       </S.LikeAndPrice>
 

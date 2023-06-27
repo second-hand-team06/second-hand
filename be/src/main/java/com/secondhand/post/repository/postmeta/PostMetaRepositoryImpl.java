@@ -15,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
+import static com.secondhand.chatting.entity.QChattingRoom.chattingRoom;
 import static com.secondhand.post.entity.QInterest.interest;
 import static com.secondhand.post.entity.QPostMeta.postMeta;
 
@@ -39,6 +40,7 @@ public class PostMetaRepositoryImpl implements PostMetaRepositoryCustom {
                         postMeta.viewCount,
                         postMeta.badge,
                         postMeta.postedAt,
+                        countChattingRoom(),
                         countInterested(),
                         isInterestedEq(userId)))
                 .from(postMeta)
@@ -52,6 +54,13 @@ public class PostMetaRepositoryImpl implements PostMetaRepositoryCustom {
         long total = result.getTotal();
 
         return new PageImpl<>(content, pageable, total);
+    }
+
+    private JPQLQuery<Long> countChattingRoom() {
+
+            return JPAExpressions.select(chattingRoom.count())  // 서브쿼리로 interest 카운트
+                    .from(chattingRoom)
+                    .where(chattingRoom.postMetaId.eq(postMeta.id));
     }
 
     private JPQLQuery<Long> countInterested() {

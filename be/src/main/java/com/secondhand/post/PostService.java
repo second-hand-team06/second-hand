@@ -1,5 +1,6 @@
 package com.secondhand.post;
 
+import com.secondhand.chatting.repository.ChattingRoomRepository;
 import com.secondhand.fileupload.FileUploadService;
 import com.secondhand.post.dto.*;
 import com.secondhand.post.entity.*;
@@ -12,7 +13,6 @@ import com.secondhand.post.repository.postphoto.PostPhotoRepository;
 import com.secondhand.region.entity.Region;
 import com.secondhand.region.repository.RegionRepository;
 import com.secondhand.user.entity.User;
-import com.secondhand.user.login.JwtUtil;
 import com.secondhand.user.login.dto.LoggedInUser;
 import com.secondhand.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -44,8 +44,8 @@ public class PostService {
     private final RegionRepository regionRepository;
     private final CategoryRepository categoryRepository;
     private final BadgeRepository badgeRepository;
+    private final ChattingRoomRepository chattingRoomRepository;
     private final FileUploadService fileUploadService;
-    private final JwtUtil jwtUtil;
 
     @Transactional(readOnly = true)
     public MainPagePostsDto findMainPagePosts(Pageable pageable, SearchCondition searchCondition, Long userId) {
@@ -95,10 +95,12 @@ public class PostService {
             postDetailPage.setIsSeller(true);
         }
 
+        long countOfChattingRoom = chattingRoomRepository.countByPostMetaId(postId);
         interestRepository.findByUserAndPostMeta(user, postMeta)
                 .ifPresent(interest -> postDetailPage.setInterested(true));
         postDetailPage.setContent(postDetail.getContent());
         postDetailPage.setPhotoUrls(postPhotoRepository.findAllPhotoUrlsByPostMetaId(postId));
+        postDetailPage.setChatCount(countOfChattingRoom);
         postDetailPage.setInterestCount(interestRepository.countInterestByPostMetaId(postId));
         return postDetailPage;
     }

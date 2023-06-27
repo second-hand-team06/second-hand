@@ -1,5 +1,6 @@
 package com.secondhand.chatting;
 
+import com.secondhand.chatting.repository.ChattingRoomRepositoryImpl;
 import com.secondhand.chatting.service.RedisPublisher;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Controller;
 public class ChattingController {
 
     private final RedisPublisher redisPublisher;
-    private final ChattingRoomRepository chattingRoomRepository;
+    private final ChattingRoomRepositoryImpl chattingRoomRepository;
 
     @MessageMapping("/chatting/message")
     public void message(ChattingMessage message) {

@@ -4,6 +4,7 @@ import { ReactComponent as ArrowUp } from '@assets/arrowUp.svg';
 import { ReactComponent as Camera } from '@assets/camera.svg';
 import { ReactComponent as ChevronDown } from '@assets/chevronDown.svg';
 import { ReactComponent as ChevronLeft } from '@assets/chevronLeft.svg';
+import { ReactComponent as ChevronRight } from '@assets/chevronRight.svg';
 import { ReactComponent as CircleFill } from '@assets/circleFill.svg';
 import { ReactComponent as Ellipsis } from '@assets/ellipsis.svg';
 import { ReactComponent as Hamburger } from '@assets/hamburger.svg';
@@ -33,6 +34,7 @@ const ICONS: Record<string, React.FunctionComponent<React.SVGProps<SVGSVGElement
   [ICON_NAME.CAMERA]: Camera,
   [ICON_NAME.CHEVRON_DOWN]: ChevronDown,
   [ICON_NAME.CHEVRON_LEFT]: ChevronLeft,
+  [ICON_NAME.CHEVRON_RIGHT]: ChevronRight,
   [ICON_NAME.CIRCLE_FILL]: CircleFill,
   [ICON_NAME.ELLIPSIS]: Ellipsis,
   [ICON_NAME.HAMBURGER]: Hamburger,

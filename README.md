@@ -78,4 +78,4 @@
 
 금요일 오후 3시 ~ 오후 3시 30분
 
-cicd test4
+cicd test1

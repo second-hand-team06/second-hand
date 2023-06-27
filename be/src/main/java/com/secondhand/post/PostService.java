@@ -95,6 +95,8 @@ public class PostService {
             postDetailPage.setSeller(true);
         }
 
+        interestRepository.findByUserAndPostMeta(user, postMeta)
+                .ifPresent(interest -> postDetailPage.setInterested(true));
         postDetailPage.setContent(postDetail.getContent());
         postDetailPage.setPhotoUrls(postPhotoRepository.findAllPhotoUrlsByPostMetaId(postId));
         postDetailPage.setInterestCount(interestRepository.countInterestByPostMetaId(postId));

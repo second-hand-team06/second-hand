@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { ICON_NAME, REQUEST_URL } from '@constants/index';
 import { getTextWithTimeStamp, formatMoney } from '@utils/index';
@@ -27,8 +27,11 @@ interface PostDetailData {
 }
 
 const ProductDetail = () => {
-  const { id: postId } = useParams();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { id: postId } = useParams();
+
+  const navigate = useNavigate();
+
   const { responseState, data: postData } = useFetch<PostDetailData>({
     url: `${REQUEST_URL.POSTS}/${postId}`,
     options: {
@@ -44,7 +47,9 @@ const ProductDetail = () => {
       {responseState === 'SUCCESS' && (
         <>
           <S.Header>
-            <Icon name={ICON_NAME.CHEVRON_LEFT} />
+            <button onClick={() => navigate(-1)}>
+              <Icon name={ICON_NAME.CHEVRON_LEFT} />
+            </button>
             <Icon name={ICON_NAME.ELLIPSIS} />
           </S.Header>
 

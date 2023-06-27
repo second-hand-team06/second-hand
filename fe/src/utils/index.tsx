@@ -44,7 +44,7 @@ const getTextWithTimeStamp = ({ text, time }: { text: string; time: string }) =>
 
 const formatMoney = (money: number) => {
   if (money <= 0) {
-    return '가격 x';
+    return '가격 미정';
   }
 
   return `${money.toLocaleString()}원`;

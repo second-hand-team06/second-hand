@@ -25,7 +25,6 @@ interface ErrorResponse {
 type ResponseState = (typeof RESPONSE_STATE)[keyof typeof RESPONSE_STATE];
 type DataState<T> = T | null;
 type ErrorState = ErrorResponse | null;
-type Method = (typeof REQUEST_METHOD)[keyof typeof REQUEST_METHOD];
 
 interface UseFetchProps {
   url: string;

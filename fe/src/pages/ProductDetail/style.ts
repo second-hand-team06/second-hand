@@ -177,7 +177,11 @@ const LikeAndPrice = styled.div`
   color: ${({ theme }) => theme.colors.neutral.text.strong};
 `;
 
-const ChattingButton = styled(Button)`
+const ChattingListButton = styled(Button)`
+  width: fit-content;
+`;
+
+const ChattingDetailButton = styled(Button)`
   width: fit-content;
 `;
 
@@ -199,5 +203,6 @@ export {
   CountLayout,
   ToolBar,
   LikeAndPrice,
-  ChattingButton,
+  ChattingListButton,
+  ChattingDetailButton,
 };

@@ -23,7 +23,7 @@ interface PostDetailData {
   price: number;
   postState: '광고' | '예약 중' | '판매 중' | '판매 완료';
   photoUrls: string[];
-  seller: boolean;
+  isSeller: boolean;
 }
 
 const ProductDetail = () => {
@@ -102,9 +102,15 @@ const ProductDetail = () => {
               <span>{formatMoney(postData?.price ?? 0)}</span>
             </S.LikeAndPrice>
 
-            <S.ChattingButton buttonType="rectangle" buttonState="active">
-              대화 중인 채팅방
-            </S.ChattingButton>
+            {postData?.isSeller ? (
+              <S.ChattingListButton buttonType="rectangle" buttonState="active">
+                {`대화 중인 채팅방${postData?.chatCount > 0 ? ` (${postData?.chatCount})` : ''}`}
+              </S.ChattingListButton>
+            ) : (
+              <S.ChattingDetailButton buttonType="rectangle" buttonState="active">
+                채팅 하기
+              </S.ChattingDetailButton>
+            )}
           </S.ToolBar>
         </>
       )}

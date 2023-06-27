@@ -1,10 +1,10 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
-import { ICON_NAME, PATH, REQUEST_URL } from '@constants/index';
+import { ICON_NAME, PATH } from '@constants/index';
 import { getRegion } from '@utils/index';
 
-import useFetch, { REQUEST_METHOD } from '@hooks/useFetch';
+import { useUserContext } from '@context/userContext';
 
 import Icon from '@components/common/Icon';
 import * as S from './style';
@@ -14,27 +14,20 @@ interface Region {
   name: string;
 }
 
-interface RegionsData {
+interface HomeHeaderProps {
   regions: Region[];
 }
 
-const HomeHeader = () => {
+const HomeHeader = ({ regions }: HomeHeaderProps) => {
+  const { isLoggedIn } = useUserContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { data } = useFetch<RegionsData>({
-    url: REQUEST_URL.USER_REGIONS,
-    method: REQUEST_METHOD.GET,
-  });
-  const isLoggedIn = localStorage.getItem('Token');
 
   const selectedRegion = useMemo(() => {
-    if (!isLoggedIn) return '역삼 1동';
-    if (!data) return;
-
-    const address = data.regions[0].name;
+    const address = regions[0].name;
     const region = getRegion(address);
 
     return region;
-  }, [data]);
+  }, []);
 
   const getDropDownMenuTemplate = () => {
     if (!isLoggedIn) {
@@ -47,7 +40,7 @@ const HomeHeader = () => {
 
     return (
       <>
-        {data?.regions.map(({ id, name }) => (
+        {regions.map(({ id, name }) => (
           <S.Menu key={id} selectedregion={selectedRegion} region={getRegion(name)}>
             {getRegion(name)}
           </S.Menu>

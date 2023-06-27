@@ -2,12 +2,18 @@ import HomeHeader from './HomeHeader';
 import SalesHeader from './SalesHeader';
 import SearchHeader from './SearchHeader';
 
-interface HeaderProps {
-  type: 'home' | 'sales' | 'search';
+interface Region {
+  id: number;
+  name: string;
 }
 
-const Header = ({ type }: HeaderProps) => {
-  if (type === 'home') return <HomeHeader />;
+interface HeaderProps {
+  type: 'home' | 'sales' | 'search';
+  regions?: Region[];
+}
+
+const Header = ({ type, regions }: HeaderProps) => {
+  if (type === 'home' && regions) return <HomeHeader regions={regions} />;
   if (type === 'search') return <SearchHeader />;
   if (type === 'sales') return <SalesHeader />;
 

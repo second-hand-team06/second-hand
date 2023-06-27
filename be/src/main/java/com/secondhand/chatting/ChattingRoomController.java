@@ -1,6 +1,7 @@
 package com.secondhand.chatting;
 
 import com.secondhand.chatting.dto.ChattingRoomDto;
+import com.secondhand.chatting.repository.ChattingRoomRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +14,7 @@ import java.util.List;
 @RequestMapping("/chatting")
 public class ChattingRoomController {
 
-    private final ChattingRoomRepository chattingRoomRepository;
+    private final ChattingRoomRepositoryImpl chattingRoomRepository;
 
     @GetMapping("/room")
     public String rooms(Model model) {

@@ -43,7 +43,7 @@ const getTextWithTimeStamp = ({ text, time }: { text: string; time: string }) =>
 };
 
 const formatMoney = (money: number) => {
-  if (isNaN(money)) {
+  if (money <= 0) {
     return '가격 x';
   }
 

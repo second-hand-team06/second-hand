@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { ICON_NAME } from '@constants/index';
+import { ICON_NAME, PATH } from '@constants/index';
 import { formatMoney, getTextWithTimeStamp } from '@utils/index';
 
 import Icon from '@components/common/Icon';
@@ -24,6 +24,7 @@ export interface ProductListItemProps {
   price: number | null;
   chattingCount: number;
   interestCount: number;
+  isInterested: boolean;
 }
 
 const ProductListItem = ({
@@ -36,11 +37,12 @@ const ProductListItem = ({
   price,
   chattingCount = 0,
   interestCount = 0,
+  isInterested,
 }: ProductListItemProps) => {
   return (
     <S.ProductListItem>
       {photoUrl && <S.Img src={photoUrl} alt={title} />}
-      <Link to={`/product-detail/${id}`}>
+      <Link to={`${PATH.PRODUCT_DETAIL}/${id}`}>
         <S.ItemInformation>
           <S.Title>{title}</S.Title>
           <S.LocationAndTime>{getTextWithTimeStamp({ text: region.name, time: postedAt })}</S.LocationAndTime>
@@ -61,7 +63,7 @@ const ProductListItem = ({
             )}
             {interestCount > 0 && (
               <S.IconTextBox>
-                <Icon name={ICON_NAME.LIKE} />
+                <Icon name={isInterested ? ICON_NAME.FULL_LIKE : ICON_NAME.LIKE} />
                 <span>{interestCount}</span>
               </S.IconTextBox>
             )}

@@ -63,7 +63,7 @@ const PostStateDropDown = styled.div`
   align-items: center;
   position: relative;
 
-  width: 106px;
+  width: 120px;
   height: 32px;
   margin: 16px 0;
   padding: 0px 16px;
@@ -80,7 +80,7 @@ const PostStateDropDown = styled.div`
   }
 `;
 
-const Menu = styled.div<{ selectedstate?: string; state?: string }>`
+const Menu = styled.div<{ selectedstate?: '광고' | '예약 중' | '판매 중' | '판매 완료'; state?: string }>`
   display: flex;
   align-items: center;
 

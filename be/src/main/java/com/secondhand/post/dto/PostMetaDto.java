@@ -24,10 +24,10 @@ public class PostMetaDto {
     private LocalDateTime postedAt;
     private long chattingCount;
     private long interestCount;
-    private Boolean isInterested;
+    private boolean interested;
 
     @QueryProjection
-    public PostMetaDto(long id, Region region, String title, Long price, String photoUrl, long viewCount, Badge badge, LocalDateTime postedAt, long interestCount, Boolean isInterested) {
+    public PostMetaDto(long id, Region region, String title, Long price, String photoUrl, long viewCount, Badge badge, LocalDateTime postedAt, long interestCount, boolean isInterested) {
         this.id = id;
         this.region = region;
         this.title = title;
@@ -37,7 +37,7 @@ public class PostMetaDto {
         this.badge = badge;
         this.postedAt = postedAt;
         this.interestCount = interestCount;
-        this.isInterested = isInterested;
+        this.interested = isInterested;
     }
 
     @QueryProjection

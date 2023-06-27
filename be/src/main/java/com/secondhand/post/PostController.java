@@ -21,7 +21,6 @@ public class PostController {
 
     private final PostService postService;
 
-    // TODO: 내가 관심 목록에 등록한 것인지 여부도 포함해서 반환, 관심 목록에 등록한 사람의 수 반환
     @GetMapping
     public ResponseEntity<CustomResponse<MainPagePostsDto>> getPost(Pageable pageable, SearchCondition searchCondition, @RequestAttribute(required = false) LoggedInUser loggedInUser) {
 

@@ -12,6 +12,37 @@
         [v-cloak] {
             display: none;
         }
+
+        body {
+            background-image: url('https://user-images.githubusercontent.com/115435784/248998187-406280f7-259f-4672-bced-c9df0b6906cd.png');
+            background-size: 40%; /* 배경 이미지를 화면에 맞게 조절 */
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed; /* 스크롤 시 배경 이미지가 고정되도록 설정 */
+            background-color: #FFC022FF;
+            opacity: 0.7;
+        }
+
+        /* 주황색으로 테마를 설정합니다 */
+        .btn-primary {
+            background-color: #FF8922FF;
+            border-color: #ff5722;
+        }
+
+        .list-group-item-action:hover, .list-group-item-action:focus {
+            background-color: #FF8922FF;
+            color: white;
+        }
+
+        .input-group-text {
+            background-color: #FF8922FF;
+            border-color: #ff5722;
+            color: white;
+        }
+
+        h3 {
+            color: #ff5722;
+        }
     </style>
 </head>
 <body>

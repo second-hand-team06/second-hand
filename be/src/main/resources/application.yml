@@ -29,6 +29,12 @@ spring:
     resources:
       add-mappings: true
 
+  redis:
+    host: ${REDIS_URL}
+    port: ${REDIS_PORT}
+    password: ${REDIS_PASSWORD}
+    username: ${REDIS_USERNAME}
+
 logging:
   level:
     org.springframework.jdbc.core: DEBUG

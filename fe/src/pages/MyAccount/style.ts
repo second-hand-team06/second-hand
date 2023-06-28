@@ -23,6 +23,20 @@ const LoginButton = styled.button`
   color: ${({ theme }) => theme.colors.accent.text.default};
 `;
 
+const LogoutButton = styled.button`
+  width: 80%;
+  height: 52px;
+  padding: 16px 20px;
+
+  background-color: ${({ theme }) => theme.colors.accent.background.primary};
+  border-radius: 8px;
+
+  font-size: ${({ theme }) => theme.fonts.subhead.fontSize};
+  font-weight: ${({ theme }) => theme.fonts.subhead.fontWeight};
+  line-height: ${({ theme }) => theme.fonts.subhead.lineHeight};
+  color: ${({ theme }) => theme.colors.accent.text.default};
+`;
+
 const UserImg = styled.img`
   width: 80px;
   height: 80px;
@@ -45,4 +59,4 @@ const UserInfo = styled.div`
   gap: 24px;
 `;
 
-export { MyAccount, LoginButton, UserImg, UserLoginId, UserInfo };
+export { MyAccount, LoginButton, LogoutButton, UserImg, UserLoginId, UserInfo };

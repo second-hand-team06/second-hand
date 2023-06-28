@@ -30,4 +30,11 @@ const UserImg = styled.img`
   border-radius: 50%;
 `;
 
-export { MyAccount, LoginButton, UserImg };
+const UserLoginId = styled.span`
+  font-size: ${({ theme }) => theme.fonts.headline.fontSize};
+  font-weight: ${({ theme }) => theme.fonts.headline.fontWeight};
+  line-height: ${({ theme }) => theme.fonts.headline.lineHeight};
+  color: ${({ theme }) => theme.colors.neutral.text.strong};
+`;
+
+export { MyAccount, LoginButton, UserImg, UserLoginId };

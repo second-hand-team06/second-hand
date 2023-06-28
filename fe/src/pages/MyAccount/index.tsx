@@ -25,7 +25,10 @@ const MyAccount = () => {
   return (
     <S.MyAccount>
       {isLoggedIn ? (
-        <S.UserImg src={user?.profileUrl} alt={user?.loginId} />
+        <>
+          <S.UserImg src={user?.profileUrl} alt={user?.loginId} />
+          <S.UserLoginId>{user?.loginId}</S.UserLoginId>
+        </>
       ) : (
         <S.LoginButton onClick={loginRequestHandler}>GitHub 계정으로 로그인</S.LoginButton>
       )}

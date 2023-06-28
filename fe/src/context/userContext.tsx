@@ -34,8 +34,11 @@ const useUserContext = () => {
 };
 
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState<User | null>(null);
+  const token = localStorage.getItem('Token');
+  const initUserState = token ? getUserInfo(token) : null;
+
+  const [isLoggedIn, setIsLoggedIn] = useState(token ? true : false);
+  const [user, setUser] = useState<User | null>(initUserState);
 
   const login = (token: string) => {
     localStorage.setItem('Token', token);

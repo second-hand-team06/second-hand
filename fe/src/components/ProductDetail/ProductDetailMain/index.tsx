@@ -17,7 +17,7 @@ interface ProductDetailMainProps {
   interestCount: number;
   viewCount: number;
   price: number;
-  postState: '광고' | '예약 중' | '판매 중' | '판매 완료';
+  badge: { id: number; state: string };
   photoUrls: string[];
 }
 
@@ -30,7 +30,7 @@ const ProductDetailMain = ({
   chatCount,
   interestCount,
   viewCount,
-  postState,
+  badge,
   photoUrls,
 }: ProductDetailMainProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -51,13 +51,13 @@ const ProductDetailMain = ({
           </S.SellerInfo>
 
           <Dropdown
-            selectedValue={postState}
+            selectedValue={badge.state}
             options={['예약 중', '판매 중', '판매 완료'].map((state) => ({ id: state, value: state }))}
             isDropdownOpen={isDropdownOpen}
             openDropdownHandler={() => setIsDropdownOpen(!isDropdownOpen)}
           >
             <S.DropdownToggleButton>
-              <span>{postState}</span>
+              <span>{badge.state}</span>
               <Icon name={ICON_NAME.CHEVRON_DOWN} />
             </S.DropdownToggleButton>
           </Dropdown>

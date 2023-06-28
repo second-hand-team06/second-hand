@@ -21,7 +21,7 @@ interface PostDetailData {
   interestCount: number;
   viewCount: number;
   price: number;
-  postState: '광고' | '예약 중' | '판매 중' | '판매 완료';
+  badge: { id: number; state: string };
   photoUrls: string[];
   isSeller: boolean;
   interested: boolean;

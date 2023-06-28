@@ -24,6 +24,7 @@ const MyAccount = () => {
 
   return (
     <S.MyAccount>
+      <S.Header>내 계정</S.Header>
       {isLoggedIn ? (
         <>
           <S.UserInfo>

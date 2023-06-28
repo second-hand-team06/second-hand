@@ -5,10 +5,26 @@ import { PALETTE } from '@styles/color';
 const MyAccount = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 
   height: 100vh;
+`;
+
+const Header = styled.header`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 44px;
+
+  border-bottom: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
+
+  font-size: ${({ theme }) => theme.fonts.body.bold.fontSize};
+  font-weight: ${({ theme }) => theme.fonts.body.bold.fontWeight};
+  line-height: ${({ theme }) => theme.fonts.body.bold.lineHeight};
+  color: ${({ theme }) => theme.colors.neutral.text.strong};
 `;
 
 const LoginButton = styled.button`
@@ -59,4 +75,4 @@ const UserInfo = styled.div`
   gap: 24px;
 `;
 
-export { MyAccount, LoginButton, LogoutButton, UserImg, UserLoginId, UserInfo };
+export { MyAccount, Header, LoginButton, LogoutButton, UserImg, UserLoginId, UserInfo };

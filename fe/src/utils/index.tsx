@@ -51,7 +51,7 @@ const formatMoney = (money: number) => {
 };
 
 const getRegion = (address: string) => {
-  return address.split(' ').at(-1);
+  return address.split(' ').at(-1) ?? '';
 };
 
 const parseJWT = (token: string) => {

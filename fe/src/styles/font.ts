@@ -22,9 +22,16 @@ const fonts = {
     lineHeight: '28px',
   },
   title3: {
-    fontSize: '20px',
-    fontWeight: `${FONT.WEIGHT.REGULAR}`,
-    lineHeight: '25px',
+    regular: {
+      fontSize: '20px',
+      fontWeight: `${FONT.WEIGHT.REGULAR}`,
+      lineHeight: '25px',
+    },
+    bold: {
+      fontSize: '20px',
+      fontWeight: `${FONT.WEIGHT.SEMIBOLD}`,
+      lineHeight: '25px',
+    },
   },
   headline: {
     fontSize: '17px',

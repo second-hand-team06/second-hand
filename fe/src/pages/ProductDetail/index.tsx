@@ -1,78 +1,122 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-import { ICON_NAME } from '@constants/index';
+import { REQUEST_URL } from '@constants/index';
 
-import { getTextWithTimeStamp, formatMoney } from '@utils/index';
+import useFetch, { REQUEST_METHOD } from '@hooks/useFetch';
 
-import Icon from '@components/common/Icon';
-import * as S from './style';
+import ProductDetailHeader from '@components/ProductDetail/ProductDetailHeader';
+import ProductDetailMain from '@components/ProductDetail/ProductDetailMain';
+import ProductDetailToolBar from '@components/ProductDetail/ProductDetailToolBar';
+
+interface PostDetailData {
+  id: number;
+  sellerId: number;
+  sellerName: string;
+  title: string;
+  category: string;
+  postedAt: string;
+  content: string;
+  chatCount: number;
+  interestCount: number;
+  viewCount: number;
+  price: number;
+  postState: '광고' | '예약 중' | '판매 중' | '판매 완료';
+  photoUrls: string[];
+  isSeller: boolean;
+  interested: boolean;
+}
 
 const ProductDetail = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { id: postId } = useParams();
+
+  const { responseState, data: postData } = useFetch<PostDetailData>({
+    url: `${REQUEST_URL.POSTS}/${postId}`,
+    options: {
+      method: REQUEST_METHOD.GET,
+      headers: { Authorization: `Bearer ${localStorage.getItem('Token')}` },
+    },
+  });
+
+  const [isInterested, setIsInterested] = useState(false);
+  const [interestCount, setInterestCount] = useState(0);
+
+  const { responseState: postInterestedState, fetchData: postInterested } = useFetch({
+    url: `${REQUEST_URL.USERS}/${postData?.id}`,
+    options: {
+      method: REQUEST_METHOD.POST,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('Token')}`,
+      },
+    },
+    skip: true,
+  });
+  const { responseState: deleteInterestedState, fetchData: deleteInterested } = useFetch({
+    url: `${REQUEST_URL.USERS}/${postData?.id}`,
+    options: {
+      method: REQUEST_METHOD.DELETE,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('Token')}`,
+      },
+    },
+    skip: true,
+  });
+
+  const registerInterested = async () => {
+    await postInterested();
+
+    if (postInterestedState === 'ERROR') {
+      alert('관심 상품 등록에 실패했습니다');
+      return;
+    }
+
+    setIsInterested(true);
+    setInterestCount(interestCount + 1);
+  };
+
+  const unregisterInterested = async () => {
+    await deleteInterested();
+
+    if (deleteInterestedState === 'ERROR') {
+      alert('관심 상품 삭제에 실패했습니다');
+      return;
+    }
+
+    setIsInterested(false);
+    setInterestCount(interestCount - 1);
+  };
+
+  const updateIsInterestedHandler = () => {
+    if (!isInterested) {
+      registerInterested();
+      return;
+    }
+
+    unregisterInterested();
+  };
+
+  useEffect(() => {
+    setIsInterested(postData?.interested ?? false);
+    setInterestCount(postData?.interestCount ?? 0);
+  }, [postData]);
 
   return (
     <>
-      <S.Header>
-        <Icon name={ICON_NAME.CHEVRON_LEFT} />
-        <Icon name={ICON_NAME.ELLIPSIS} />
-      </S.Header>
-
-      <S.Product>
-        <S.ProductImgListLayout>
-          <S.ProductImgList>
-            <S.ProductImg src="https://image.yes24.com/goods/86234361/XL" />
-            <S.ProductImg src="https://image.yes24.com/goods/86234361/XL" />
-          </S.ProductImgList>
-        </S.ProductImgListLayout>
-
-        <S.ProductInfo>
-          <S.SellerInfo>
-            <span>판매자 정보</span>
-            <span>아켄</span>
-          </S.SellerInfo>
-
-          <S.PostStateDropDown onClick={() => setIsModalOpen(!isModalOpen)}>
-            <span>판매 중</span>
-            <Icon name={ICON_NAME.CHEVRON_DOWN} />
-            {isModalOpen && (
-              <S.Modal>
-                {['예약 중', '판매 중', '판매 완료'].map((state) => (
-                  <S.Menu key={state} selectedstate={'판매 중'} state={state}>
-                    {state}
-                  </S.Menu>
-                ))}
-              </S.Modal>
-            )}
-          </S.PostStateDropDown>
-
-          <S.Title>빈티지 롤러 스케이트</S.Title>
-
-          <S.CategoryAndTime>{getTextWithTimeStamp({ text: '가구/인테리어', time: '' })}</S.CategoryAndTime>
-
-          <S.Content>
-            {
-              '어린시절 추억의 향수를 불러 일으키는 롤러 스케이트입니다. 빈티지 특성상 사용감 있지만 전체적으로 깨끗한 상태입니다.\n\n 촬영용 소품이나, 거실에 장식용으로 추천해 드립니다. 단품 입고 되었습니다. 새제품으로 보존된 제품으로 전용박스까지 보내드립니다.\n\n 사이즈는 235 입니다.'
-            }
-          </S.Content>
-
-          <S.CountLayout>
-            <S.Count>채팅 0</S.Count>
-            <S.Count>관심 0</S.Count>
-            <S.Count>조회 1</S.Count>
-          </S.CountLayout>
-        </S.ProductInfo>
-      </S.Product>
-
-      <S.ToolBar>
-        <S.LikeAndPrice>
-          <Icon name={ICON_NAME.LIKE} />
-          <span>{formatMoney(169000)}</span>
-        </S.LikeAndPrice>
-
-        <S.ChattingButton buttonType="rectangle" buttonState="active">
-          대화 중인 채팅방
-        </S.ChattingButton>
-      </S.ToolBar>
+      {responseState === 'ERROR' && <div>error</div>}
+      {responseState === 'LOADING' && <div>loading</div>}
+      {responseState === 'SUCCESS' && postData && (
+        <>
+          <ProductDetailHeader postId={postData.id} isSeller={postData.isSeller} />
+          <ProductDetailMain {...postData} interestCount={interestCount} />
+          <ProductDetailToolBar
+            isInterested={isInterested}
+            updateIsInterestedHandler={updateIsInterestedHandler}
+            {...postData}
+          />
+        </>
+      )}
     </>
   );
 };

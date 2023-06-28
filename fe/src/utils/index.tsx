@@ -43,15 +43,15 @@ const getTextWithTimeStamp = ({ text, time }: { text: string; time: string }) =>
 };
 
 const formatMoney = (money: number) => {
-  if (isNaN(money)) {
-    return '가격 x';
+  if (money <= 0) {
+    return '가격 미정';
   }
 
   return `${money.toLocaleString()}원`;
 };
 
 const getRegion = (address: string) => {
-  return address.split(' ').at(-1);
+  return address.split(' ').at(-1) ?? '';
 };
 
 const parseJWT = (token: string) => {

@@ -41,6 +41,12 @@ const CategoryItem = styled.div`
   font-size: ${({ theme }) => theme.fonts.caption1.fontSize};
   font-weight: ${({ theme }) => theme.fonts.caption1.fontWeight};
   line-height: ${({ theme }) => theme.fonts.caption1.lineHeight};
+
+  &.active {
+    background-color: ${({ theme }) => theme.colors.accent.background.primary};
+    color: ${({ theme }) => theme.colors.accent.text.default};
+    border: none;
+  }
 `;
 
 const CategoryLayout = styled.div`

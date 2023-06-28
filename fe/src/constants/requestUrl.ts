@@ -8,6 +8,7 @@ const REQUEST_URL = {
   POST_OF_INTEREST: `${BASE_URL}/posts/interests`,
   BADGES: `${BASE_URL}/posts/badges`,
   CATEGORY: `${BASE_URL}/categories`,
+  CATEGORY_RECOMMENDS: `${BASE_URL}/categories/recommended`,
   CHATTING: `${BASE_URL}/chattings`,
   OAUTH: `${BASE_URL}/oauth`,
 } as const;

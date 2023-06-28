@@ -108,7 +108,7 @@ const ProductDetail = () => {
       {responseState === 'LOADING' && <div>loading</div>}
       {responseState === 'SUCCESS' && postData && (
         <>
-          <ProductDetailHeader isSeller={postData.isSeller} />
+          <ProductDetailHeader postId={postData.id} isSeller={postData.isSeller} />
           <ProductDetailMain {...postData} interestCount={interestCount} />
           <ProductDetailToolBar
             isInterested={isInterested}

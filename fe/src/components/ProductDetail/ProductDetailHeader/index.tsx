@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { ICON_NAME } from '@constants/index';
+import { ICON_NAME, REQUEST_URL } from '@constants/index';
+
+import useFetch, { REQUEST_METHOD } from '@hooks/useFetch';
 
 import Icon from '@components/common/Icon';
 import Modal from '@components/common/Modal';
@@ -10,16 +12,36 @@ import ModalPortal from '@components/ModalPortal';
 import * as S from './style';
 
 interface ProductDetailHeaderProps {
+  postId: number;
   isSeller: boolean;
 }
 
-const ProductDetailHeader = ({ isSeller }: ProductDetailHeaderProps) => {
+const ProductDetailHeader = ({ postId, isSeller }: ProductDetailHeaderProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const { responseState: deletePostState, fetchData: deletePost } = useFetch({
+    url: `${REQUEST_URL.POSTS}/${postId}`,
+    options: {
+      method: REQUEST_METHOD.DELETE,
+      headers: { Authorization: `Bearer ${localStorage.getItem('Token')}` },
+    },
+    skip: true,
+  });
+
+  const deleteProduct = () => {
+    deletePost();
+
+    if (deletePostState === 'ERROR') {
+      alert('게시글 삭제에 싪패했습니다.');
+      return;
+    }
+
+    navigate('/');
+  };
 
   const openPopup = () => setIsPopupOpen(true);
-
-  const navigate = useNavigate();
 
   return (
     <S.Header>
@@ -35,7 +57,7 @@ const ProductDetailHeader = ({ isSeller }: ProductDetailHeaderProps) => {
         <ModalPortal>
           <Popup text="정말로 해당 게시물을 삭제할 것입니까?">
             <S.ClosePopupButton onClick={() => setIsPopupOpen(false)}>아니오</S.ClosePopupButton>
-            <S.DeletePostButton>예</S.DeletePostButton>
+            <S.DeletePostButton onClick={deleteProduct}>예</S.DeletePostButton>
           </Popup>
         </ModalPortal>
       )}

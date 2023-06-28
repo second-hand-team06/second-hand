@@ -29,6 +29,8 @@ const ButtonsLayout = styled.div`
   display: flex;
   justify-content: center;
   gap: 15px;
+
+  width: 100%;
 `;
 
 const Overlay = styled.div`

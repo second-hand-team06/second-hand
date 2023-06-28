@@ -10,7 +10,7 @@ const Popup = ({ text, children }: PopupProps) => {
     <>
       <S.Popup>
         <span>{text}</span>
-        {children}
+        <S.ButtonsLayout>{children}</S.ButtonsLayout>
       </S.Popup>
       <S.Overlay />
     </>

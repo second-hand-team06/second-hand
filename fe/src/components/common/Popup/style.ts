@@ -14,7 +14,7 @@ const Popup = styled.div`
   width: 80%;
   padding: 30px 20px;
 
-  background-color: ${({ theme }) => theme.colors.neutral.background.default};
+  background-color: ${({ theme }) => theme.colors.neutral.background.weak};
   border-radius: 15px;
 
   font-size: ${({ theme }) => theme.fonts.callout.fontSize};
@@ -23,6 +23,12 @@ const Popup = styled.div`
   color: ${({ theme }) => theme.colors.neutral.text.strong};
 
   z-index: 20;
+`;
+
+const ButtonsLayout = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 15px;
 `;
 
 const Overlay = styled.div`
@@ -41,4 +47,4 @@ const Overlay = styled.div`
   z-index: 15;
 `;
 
-export { Popup, Overlay };
+export { Popup, ButtonsLayout, Overlay };

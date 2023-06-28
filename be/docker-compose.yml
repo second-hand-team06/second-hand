@@ -6,6 +6,4 @@ services:
     image: birdie/second-hand
     container_name: was-application
     ports:
-      - "8080:8080"
-    expose:
-      - 8080
+      - "8081:8080"

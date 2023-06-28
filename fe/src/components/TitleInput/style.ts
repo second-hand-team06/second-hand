@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const InputTitleLayout = styled.div`
+const TitleInputLayout = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,7 +10,7 @@ const InputTitleLayout = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
 `;
 
-const InputTitle = styled.input`
+const TitleInput = styled.input`
   width: 100%;
   height: 22px;
 
@@ -56,4 +56,4 @@ const CategoryLayout = styled.div`
   width: 100%;
 `;
 
-export { InputTitleLayout, InputTitle, CategoryList, CategoryItem, CategoryLayout };
+export { TitleInputLayout, TitleInput, CategoryList, CategoryItem, CategoryLayout };

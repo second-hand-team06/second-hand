@@ -8,7 +8,7 @@ interface CategoriesData {
   categories: { id: number; name: string }[];
 }
 
-const InputTitle = () => {
+const TitleInput = () => {
   const [title, setTitle] = useState('');
   const [selectCategory, setSelectCategory] = useState(0);
   const token = localStorage.getItem('Token');
@@ -27,8 +27,8 @@ const InputTitle = () => {
   };
 
   return (
-    <S.InputTitleLayout>
-      <S.InputTitle placeholder="글 제목" onChange={(e) => setTitle(e.target.value)}></S.InputTitle>
+    <S.TitleInputLayout>
+      <S.TitleInput placeholder="글 제목" onChange={(e) => setTitle(e.target.value)}></S.TitleInput>
 
       <S.CategoryLayout>
         <S.CategoryList>
@@ -44,8 +44,8 @@ const InputTitle = () => {
         </S.CategoryList>
         <Icon name={ICON_NAME.CHEVRON_RIGHT} />
       </S.CategoryLayout>
-    </S.InputTitleLayout>
+    </S.TitleInputLayout>
   );
 };
 
-export default InputTitle;
+export default TitleInput;

@@ -32,7 +32,7 @@ const MenuBorderStyles = css`
 
 const Dropdown = styled.div`
   position: absolute;
-  top: calc(100% + 4px);
+  top: 100%;
 
   width: 240px;
 

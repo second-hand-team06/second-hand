@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import Button from '@components/common/Button';
 
@@ -47,7 +47,7 @@ const SellerInfo = styled.div`
   color: ${({ theme }) => theme.colors.neutral.text.default};
 `;
 
-const PostStateDropDown = styled.div`
+const DropdownToggleButton = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -68,38 +68,6 @@ const PostStateDropDown = styled.div`
   & svg {
     fill: ${({ theme }) => theme.colors.neutral.text.strong};
   }
-`;
-
-const Menu = styled.div<{ selectedstate?: '광고' | '예약 중' | '판매 중' | '판매 완료'; state?: string }>`
-  display: flex;
-  align-items: center;
-
-  height: 45px;
-  padding: 0 10px;
-
-  font-size: ${({ theme }) => theme.fonts.callout.fontSize};
-  font-weight: ${({ selectedstate, state }) => (state && selectedstate === state ? 590 : 400)};
-  line-height: ${({ theme }) => theme.fonts.callout.lineHeight};
-`;
-
-const MenuBorderStyles = css`
-  & > div:not(:last-child) {
-    border-bottom: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
-  }
-`;
-
-const Modal = styled.div`
-  position: absolute;
-  top: calc(100% + 4px);
-  left: 0;
-
-  width: 240px;
-
-  background-color: ${({ theme }) => theme.colors.system.background.default};
-  border: 1px solid ${({ theme }) => theme.colors.neutral.border.strong};
-  border-radius: 12px;
-
-  ${MenuBorderStyles}
 `;
 
 const Title = styled.div`
@@ -182,9 +150,7 @@ export {
   ProductImgList,
   ProductImg,
   SellerInfo,
-  PostStateDropDown,
-  Menu,
-  Modal,
+  DropdownToggleButton,
   Title,
   CategoryAndTime,
   Content,

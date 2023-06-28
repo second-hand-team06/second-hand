@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { ICON_NAME, PATH } from '@constants/index';
 import { getRegion } from '@utils/index';
@@ -7,6 +7,7 @@ import { getRegion } from '@utils/index';
 import { useUserContext } from '@context/userContext';
 
 import Icon from '@components/common/Icon';
+import Dropdown from '@components/common/Dropdown';
 import * as S from './style';
 
 interface Region {
@@ -22,43 +23,44 @@ const HomeHeader = ({ regions }: HomeHeaderProps) => {
   const { isLoggedIn } = useUserContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const navigate = useNavigate();
+
   const selectedRegion = useMemo(() => {
     const address = regions[0].name;
     const region = getRegion(address);
 
     return region;
-  }, []);
+  }, [regions]);
 
-  const getDropDownMenuTemplate = () => {
-    if (!isLoggedIn) {
-      return (
-        <S.Menu selectedregion={selectedRegion} region={selectedRegion}>
-          {selectedRegion}
-        </S.Menu>
-      );
+  const regionOptions = useMemo(() => {
+    const regionOptions = regions.map(({ id, name }) => ({ id, value: getRegion(name) }));
+
+    if (isLoggedIn) {
+      return [
+        ...regionOptions,
+        {
+          id: 'region-setting-button',
+          value: '내 동네 설정하기',
+          handler: () => navigate(PATH.REGION_SETTING),
+        },
+      ];
     }
 
-    return (
-      <>
-        {regions.map(({ id, name }) => (
-          <S.Menu key={id} selectedregion={selectedRegion} region={getRegion(name)}>
-            {getRegion(name)}
-          </S.Menu>
-        ))}
-        <Link to={PATH.REGION_SETTING}>
-          <S.Menu>내 동네 설정하기</S.Menu>
-        </Link>
-      </>
-    );
-  };
+    return regionOptions;
+  }, [isLoggedIn, regions]);
 
   return (
     <S.HomeHeader>
-      <S.NeighborhoodDropdown onClick={() => setIsModalOpen(!isModalOpen)}>
+      <Dropdown
+        selectedValue={selectedRegion}
+        options={regionOptions}
+        isDropdownOpen={isModalOpen}
+        openDropdownHandler={() => setIsModalOpen(!isModalOpen)}
+      >
         <span>{selectedRegion}</span>
         <Icon name={ICON_NAME.CHEVRON_DOWN} />
-        {isModalOpen && <S.Modal>{getDropDownMenuTemplate()}</S.Modal>}
-      </S.NeighborhoodDropdown>
+      </Dropdown>
+
       <Link to={PATH.CATEGORY}>
         <Icon name={ICON_NAME.HAMBURGER} />
       </Link>

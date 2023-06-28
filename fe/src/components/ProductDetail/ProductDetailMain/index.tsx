@@ -4,6 +4,7 @@ import { ICON_NAME } from '@constants/index';
 import { getTextWithTimeStamp } from '@utils/index';
 
 import Icon from '@components/common/Icon';
+import Dropdown from '@components/common/Dropdown';
 import * as S from './style';
 
 interface ProductDetailMainProps {
@@ -32,7 +33,7 @@ const ProductDetailMain = ({
   postState,
   photoUrls,
 }: ProductDetailMainProps) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   return (
     <>
@@ -49,19 +50,17 @@ const ProductDetailMain = ({
             <span>{sellerName}</span>
           </S.SellerInfo>
 
-          <S.PostStateDropDown onClick={() => setIsModalOpen(!isModalOpen)}>
-            <span>{postState}</span>
-            <Icon name={ICON_NAME.CHEVRON_DOWN} />
-            {isModalOpen && (
-              <S.Modal>
-                {['예약 중', '판매 중', '판매 완료'].map((state) => (
-                  <S.Menu key={state} selectedstate={postState} state={state}>
-                    {state}
-                  </S.Menu>
-                ))}
-              </S.Modal>
-            )}
-          </S.PostStateDropDown>
+          <Dropdown
+            selectedValue={postState}
+            options={['예약 중', '판매 중', '판매 완료'].map((state) => ({ id: state, value: state }))}
+            isDropdownOpen={isDropdownOpen}
+            openDropdownHandler={() => setIsDropdownOpen(!isDropdownOpen)}
+          >
+            <S.DropdownToggleButton>
+              <span>{postState}</span>
+              <Icon name={ICON_NAME.CHEVRON_DOWN} />
+            </S.DropdownToggleButton>
+          </Dropdown>
 
           <S.Title>{title}</S.Title>
 

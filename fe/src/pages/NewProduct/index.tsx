@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ICON_NAME, PATH } from '@constants/index';
 
 import Icon from '@components/common/Icon';
-import ImageInput from '@components/ImageIput';
+import ImageInput from '@components/ImageInput';
 import * as S from './style';
 import InputTitle from '@components/InputTitle';
 

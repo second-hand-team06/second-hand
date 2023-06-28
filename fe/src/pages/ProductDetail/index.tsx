@@ -5,6 +5,7 @@ import { REQUEST_URL } from '@constants/index';
 
 import useFetch, { REQUEST_METHOD } from '@hooks/useFetch';
 
+import ProductDetailHeader from '@components/ProductDetail/ProductDetailHeader';
 import ProductDetailMain from '@components/ProductDetail/ProductDetailMain';
 import ProductDetailToolBar from '@components/ProductDetail/ProductDetailToolBar';
 
@@ -107,6 +108,7 @@ const ProductDetail = () => {
       {responseState === 'LOADING' && <div>loading</div>}
       {responseState === 'SUCCESS' && postData && (
         <>
+          <ProductDetailHeader postId={postData.id} isSeller={postData.isSeller} />
           <ProductDetailMain {...postData} interestCount={interestCount} />
           <ProductDetailToolBar
             isInterested={isInterested}

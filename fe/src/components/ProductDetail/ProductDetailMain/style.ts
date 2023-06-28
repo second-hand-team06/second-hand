@@ -2,16 +2,6 @@ import styled, { css } from 'styled-components';
 
 import Button from '@components/common/Button';
 
-const Header = styled.header`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: fixed;
-
-  width: 100%;
-  height: 44px;
-  padding: 16px;
-`;
 const Product = styled.section`
   overflow-y: scroll;
 
@@ -186,7 +176,6 @@ const ChattingDetailButton = styled(Button)`
 `;
 
 export {
-  Header,
   Product,
   ProductInfo,
   ProductImgListLayout,

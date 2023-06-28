@@ -16,7 +16,7 @@ const MyAccount = () => {
 
   const GITHUB_OAUTH_URL = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&redirect_url=${REDIRECT_URL}&scope=user%20public_repo`;
 
-  const { isLoggedIn, user } = useUserContext();
+  const { isLoggedIn, user, logout } = useUserContext();
 
   const loginRequestHandler = () => {
     return window.location.assign(GITHUB_OAUTH_URL);
@@ -31,7 +31,7 @@ const MyAccount = () => {
             <S.UserImg src={user?.profileUrl} alt={user?.loginId} />
             <S.UserLoginId>{user?.loginId}</S.UserLoginId>
           </S.UserInfo>
-          <S.LogoutButton>로그아웃</S.LogoutButton>
+          <S.LogoutButton onClick={logout}>로그아웃</S.LogoutButton>
         </S.MyAccountMain>
       ) : (
         <S.MyAccountMain isloggedin={isLoggedIn}>

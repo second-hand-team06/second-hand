@@ -35,6 +35,14 @@ const UserLoginId = styled.span`
   font-weight: ${({ theme }) => theme.fonts.headline.fontWeight};
   line-height: ${({ theme }) => theme.fonts.headline.lineHeight};
   color: ${({ theme }) => theme.colors.neutral.text.strong};
+
+  text-align: center;
 `;
 
-export { MyAccount, LoginButton, UserImg, UserLoginId };
+const UserInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+`;
+
+export { MyAccount, LoginButton, UserImg, UserLoginId, UserInfo };

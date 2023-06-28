@@ -1,5 +1,6 @@
-import TabBar from '@components/TabBar';
+import { useUserContext } from '@context/userContext';
 
+import TabBar from '@components/TabBar';
 import * as S from './style';
 
 const MyAccount = () => {
@@ -15,13 +16,19 @@ const MyAccount = () => {
 
   const GITHUB_OAUTH_URL = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&redirect_url=${REDIRECT_URL}&scope=user%20public_repo`;
 
+  const { isLoggedIn, user } = useUserContext();
+
   const loginRequestHandler = () => {
     return window.location.assign(GITHUB_OAUTH_URL);
   };
 
   return (
     <S.MyAccount>
-      <S.LoginButton onClick={loginRequestHandler}>GitHub 계정으로 로그인</S.LoginButton>
+      {isLoggedIn ? (
+        <S.UserImg src={user?.profileUrl} alt={user?.loginId} />
+      ) : (
+        <S.LoginButton onClick={loginRequestHandler}>GitHub 계정으로 로그인</S.LoginButton>
+      )}
       <TabBar activeTab="myAccount" />
     </S.MyAccount>
   );

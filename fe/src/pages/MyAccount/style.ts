@@ -7,7 +7,7 @@ const MyAccount = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
+
   height: 100vh;
 `;
 
@@ -23,4 +23,11 @@ const LoginButton = styled.button`
   color: ${({ theme }) => theme.colors.accent.text.default};
 `;
 
-export { MyAccount, LoginButton };
+const UserImg = styled.img`
+  width: 80px;
+  height: 80px;
+
+  border-radius: 50%;
+`;
+
+export { MyAccount, LoginButton, UserImg };

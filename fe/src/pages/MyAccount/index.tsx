@@ -23,21 +23,23 @@ const MyAccount = () => {
   };
 
   return (
-    <S.MyAccount>
+    <>
       <S.Header>내 계정</S.Header>
       {isLoggedIn ? (
-        <>
+        <S.MyAccountMain isloggedin={isLoggedIn}>
           <S.UserInfo>
             <S.UserImg src={user?.profileUrl} alt={user?.loginId} />
             <S.UserLoginId>{user?.loginId}</S.UserLoginId>
           </S.UserInfo>
           <S.LogoutButton>로그아웃</S.LogoutButton>
-        </>
+        </S.MyAccountMain>
       ) : (
-        <S.LoginButton onClick={loginRequestHandler}>GitHub 계정으로 로그인</S.LoginButton>
+        <S.MyAccountMain isloggedin={isLoggedIn}>
+          <S.LoginButton onClick={loginRequestHandler}>GitHub 계정으로 로그인</S.LoginButton>
+        </S.MyAccountMain>
       )}
       <TabBar activeTab="myAccount" />
-    </S.MyAccount>
+    </>
   );
 };
 

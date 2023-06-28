@@ -2,15 +2,6 @@ import styled from 'styled-components';
 
 import { PALETTE } from '@styles/color';
 
-const MyAccount = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-
-  height: 100vh;
-`;
-
 const Header = styled.header`
   display: flex;
   justify-content: center;
@@ -75,4 +66,16 @@ const UserInfo = styled.div`
   gap: 24px;
 `;
 
-export { MyAccount, Header, LoginButton, LogoutButton, UserImg, UserLoginId, UserInfo };
+const MyAccountMain = styled.main<{ isloggedin: boolean }>`
+  display: flex;
+  flex-direction: column;
+  justify-content: ${({ isloggedin }) => (isloggedin ? 'space-between' : 'center')};
+  align-items: center;
+
+  height: calc(100vh - 44px - 83px);
+  padding: 100px 16px;
+
+  box-sizing: border-box;
+`;
+
+export { Header, LoginButton, LogoutButton, UserImg, UserLoginId, UserInfo, MyAccountMain };

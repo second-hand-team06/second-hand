@@ -105,7 +105,7 @@ const ProductDetail = () => {
   return (
     <>
       {responseState === 'ERROR' && <div>error</div>}
-      {responseState === 'LOADING' && <div>loading</div>}
+      {responseState === 'LOADING' && <></>}
       {responseState === 'SUCCESS' && postData && (
         <>
           <ProductDetailHeader postId={postData.id} isSeller={postData.isSeller} />

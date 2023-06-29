@@ -43,7 +43,7 @@ const Category = () => {
         <S.EmptyTag></S.EmptyTag>
       </S.Header>
 
-      {responseState === RESPONSE_STATE.LOADING && <div>loading</div>}
+      {responseState === RESPONSE_STATE.LOADING && <></>}
       {responseState === RESPONSE_STATE.ERROR && <div>error</div>}
       {responseState === RESPONSE_STATE.SUCCESS && (
         <S.CategoryList>

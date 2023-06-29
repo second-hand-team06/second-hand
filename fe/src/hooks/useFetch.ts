@@ -32,15 +32,16 @@ interface UseFetchProps {
   skip?: boolean;
 }
 
-const useFetch = <T>({ url, options, skip = false }: UseFetchProps) => {
+const useFetch = <T>({ url, options: optionsProp, skip = false }: UseFetchProps) => {
   const [responseState, setResponseState] = useState<ResponseState>(RESPONSE_STATE.IDLE);
   const [data, setData] = useState<DataState<T>>(null);
   const [error, setError] = useState<ErrorState>(null);
 
-  const fetchData = async () => {
+  const fetchData = async (body?: string | FormData) => {
     try {
       setResponseState(RESPONSE_STATE.LOADING);
 
+      const options = body ? { ...optionsProp, headers: { ...optionsProp.headers }, body } : optionsProp;
       const response = await fetch(url, options);
 
       if (!response.ok) {

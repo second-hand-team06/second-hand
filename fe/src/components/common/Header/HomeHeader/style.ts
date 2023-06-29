@@ -15,4 +15,12 @@ const HomeHeader = styled.header`
   border-bottom: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
 `;
 
-export { HomeHeader };
+const DropdownToggleButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  gap: 4px;
+`;
+
+export { HomeHeader, DropdownToggleButton };

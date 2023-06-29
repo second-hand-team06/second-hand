@@ -21,7 +21,7 @@ interface PostDetailData {
   interestCount: number;
   viewCount: number;
   price: number;
-  postState: '광고' | '예약 중' | '판매 중' | '판매 완료';
+  badge: { id: number; state: string };
   photoUrls: string[];
   isSeller: boolean;
   interested: boolean;
@@ -30,7 +30,7 @@ interface PostDetailData {
 const ProductDetail = () => {
   const { id: postId } = useParams();
 
-  const { responseState, data: postData } = useFetch<PostDetailData>({
+  const { responseState: responseGetPostData, data: postData } = useFetch<PostDetailData>({
     url: `${REQUEST_URL.POSTS}/${postId}`,
     options: {
       method: REQUEST_METHOD.GET,
@@ -104,9 +104,9 @@ const ProductDetail = () => {
 
   return (
     <>
-      {responseState === 'ERROR' && <div>error</div>}
-      {responseState === 'LOADING' && <div>loading</div>}
-      {responseState === 'SUCCESS' && postData && (
+      {responseGetPostData === 'ERROR' && <div>error</div>}
+      {responseGetPostData === 'LOADING' && <div>loading</div>}
+      {responseGetPostData === 'SUCCESS' && postData && (
         <>
           <ProductDetailHeader postId={postData.id} isSeller={postData.isSeller} />
           <ProductDetailMain {...postData} interestCount={interestCount} />

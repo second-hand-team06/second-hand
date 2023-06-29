@@ -5,8 +5,9 @@ import { REQUEST_URL } from '@constants/requestUrl';
 import useFetch, { RESPONSE_STATE, REQUEST_METHOD } from '@hooks/useFetch';
 import useIntersectionObserver from '@hooks/useIntersectionObserver';
 
-import ProductListItem, { ProductListItemProps } from '@components/ProductListItem';
 import Spinner from '@components/common/Spinner';
+import ProductListItem, { ProductListItemProps } from '@components/ProductListItem';
+import Loading from '@components/Loading';
 import * as S from './style';
 
 interface PostsData {
@@ -81,7 +82,7 @@ const ProductList = ({ regionId, categoryId }: ProductListProps) => {
               </S.SpinnerLayout>
             </>
           ) : (
-            <h1>Loading</h1>
+            <Loading text="상품 목록을 불러오고 있습니다." />
           )}
         </>
       )}

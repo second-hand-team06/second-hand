@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { ThemeProvider } from '@context/themeContext';
@@ -38,7 +37,9 @@ const App = () => {
             <Route path={PATH.MY_ACCOUNT} element={<MyAccount />} />
             <Route path={PATH.LOGIN_LOADING} element={<LoginLoading />} />
             <Route path={PATH.NEW_PRODUCT} element={<NewProduct />} />
-            <Route path={`${PATH.PRODUCT_DETAIL}/:id`} element={<ProductDetail />} />
+            <Route path={PATH.PRODUCT_DETAIL}>
+              <Route path={':id'} element={<ProductDetail />} />
+            </Route>
             <Route path="/*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

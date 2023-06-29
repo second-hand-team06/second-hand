@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom';
-
 import { ICON_NAME, PATH } from '@constants/index';
 import { formatMoney, getTextWithTimeStamp } from '@utils/index';
 
@@ -42,7 +40,7 @@ const ProductListItem = ({
   return (
     <S.ProductListItem>
       {photoUrl && <S.Img src={photoUrl} alt={title} />}
-      <Link to={`${PATH.PRODUCT_DETAIL}/${id}`}>
+      <S.CustomLink to={`${PATH.PRODUCT_DETAIL}/${id}`}>
         <S.ItemInformation>
           <S.Title>{title}</S.Title>
           <S.LocationAndTime>{getTextWithTimeStamp({ text: region.name, time: postedAt })}</S.LocationAndTime>
@@ -69,7 +67,7 @@ const ProductListItem = ({
             )}
           </S.ChatAndLike>
         </S.ItemInformation>
-      </Link>
+      </S.CustomLink>
     </S.ProductListItem>
   );
 };

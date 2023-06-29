@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { ICON_NAME } from '@constants/index';
 import { getTextWithTimeStamp } from '@utils/index';
@@ -42,6 +42,10 @@ const ProductDetailMain = ({
 }: ProductDetailMainProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+  const badgeOptions = useMemo(() => {
+    return badges.map(({ id, state }) => ({ id, value: state }));
+  }, [badges]);
+
   return (
     <>
       <S.Product>
@@ -59,7 +63,7 @@ const ProductDetailMain = ({
 
           <Dropdown
             selectedValue={badge.state}
-            options={badges.map(({ id, state }) => ({ id, value: state }))}
+            options={badgeOptions}
             isDropdownOpen={isDropdownOpen}
             openDropdownHandler={() => setIsDropdownOpen(!isDropdownOpen)}
           >

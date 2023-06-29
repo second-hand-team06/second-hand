@@ -32,6 +32,7 @@ interface ProductDetailMainProps {
   price: number;
   badge: { id: number; state: string };
   photoUrls: string[];
+  isSeller: boolean;
 }
 
 const ProductDetailMain = ({
@@ -45,6 +46,7 @@ const ProductDetailMain = ({
   viewCount,
   badge,
   photoUrls,
+  isSeller,
 }: ProductDetailMainProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -78,16 +80,18 @@ const ProductDetailMain = ({
             <span>{sellerName}</span>
           </S.SellerInfo>
 
-          <S.DropdownToggleButton onClick={openDropdownHandler}>
-            <span>{badge.state}</span>
-            <Icon name={ICON_NAME.CHEVRON_DOWN} />
-            {isDropdownOpen && badgesData && (
-              <Dropdown
-                selectedValue={badge.state}
-                options={badgesData.badges.map(({ id, state }) => ({ id, value: state }))}
-              ></Dropdown>
-            )}
-          </S.DropdownToggleButton>
+          {isSeller && (
+            <S.DropdownToggleButton onClick={openDropdownHandler}>
+              <span>{badge.state}</span>
+              <Icon name={ICON_NAME.CHEVRON_DOWN} />
+              {isDropdownOpen && badgesData && (
+                <Dropdown
+                  selectedValue={badge.state}
+                  options={badgesData.badges.map(({ id, state }) => ({ id, value: state }))}
+                ></Dropdown>
+              )}
+            </S.DropdownToggleButton>
+          )}
 
           <S.Title>{title}</S.Title>
 

@@ -21,6 +21,7 @@ interface BadgesData {
 }
 
 interface ProductDetailMainProps {
+  id: number;
   sellerName: string;
   title: string;
   category: string;
@@ -36,6 +37,7 @@ interface ProductDetailMainProps {
 }
 
 const ProductDetailMain = ({
+  id,
   sellerName,
   title,
   category,
@@ -49,6 +51,7 @@ const ProductDetailMain = ({
   isSeller,
 }: ProductDetailMainProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [productState, setProductState] = useState(badge.state);
 
   const { fetchData: getBadges, data: badgesData } = useFetch<BadgesData>({
     url: REQUEST_URL.BADGES,
@@ -58,11 +61,39 @@ const ProductDetailMain = ({
     },
     skip: true,
   });
+  const { responseState: patchProductState, fetchData: patchProduct } = useFetch({
+    url: `${REQUEST_URL.POSTS}/${id}`,
+    options: {
+      method: REQUEST_METHOD.PATCH,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('Token')}`,
+      },
+    },
+    skip: true,
+  });
 
   const openDropdownHandler = async () => {
     if (!badgesData) await getBadges();
 
     setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const changeProductState = async ({ target }: React.MouseEvent<HTMLElement>) => {
+    if (!(target instanceof HTMLDivElement)) return;
+
+    const clickedProductState = target.id;
+    if (clickedProductState === productState) return;
+
+    const clickedProductStateId = badgesData?.badges.find(({ state }) => state === clickedProductState)?.id;
+    await patchProduct(JSON.stringify({ state: clickedProductStateId }));
+
+    if (patchProductState === 'ERROR') {
+      alert('상품 상태 수정에 실패했습니다.');
+      return;
+    }
+
+    setProductState(clickedProductState);
   };
 
   return (
@@ -82,12 +113,16 @@ const ProductDetailMain = ({
 
           {isSeller && (
             <S.DropdownToggleButton onClick={openDropdownHandler}>
-              <span>{badge.state}</span>
+              <span>{productState}</span>
               <Icon name={ICON_NAME.CHEVRON_DOWN} />
               {isDropdownOpen && badgesData && (
                 <Dropdown
-                  selectedValue={badge.state}
-                  options={badgesData.badges.map(({ id, state }) => ({ id, value: state }))}
+                  selectedValue={productState}
+                  options={badgesData.badges.map(({ id, state }) => ({
+                    id,
+                    value: state,
+                    handler: (e: React.MouseEvent<HTMLElement>) => changeProductState(e),
+                  }))}
                 ></Dropdown>
               )}
             </S.DropdownToggleButton>

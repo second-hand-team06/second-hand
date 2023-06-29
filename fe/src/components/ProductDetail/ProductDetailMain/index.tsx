@@ -7,6 +7,11 @@ import Icon from '@components/common/Icon';
 import Dropdown from '@components/common/Dropdown';
 import * as S from './style';
 
+interface Badge {
+  id: number;
+  state: string;
+}
+
 interface ProductDetailMainProps {
   sellerName: string;
   title: string;
@@ -17,8 +22,9 @@ interface ProductDetailMainProps {
   interestCount: number;
   viewCount: number;
   price: number;
-  badge: { id: number; state: string };
+  badge: Badge;
   photoUrls: string[];
+  badges: Badge[];
 }
 
 const ProductDetailMain = ({
@@ -32,6 +38,7 @@ const ProductDetailMain = ({
   viewCount,
   badge,
   photoUrls,
+  badges,
 }: ProductDetailMainProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -52,7 +59,7 @@ const ProductDetailMain = ({
 
           <Dropdown
             selectedValue={badge.state}
-            options={['예약 중', '판매 중', '판매 완료'].map((state) => ({ id: state, value: state }))}
+            options={badges.map(({ id, state }) => ({ id, value: state }))}
             isDropdownOpen={isDropdownOpen}
             openDropdownHandler={() => setIsDropdownOpen(!isDropdownOpen)}
           >

@@ -9,6 +9,15 @@ import ProductDetailHeader from '@components/ProductDetail/ProductDetailHeader';
 import ProductDetailMain from '@components/ProductDetail/ProductDetailMain';
 import ProductDetailToolBar from '@components/ProductDetail/ProductDetailToolBar';
 
+interface Badge {
+  id: number;
+  state: string;
+}
+
+interface BadgesData {
+  badges: Badge[];
+}
+
 interface PostDetailData {
   id: number;
   sellerId: number;
@@ -30,8 +39,15 @@ interface PostDetailData {
 const ProductDetail = () => {
   const { id: postId } = useParams();
 
-  const { responseState, data: postData } = useFetch<PostDetailData>({
+  const { responseState: responseGetPostData, data: postData } = useFetch<PostDetailData>({
     url: `${REQUEST_URL.POSTS}/${postId}`,
+    options: {
+      method: REQUEST_METHOD.GET,
+      headers: { Authorization: `Bearer ${localStorage.getItem('Token')}` },
+    },
+  });
+  const { responseState: responseGetBadgesData, data: badgesData } = useFetch<BadgesData>({
+    url: REQUEST_URL.BADGES,
     options: {
       method: REQUEST_METHOD.GET,
       headers: { Authorization: `Bearer ${localStorage.getItem('Token')}` },
@@ -104,12 +120,12 @@ const ProductDetail = () => {
 
   return (
     <>
-      {responseState === 'ERROR' && <div>error</div>}
-      {responseState === 'LOADING' && <div>loading</div>}
-      {responseState === 'SUCCESS' && postData && (
+      {(responseGetPostData === 'ERROR' || responseGetBadgesData === 'ERROR') && <div>error</div>}
+      {(responseGetPostData === 'LOADING' || responseGetBadgesData === 'LOADING') && <div>loading</div>}
+      {responseGetPostData === 'SUCCESS' && responseGetBadgesData === 'SUCCESS' && postData && badgesData && (
         <>
           <ProductDetailHeader postId={postData.id} isSeller={postData.isSeller} />
-          <ProductDetailMain {...postData} interestCount={interestCount} />
+          <ProductDetailMain {...postData} badges={badgesData.badges} interestCount={interestCount} />
           <ProductDetailToolBar
             isInterested={isInterested}
             updateIsInterestedHandler={updateIsInterestedHandler}

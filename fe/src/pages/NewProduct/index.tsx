@@ -10,9 +10,9 @@ import TitleInput from '@components/TitleInput';
 const NewProduct = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [region, setRegion] = useState('');
+  // const [region, setRegion] = useState('');
   const [price, setPrice] = useState('');
-  const [category, setCategory] = useState('');
+  // const [category, setCategory] = useState('');
   const [images, setImages] = useState<File[]>([]);
 
   const titleChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -75,7 +75,7 @@ const NewProduct = () => {
           return res.json();
         }
       })
-      .then((res) => {
+      .then(() => {
         console.log('에러 메시지 ->');
       });
   };

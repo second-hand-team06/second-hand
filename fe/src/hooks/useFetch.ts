@@ -41,7 +41,7 @@ const useFetch = <T>({ url, options: optionsProp, skip = false }: UseFetchProps)
     try {
       setResponseState(RESPONSE_STATE.LOADING);
 
-      const options = body ? { ...optionsProp, headers: { ...optionsProp.headers }, body } : optionsProp;
+      const options = body ? { ...optionsProp, body } : optionsProp;
       const response = await fetch(url, options);
 
       if (!response.ok) {

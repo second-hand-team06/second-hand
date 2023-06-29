@@ -26,7 +26,7 @@ const MyAccount = () => {
     <>
       <S.Header>내 계정</S.Header>
       {isLoggedIn ? (
-        <S.MyAccountMain isloggedin={isLoggedIn}>
+        <S.MyAccountMain isloggedin={isLoggedIn ? 1 : 0}>
           <S.UserInfo>
             <S.UserImg src={user?.profileUrl} alt={user?.loginId} />
             <S.UserLoginId>{user?.loginId}</S.UserLoginId>
@@ -34,7 +34,7 @@ const MyAccount = () => {
           <S.LogoutButton onClick={logout}>로그아웃</S.LogoutButton>
         </S.MyAccountMain>
       ) : (
-        <S.MyAccountMain isloggedin={isLoggedIn}>
+        <S.MyAccountMain isloggedin={isLoggedIn ? 1 : 0}>
           <S.LoginButton onClick={loginRequestHandler}>GitHub 계정으로 로그인</S.LoginButton>
         </S.MyAccountMain>
       )}

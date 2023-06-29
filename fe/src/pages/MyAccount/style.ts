@@ -66,7 +66,7 @@ const UserInfo = styled.div`
   gap: 24px;
 `;
 
-const MyAccountMain = styled.main<{ isloggedin: boolean }>`
+const MyAccountMain = styled.main<{ isloggedin: number }>`
   display: flex;
   flex-direction: column;
   justify-content: ${({ isloggedin }) => (isloggedin ? 'space-between' : 'center')};

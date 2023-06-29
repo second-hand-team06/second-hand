@@ -6,6 +6,7 @@ import useFetch, { RESPONSE_STATE, REQUEST_METHOD } from '@hooks/useFetch';
 import useIntersectionObserver from '@hooks/useIntersectionObserver';
 
 import ProductListItem, { ProductListItemProps } from '@components/ProductListItem';
+import Spinner from '@components/common/Spinner';
 import * as S from './style';
 
 interface PostsData {
@@ -75,7 +76,9 @@ const ProductList = ({ regionId, categoryId }: ProductListProps) => {
               {postList.map((item) => (
                 <ProductListItem key={item.id} {...item} />
               ))}
-              <div>로딩 중 ~</div>
+              <S.SpinnerLayout>
+                <Spinner />
+              </S.SpinnerLayout>
             </>
           ) : (
             <h1>Loading</h1>

@@ -1,15 +1,18 @@
 import { useState } from 'react';
 import { ICON_NAME, REQUEST_URL } from '@constants/index';
-import useFetch, { REQUEST_METHOD, RESPONSE_STATE } from '@hooks/useFetch';
+import useFetch, { REQUEST_METHOD } from '@hooks/useFetch';
 import Icon from '@components/common/Icon';
 import * as S from './style';
+
+interface TitleInputProps {
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
 
 interface CategoriesData {
   categories: { id: number; name: string }[];
 }
 
-const TitleInput = () => {
-  const [title, setTitle] = useState('');
+const TitleInput = ({ onChange }: TitleInputProps) => {
   const [selectCategory, setSelectCategory] = useState(0);
   const token = localStorage.getItem('Token');
   const options: RequestInit = {
@@ -18,7 +21,7 @@ const TitleInput = () => {
   };
 
   const { data } = useFetch<CategoriesData>({
-    url: `${REQUEST_URL.CATEGORY_RECOMMENDS}?title=${title}`,
+    url: `${REQUEST_URL.CATEGORY_RECOMMENDS}?title='`,
     options,
   });
 
@@ -28,7 +31,7 @@ const TitleInput = () => {
 
   return (
     <S.TitleInputLayout>
-      <S.TitleInput placeholder="글 제목" onChange={(e) => setTitle(e.target.value)}></S.TitleInput>
+      <S.TitleInput placeholder="글 제목" onChange={onChange}></S.TitleInput>
 
       <S.CategoryLayout>
         <S.CategoryList>

@@ -3,6 +3,7 @@ package com.secondhand.post;
 import com.secondhand.post.dto.*;
 import com.secondhand.user.login.dto.LoggedInUser;
 import com.secondhand.util.CustomResponse;
+import com.secondhand.util.DataInsert;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -20,12 +21,12 @@ import java.util.ArrayList;
 public class PostController {
 
     private final PostService postService;
+    private final DataInsert dataInsert;
 
     @GetMapping
     public ResponseEntity<CustomResponse<MainPagePostsDto>> getPost(Pageable pageable, SearchCondition searchCondition, @RequestAttribute(required = false) LoggedInUser loggedInUser) {
-
         Long userId = loggedInUser != null ? loggedInUser.getId() : null;
-
+        dataInsert.bulkInsert();
         if (userId == null) {
             searchCondition.setRegion(1);
         }
@@ -87,7 +88,7 @@ public class PostController {
     }
 
     @PutMapping("/{postId}")
-    public ResponseEntity<CustomResponse> updatePost(@PathVariable Long postId, @ModelAttribute PostUpdateDto updatePostDto,@RequestAttribute LoggedInUser loggedInUser) {
+    public ResponseEntity<CustomResponse> updatePost(@PathVariable Long postId, @ModelAttribute PostUpdateDto updatePostDto, @RequestAttribute LoggedInUser loggedInUser) {
 
         postService.editPost(postId, updatePostDto, loggedInUser);
 
@@ -136,4 +137,6 @@ public class PostController {
                         "뱃지 목록 조회 성공",
                         postService.findBadges()));
     }
+
+
 }

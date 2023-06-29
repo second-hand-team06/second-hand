@@ -13,21 +13,21 @@ spring:
   servlet:
     multipart:
       enabled: true
-  jpa:
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
+#  jpa:
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true
 
   freemarker:
     template-loader-path: classpath:/templates/
     suffix: .ftl
 
   mvc:
-    throw-exception-if-no-handler-found: false # Throw an exception if no handler is found for the request
+    throw-exception-if-no-handler-found: true # Throw an exception if no handler is found for the request
   web:
     resources:
-      add-mappings: true
+      add-mappings: false
 
   redis:
     host: ${REDIS_URL}

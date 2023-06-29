@@ -21,7 +21,7 @@ interface HomeHeaderProps {
 
 const HomeHeader = ({ regions }: HomeHeaderProps) => {
   const { isLoggedIn } = useUserContext();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -51,15 +51,11 @@ const HomeHeader = ({ regions }: HomeHeaderProps) => {
 
   return (
     <S.HomeHeader>
-      <Dropdown
-        selectedValue={selectedRegion}
-        options={regionOptions}
-        isDropdownOpen={isModalOpen}
-        openDropdownHandler={() => setIsModalOpen(!isModalOpen)}
-      >
+      <S.DropdownToggleButton onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
         <span>{selectedRegion}</span>
         <Icon name={ICON_NAME.CHEVRON_DOWN} />
-      </Dropdown>
+        {isDropdownOpen && <Dropdown selectedValue={selectedRegion} options={regionOptions}></Dropdown>}
+      </S.DropdownToggleButton>
 
       <Link to={PATH.CATEGORY}>
         <Icon name={ICON_NAME.HAMBURGER} />

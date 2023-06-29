@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import styled from 'styled-components';
 
 const Img = styled.img`
@@ -87,6 +89,12 @@ const ProductListItem = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
 `;
 
+const CustomLink = styled(Link)`
+  flex: 1;
+
+  max-width: 300px;
+`;
+
 export {
   Img,
   Title,
@@ -98,4 +106,5 @@ export {
   IconTextBox,
   ItemInformation,
   ProductListItem,
+  CustomLink,
 };

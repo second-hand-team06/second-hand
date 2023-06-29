@@ -1,13 +1,27 @@
 import { useState } from 'react';
 
-import { ICON_NAME } from '@constants/index';
+import { ICON_NAME, REQUEST_URL } from '@constants/index';
 import { getTextWithTimeStamp } from '@utils/index';
+
+import useFetch, { REQUEST_METHOD } from '@hooks/useFetch';
 
 import Icon from '@components/common/Icon';
 import Dropdown from '@components/common/Dropdown';
 import * as S from './style';
 
+interface Badge {
+  id: number;
+  state: string;
+  backgroundColor: string | null;
+  fontColor: string | null;
+}
+
+interface BadgesData {
+  badges: Badge[];
+}
+
 interface ProductDetailMainProps {
+  id: number;
   sellerName: string;
   title: string;
   category: string;
@@ -17,11 +31,13 @@ interface ProductDetailMainProps {
   interestCount: number;
   viewCount: number;
   price: number;
-  postState: '광고' | '예약 중' | '판매 중' | '판매 완료';
+  badge: { id: number; state: string };
   photoUrls: string[];
+  isSeller: boolean;
 }
 
 const ProductDetailMain = ({
+  id,
   sellerName,
   title,
   category,
@@ -30,10 +46,55 @@ const ProductDetailMain = ({
   chatCount,
   interestCount,
   viewCount,
-  postState,
+  badge,
   photoUrls,
+  isSeller,
 }: ProductDetailMainProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [productState, setProductState] = useState(badge.state);
+
+  const { fetchData: getBadges, data: badgesData } = useFetch<BadgesData>({
+    url: REQUEST_URL.BADGES,
+    options: {
+      method: REQUEST_METHOD.GET,
+      headers: { Authorization: `Bearer ${localStorage.getItem('Token')}` },
+    },
+    skip: true,
+  });
+  const { responseState: patchProductState, fetchData: patchProduct } = useFetch({
+    url: `${REQUEST_URL.POSTS}/${id}`,
+    options: {
+      method: REQUEST_METHOD.PATCH,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('Token')}`,
+      },
+    },
+    skip: true,
+  });
+
+  const openDropdownHandler = async () => {
+    if (!badgesData) await getBadges();
+
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const changeProductState = async ({ target }: React.MouseEvent<HTMLElement>) => {
+    if (!(target instanceof HTMLDivElement)) return;
+
+    const clickedProductState = target.id;
+    if (clickedProductState === productState) return;
+
+    const clickedProductStateId = badgesData?.badges.find(({ state }) => state === clickedProductState)?.id;
+    await patchProduct(JSON.stringify({ state: clickedProductStateId }));
+
+    if (patchProductState === 'ERROR') {
+      alert('상품 상태 수정에 실패했습니다.');
+      return;
+    }
+
+    setProductState(clickedProductState);
+  };
 
   return (
     <>
@@ -50,17 +111,22 @@ const ProductDetailMain = ({
             <span>{sellerName}</span>
           </S.SellerInfo>
 
-          <Dropdown
-            selectedValue={postState}
-            options={['예약 중', '판매 중', '판매 완료'].map((state) => ({ id: state, value: state }))}
-            isDropdownOpen={isDropdownOpen}
-            openDropdownHandler={() => setIsDropdownOpen(!isDropdownOpen)}
-          >
-            <S.DropdownToggleButton>
-              <span>{postState}</span>
+          {isSeller && (
+            <S.DropdownToggleButton onClick={openDropdownHandler}>
+              <span>{productState}</span>
               <Icon name={ICON_NAME.CHEVRON_DOWN} />
+              {isDropdownOpen && badgesData && (
+                <Dropdown
+                  selectedValue={productState}
+                  options={badgesData.badges.map(({ id, state }) => ({
+                    id,
+                    value: state,
+                    handler: (e: React.MouseEvent<HTMLElement>) => changeProductState(e),
+                  }))}
+                ></Dropdown>
+              )}
             </S.DropdownToggleButton>
-          </Dropdown>
+          )}
 
           <S.Title>{title}</S.Title>
 

@@ -48,7 +48,10 @@ const Category = () => {
       {responseState === RESPONSE_STATE.SUCCESS && (
         <S.CategoryList>
           {data?.categories.map(({ id, name, photoUrl }) => (
-            <S.CategoryItem key={id} onClick={() => navigate(`/categories/detail?id=${id}&name=${name}`)}>
+            <S.CategoryItem
+              key={id}
+              onClick={() => navigate(`${PATH.CATEGORY_DETAIL}?id=${id}&name=${name}`)}
+            >
               <S.CategoryImg src={photoUrl} alt={name} />
               <span>{name}</span>
             </S.CategoryItem>

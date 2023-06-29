@@ -1,7 +1,9 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
-import { ICON_NAME } from '@constants/index';
+import { ICON_NAME, REQUEST_URL } from '@constants/index';
 import { getTextWithTimeStamp } from '@utils/index';
+
+import useFetch, { REQUEST_METHOD } from '@hooks/useFetch';
 
 import Icon from '@components/common/Icon';
 import Dropdown from '@components/common/Dropdown';
@@ -10,6 +12,12 @@ import * as S from './style';
 interface Badge {
   id: number;
   state: string;
+  backgroundColor: string | null;
+  fontColor: string | null;
+}
+
+interface BadgesData {
+  badges: Badge[];
 }
 
 interface ProductDetailMainProps {
@@ -22,9 +30,8 @@ interface ProductDetailMainProps {
   interestCount: number;
   viewCount: number;
   price: number;
-  badge: Badge;
+  badge: { id: number; state: string };
   photoUrls: string[];
-  badges: Badge[];
 }
 
 const ProductDetailMain = ({
@@ -38,13 +45,23 @@ const ProductDetailMain = ({
   viewCount,
   badge,
   photoUrls,
-  badges,
 }: ProductDetailMainProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const badgeOptions = useMemo(() => {
-    return badges.map(({ id, state }) => ({ id, value: state }));
-  }, [badges]);
+  const { fetchData: getBadges, data: badgesData } = useFetch<BadgesData>({
+    url: REQUEST_URL.BADGES,
+    options: {
+      method: REQUEST_METHOD.GET,
+      headers: { Authorization: `Bearer ${localStorage.getItem('Token')}` },
+    },
+    skip: true,
+  });
+
+  const openDropdownHandler = async () => {
+    if (!badgesData) await getBadges();
+
+    setIsDropdownOpen(!isDropdownOpen);
+  };
 
   return (
     <>
@@ -61,17 +78,16 @@ const ProductDetailMain = ({
             <span>{sellerName}</span>
           </S.SellerInfo>
 
-          <Dropdown
-            selectedValue={badge.state}
-            options={badgeOptions}
-            isDropdownOpen={isDropdownOpen}
-            openDropdownHandler={() => setIsDropdownOpen(!isDropdownOpen)}
-          >
-            <S.DropdownToggleButton>
-              <span>{badge.state}</span>
-              <Icon name={ICON_NAME.CHEVRON_DOWN} />
-            </S.DropdownToggleButton>
-          </Dropdown>
+          <S.DropdownToggleButton onClick={openDropdownHandler}>
+            <span>{badge.state}</span>
+            <Icon name={ICON_NAME.CHEVRON_DOWN} />
+            {isDropdownOpen && badgesData && (
+              <Dropdown
+                selectedValue={badge.state}
+                options={badgesData.badges.map(({ id, state }) => ({ id, value: state }))}
+              ></Dropdown>
+            )}
+          </S.DropdownToggleButton>
 
           <S.Title>{title}</S.Title>
 

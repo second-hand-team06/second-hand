@@ -1,5 +1,5 @@
 import { useState, ChangeEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { REQUEST_URL } from '@constants/index';
 import { ICON_NAME, PATH } from '@constants/index';
@@ -11,7 +11,13 @@ import ImageInput from '@components/ImageInput';
 import TitleInput from '@components/TitleInput';
 import * as S from './style';
 
+interface UseFetchProps {
+  id: number;
+}
+
 const NewProduct = () => {
+  const navigate = useNavigate();
+
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [region, setRegion] = useState('');
@@ -19,7 +25,7 @@ const NewProduct = () => {
   const [category, setCategory] = useState('');
   const [images, setImages] = useState<File[]>([]);
 
-  const { responseState, fetchData } = useFetch({
+  const { responseState, fetchData, data } = useFetch<UseFetchProps>({
     url: REQUEST_URL.POSTS,
     options: {
       method: REQUEST_METHOD.POST,
@@ -45,6 +51,10 @@ const NewProduct = () => {
     }
 
     await fetchData(formData);
+
+    if (responseState === 'SUCCESS') {
+      navigate(`/product-detail/${data?.id}`);
+    }
 
     if (responseState === 'ERROR') {
       alert('상품 상태 수정에 실패했습니다.');

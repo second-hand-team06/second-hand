@@ -21,7 +21,7 @@ interface PostDetailData {
   interestCount: number;
   viewCount: number;
   price: number;
-  postState: '광고' | '예약 중' | '판매 중' | '판매 완료';
+  badge: { id: number; state: string };
   photoUrls: string[];
   isSeller: boolean;
   interested: boolean;
@@ -30,7 +30,7 @@ interface PostDetailData {
 const ProductDetail = () => {
   const { id: postId } = useParams();
 
-  const { responseState, data: postData } = useFetch<PostDetailData>({
+  const { responseState: getProductState, data: productData } = useFetch<PostDetailData>({
     url: `${REQUEST_URL.POSTS}/${postId}`,
     options: {
       method: REQUEST_METHOD.GET,
@@ -42,7 +42,7 @@ const ProductDetail = () => {
   const [interestCount, setInterestCount] = useState(0);
 
   const { responseState: postInterestedState, fetchData: postInterested } = useFetch({
-    url: `${REQUEST_URL.USERS}/${postData?.id}`,
+    url: `${REQUEST_URL.USERS}/${productData?.id}`,
     options: {
       method: REQUEST_METHOD.POST,
       headers: {
@@ -53,7 +53,7 @@ const ProductDetail = () => {
     skip: true,
   });
   const { responseState: deleteInterestedState, fetchData: deleteInterested } = useFetch({
-    url: `${REQUEST_URL.USERS}/${postData?.id}`,
+    url: `${REQUEST_URL.USERS}/${productData?.id}`,
     options: {
       method: REQUEST_METHOD.DELETE,
       headers: {
@@ -98,22 +98,22 @@ const ProductDetail = () => {
   };
 
   useEffect(() => {
-    setIsInterested(postData?.interested ?? false);
-    setInterestCount(postData?.interestCount ?? 0);
-  }, [postData]);
+    setIsInterested(productData?.interested ?? false);
+    setInterestCount(productData?.interestCount ?? 0);
+  }, [productData]);
 
   return (
     <>
-      {responseState === 'ERROR' && <div>error</div>}
-      {responseState === 'LOADING' && <div>loading</div>}
-      {responseState === 'SUCCESS' && postData && (
+      {getProductState === 'ERROR' && <div>error</div>}
+      {getProductState === 'LOADING' && <></>}
+      {getProductState === 'SUCCESS' && productData && (
         <>
-          <ProductDetailHeader postId={postData.id} isSeller={postData.isSeller} />
-          <ProductDetailMain {...postData} interestCount={interestCount} />
+          <ProductDetailHeader postId={productData.id} isSeller={productData.isSeller} />
+          <ProductDetailMain {...productData} interestCount={interestCount} />
           <ProductDetailToolBar
             isInterested={isInterested}
             updateIsInterestedHandler={updateIsInterestedHandler}
-            {...postData}
+            {...productData}
           />
         </>
       )}

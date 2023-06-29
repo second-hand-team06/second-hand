@@ -1,17 +1,5 @@
 import styled, { css } from 'styled-components';
 
-const DropdownLayout = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  position: relative;
-
-  color: ${({ theme }) => theme.colors.neutral.text.strong};
-  font-size: ${({ theme }) => theme.fonts.headline.fontSize};
-  font-weight: ${({ theme }) => theme.fonts.headline.fontWeight};
-  line-height: ${({ theme }) => theme.fonts.headline.lineHeight};
-`;
-
 const Option = styled.div<{ selectedvalue?: string; value?: string }>`
   display: flex;
   align-items: center;
@@ -32,7 +20,8 @@ const MenuBorderStyles = css`
 
 const Dropdown = styled.div`
   position: absolute;
-  top: 100%;
+  top: calc(100% + 4px);
+  left: 0;
 
   width: 240px;
 
@@ -43,4 +32,4 @@ const Dropdown = styled.div`
   ${MenuBorderStyles}
 `;
 
-export { DropdownLayout, Dropdown, Option };
+export { Dropdown, Option };

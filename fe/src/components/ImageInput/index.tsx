@@ -1,30 +1,33 @@
-import { useState } from 'react';
+// ImageInput.tsx
 
+import React, { ChangeEvent } from 'react';
 import { ICON_NAME } from '@constants/index';
-
 import Icon from '@components/common/Icon';
 import * as S from './style';
 
-const ImageInput = () => {
-  const [selectedImages, setSelectedImages] = useState<string[]>([]);
+interface ImageInputProps {
+  onChange: (selectedFiles: FileList) => void;
+  onDelete: (image: File) => void;
+  images: File[];
+}
+
+const ImageInput: React.FC<ImageInputProps> = ({ onChange, onDelete, images }) => {
   const MAX_IMAGE_LENGTH = 10;
 
-  const imageUploadHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const imageUploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = e.target.files as FileList;
-    const selectedFilesArray = Array.from(selectedFiles);
 
-    const imagesArray: string[] = selectedFilesArray.map((file) => {
-      return URL.createObjectURL(file);
-    });
-
-    setSelectedImages((previousImages) => previousImages.concat(imagesArray));
+    if (onChange) {
+      onChange(selectedFiles);
+    }
 
     e.target.value = '';
   };
 
-  const deleteImageHandler = (image: string) => {
-    setSelectedImages(selectedImages.filter((e) => e !== image));
-    URL.revokeObjectURL(image);
+  const deleteImageHandler = (image: File) => {
+    if (onDelete) {
+      onDelete(image);
+    }
   };
 
   return (
@@ -33,13 +36,13 @@ const ImageInput = () => {
         <S.Label htmlFor="ImageUpload">
           <Icon name={ICON_NAME.CAMERA} />
           <span>
-            <S.CurrentCount>{selectedImages.length}</S.CurrentCount>/{MAX_IMAGE_LENGTH}
+            <S.CurrentCount>{images.length}</S.CurrentCount>/{MAX_IMAGE_LENGTH}
           </span>
         </S.Label>
         <S.Input type="file" id="ImageUpload" accept="image/*" multiple onChange={imageUploadHandler} />
-        {selectedImages.map((image, idx) => (
+        {images.map((image, idx) => (
           <S.ImageLayout key={idx}>
-            <S.Image src={image} />
+            <S.Image src={URL.createObjectURL(image)} />
             <S.DeleteImageButton onClick={() => deleteImageHandler(image)}>
               <Icon name={ICON_NAME.MULTIPLY} fill="WHITE" />
             </S.DeleteImageButton>

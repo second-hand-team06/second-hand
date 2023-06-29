@@ -9,6 +9,13 @@ const Target = styled.div`
   height: 1px;
 `;
 
+const SpinnerLayout = styled.div`
+  display: flex;
+  justify-content: center;
+
+  padding: 20px 0;
+`;
+
 const ProductNotFound = styled.div`
   display: flex;
   justify-content: center;
@@ -20,4 +27,4 @@ const ProductNotFound = styled.div`
   color: ${({ theme }) => theme.colors.neutral.text.strong};
 `;
 
-export { ProductList, Target, ProductNotFound };
+export { ProductList, Target, SpinnerLayout, ProductNotFound };

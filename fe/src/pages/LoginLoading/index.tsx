@@ -6,6 +6,10 @@ import { REQUEST_URL } from '@constants/requestUrl';
 import useFetch, { REQUEST_METHOD, RESPONSE_STATE } from '@hooks/useFetch';
 import { useUserContext } from '@context/userContext';
 
+import Loading from '@components/Loading';
+import TabBar from '@components/TabBar';
+import * as S from './style';
+
 interface TokenData {
   token: string;
 }
@@ -38,7 +42,12 @@ const LoginLoading = () => {
     navigate('/');
   }, [responseState, data]);
 
-  return <div>loading</div>;
+  return (
+    <S.LoadingLayout>
+      <Loading text="로그인 중입니다." />
+      <TabBar activeTab="myAccount" />
+    </S.LoadingLayout>
+  );
 };
 
 export default LoginLoading;

@@ -50,7 +50,9 @@ const NewProduct = () => {
       }
     }
 
-    await fetchData(formData);
+    if (responseState === 'IDLE') {
+      await fetchData(formData);
+    }
 
     if (responseState === 'SUCCESS') {
       navigate(`/product-detail/${data?.id}`);

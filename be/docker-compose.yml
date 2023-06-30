@@ -1,9 +1,10 @@
 version: "3"
 services:
-
   application:
     build: .
     image: birdie/second-hand
     container_name: was-application
     ports:
       - "8081:8080"
+    environment:
+      - TZ=Asia/Seoul

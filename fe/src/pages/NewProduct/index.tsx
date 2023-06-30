@@ -50,10 +50,12 @@ const NewProduct = () => {
       }
     }
 
-    await fetchData(formData);
+    if (responseState === 'IDLE') {
+      await fetchData(formData);
+    }
 
     if (responseState === 'SUCCESS') {
-      navigate(`/product-detail/${data?.id}`);
+      navigate(`${PATH.PRODUCT_DETAIL}/${data?.id}`, { state: { beforePage: PATH.NEW_PRODUCT } });
     }
 
     if (responseState === 'ERROR') {

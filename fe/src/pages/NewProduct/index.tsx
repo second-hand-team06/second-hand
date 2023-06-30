@@ -20,9 +20,9 @@ const NewProduct = () => {
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [region, setRegion] = useState('');
+  // const [region, setRegion] = useState('');
   const [price, setPrice] = useState('');
-  const [category, setCategory] = useState('');
+  // const [category, setCategory] = useState('');
   const [images, setImages] = useState<File[]>([]);
 
   const { responseState, fetchData, data } = useFetch<UseFetchProps>({

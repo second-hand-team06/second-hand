@@ -24,7 +24,7 @@ public class LoginController {
 
     @GetMapping("/oauth")
     public ResponseEntity<CustomResponse<JWTResponse>> githubLogin(String code, HttpServletResponse response) {
-
+        log.info("로그인 시도 = {}", code);
         GithubToken githubToken = loginService.getAccessToken(code);
         response.setHeader("Authorization", "application/json");
 

@@ -55,7 +55,7 @@ const NewProduct = () => {
     }
 
     if (responseState === 'SUCCESS') {
-      navigate(`/product-detail/${data?.id}`);
+      navigate(`${PATH.PRODUCT_DETAIL}/${data?.id}`, { state: { beforePage: PATH.NEW_PRODUCT } });
     }
 
     if (responseState === 'ERROR') {

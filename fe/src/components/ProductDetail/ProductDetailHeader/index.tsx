@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-import { ICON_NAME, REQUEST_URL } from '@constants/index';
+import { ICON_NAME, PATH, REQUEST_URL } from '@constants/index';
 
 import useFetch, { REQUEST_METHOD } from '@hooks/useFetch';
 
@@ -19,6 +19,7 @@ interface ProductDetailHeaderProps {
 const ProductDetailHeader = ({ postId, isSeller }: ProductDetailHeaderProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const location = useLocation();
   const navigate = useNavigate();
 
   const { responseState: deletePostState, fetchData: deletePost } = useFetch({
@@ -43,9 +44,18 @@ const ProductDetailHeader = ({ postId, isSeller }: ProductDetailHeaderProps) => 
 
   const openPopup = () => setIsPopupOpen(true);
 
+  const goBackHandler = () => {
+    if (location.state?.beforePage === PATH.NEW_PRODUCT) {
+      navigate('/');
+      return;
+    }
+
+    navigate(-1);
+  };
+
   return (
     <S.Header>
-      <button onClick={() => navigate(-1)}>
+      <button onClick={goBackHandler}>
         <Icon name={ICON_NAME.CHEVRON_LEFT} />
       </button>
       {isSeller && (

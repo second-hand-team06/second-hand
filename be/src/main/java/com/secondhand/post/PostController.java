@@ -26,6 +26,7 @@ public class PostController {
 
         Long userId = loggedInUser != null ? loggedInUser.getId() : null;
 
+
         if (userId == null) {
             searchCondition.setRegion(1);
         }

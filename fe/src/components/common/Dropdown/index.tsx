@@ -3,19 +3,19 @@ import * as S from './style';
 interface Option {
   id: number | string;
   value: string;
-  handler?: (event: React.MouseEvent<HTMLElement>) => void;
 }
 
 interface DropdownProps {
   selectedValue: string;
   options: Option[];
+  selectHandler: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-const Dropdown = ({ selectedValue, options }: DropdownProps) => {
+const Dropdown = ({ selectedValue, options, selectHandler }: DropdownProps) => {
   return (
-    <S.Dropdown>
-      {options.map(({ id, value, handler }) => (
-        <S.Option key={id} id={value} selectedvalue={selectedValue} value={value} onClick={handler}>
+    <S.Dropdown onClick={selectHandler}>
+      {options.map(({ id, value }) => (
+        <S.Option key={id} id={value} selectedvalue={selectedValue} value={value}>
           {value}
         </S.Option>
       ))}

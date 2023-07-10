@@ -26,7 +26,8 @@ const HomeHeader = ({ regions }: HomeHeaderProps) => {
   const navigate = useNavigate();
 
   const selectedRegion = useMemo(() => {
-    const address = regions[0].name;
+    const SELECTED_REGION_IDX = 0;
+    const address = regions[SELECTED_REGION_IDX].name;
     const region = getRegion(address);
 
     return region;

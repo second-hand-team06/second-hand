@@ -8,12 +8,12 @@ interface Option {
 interface DropdownProps {
   selectedValue: string;
   options: Option[];
-  selectHandler: (event: React.MouseEvent<HTMLDivElement>) => void;
+  clickHandler: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-const Dropdown = ({ selectedValue, options, selectHandler }: DropdownProps) => {
+const Dropdown = ({ selectedValue, options, clickHandler }: DropdownProps) => {
   return (
-    <S.Dropdown onClick={selectHandler}>
+    <S.Dropdown onClick={clickHandler}>
       {options.map(({ id, value }) => (
         <S.Option key={id} id={value} selectedvalue={selectedValue} value={value}>
           {value}

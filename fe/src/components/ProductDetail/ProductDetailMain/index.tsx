@@ -88,7 +88,7 @@ const ProductDetailMain = ({
     }));
   }, [badgesData]);
 
-  const changeProductStateHandler = async ({ target }: React.MouseEvent<HTMLDivElement>) => {
+  const clickProductStateHandler = async ({ target }: React.MouseEvent<HTMLDivElement>) => {
     if (!(target instanceof HTMLDivElement)) return;
 
     const clickedProductState = target.id;
@@ -128,7 +128,7 @@ const ProductDetailMain = ({
                 <Dropdown
                   selectedValue={productState}
                   options={badgeOptions}
-                  selectHandler={changeProductStateHandler}
+                  clickHandler={clickProductStateHandler}
                 ></Dropdown>
               )}
             </S.DropdownToggleButton>

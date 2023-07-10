@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { ICON_NAME, REQUEST_URL } from '@constants/index';
 import { getTextWithTimeStamp } from '@utils/index';
@@ -79,13 +79,22 @@ const ProductDetailMain = ({
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const changeProductState = async ({ target }: React.MouseEvent<HTMLElement>) => {
+  const badgeOptions = useMemo(() => {
+    if (!badgesData) return [];
+
+    return badgesData.badges.map(({ id, state }) => ({
+      id,
+      value: state,
+    }));
+  }, [badgesData]);
+
+  const changeProductStateHandler = async ({ target }: React.MouseEvent<HTMLDivElement>) => {
     if (!(target instanceof HTMLDivElement)) return;
 
     const clickedProductState = target.id;
     if (clickedProductState === productState) return;
 
-    const clickedProductStateId = badgesData?.badges.find(({ state }) => state === clickedProductState)?.id;
+    const clickedProductStateId = badgeOptions.find(({ value }) => value === clickedProductState)?.id;
     await patchProduct(JSON.stringify({ state: clickedProductStateId }));
 
     if (patchProductState === 'ERROR') {
@@ -118,11 +127,8 @@ const ProductDetailMain = ({
               {isDropdownOpen && badgesData && (
                 <Dropdown
                   selectedValue={productState}
-                  options={badgesData.badges.map(({ id, state }) => ({
-                    id,
-                    value: state,
-                    handler: (e: React.MouseEvent<HTMLElement>) => changeProductState(e),
-                  }))}
+                  options={badgeOptions}
+                  selectHandler={changeProductStateHandler}
                 ></Dropdown>
               )}
             </S.DropdownToggleButton>

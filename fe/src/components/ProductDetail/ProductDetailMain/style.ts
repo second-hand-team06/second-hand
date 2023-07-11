@@ -51,7 +51,6 @@ const DropdownToggleButton = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative;
 
   width: 120px;
   height: 32px;

@@ -50,10 +50,9 @@ const ProductDetailMain = ({
   photoUrls,
   isSeller,
 }: ProductDetailMainProps) => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [productState, setProductState] = useState(badge.state);
 
-  const { fetchData: getBadges, data: badgesData } = useFetch<BadgesData>({
+  const { fetchData: getBadgesData, data: badgesData } = useFetch<BadgesData>({
     url: REQUEST_URL.BADGES,
     options: {
       method: REQUEST_METHOD.GET,
@@ -73,10 +72,8 @@ const ProductDetailMain = ({
     skip: true,
   });
 
-  const openDropdownHandler = async () => {
-    if (!badgesData) await getBadges();
-
-    setIsDropdownOpen(!isDropdownOpen);
+  const getBadgeOptions = async () => {
+    await getBadgesData();
   };
 
   const badgeOptions = useMemo(() => {
@@ -122,17 +119,17 @@ const ProductDetailMain = ({
           </S.SellerInfo>
 
           {isSeller && (
-            <S.DropdownToggleButton onClick={openDropdownHandler}>
-              <span>{productState}</span>
-              <Icon name={ICON_NAME.CHEVRON_DOWN} />
-              {isDropdownOpen && badgesData && (
-                <Dropdown
-                  selectedValue={productState}
-                  options={badgeOptions}
-                  clickHandler={clickProductStateHandler}
-                ></Dropdown>
-              )}
-            </S.DropdownToggleButton>
+            <Dropdown
+              DropdownButton={
+                <S.DropdownToggleButton onClick={getBadgeOptions}>
+                  <span>{productState}</span>
+                  <Icon name={ICON_NAME.CHEVRON_DOWN} />
+                </S.DropdownToggleButton>
+              }
+              selectedValue={productState}
+              options={badgeOptions}
+              clickOptionHandler={clickProductStateHandler}
+            />
           )}
 
           <S.Title>{title}</S.Title>

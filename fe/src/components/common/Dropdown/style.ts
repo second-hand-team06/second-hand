@@ -32,4 +32,8 @@ const Dropdown = styled.div`
   ${MenuBorderStyles}
 `;
 
-export { Dropdown, Option };
+const DropdownLayout = styled.div`
+  position: relative;
+`;
+
+export { Option, Dropdown, DropdownLayout };

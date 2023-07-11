@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import * as S from './style';
 
 interface Option {
@@ -6,20 +7,36 @@ interface Option {
 }
 
 interface DropdownProps {
+  DropdownButton: React.ReactNode;
   selectedValue: string;
   options: Option[];
-  clickHandler: (event: React.MouseEvent<HTMLDivElement>) => void;
+  clickOptionHandler: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-const Dropdown = ({ selectedValue, options, clickHandler }: DropdownProps) => {
+const Dropdown = ({ DropdownButton, selectedValue, options, clickOptionHandler }: DropdownProps) => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const clickButtonHandler = () => setIsDropdownOpen(!isDropdownOpen);
+
+  const clickDropdownHandler = (e: React.MouseEvent<HTMLDivElement>) => {
+    clickOptionHandler(e);
+    setIsDropdownOpen(false);
+  };
+
   return (
-    <S.Dropdown onClick={clickHandler}>
-      {options.map(({ id, value }) => (
-        <S.Option key={id} selectedvalue={selectedValue} value={value}>
-          {value}
-        </S.Option>
-      ))}
-    </S.Dropdown>
+    <S.DropdownLayout>
+      <button onClick={clickButtonHandler}>{DropdownButton}</button>
+
+      {isDropdownOpen && (
+        <S.Dropdown onClick={clickDropdownHandler}>
+          {options.map(({ id, value }) => (
+            <S.Option key={id} selectedvalue={selectedValue} value={value}>
+              {value}
+            </S.Option>
+          ))}
+        </S.Dropdown>
+      )}
+    </S.DropdownLayout>
   );
 };
 

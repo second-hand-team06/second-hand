@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { ICON_NAME, PATH } from '@constants/index';
@@ -22,7 +22,6 @@ interface HomeHeaderProps {
 
 const HomeHeader = ({ regions, changeUserRegions }: HomeHeaderProps) => {
   const { isLoggedIn } = useUserContext();
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -67,17 +66,17 @@ const HomeHeader = ({ regions, changeUserRegions }: HomeHeaderProps) => {
 
   return (
     <S.HomeHeader>
-      <S.DropdownToggleButton onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-        <span>{getRegion(selectedRegion.name)}</span>
-        <Icon name={ICON_NAME.CHEVRON_DOWN} />
-        {isDropdownOpen && (
-          <Dropdown
-            selectedValue={getRegion(selectedRegion.name)}
-            options={regionOptions}
-            clickHandler={clickRegionHandler}
-          ></Dropdown>
-        )}
-      </S.DropdownToggleButton>
+      <Dropdown
+        DropdownButton={
+          <S.DropdownToggleButton>
+            <span>{getRegion(selectedRegion.name)}</span>
+            <Icon name={ICON_NAME.CHEVRON_DOWN} />
+          </S.DropdownToggleButton>
+        }
+        selectedValue={getRegion(selectedRegion.name)}
+        options={regionOptions}
+        clickOptionHandler={clickRegionHandler}
+      />
 
       <Link to={PATH.CATEGORY}>
         <Icon name={ICON_NAME.HAMBURGER} />

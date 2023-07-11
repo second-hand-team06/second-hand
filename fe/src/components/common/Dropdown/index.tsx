@@ -14,20 +14,20 @@ interface DropdownProps {
 }
 
 const Dropdown = ({ DropdownButton, selectedValue, options, clickOptionHandler }: DropdownProps) => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const clickButtonHandler = () => setIsDropdownOpen(!isDropdownOpen);
+  const clickButtonHandler = () => setIsOpen(!isOpen);
 
   const clickDropdownHandler = (e: React.MouseEvent<HTMLDivElement>) => {
     clickOptionHandler(e);
-    setIsDropdownOpen(false);
+    setIsOpen(false);
   };
 
   return (
     <S.DropdownLayout>
       <button onClick={clickButtonHandler}>{DropdownButton}</button>
 
-      {isDropdownOpen && (
+      {isOpen && (
         <S.Dropdown onClick={clickDropdownHandler}>
           {options.map(({ id, value }) => (
             <S.Option key={id} selectedvalue={selectedValue} value={value}>

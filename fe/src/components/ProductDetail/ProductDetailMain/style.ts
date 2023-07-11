@@ -37,6 +37,7 @@ const SellerInfo = styled.div`
   justify-content: space-between;
 
   padding: 16px;
+  margin-bottom: 16px;
 
   background-color: ${({ theme }) => theme.colors.neutral.background.weak};
   border-radius: 12px;
@@ -47,6 +48,10 @@ const SellerInfo = styled.div`
   color: ${({ theme }) => theme.colors.neutral.text.default};
 `;
 
+const DropdownLayout = styled.div`
+  margin-bottom: 16px;
+`;
+
 const DropdownToggleButton = styled.div`
   display: flex;
   justify-content: space-between;
@@ -54,7 +59,6 @@ const DropdownToggleButton = styled.div`
 
   width: 120px;
   height: 32px;
-  margin: 16px 0;
   padding: 0px 16px;
   border: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
   border-radius: 8px;
@@ -149,6 +153,7 @@ export {
   ProductImgList,
   ProductImg,
   SellerInfo,
+  DropdownLayout,
   DropdownToggleButton,
   Title,
   CategoryAndTime,

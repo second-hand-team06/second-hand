@@ -119,17 +119,19 @@ const ProductDetailMain = ({
           </S.SellerInfo>
 
           {isSeller && (
-            <Dropdown
-              DropdownButton={
-                <S.DropdownToggleButton onClick={getBadgeOptions}>
-                  <span>{productState}</span>
-                  <Icon name={ICON_NAME.CHEVRON_DOWN} />
-                </S.DropdownToggleButton>
-              }
-              selectedValue={productState}
-              options={badgeOptions}
-              clickOptionHandler={clickProductStateHandler}
-            />
+            <S.DropdownLayout>
+              <Dropdown
+                DropdownButton={
+                  <S.DropdownToggleButton onClick={getBadgeOptions}>
+                    <span>{productState}</span>
+                    <Icon name={ICON_NAME.CHEVRON_DOWN} />
+                  </S.DropdownToggleButton>
+                }
+                selectedValue={productState}
+                options={badgeOptions}
+                clickOptionHandler={clickProductStateHandler}
+              />
+            </S.DropdownLayout>
           )}
 
           <S.Title>{title}</S.Title>

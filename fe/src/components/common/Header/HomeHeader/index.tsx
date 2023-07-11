@@ -17,9 +17,10 @@ interface Region {
 
 interface HomeHeaderProps {
   regions: Region[];
+  changeUserRegions: (region: Region[]) => void;
 }
 
-const HomeHeader = ({ regions }: HomeHeaderProps) => {
+const HomeHeader = ({ regions, changeUserRegions }: HomeHeaderProps) => {
   const { isLoggedIn } = useUserContext();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -27,10 +28,8 @@ const HomeHeader = ({ regions }: HomeHeaderProps) => {
 
   const selectedRegion = useMemo(() => {
     const SELECTED_REGION_IDX = 0;
-    const address = regions[SELECTED_REGION_IDX].name;
-    const region = getRegion(address);
 
-    return region;
+    return regions[SELECTED_REGION_IDX];
   }, [regions]);
 
   const regionOptions = useMemo(() => {
@@ -42,7 +41,6 @@ const HomeHeader = ({ regions }: HomeHeaderProps) => {
         {
           id: 'region-setting-button',
           value: '내 동네 설정하기',
-          handler: () => navigate(PATH.REGION_SETTING),
         },
       ];
     }
@@ -50,12 +48,35 @@ const HomeHeader = ({ regions }: HomeHeaderProps) => {
     return regionOptions;
   }, [isLoggedIn, regions]);
 
+  const clickRegionHandler = async ({ target }: React.MouseEvent<HTMLDivElement>) => {
+    if (!(target instanceof HTMLDivElement)) return;
+
+    const clickedOption = target.textContent;
+
+    if (clickedOption === '내 동네 설정하기') {
+      navigate(PATH.REGION_SETTING);
+      return;
+    }
+    if (clickedOption === getRegion(selectedRegion.name)) return;
+
+    const clickedRegion = regions.find(({ name }) => clickedOption === getRegion(name));
+    const notClickedRegions = regions.filter(({ name }) => clickedOption !== getRegion(name));
+
+    if (clickedRegion) changeUserRegions([clickedRegion, ...notClickedRegions]);
+  };
+
   return (
     <S.HomeHeader>
       <S.DropdownToggleButton onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-        <span>{selectedRegion}</span>
+        <span>{getRegion(selectedRegion.name)}</span>
         <Icon name={ICON_NAME.CHEVRON_DOWN} />
-        {isDropdownOpen && <Dropdown selectedValue={selectedRegion} options={regionOptions}></Dropdown>}
+        {isDropdownOpen && (
+          <Dropdown
+            selectedValue={getRegion(selectedRegion.name)}
+            options={regionOptions}
+            clickHandler={clickRegionHandler}
+          ></Dropdown>
+        )}
       </S.DropdownToggleButton>
 
       <Link to={PATH.CATEGORY}>

@@ -91,8 +91,9 @@ const ProductDetailMain = ({
   const clickProductStateHandler = async ({ target }: React.MouseEvent<HTMLDivElement>) => {
     if (!(target instanceof HTMLDivElement)) return;
 
-    const clickedProductState = target.id;
-    if (clickedProductState === productState) return;
+    const clickedProductState = target.textContent;
+    const isSameProductState = clickedProductState === productState;
+    if (isSameProductState || !clickedProductState) return;
 
     const clickedProductStateId = badgeOptions.find(({ value }) => value === clickedProductState)?.id;
     await patchProduct(JSON.stringify({ state: clickedProductStateId }));

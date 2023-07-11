@@ -15,7 +15,7 @@ const Dropdown = ({ selectedValue, options, clickHandler }: DropdownProps) => {
   return (
     <S.Dropdown onClick={clickHandler}>
       {options.map(({ id, value }) => (
-        <S.Option key={id} id={value} selectedvalue={selectedValue} value={value}>
+        <S.Option key={id} selectedvalue={selectedValue} value={value}>
           {value}
         </S.Option>
       ))}

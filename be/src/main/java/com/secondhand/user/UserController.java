@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -33,7 +35,7 @@ public class UserController {
     }
 
     @PutMapping("/regions")
-    public ResponseEntity<CustomResponse> updateMyRegion(@Validated @RequestBody PostMyRegionDto postMyRegionDto, @RequestAttribute LoggedInUser loggedInUser) {
+    public ResponseEntity<CustomResponse> updateMyRegion(@Valid @RequestBody PostMyRegionDto postMyRegionDto, @RequestAttribute LoggedInUser loggedInUser) {
 
         userService.updateMyRegion(loggedInUser.getId(), postMyRegionDto);
 

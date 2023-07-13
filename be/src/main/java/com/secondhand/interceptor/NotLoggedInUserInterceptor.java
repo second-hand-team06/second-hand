@@ -30,9 +30,9 @@ public class NotLoggedInUserInterceptor implements HandlerInterceptor {
             if (authorizationHeader == null) {
                 return true;
             }
-
-            defaultInterceptor.preHandle(request, response, handler);
         }
+
+        defaultInterceptor.preHandle(request, response, handler);
 
         return true;
     }

@@ -30,12 +30,12 @@ public class DefaultInterceptor implements Interceptor {
             throw new NoBearerException();
         }
 
-        if (!jwtUtil.validateTokenIsManipulated(token)) {
-            throw new ManipulatedTokenException();
-        }
-
         if (!jwtUtil.validateTokenIsExpired(token)) {
             throw new ExpiredTokenException();
+        }
+
+        if (!jwtUtil.validateTokenIsManipulated(token)) {
+            throw new ManipulatedTokenException();
         }
 
         LoggedInUser loggedInUser = jwtUtil.extractedUserFromToken(token);

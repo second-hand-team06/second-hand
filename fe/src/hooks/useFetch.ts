@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 
+import { CustomError } from '@utils/index';
+
 const RESPONSE_STATE = {
   IDLE: 'IDLE',
   LOADING: 'LOADING',
@@ -24,7 +26,7 @@ interface ErrorResponse {
 
 type ResponseState = (typeof RESPONSE_STATE)[keyof typeof RESPONSE_STATE];
 type DataState<T> = T | null;
-type ErrorState = ErrorResponse | null;
+type ErrorState = CustomError | null;
 
 interface UseFetchProps {
   url: string;
@@ -45,8 +47,8 @@ const useFetch = <T>({ url, options: optionsProp, skip = false }: UseFetchProps)
       const response = await fetch(url, options);
 
       if (!response.ok) {
-        const errorData: ErrorResponse = await response.json();
-        throw new Error(JSON.stringify(errorData));
+        const { code, message }: ErrorResponse = await response.json();
+        throw new CustomError(code, message);
       }
 
       const result = await response.json();
@@ -55,11 +57,11 @@ const useFetch = <T>({ url, options: optionsProp, skip = false }: UseFetchProps)
       setData(result.data);
       setError(null);
     } catch (error) {
-      const err = error as Error;
+      const err = error as CustomError;
 
       setResponseState(RESPONSE_STATE.ERROR);
       setData(null);
-      setError(JSON.parse(err.message));
+      setError(err);
     }
   };
 

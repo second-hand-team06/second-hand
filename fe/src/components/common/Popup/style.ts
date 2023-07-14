@@ -5,14 +5,14 @@ const Popup = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  gap: 15px;
+  gap: 16px;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 
   width: 80%;
-  padding: 30px 20px;
+  padding: 32px 20px;
 
   background-color: ${({ theme }) => theme.colors.neutral.background.weak};
   border-radius: 15px;

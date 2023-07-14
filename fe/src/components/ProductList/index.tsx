@@ -21,6 +21,38 @@ interface ProductListProps {
 
 type PostListState = ProductListItemProps[];
 
+interface ProductListContainerProps {
+  isLoading?: boolean;
+  isLastPage?: boolean;
+  postList: ProductListItemProps[];
+  setTarget?: (node: HTMLDivElement) => void;
+}
+
+const ProductListContainer = ({
+  isLoading = false,
+  isLastPage = false,
+  postList,
+  setTarget,
+}: ProductListContainerProps) => {
+  if (postList.length === 0) {
+    return <S.ProductNotFound>해당 상품이 없어요.</S.ProductNotFound>;
+  }
+
+  return (
+    <>
+      {postList.map((item) => (
+        <ProductListItem key={item.id} {...item} />
+      ))}
+      {!isLoading && !isLastPage && <S.Target ref={setTarget}></S.Target>}
+      {isLoading && (
+        <S.SpinnerLayout>
+          <Spinner />
+        </S.SpinnerLayout>
+      )}
+    </>
+  );
+};
+
 const ProductList = ({ regionId, categoryId }: ProductListProps) => {
   const INIT_PAGE_NUM = 0;
   const INIT_POST_LIST: ProductListItemProps[] = [];
@@ -69,28 +101,18 @@ const ProductList = ({ regionId, categoryId }: ProductListProps) => {
   return (
     <S.ProductList>
       {responseState === RESPONSE_STATE.SUCCESS && data && (
-        <>
-          {postList.length > 0 ? (
-            postList.map((item) => <ProductListItem key={item.id} {...item} />)
-          ) : (
-            <S.ProductNotFound>해당 상품이 없어요.</S.ProductNotFound>
-          )}
-
-          {!data.posts.last && <S.Target ref={setTarget}></S.Target>}
-        </>
+        <ProductListContainer
+          postList={postList}
+          isLoading={false}
+          isLastPage={data.posts.last}
+          setTarget={setTarget}
+        />
       )}
 
       {responseState === RESPONSE_STATE.LOADING && (
         <>
           {postList.length > 0 ? (
-            <>
-              {postList.map((item) => (
-                <ProductListItem key={item.id} {...item} />
-              ))}
-              <S.SpinnerLayout>
-                <Spinner />
-              </S.SpinnerLayout>
-            </>
+            <ProductListContainer isLoading={true} postList={postList} />
           ) : (
             <Loading text="상품 목록을 불러오고 있습니다." />
           )}

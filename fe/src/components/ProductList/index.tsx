@@ -73,14 +73,11 @@ const ProductList = ({ regionId, categoryId }: ProductListProps) => {
     skip: true,
   });
 
-  const intersectHandler: IntersectionObserverCallback = ([entry]) => {
-    if (!entry.isIntersecting) return;
-
+  const intersectHandler = () => {
     if (responseState !== RESPONSE_STATE.SUCCESS || data?.posts.last) return;
 
     setPageNum((previousPageNum) => previousPageNum + 1);
   };
-
   const { setTarget } = useIntersectionObserver({ intersectHandler });
 
   useEffect(() => {

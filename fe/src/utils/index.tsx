@@ -76,4 +76,14 @@ const getUserInfo = (token: string) => {
   return parseJWT(token)?.payload.userProfile;
 };
 
-export { getTextWithTimeStamp, formatMoney, getRegion, getUserInfo };
+class CustomError extends Error {
+  code;
+
+  constructor(code: number, message?: string) {
+    super(message);
+    this.code = code;
+    this.name = new.target.name;
+  }
+}
+
+export { getTextWithTimeStamp, formatMoney, getRegion, getUserInfo, CustomError };

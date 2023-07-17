@@ -10,7 +10,7 @@ interface AuthErrorProps {
   resetErrorBoundary: () => void;
 }
 
-const AuthError = ({ resetErrorBoundary }: AuthErrorProps) => {
+const AuthorizationError = ({ resetErrorBoundary }: AuthErrorProps) => {
   const { logout } = useUserContext();
   const navigate = useNavigate();
 
@@ -27,4 +27,4 @@ const AuthError = ({ resetErrorBoundary }: AuthErrorProps) => {
   );
 };
 
-export default AuthError;
+export default AuthorizationError;

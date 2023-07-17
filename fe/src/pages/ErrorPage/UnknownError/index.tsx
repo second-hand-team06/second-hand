@@ -19,7 +19,7 @@ const UnknownError = ({ resetErrorBoundary }: ServerErrorProps) => {
 
   return (
     <S.UnknownError>
-      <S.LogoImg src={logoImg} alt="second-hand-log" />
+      <S.LogoImg src={logoImg} alt="second-hand-logo" />
       <S.Message>알 수 없는 오류가 발생했습니다.</S.Message>
       <S.Message>관리자에게 문의해주세요.</S.Message>
       <S.HomeButton onClick={goToHomePageHandler}>Home 페이지로 이동</S.HomeButton>

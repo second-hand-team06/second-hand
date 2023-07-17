@@ -26,7 +26,7 @@ const Home = () => {
   const token = localStorage.getItem('Token');
   const SELECTED_REGION_IDX = 0;
 
-  const { data: regionsData } = useFetch<RegionsData>({
+  const { data: regionsData, error } = useFetch<RegionsData>({
     url: REQUEST_URL.USER_REGIONS,
     options: {
       method: REQUEST_METHOD.GET,
@@ -44,6 +44,8 @@ const Home = () => {
     // * User가 비회원일 경우 userRegions에 역삼동에 관한 정보만 저장
     setUserRegions(regionsData.regions);
   }, [regionsData]);
+
+  if (error) throw error;
 
   return (
     <>

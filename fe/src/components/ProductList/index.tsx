@@ -64,7 +64,7 @@ const ProductList = ({ regionId, categoryId }: ProductListProps) => {
     categoryId ? `&category=${categoryId}` : ''
   }`;
 
-  const { fetchData, responseState, data } = useFetch<PostsData>({
+  const { fetchData, responseState, data, error } = useFetch<PostsData>({
     url: requestUrl,
     options: {
       method: REQUEST_METHOD.GET,
@@ -94,6 +94,8 @@ const ProductList = ({ regionId, categoryId }: ProductListProps) => {
 
     setPostList((previous) => [...previous, ...data.posts.content]);
   }, [responseState, data]);
+
+  if (error) throw error;
 
   return (
     <S.ProductList>

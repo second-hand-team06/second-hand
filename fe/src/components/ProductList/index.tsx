@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
-
 import { REQUEST_URL } from '@constants/requestUrl';
+import { CustomError } from '@utils/index';
 
-import useFetch, { RESPONSE_STATE, REQUEST_METHOD } from '@hooks/useFetch';
+import { REQUEST_METHOD } from '@hooks/useFetch';
+import useInfiniteLoading from '@hooks/useInfiniteLoading';
 import useIntersectionObserver from '@hooks/useIntersectionObserver';
 
 import Spinner from '@components/common/Spinner';
@@ -19,102 +19,76 @@ interface ProductListProps {
   categoryId?: number;
 }
 
-type PostListState = ProductListItemProps[];
-
-interface ProductListContainerProps {
-  isLoading?: boolean;
-  isLastPage?: boolean;
-  postList: ProductListItemProps[];
-  setTarget?: (node: HTMLDivElement) => void;
+interface ErrorResponse {
+  code: number;
+  message: string;
 }
 
-const ProductListContainer = ({
-  isLoading = false,
-  isLastPage = false,
-  postList,
-  setTarget,
-}: ProductListContainerProps) => {
-  if (postList.length === 0) {
-    return <S.ProductNotFound>해당 상품이 없어요.</S.ProductNotFound>;
-  }
+const getProductList = async ({
+  page,
+  regionId,
+  categoryId,
+}: {
+  page: number;
+  regionId: number;
+  categoryId?: number;
+}) => {
+  try {
+    const token = localStorage.getItem('Token');
+    const requestUrl = `${REQUEST_URL.POSTS}?page=${page}&size=10&region=${regionId}${
+      categoryId ? `&category=${categoryId}` : ''
+    }`;
 
-  return (
-    <>
-      {postList.map((item) => (
-        <ProductListItem key={item.id} {...item} />
-      ))}
-      {!isLoading && !isLastPage && <S.Target ref={setTarget}></S.Target>}
-      {isLoading && (
-        <S.SpinnerLayout>
-          <Spinner />
-        </S.SpinnerLayout>
-      )}
-    </>
-  );
+    const response = await fetch(requestUrl, {
+      method: REQUEST_METHOD.GET,
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    });
+
+    if (!response.ok) {
+      const { code, message }: ErrorResponse = await response.json();
+      throw new CustomError(code, message);
+    }
+    const { data }: { data: PostsData } = await response.json();
+
+    return { items: data.posts.content, last: data.posts.last, error: null };
+  } catch (error) {
+    return { items: [], last: false, error: error as CustomError };
+  }
 };
 
 const ProductList = ({ regionId, categoryId }: ProductListProps) => {
-  const INIT_PAGE_NUM = 0;
-  const INIT_POST_LIST: ProductListItemProps[] = [];
-  const [pageNum, setPageNum] = useState(INIT_PAGE_NUM);
-  const [postList, setPostList] = useState<PostListState>(INIT_POST_LIST);
-
-  const token = localStorage.getItem('Token');
-  const requestUrl = `${REQUEST_URL.POSTS}?page=${pageNum}&size=10&region=${regionId}${
-    categoryId ? `&category=${categoryId}` : ''
-  }`;
-
-  const { fetchData, responseState, data, error } = useFetch<PostsData>({
-    url: requestUrl,
-    options: {
-      method: REQUEST_METHOD.GET,
-      headers: token ? { Authorization: `Bearer ${token}` } : {},
-    },
-    skip: true,
+  const {
+    items: productList,
+    loading,
+    isLastPage,
+    loadItems,
+    error,
+  } = useInfiniteLoading<ProductListItemProps>({
+    getData: ({ page }) => getProductList({ page, regionId, categoryId }),
   });
 
-  const intersectHandler = () => {
-    if (responseState !== RESPONSE_STATE.SUCCESS || data?.posts.last) return;
+  const { setTarget } = useIntersectionObserver({ intersectHandler: () => loadItems() });
 
-    setPageNum((previousPageNum) => previousPageNum + 1);
-  };
-  const { setTarget } = useIntersectionObserver({ intersectHandler });
+  if (error) throw error;
 
-  useEffect(() => {
-    setPageNum(INIT_PAGE_NUM);
-    setPostList(INIT_POST_LIST);
-  }, [regionId]);
-
-  useEffect(() => {
-    fetchData();
-  }, [pageNum]);
-
-  useEffect(() => {
-    if (responseState !== RESPONSE_STATE.SUCCESS || !data) return;
-
-    setPostList((previous) => [...previous, ...data.posts.content]);
-  }, [responseState, data]);
-
-  if (responseState === RESPONSE_STATE.ERROR) throw error;
+  const ProductListItems = productList.map((item) => <ProductListItem key={item.id} {...item} />);
 
   return (
     <S.ProductList>
-      {responseState === RESPONSE_STATE.SUCCESS && data && (
-        <ProductListContainer
-          postList={postList}
-          isLoading={false}
-          isLastPage={data.posts.last}
-          setTarget={setTarget}
-        />
-      )}
-
-      {responseState === RESPONSE_STATE.LOADING && (
+      {loading && productList.length === 0 && <Loading text="상품 목록을 불러오고 있습니다." />}
+      {loading && productList.length > 0 && (
         <>
-          {postList.length > 0 ? (
-            <ProductListContainer isLoading={true} postList={postList} />
-          ) : (
-            <Loading text="상품 목록을 불러오고 있습니다." />
-          )}
+          {ProductListItems}
+          <S.SpinnerLayout>
+            <Spinner />
+          </S.SpinnerLayout>
+        </>
+      )}
+      {!loading && productList.length === 0 && <S.ProductNotFound>해당 상품이 없어요.</S.ProductNotFound>}
+      {!loading && productList.length > 0 && (
+        <>
+          {ProductListItems}
+          {!isLastPage && <S.Target ref={setTarget}></S.Target>}
         </>
       )}
     </S.ProductList>

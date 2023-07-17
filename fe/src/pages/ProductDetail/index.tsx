@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { REQUEST_URL } from '@constants/index';
 
-import useFetch, { REQUEST_METHOD } from '@hooks/useFetch';
+import useFetch, { REQUEST_METHOD, RESPONSE_STATE } from '@hooks/useFetch';
 
 import ProductDetailHeader from '@components/ProductDetail/ProductDetailHeader';
 import ProductDetailMain from '@components/ProductDetail/ProductDetailMain';
@@ -30,13 +30,19 @@ interface PostDetailData {
 const ProductDetail = () => {
   const { id: postId } = useParams();
 
-  const { responseState: getProductState, data: productData } = useFetch<PostDetailData>({
+  const {
+    responseState: getProductState,
+    data: productData,
+    error,
+  } = useFetch<PostDetailData>({
     url: `${REQUEST_URL.POSTS}/${postId}`,
     options: {
       method: REQUEST_METHOD.GET,
       headers: { Authorization: `Bearer ${localStorage.getItem('Token')}` },
     },
   });
+
+  if (getProductState === RESPONSE_STATE.ERROR) throw error;
 
   const [isInterested, setIsInterested] = useState(false);
   const [interestCount, setInterestCount] = useState(0);
@@ -104,7 +110,6 @@ const ProductDetail = () => {
 
   return (
     <>
-      {getProductState === 'ERROR' && <div>error</div>}
       {getProductState === 'LOADING' && <></>}
       {getProductState === 'SUCCESS' && productData && (
         <>

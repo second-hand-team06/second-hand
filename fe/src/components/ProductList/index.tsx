@@ -95,7 +95,7 @@ const ProductList = ({ regionId, categoryId }: ProductListProps) => {
     setPostList((previous) => [...previous, ...data.posts.content]);
   }, [responseState, data]);
 
-  if (error) throw error;
+  if (responseState === RESPONSE_STATE.ERROR) throw error;
 
   return (
     <S.ProductList>
@@ -117,8 +117,6 @@ const ProductList = ({ regionId, categoryId }: ProductListProps) => {
           )}
         </>
       )}
-
-      {responseState === RESPONSE_STATE.ERROR && <h1>Error</h1>}
     </S.ProductList>
   );
 };

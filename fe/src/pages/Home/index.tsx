@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { ICON_NAME, PATH, REQUEST_URL } from '@constants/index';
 
-import useFetch, { REQUEST_METHOD } from '@hooks/useFetch';
+import useFetch, { REQUEST_METHOD, RESPONSE_STATE } from '@hooks/useFetch';
 
 import Icon from '@components/common/Icon';
 import Header from '@components/common/Header';
@@ -26,7 +26,11 @@ const Home = () => {
   const token = localStorage.getItem('Token');
   const SELECTED_REGION_IDX = 0;
 
-  const { data: regionsData, error } = useFetch<RegionsData>({
+  const {
+    responseState,
+    data: regionsData,
+    error,
+  } = useFetch<RegionsData>({
     url: REQUEST_URL.USER_REGIONS,
     options: {
       method: REQUEST_METHOD.GET,
@@ -45,7 +49,7 @@ const Home = () => {
     setUserRegions(regionsData.regions);
   }, [regionsData]);
 
-  if (error) throw error;
+  if (responseState === RESPONSE_STATE.ERROR) throw error;
 
   return (
     <>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 interface UseIntersectionObserverProps {
-  intersectHandler: IntersectionObserverCallback;
+  intersectHandler: () => void;
   root?: null;
   rootMargin?: string;
   threshold?: number;
@@ -15,10 +15,16 @@ const useIntersectionObserver = ({
 }: UseIntersectionObserverProps) => {
   const [target, setTarget] = useState<HTMLDivElement | null | undefined>(null);
 
+  const callback: IntersectionObserverCallback = ([entry]) => {
+    if (!entry.isIntersecting) return;
+
+    intersectHandler();
+  };
+
   useEffect(() => {
     if (!target) return;
 
-    const observer = new IntersectionObserver(intersectHandler, {
+    const observer = new IntersectionObserver(callback, {
       root,
       rootMargin,
       threshold,

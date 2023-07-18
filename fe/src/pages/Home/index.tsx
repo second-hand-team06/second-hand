@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { ICON_NAME, PATH, REQUEST_URL } from '@constants/index';
@@ -21,28 +21,40 @@ interface RegionsData {
 }
 
 const Home = () => {
+  const [userRegions, setUserRegions] = useState<Region[]>([]);
   const listRef = useRef<HTMLDivElement | null>(null);
   const token = localStorage.getItem('Token');
-  const options: RequestInit = {
-    method: REQUEST_METHOD.GET,
-    headers: token ? { Authorization: `Bearer ${token}` } : {},
-  };
+  const SELECTED_REGION_IDX = 0;
 
   const { data: regionsData } = useFetch<RegionsData>({
     url: REQUEST_URL.USER_REGIONS,
-    options,
+    options: {
+      method: REQUEST_METHOD.GET,
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    },
   });
 
   const goToTopHandler = () => {
     listRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  useEffect(() => {
+    if (!regionsData) return;
+
+    // * User가 비회원일 경우 userRegions에 역삼동에 관한 정보만 저장
+    setUserRegions(regionsData.regions);
+  }, [regionsData]);
+
   return (
     <>
-      <Header type="home" regions={regionsData?.regions} />
-      <S.ProductListLayout ref={listRef}>
-        {regionsData && <ProductList regionId={regionsData?.regions[0].id} />}
-      </S.ProductListLayout>
+      {userRegions.length > 0 && (
+        <>
+          <Header type="home" regions={userRegions} changeUserRegions={setUserRegions} />
+          <S.ProductListLayout ref={listRef}>
+            <ProductList regionId={userRegions[SELECTED_REGION_IDX].id} />
+          </S.ProductListLayout>
+        </>
+      )}
 
       <TabBar activeTab="home" />
 

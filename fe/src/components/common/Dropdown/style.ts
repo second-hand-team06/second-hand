@@ -10,6 +10,8 @@ const Option = styled.div<{ selectedvalue?: string; value?: string }>`
   font-size: ${({ theme }) => theme.fonts.callout.fontSize};
   font-weight: ${({ selectedvalue, value }) => (value && selectedvalue === value ? 590 : 400)};
   line-height: ${({ theme }) => theme.fonts.callout.lineHeight};
+
+  cursor: pointer;
 `;
 
 const MenuBorderStyles = css`
@@ -32,4 +34,8 @@ const Dropdown = styled.div`
   ${MenuBorderStyles}
 `;
 
-export { Dropdown, Option };
+const DropdownLayout = styled.div`
+  position: relative;
+`;
+
+export { Option, Dropdown, DropdownLayout };

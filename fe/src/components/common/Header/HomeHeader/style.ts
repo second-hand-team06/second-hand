@@ -15,7 +15,7 @@ const HomeHeader = styled.header`
   border-bottom: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
 `;
 
-const DropdownToggleButton = styled.button`
+const DropdownToggleButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

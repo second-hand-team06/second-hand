@@ -19,20 +19,25 @@ interface ProductListProps {
   categoryId?: number;
 }
 
+type PostListState = ProductListItemProps[];
+
 const ProductList = ({ regionId, categoryId }: ProductListProps) => {
-  const [pageNum, setPageNum] = useState(0);
-  const [postList, setPostList] = useState<ProductListItemProps[]>([]);
+  const INIT_PAGE_NUM = 0;
+  const INIT_POST_LIST: ProductListItemProps[] = [];
+  const [pageNum, setPageNum] = useState(INIT_PAGE_NUM);
+  const [postList, setPostList] = useState<PostListState>(INIT_POST_LIST);
+
   const token = localStorage.getItem('Token');
-  const options: RequestInit = {
-    method: REQUEST_METHOD.GET,
-    headers: token ? { Authorization: `Bearer ${token}` } : {},
-  };
+  const requestUrl = `${REQUEST_URL.POSTS}?page=${pageNum}&size=10&region=${regionId}${
+    categoryId ? `&category=${categoryId}` : ''
+  }`;
 
   const { fetchData, responseState, data } = useFetch<PostsData>({
-    url: `${REQUEST_URL.POSTS}?page=${pageNum}&size=10${categoryId ? `&category=${categoryId}` : ''}${
-      regionId ? `&region=${regionId}` : ''
-    }`,
-    options,
+    url: requestUrl,
+    options: {
+      method: REQUEST_METHOD.GET,
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    },
     skip: true,
   });
 
@@ -45,6 +50,11 @@ const ProductList = ({ regionId, categoryId }: ProductListProps) => {
   };
 
   const { setTarget } = useIntersectionObserver({ intersectHandler });
+
+  useEffect(() => {
+    setPageNum(INIT_PAGE_NUM);
+    setPostList(INIT_POST_LIST);
+  }, [regionId]);
 
   useEffect(() => {
     fetchData();

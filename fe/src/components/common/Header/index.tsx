@@ -10,10 +10,12 @@ interface Region {
 interface HeaderProps {
   type: 'home' | 'sales' | 'search';
   regions?: Region[];
+  changeUserRegions?: (region: Region[]) => void;
 }
 
-const Header = ({ type, regions }: HeaderProps) => {
-  if (type === 'home' && regions) return <HomeHeader regions={regions} />;
+const Header = ({ type, regions, changeUserRegions }: HeaderProps) => {
+  if (type === 'home' && regions && changeUserRegions)
+    return <HomeHeader regions={regions} changeUserRegions={changeUserRegions} />;
   if (type === 'search') return <SearchHeader />;
   if (type === 'sales') return <SalesHeader />;
 

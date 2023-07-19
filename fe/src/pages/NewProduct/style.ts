@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-const NewProduct = styled.div``;
-
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
@@ -13,9 +11,7 @@ const Header = styled.div`
 
   background-color: ${({ theme }) => theme.colors.neutral.background.blur};
   border-bottom: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
-`;
 
-const HeaderTitle = styled.div`
   font-size: ${({ theme }) => theme.fonts.body.bold.fontSize};
   font-weight: ${({ theme }) => theme.fonts.body.bold.fontWeight};
   line-height: ${({ theme }) => theme.fonts.body.bold.lineHeight};
@@ -34,12 +30,13 @@ const CompleteButton = styled.button`
   line-height: ${({ theme }) => theme.fonts.body.regular.lineHeight};
   color: ${({ theme }) => theme.colors.neutral.text.default};
 `;
+// todo: 완료 버튼 입력이 다 됐을 경우에만 스타일 처리
 
 const TabBar = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: fixed;
+  position: absolute;
   bottom: 0;
 
   width: 100%;
@@ -82,9 +79,7 @@ const TextArea = styled.textarea`
 const Keyboard = styled.div``;
 
 export {
-  NewProduct,
   Header,
-  HeaderTitle,
   CloseButton,
   CompleteButton,
   TabBar,

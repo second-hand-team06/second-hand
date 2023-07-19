@@ -94,12 +94,12 @@ const NewProduct = () => {
   };
 
   return (
-    <S.NewProduct>
+    <>
       <S.Header>
         <Link to={PATH.HOME}>
           <S.CloseButton>닫기</S.CloseButton>
         </Link>
-        <S.HeaderTitle>내 물건 팔기</S.HeaderTitle>
+        <span>내 물건 팔기</span>
         <S.CompleteButton onClick={submitHandler}>완료</S.CompleteButton>
       </S.Header>
       <S.LayoutContent>
@@ -120,7 +120,7 @@ const NewProduct = () => {
           <Icon name={ICON_NAME.KEYBOARD} fill="black" />
         </S.Keyboard>
       </S.TabBar>
-    </S.NewProduct>
+    </>
   );
 };
 

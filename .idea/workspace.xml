@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="7f1de1de-8fdd-4d0d-b826-4e6e34a6d9b6" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.github/ISSUE_TEMPLATE/-이슈-템플릿.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.github/PULL_REQUEST_TEMPLATE/pull_request_template.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.github/workflows/fe-release.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/HELP.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/settings.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/SecondhandApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/category/CategoryController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/category/CategoryService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/category/dto/CategoriesDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/category/dto/CategoryDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/category/dto/CategoryInInterestDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/category/dto/CategoryInterestsDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/category/dto/PostTitleDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/category/dto/RecommendedCategoriesDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/category/dto/RecommendedCategoryDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/config/AWSConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/config/SwaggerConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/config/WebConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/exception/GlobalExceptionHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/exception/login/ExpiredTokenException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/exception/login/JwtTokenException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/exception/login/ManipulatedTokenException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/exception/login/NoAuthorizationException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/exception/login/NoBearerException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/exception/post/PostAuthorizationException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/exception/post/PostOwnershipMismatchException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/fileupload/FileUploadController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/fileupload/FileUploadService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/interceptor/CreatePostInterceptor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/interceptor/LoginInterceptor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/mapper/JacksonLocalDateTimeConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/post/PostController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/post/PostService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/post/dto/BadgesDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/post/dto/CreatePostResponseDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/post/dto/InterestPostDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/post/dto/InterestPostListDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/post/dto/MainPagePostsDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/post/dto/MyPostDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/post/dto/MyPostListDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/post/dto/PostDetailPageDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/post/dto/PostMetaDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/post/dto/PostSaveDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/post/dto/PostUpdateDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/post/dto/SearchCondition.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/post/dto/UpdatePostStateDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/post/entity/Badge.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/post/entity/Category.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/post/entity/Interest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/post/entity/PostDetail.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/post/entity/PostMeta.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/post/entity/PostPhoto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/post/repository/BadgeRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/post/repository/CategoryRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/post/repository/CategoryRepositoryCustom.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/post/repository/CategoryRepositoryImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/post/repository/InterestRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/post/repository/InterestRepositoryCustom.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/post/repository/InterestRepositoryImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/post/repository/PostDetailRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/post/repository/PostMetaRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/post/repository/PostMetaRepositoryCustom.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/post/repository/PostMetaRepositoryImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/post/repository/PostPhotoRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/post/repository/PostPhotoRepositoryCustom.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/post/repository/PostPhotoRepositoryImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/post/validator/PostValidator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/region/RegionController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/region/RegionService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/region/dto/PostMyRegionDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/region/dto/RegionDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/region/dto/RegionsDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/region/entity/Region.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/region/repository/RegionRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/region/repository/RegionRepositoryCustom.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/region/repository/RegionRepositoryImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/user/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/user/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/user/entity/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/user/login/JwtUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/user/login/LoginController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/user/login/LoginService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/user/login/dto/GithubToken.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/user/login/dto/JWTResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/user/login/dto/LoggedInUser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/user/login/dto/UserProfileResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/user/repository/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/util/CustomErrorResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/java/com/secondhand/util/CustomResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/resources/data/schema.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/resources/static/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/main/resources/static/postSave.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/test/java/com/secondhand/SecondhandApplicationTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/be/src/test/java/com/secondhand/user/login/JwtUtilTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/.eslintignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/.eslintrc.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/.prettierrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/.storybook/main.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/.storybook/preview.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/craco.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/public/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/public/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/public/manifest.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/public/robots.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/App.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/assets/arrowUp.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/assets/camera.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/assets/chevronDown.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/assets/chevronLeft.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/assets/chevronRight.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/assets/circleFill.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/assets/ellipsis.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/assets/fullLike.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/assets/hamburger.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/assets/home.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/assets/keyboard.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/assets/like.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/assets/message.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/assets/multiply.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/assets/newspaper.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/assets/person.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/assets/plus.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/assets/regionSetting.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/assets/search.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/assets/second-hand-logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/ErrorBoundary/ErrorBoundary.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/ImageInput/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/ImageInput/style.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/Loading/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/Loading/style.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/ModalPortal/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/PrivateRoutes/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/PrivateRoutes/style.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/ProductDetail/ProductDetailHeader/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/ProductDetail/ProductDetailHeader/style.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/ProductDetail/ProductDetailMain/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/ProductDetail/ProductDetailMain/style.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/ProductDetail/ProductDetailToolBar/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/ProductDetail/ProductDetailToolBar/style.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/ProductList/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/ProductList/style.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/ProductListItem/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/ProductListItem/style.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/TabBar/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/TabBar/style.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/TitleInput/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/TitleInput/style.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/ToastMessage/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/ToastMessage/style.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/common/Button/Button.stories.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/common/Button/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/common/Button/style.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/common/Dropdown/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/common/Dropdown/style.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/common/Header/Header.stories.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/common/Header/HomeHeader/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/common/Header/HomeHeader/style.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/common/Header/SalesHeader/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/common/Header/SalesHeader/style.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/common/Header/SearchHeader/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/common/Header/SearchHeader/style.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/common/Header/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/common/Header/style.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/common/Icon/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/common/Modal/Modal.stories.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/common/Modal/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/common/Modal/style.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/common/Popup/Popup.stories.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/common/Popup/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/common/Popup/style.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/common/Spinner/Spinner.stories.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/common/Spinner/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/components/common/Spinner/style.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/constants/iconName.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/constants/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/constants/path.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/constants/requestUrl.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/context/themeContext.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/context/userContext.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/hooks/useFetch.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/hooks/useInfiniteLoading.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/hooks/useIntersectionObserver.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/pages/Category/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/pages/Category/style.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/pages/CategoryDetail/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/pages/CategoryDetail/style.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/pages/Chatting/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/pages/ErrorPage/AuthorizationError/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/pages/ErrorPage/AuthorizationError/style.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/pages/ErrorPage/NotFound/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/pages/ErrorPage/NotFound/style.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/pages/ErrorPage/ServerError/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/pages/ErrorPage/ServerError/style.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/pages/ErrorPage/UnknownError/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/pages/ErrorPage/UnknownError/style.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/pages/Home/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/pages/Home/style.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/pages/Interests/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/pages/LoginLoading/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/pages/LoginLoading/style.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/pages/MyAccount/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/pages/MyAccount/style.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/pages/NewProduct/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/pages/NewProduct/style.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/pages/ProductDetail/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/pages/ProductDetail/style.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/pages/RegionSetting/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/pages/RegionSetting/style.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/pages/Sales/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/react-app-env.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/reportWebVitals.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/setupTests.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/styles/GlobalStyle.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/styles/color.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/styles/font.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/src/utils/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/tsconfig.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fe/tsconfig.paths.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/ApplicationStart.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2SmgDG8KFTnlQgOKGNTHqHQwNee" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/seonggyu-kim/DEV/codesquad/secondhand",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7f1de1de-8fdd-4d0d-b826-4e6e34a6d9b6" name="Changes" comment="" />
+      <created>1689757050015</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1689757050015</updated>
+      <workItem from="1689757051224" duration="147000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

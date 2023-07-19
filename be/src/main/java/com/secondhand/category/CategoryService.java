@@ -2,9 +2,10 @@ package com.secondhand.category;
 
 import com.secondhand.category.dto.CategoriesDto;
 import com.secondhand.category.dto.CategoryDto;
-import com.secondhand.post.repository.CategoryRepository;
+import com.secondhand.post.repository.category.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -14,11 +15,14 @@ public class CategoryService {
 
     private final CategoryRepository categoryRepository;
 
+    @Transactional(readOnly = true)
     public CategoriesDto getCategoryList() {
 
         return categoryRepository.findAllCategories();
     }
 
+    // TODO: 추천 검색으로 변경하기
+    @Transactional(readOnly = true)
     public CategoriesDto getRecommendedCategories(String postTitle) {
 
         return recommendCategories(categoryRepository.findAllCategories().getCategories());

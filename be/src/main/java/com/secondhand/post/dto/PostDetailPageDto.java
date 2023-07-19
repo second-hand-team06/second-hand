@@ -23,11 +23,11 @@ public class PostDetailPageDto {
     private long chatCount;
     private long interestCount;
     private long viewCount;
-    private long price;
-    private String postState;
-    private boolean isSeller;
+    private Long price;
+    private BadgeDto badge;
+    private Boolean isSeller;
     private List<String> photoUrls;
-
+    private boolean interested;
 
     public PostDetailPageDto(PostMeta postMeta) {
         this.id = postMeta.getId();
@@ -39,6 +39,7 @@ public class PostDetailPageDto {
         this.chatCount = 0;
         this.viewCount = postMeta.getViewCount();
         this.price = postMeta.getPrice();
-        this.postState = postMeta.findPostMetaState();
+        this.badge = new BadgeDto(postMeta.getBadge().getId(), postMeta.findPostMetaState());
+        this.isSeller = false;
     }
 }

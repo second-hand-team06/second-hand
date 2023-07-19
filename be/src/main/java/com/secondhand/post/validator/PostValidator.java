@@ -8,8 +8,16 @@ public class PostValidator {
 
 
     public static void validatePostOwnershipMismatch(LoggedInUser loggedInUser, PostMeta postMeta) {
+
         if (postMeta.getSellerId() != loggedInUser.getId()) {
             throw new PostOwnershipMismatchException();
+        }
+    }
+
+    public static void validatePostDeleted(PostMeta postMeta) {
+
+        if (postMeta.isDeleted()) {
+            throw new IllegalArgumentException("존재하지 않는 게시글입니다.");
         }
     }
 }

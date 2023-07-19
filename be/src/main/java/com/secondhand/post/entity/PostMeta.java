@@ -20,8 +20,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class PostMeta {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @OneToOne
@@ -71,6 +70,9 @@ public class PostMeta {
    }
 
    public void deletePost() {
+       if (this.deleted) {
+           throw new IllegalArgumentException("이미 삭제된 상품입니다.");
+       }
         this.deleted = true;
    }
 

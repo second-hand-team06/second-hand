@@ -4,6 +4,7 @@ import com.secondhand.user.login.dto.GithubToken;
 import com.secondhand.user.login.dto.JWTResponse;
 import com.secondhand.user.login.dto.LoggedInUser;
 import com.secondhand.user.login.dto.UserProfileResponse;
+import com.secondhand.util.CustomResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,8 @@ public class LoginController {
     private final JwtUtil jwtUtil;
 
     @GetMapping("/oauth")
-    public ResponseEntity<JWTResponse> githubLogin(String code, HttpServletResponse response) {
+    public ResponseEntity<CustomResponse<JWTResponse>> githubLogin(String code, HttpServletResponse response) {
+
         GithubToken githubToken = loginService.getAccessToken(code);
         response.setHeader("Authorization", "application/json");
 
@@ -32,7 +34,14 @@ public class LoginController {
         Date expiredDate = new Date(new Date().getTime() + 3600000);
 
         String token = jwtUtil.createToken(loggedInUser, expiredDate);
-        log.info("token create success = {}", token);
-        return ResponseEntity.ok(new JWTResponse("login success", token));
+
+        return ResponseEntity
+                .ok()
+                .body(new CustomResponse(
+                        "success",
+                        200,
+                        "로그인 성공",
+                        new JWTResponse(token)
+                ));
     }
 }

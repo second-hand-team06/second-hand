@@ -1,4 +1,4 @@
-package com.secondhand.post.repository;
+package com.secondhand.post.repository.category;
 
 import com.secondhand.post.entity.Category;
 import org.springframework.data.jpa.repository.JpaRepository;

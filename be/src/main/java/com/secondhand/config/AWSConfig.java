@@ -10,6 +10,7 @@ import software.amazon.awssdk.services.s3.S3Client;
 
 @Configuration
 public class AWSConfig {
+
     @Value("${AWS_ACCESS_KEY}")
     private String awsAccessKey;
 

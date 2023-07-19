@@ -1,4 +1,4 @@
-package com.secondhand.post.repository;
+package com.secondhand.post.repository.interest;
 
 import com.querydsl.core.QueryResults;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -13,7 +13,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,12 +20,12 @@ import static com.secondhand.post.entity.QInterest.interest;
 import static com.secondhand.post.entity.QPostMeta.postMeta;
 
 
-public class InterestRepositoryImpl implements InterestRepositoryCustom{
+public class InterestRepositoryImpl implements InterestRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
 
-    public InterestRepositoryImpl(EntityManager em) {
-        this.queryFactory = new JPAQueryFactory(em);
+    public InterestRepositoryImpl(JPAQueryFactory queryFactory) {
+        this.queryFactory = queryFactory;
     }
 
     @Override

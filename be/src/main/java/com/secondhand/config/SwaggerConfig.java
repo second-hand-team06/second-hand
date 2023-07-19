@@ -12,6 +12,7 @@ public class SwaggerConfig {
 
     @Bean
     public GroupedOpenApi publicApi() {
+
         return GroupedOpenApi.builder()
                 .group("team06")
                 .pathsToMatch("/**")
@@ -20,6 +21,7 @@ public class SwaggerConfig {
 
     @Bean
     public OpenAPI springShopOpenAPI() {
+
         return new OpenAPI()
                 .info(new Info().title("Second Hand API")
                         .description("Second Hand API 명세서입니다." +

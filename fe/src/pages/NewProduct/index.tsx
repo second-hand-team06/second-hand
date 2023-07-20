@@ -13,16 +13,31 @@ import CategoryList from '@components/CategoryList';
 import ModalPortal from '@components/ModalPortal';
 import * as S from './style';
 
+export interface Category {
+  id: number;
+  name: string;
+}
+
 interface UseFetchProps {
   id: number;
 }
 
 const NewProduct = () => {
-  //모달 처리
   const [isOpenCategory, setIsOpenCategory] = useState(false);
+  const [category, setCategory] = useState({
+    id: 0,
+    name: '',
+  });
 
-  const categoryToggleHandler = () => {
+  const categoryToggleClickHandler = () => {
     setIsOpenCategory((prev) => !prev);
+  };
+
+  const categorySelectClickHandler = ({ id, name }: Category) => {
+    setCategory({
+      id,
+      name,
+    });
   };
 
   const navigate = useNavigate();
@@ -31,7 +46,6 @@ const NewProduct = () => {
   const [content, setContent] = useState('');
   // const [region, setRegion] = useState('');
   const [price, setPrice] = useState('');
-  // const [category, setCategory] = useState('');
   const [images, setImages] = useState<File[]>([]);
 
   const { responseState, fetchData, data } = useFetch<UseFetchProps>({
@@ -106,7 +120,11 @@ const NewProduct = () => {
     <>
       {isOpenCategory && (
         <ModalPortal>
-          <CategoryList onClick={categoryToggleHandler} />
+          <CategoryList
+            category={category}
+            onCategoryToggleClick={categoryToggleClickHandler}
+            onCategorySelectClick={categorySelectClickHandler}
+          />
         </ModalPortal>
       )}
       <S.Header>
@@ -118,7 +136,12 @@ const NewProduct = () => {
       </S.Header>
       <S.LayoutContent>
         <ImageInput onChange={imageUploadHandler} onDelete={deleteImageHandler} images={images} />
-        <TitleInput onChange={titleChangeHandler} onClick={categoryToggleHandler} />
+        <TitleInput
+          category={category}
+          onChange={titleChangeHandler}
+          onCategoryToggleClick={categoryToggleClickHandler}
+          onCategorySelectClick={categorySelectClickHandler}
+        />
         <S.TextInput onChange={priceChangeHandler} placeholder="₩ 가격 (선택사항)" />
         <S.TextArea
           onChange={contentChangeHandler}

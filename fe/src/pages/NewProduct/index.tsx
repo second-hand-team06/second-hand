@@ -9,6 +9,8 @@ import useFetch, { REQUEST_METHOD } from '@hooks/useFetch';
 import Icon from '@components/common/Icon';
 import ImageInput from '@components/ImageInput';
 import TitleInput from '@components/TitleInput';
+import CategoryList from '@components/CategoryList';
+import ModalPortal from '@components/ModalPortal';
 import * as S from './style';
 
 interface UseFetchProps {
@@ -16,6 +18,13 @@ interface UseFetchProps {
 }
 
 const NewProduct = () => {
+  //모달 처리
+  const [isOpenCategory, setIsOpenCategory] = useState(false);
+
+  const categoryToggleHandler = () => {
+    setIsOpenCategory((prev) => !prev);
+  };
+
   const navigate = useNavigate();
 
   const [title, setTitle] = useState('');
@@ -95,6 +104,11 @@ const NewProduct = () => {
 
   return (
     <>
+      {isOpenCategory && (
+        <ModalPortal>
+          <CategoryList onClick={categoryToggleHandler} />
+        </ModalPortal>
+      )}
       <S.Header>
         <Link to={PATH.HOME}>
           <S.CloseButton>닫기</S.CloseButton>
@@ -104,7 +118,7 @@ const NewProduct = () => {
       </S.Header>
       <S.LayoutContent>
         <ImageInput onChange={imageUploadHandler} onDelete={deleteImageHandler} images={images} />
-        <TitleInput onChange={titleChangeHandler} />
+        <TitleInput onChange={titleChangeHandler} onClick={categoryToggleHandler} />
         <S.TextInput onChange={priceChangeHandler} placeholder="₩ 가격 (선택사항)" />
         <S.TextArea
           onChange={contentChangeHandler}

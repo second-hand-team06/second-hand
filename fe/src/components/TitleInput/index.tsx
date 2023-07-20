@@ -5,27 +5,20 @@ import { ICON_NAME, REQUEST_URL } from '@constants/index';
 import useFetch, { REQUEST_METHOD } from '@hooks/useFetch';
 
 import Icon from '@components/common/Icon';
-import CategoryList from '@components/CategoryList';
-import ModalPortal from '@components/ModalPortal';
+
 import * as S from './style';
-
-
-interface TitleInputProps {
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  // onClick: (e: React.MouseEvent) => void;
-}
 
 interface CategoriesData {
   categories: { id: number; name: string }[];
 }
 
-const TitleInput = ({ onChange }: TitleInputProps) => {
-  const [selectCategory, setSelectCategory] = useState(0);
-  const [showModal, setShowModal] = useState(false);
+interface TitleInputProps {
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+}
 
-  const modalHandler = () => {
-    setShowModal((prev) => !prev);
-  };
+const TitleInput = ({ onChange, onClick }: TitleInputProps) => {
+  const [selectCategory, setSelectCategory] = useState(0);
 
   const token = localStorage.getItem('Token');
   const options: RequestInit = {
@@ -44,11 +37,6 @@ const TitleInput = ({ onChange }: TitleInputProps) => {
 
   return (
     <>
-      {showModal && (
-        <ModalPortal>
-          <CategoryList />
-        </ModalPortal>
-      )}
       <S.TitleInputLayout>
         <S.TitleInput placeholder="글 제목" onChange={onChange}></S.TitleInput>
 
@@ -64,7 +52,7 @@ const TitleInput = ({ onChange }: TitleInputProps) => {
               </S.CategoryItem>
             ))}
           </S.CategoryList>
-          <S.CategoryListButton onClick={modalHandler}>
+          <S.CategoryListButton onClick={onClick}>
             <Icon name={ICON_NAME.CHEVRON_RIGHT} />
           </S.CategoryListButton>
         </S.CategoryLayout>

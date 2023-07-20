@@ -3,22 +3,20 @@ import { ICON_NAME, REQUEST_URL } from '@constants/index';
 import useFetch, { REQUEST_METHOD } from '@hooks/useFetch';
 
 import Icon from '@components/common/Icon';
+import { Category } from '@pages/NewProduct';
 import * as S from './style';
-
-interface Category {
-  id: number;
-  name: string;
-}
 
 interface CategoriesData {
   categories: Category[];
 }
 
 interface CategoryListProps {
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  category: Category;
+  onCategoryToggleClick: React.MouseEventHandler<HTMLButtonElement>;
+  onCategorySelectClick: (category: Category) => void;
 }
 
-const CategoryList = ({ onClick }: CategoryListProps) => {
+const CategoryList = ({ category, onCategoryToggleClick, onCategorySelectClick }: CategoryListProps) => {
   const { responseState, data } = useFetch<CategoriesData>({
     url: REQUEST_URL.CATEGORY,
     options: {
@@ -32,7 +30,7 @@ const CategoryList = ({ onClick }: CategoryListProps) => {
   return (
     <S.CategoryList>
       <S.Header>
-        <S.CloseButton onClick={onClick}>
+        <S.CloseButton onClick={onCategoryToggleClick}>
           <Icon name={ICON_NAME.CHEVRON_LEFT} />
           <span>닫기</span>
         </S.CloseButton>
@@ -42,7 +40,13 @@ const CategoryList = ({ onClick }: CategoryListProps) => {
       {responseState === 'SUCCESS' && (
         <S.CategoryListLayout>
           {data?.categories.map(({ id, name }) => (
-            <S.CategoryItem key={id}>{name}</S.CategoryItem>
+            <S.CategoryItem
+              key={id}
+              className={category.id === id ? 'active' : ''}
+              onClick={() => onCategorySelectClick({ id, name })}
+            >
+              {name}
+            </S.CategoryItem>
           ))}
         </S.CategoryListLayout>
       )}

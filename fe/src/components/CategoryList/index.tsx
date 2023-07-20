@@ -12,7 +12,7 @@ interface CategoriesData {
 
 interface CategoryListProps {
   category: Category;
-  onCategoryToggleClick: React.MouseEventHandler<HTMLButtonElement>;
+  onCategoryToggleClick: () => void;
   onCategorySelectClick: (category: Category) => void;
 }
 
@@ -43,7 +43,10 @@ const CategoryList = ({ category, onCategoryToggleClick, onCategorySelectClick }
             <S.CategoryItem
               key={id}
               className={category.id === id ? 'active' : ''}
-              onClick={() => onCategorySelectClick({ id, name })}
+              onClick={() => {
+                onCategorySelectClick({ id, name });
+                onCategoryToggleClick();
+              }}
             >
               {name}
             </S.CategoryItem>

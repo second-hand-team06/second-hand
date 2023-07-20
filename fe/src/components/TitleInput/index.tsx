@@ -13,7 +13,7 @@ interface CategoriesData {
 interface TitleInputProps {
   category: Category;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onCategoryToggleClick: React.MouseEventHandler<HTMLButtonElement>;
+  onCategoryToggleClick: () => void;
   onCategorySelectClick: (category: Category) => void;
 }
 

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { PALETTE } from '@styles/color';
 
 const CategoryList = styled.div`
   position: absolute;
@@ -58,6 +59,9 @@ const CategoryItem = styled.li`
   font-weight: ${({ theme }) => theme.fonts.subhead.fontWeight};
   line-height: ${({ theme }) => theme.fonts.subhead.lineHeight};
   border-bottom: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
+
+  &.active {
+    color: ${PALETTE.ORANGE};
 `;
 
 export { CategoryList, Header, HeaderTitle, CloseButton, EmptyTag, CategoryListLayout, CategoryItem };

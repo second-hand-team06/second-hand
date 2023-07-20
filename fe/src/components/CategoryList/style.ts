@@ -30,7 +30,7 @@ const HeaderTitle = styled.span`
   color: ${({ theme }) => theme.colors.neutral.text.strong};
 `;
 
-const BackButton = styled.button`
+const CloseButton = styled.button`
   display: flex;
   align-items: center;
   gap: 10px;
@@ -60,4 +60,4 @@ const CategoryItem = styled.li`
   border-bottom: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
 `;
 
-export { CategoryList, Header, HeaderTitle, BackButton, EmptyTag, CategoryListLayout, CategoryItem };
+export { CategoryList, Header, HeaderTitle, CloseButton, EmptyTag, CategoryListLayout, CategoryItem };

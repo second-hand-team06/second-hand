@@ -14,7 +14,11 @@ interface CategoriesData {
   categories: Category[];
 }
 
-const CategoryList = () => {
+interface CategoryListProps {
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+}
+
+const CategoryList = ({ onClick }: CategoryListProps) => {
   const { responseState, data } = useFetch<CategoriesData>({
     url: REQUEST_URL.CATEGORY,
     options: {
@@ -28,10 +32,10 @@ const CategoryList = () => {
   return (
     <S.CategoryList>
       <S.Header>
-        <S.BackButton>
+        <S.CloseButton onClick={onClick}>
           <Icon name={ICON_NAME.CHEVRON_LEFT} />
           <span>닫기</span>
-        </S.BackButton>
+        </S.CloseButton>
         <S.HeaderTitle>카테고리</S.HeaderTitle>
         <S.EmptyTag />
       </S.Header>

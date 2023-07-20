@@ -40,6 +40,9 @@ const TitleInput = ({
         <S.TitleInput placeholder="글 제목" onChange={onChange}></S.TitleInput>
         <S.CategoryLayout>
           <S.CategoryList>
+            {!data?.categories.some((item) => item.id === category.id) && category.id !== 0 && (
+              <S.CategoryItem className="active">{category.name}</S.CategoryItem>
+            )}
             {responseState === 'SUCCESS' &&
               data?.categories.map(({ id, name }) => (
                 <S.CategoryItem

@@ -9,20 +9,43 @@ import useFetch, { REQUEST_METHOD } from '@hooks/useFetch';
 import Icon from '@components/common/Icon';
 import ImageInput from '@components/ImageInput';
 import TitleInput from '@components/TitleInput';
+import CategoryList from '@components/CategoryList';
+import ModalPortal from '@components/ModalPortal';
 import * as S from './style';
+
+export interface Category {
+  id: number;
+  name: string;
+}
 
 interface UseFetchProps {
   id: number;
 }
 
 const NewProduct = () => {
+  const [isOpenCategory, setIsOpenCategory] = useState(false);
+  const [category, setCategory] = useState({
+    id: 0,
+    name: '',
+  });
+
+  const categoryToggleClickHandler = () => {
+    setIsOpenCategory((prev) => !prev);
+  };
+
+  const categorySelectClickHandler = ({ id, name }: Category) => {
+    setCategory({
+      id,
+      name,
+    });
+  };
+
   const navigate = useNavigate();
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   // const [region, setRegion] = useState('');
   const [price, setPrice] = useState('');
-  // const [category, setCategory] = useState('');
   const [images, setImages] = useState<File[]>([]);
 
   const { responseState, fetchData, data } = useFetch<UseFetchProps>({
@@ -39,7 +62,7 @@ const NewProduct = () => {
 
     formData.append('title', title);
     formData.append('regionId', `${1}`);
-    formData.append('categoryId', `${1}`);
+    formData.append('categoryId', category.id.toString());
     formData.append('price', price);
     formData.append('badgeId', `${1}`);
     formData.append('content', content);
@@ -94,17 +117,32 @@ const NewProduct = () => {
   };
 
   return (
-    <S.NewProduct>
+    <>
+      {isOpenCategory && (
+        <ModalPortal>
+          <CategoryList
+            category={category}
+            onCategoryToggleClick={categoryToggleClickHandler}
+            onCategorySelectClick={categorySelectClickHandler}
+          />
+        </ModalPortal>
+      )}
       <S.Header>
         <Link to={PATH.HOME}>
           <S.CloseButton>닫기</S.CloseButton>
         </Link>
-        <S.HeaderTitle>내 물건 팔기</S.HeaderTitle>
+        <span>내 물건 팔기</span>
         <S.CompleteButton onClick={submitHandler}>완료</S.CompleteButton>
       </S.Header>
       <S.LayoutContent>
         <ImageInput onChange={imageUploadHandler} onDelete={deleteImageHandler} images={images} />
-        <TitleInput onChange={titleChangeHandler} />
+        <TitleInput
+          title={title}
+          category={category}
+          onChange={titleChangeHandler}
+          onCategoryToggleClick={categoryToggleClickHandler}
+          onCategorySelectClick={categorySelectClickHandler}
+        />
         <S.TextInput onChange={priceChangeHandler} placeholder="₩ 가격 (선택사항)" />
         <S.TextArea
           onChange={contentChangeHandler}
@@ -120,7 +158,7 @@ const NewProduct = () => {
           <Icon name={ICON_NAME.KEYBOARD} fill="black" />
         </S.Keyboard>
       </S.TabBar>
-    </S.NewProduct>
+    </>
   );
 };
 

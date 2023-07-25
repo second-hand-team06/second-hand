@@ -62,7 +62,7 @@ const NewProduct = () => {
 
     formData.append('title', title);
     formData.append('regionId', `${1}`);
-    formData.append('categoryId', `${1}`);
+    formData.append('categoryId', category.id.toString());
     formData.append('price', price);
     formData.append('badgeId', `${1}`);
     formData.append('content', content);
@@ -137,6 +137,7 @@ const NewProduct = () => {
       <S.LayoutContent>
         <ImageInput onChange={imageUploadHandler} onDelete={deleteImageHandler} images={images} />
         <TitleInput
+          title={title}
           category={category}
           onChange={titleChangeHandler}
           onCategoryToggleClick={categoryToggleClickHandler}

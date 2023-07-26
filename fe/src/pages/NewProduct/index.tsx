@@ -22,7 +22,28 @@ interface UseFetchProps {
   id: number;
 }
 
+interface Region {
+  id: number;
+  name: string;
+}
+
+interface regionData {
+  regions: Region[];
+}
+
 const NewProduct = () => {
+  const token = localStorage.getItem('Token');
+  const options: RequestInit = {
+    method: REQUEST_METHOD.GET,
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+  };
+
+  const { responseState: getRegionState, data: regionData } = useFetch<regionData>({
+    url: REQUEST_URL.USER_REGIONS,
+    options,
+  });
+
+  console.log(regionData?.regions[0].name.split(' ')[2]);
   const [isOpenCategory, setIsOpenCategory] = useState(false);
   const [category, setCategory] = useState({
     id: 0,
@@ -146,13 +167,15 @@ const NewProduct = () => {
         <S.TextInput onChange={priceChangeHandler} placeholder="₩ 가격 (선택사항)" />
         <S.TextArea
           onChange={contentChangeHandler}
-          placeholder="역삼1동에 올릴 게시물 내용을 작성해주세요.(판매금지 물품은 게시가 제한될 수 있어요.)"
+          placeholder={`${
+            getRegionState === 'SUCCESS' ? regionData?.regions[0].name.split(' ')[2] : ''
+          }에 올릴 게시물 내용을 작성해주세요.(판매금지 물품은 게시가 제한될 수 있어요.)`}
         />
       </S.LayoutContent>
       <S.TabBar>
         <S.RegionSettingButton>
           <Icon name={ICON_NAME.REGION_SETTING} fill="black" />
-          <span>역삼1동</span>
+          <span>{getRegionState === 'SUCCESS' ? regionData?.regions[0].name.split(' ')[2] : ''}</span>
         </S.RegionSettingButton>
         <S.Keyboard>
           <Icon name={ICON_NAME.KEYBOARD} fill="black" />

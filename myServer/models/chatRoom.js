@@ -1,30 +1,27 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const chatRoomSchema = new Schema({
-  participants: [
-    {
-      user_id: { type: Number, required: true, unique: true },
-      name: { type: String, required: true },
-      url: { type: String, required: true },
+const messageSchema = require("./message").schema;
+
+const chatRoomSchema = new Schema(
+  {
+    participants: [
+      {
+        id: { type: Number, required: true, unique: true },
+        name: { type: String, required: true },
+        url: { type: String },
+      },
+    ],
+    product: {
+      id: { type: Number, required: true, unique: true },
+      title: { type: String, required: true },
+      price: { type: Number, default: null },
+      photo_url: { type: String, required: true },
     },
-  ],
-  product: {
-    product_id: { type: Number, required: true, unique: true },
-    name: { type: String, required: true },
-    price: {
-      type: Number,
-      default: null,
-    },
-    photo_url: { type: String, required: true },
+    unread_count: { type: Number, default: 0 },
+    last_message: messageSchema,
   },
-  unread_count: { type: Number, required: true },
-  last_message: {
-    content: { type: String, required: true },
-    sender_id: { type: Number, required: true, unique: true },
-    created_at: { type: Date, required: true },
-  },
-  created_at: { type: Date, required: true },
-});
+  { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } }
+);
 
 module.exports = mongoose.model("ChatRoom", chatRoomSchema);

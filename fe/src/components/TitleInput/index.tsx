@@ -27,7 +27,7 @@ const TitleInput = ({
 }: TitleInputProps) => {
   const token = localStorage.getItem('Token');
   const options: RequestInit = {
-    method: REQUEST_METHOD.GET.toString(),
+    method: REQUEST_METHOD.GET,
     headers: token ? { Authorization: `Bearer ${token}` } : {},
   };
 

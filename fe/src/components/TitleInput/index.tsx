@@ -11,6 +11,7 @@ interface CategoriesData {
 }
 
 interface TitleInputProps {
+  title: string;
   category: Category;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onCategoryToggleClick: () => void;
@@ -18,6 +19,7 @@ interface TitleInputProps {
 }
 
 const TitleInput = ({
+  title,
   category,
   onChange,
   onCategoryToggleClick,
@@ -25,7 +27,7 @@ const TitleInput = ({
 }: TitleInputProps) => {
   const token = localStorage.getItem('Token');
   const options: RequestInit = {
-    method: REQUEST_METHOD.GET.toString(),
+    method: REQUEST_METHOD.GET,
     headers: token ? { Authorization: `Bearer ${token}` } : {},
   };
 
@@ -54,9 +56,9 @@ const TitleInput = ({
                 </S.CategoryItem>
               ))}
           </S.CategoryList>
-          <S.CategoryListButton onClick={onCategoryToggleClick}>
+          <button onClick={onCategoryToggleClick}>
             <Icon name={ICON_NAME.CHEVRON_RIGHT} />
-          </S.CategoryListButton>
+          </button>
         </S.CategoryLayout>
       </S.TitleInputLayout>
     </>

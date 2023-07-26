@@ -56,7 +56,4 @@ const CategoryLayout = styled.div`
   width: 100%;
 `;
 
-const CategoryListButton = styled.button`
-`;
-
-export { TitleInputLayout, TitleInput, CategoryList, CategoryItem, CategoryLayout, CategoryListButton };
+export { TitleInputLayout, TitleInput, CategoryList, CategoryItem, CategoryLayout};

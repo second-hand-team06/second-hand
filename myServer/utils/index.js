@@ -13,10 +13,14 @@ const snakeToCamel = (obj) => {
   const camelObj = {};
 
   for (const [key, value] of Object.entries(obj)) {
-    const camelKey = key.replace(/_([a-z])/g, (match, letter) =>
-      letter.toUpperCase()
-    );
-    camelObj[camelKey] = snakeToCamel(value);
+    if (key === "_id") {
+      camelObj[key] = value.toString();
+    } else {
+      const camelKey = key.replace(/_([a-z])/g, (match, letter) =>
+        letter.toUpperCase()
+      );
+      camelObj[camelKey] = value instanceof Date ? value : snakeToCamel(value);
+    }
   }
 
   return camelObj;

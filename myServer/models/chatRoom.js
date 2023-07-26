@@ -24,4 +24,9 @@ const chatRoomSchema = new Schema(
   { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } }
 );
 
+chatRoomSchema.index(
+  { "participants.id": 1, "product.id": 1 },
+  { unique: true }
+);
+
 module.exports = mongoose.model("ChatRoom", chatRoomSchema);

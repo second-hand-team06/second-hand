@@ -5,13 +5,7 @@ const messageSchema = require("./message").schema;
 
 const chatRoomSchema = new Schema(
   {
-    participants: [
-      {
-        id: { type: Number, required: true, unique: true },
-        name: { type: String, required: true },
-        url: { type: String },
-      },
-    ],
+    participant_ids: { type: [Number], required: true },
     product: {
       id: { type: Number, required: true, unique: true },
       title: { type: String, required: true },
@@ -19,14 +13,11 @@ const chatRoomSchema = new Schema(
       photo_url: { type: String, required: true },
     },
     unread_count: { type: Number, default: 0 },
-    last_message: messageSchema,
+    last_message: { type: messageSchema, default: null },
   },
   { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } }
 );
 
-chatRoomSchema.index(
-  { "participants.id": 1, "product.id": 1 },
-  { unique: true }
-);
+chatRoomSchema.index({ participant_ids: 1, "product.id": 1 });
 
 module.exports = mongoose.model("ChatRoom", chatRoomSchema);

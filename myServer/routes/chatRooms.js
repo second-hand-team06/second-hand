@@ -15,6 +15,7 @@ const io = require("socket.io")(server, {
 
 const ChatRoom = require("../models/chatRoom");
 const Message = require("../models/message");
+const User = require("../models/user");
 const { snakeToCamel } = require("../utils/index");
 
 router.use(express.json());
@@ -60,16 +61,27 @@ io.on("connection", (socket) => {
   });
 });
 
+const getParticipants = async (participantIds) => {
+  try {
+    const users = await User.find({ id: { $in: participantIds } });
+
+    return users.map((user) => user.toObject());
+  } catch (error) {
+    console.error("Error fetching users by ids:", error);
+    throw error;
+  }
+};
+
 const getLastMessage = async (roomId) => {
   try {
     const lastMessage = await Message.findOne({ room_id: roomId })
       .sort({ created_at: -1 })
       .exec();
 
-    return lastMessage;
+    return lastMessage === null ? lastMessage : lastMessage.toObject();
   } catch (error) {
     console.error("Error fetching latest message:", error);
-    return null;
+    throw error;
   }
 };
 
@@ -79,23 +91,31 @@ router.get("/", async (req, res) => {
 
   try {
     const chatRooms = await ChatRoom.find({
-      "participants.id": userId,
+      participant_ids: { $in: userId },
     });
 
-    const data = chatRooms.map((room) => {
-      const lastMessage = getLastMessage(room._id);
+    const promises = chatRooms.map(async (room) => {
+      const { participant_ids, _id, ...rest } = room.toObject();
+
+      const [participants, lastMessage] = await Promise.all([
+        getParticipants(participant_ids),
+        getLastMessage(_id),
+      ]);
 
       return {
-        ...snakeToCamel(room.toObject()),
+        ...rest,
+        participants,
         lastMessage,
       };
     });
+
+    const data = await Promise.all(promises);
 
     res.status(200).json({
       status: "success",
       code: 200,
       message: "채팅방 목록 조회 성공",
-      data,
+      data: snakeToCamel(data),
     });
   } catch (error) {
     res.status(500).json({
@@ -111,21 +131,23 @@ router.get("/:id", async (req, res) => {
 
   try {
     const chatRoom = await ChatRoom.findById(roomId);
+    const participants = await getParticipants(chatRoom.participant_ids);
     const msgs = await Message.find({ room_id: roomId });
 
     const data = {
-      participants: chatRoom.participants,
-      product: chatRoom.product,
-      messages: msgs,
+      participants,
+      product: chatRoom.product.toObject(),
+      messages: msgs.map((msg) => msg.toObject()),
     };
 
     return res.status(200).json({
       status: "success",
       code: 200,
       message: "채팅방 정보 조회 성공",
-      data,
+      data: snakeToCamel(data),
     });
   } catch (error) {
+    console.error(error);
     res
       .status(500)
       .json({ code: 500, message: "Error fetching chat room and messages" });
@@ -135,17 +157,14 @@ router.get("/:id", async (req, res) => {
 // 채팅방 생성
 router.post("/", async (req, res) => {
   try {
-    const { participants, product } = req.body;
-    const { id: myId, loginId: myName, profileUrl: myProfileUrl } = req.user;
+    const { participantIds, product } = req.body;
+    const { id: myId } = req.user;
 
-    const allParticipants = [
-      ...participants,
-      { id: myId, name: myName, url: myProfileUrl },
-    ];
+    const allParticipantIds = [...participantIds, myId];
 
     const existingChatRoom = await ChatRoom.findOne({
-      "participants.id": {
-        $all: allParticipants.map(({ id }) => id),
+      participant_ids: {
+        $all: allParticipantIds,
       },
       "product.id": product.id,
     });
@@ -160,7 +179,7 @@ router.post("/", async (req, res) => {
     }
 
     const newChatRoom = new ChatRoom({
-      participants: allParticipants,
+      participant_ids: allParticipantIds,
       product: {
         id: product.id,
         title: product.title,
@@ -180,6 +199,7 @@ router.post("/", async (req, res) => {
       data: { id: chatRoomId },
     });
   } catch (error) {
+    console.error(error);
     res.status(500).json({
       code: 500,
       message: "Error creating chat room",
@@ -213,6 +233,7 @@ router.delete("/:id", async (req, res) => {
       message: "채팅방 삭제 성공",
     });
   } catch (error) {
+    console.error(error);
     res.status(500).json({
       code: 500,
       message: "Error deleting chat room",

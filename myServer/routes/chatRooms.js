@@ -118,6 +118,48 @@ router.get("/", async (req, res) => {
       data: snakeToCamel(data),
     });
   } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      code: 500,
+      message: "Error fetching chat room and messages",
+    });
+  }
+});
+
+// 사용자가 등록한 특정 상품의 채팅 목록
+router.get("/", async (req, res) => {
+  const productId = req.query.productId;
+
+  try {
+    const chatRooms = await ChatRoom.find({
+      "product.id": productId,
+    });
+
+    const promises = chatRooms.map(async (room) => {
+      const { participant_ids, _id, ...rest } = room.toObject();
+
+      const [participants, lastMessage] = await Promise.all([
+        getParticipants(participant_ids),
+        getLastMessage(_id),
+      ]);
+
+      return {
+        ...rest,
+        participants,
+        lastMessage,
+      };
+    });
+
+    const data = await Promise.all(promises);
+
+    res.status(200).json({
+      status: "success",
+      code: 200,
+      message: "특정 상품의 채팅방 목록 조회 성공",
+      data: snakeToCamel(data),
+    });
+  } catch (error) {
+    console.log(error);
     res.status(500).json({
       code: 500,
       message: "Error fetching chat room and messages",

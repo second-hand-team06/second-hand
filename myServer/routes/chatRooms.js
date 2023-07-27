@@ -121,7 +121,7 @@ router.get("/", async (req, res) => {
     console.log(error);
     res.status(500).json({
       code: 500,
-      message: "Error fetching chat room and messages",
+      message: "채팅방 목록 조회에 실패했습니다.",
     });
   }
 });
@@ -162,7 +162,7 @@ router.get("/", async (req, res) => {
     console.log(error);
     res.status(500).json({
       code: 500,
-      message: "Error fetching chat room and messages",
+      message: "특정 상품의 채팅방 목록 조회에 실패했습니다.",
     });
   }
 });
@@ -192,7 +192,7 @@ router.get("/:id", async (req, res) => {
     console.error(error);
     res
       .status(500)
-      .json({ code: 500, message: "Error fetching chat room and messages" });
+      .json({ code: 500, message: "채팅방 정보 조회에 실패했습니다." });
   }
 });
 
@@ -215,7 +215,7 @@ router.post("/", async (req, res) => {
       return res.status(200).json({
         status: "success",
         code: 200,
-        message: "이미 존재하는 채팅방",
+        message: "이미 존재하는 채팅방입니다.",
         data: { id: existingChatRoom._id },
       });
     }
@@ -244,7 +244,7 @@ router.post("/", async (req, res) => {
     console.error(error);
     res.status(500).json({
       code: 500,
-      message: "Error creating chat room",
+      message: "채팅방 생성을 실패했습니다.",
     });
   }
 });
@@ -259,7 +259,7 @@ router.delete("/:id", async (req, res) => {
     if (!chatRoom) {
       return res.status(404).json({
         code: 404,
-        message: "Chat room not found",
+        message: "해당 채팅방이 존재하지 않습니다.",
       });
     }
 
@@ -278,7 +278,7 @@ router.delete("/:id", async (req, res) => {
     console.error(error);
     res.status(500).json({
       code: 500,
-      message: "Error deleting chat room",
+      message: "채팅방 삭제를 실패했습니다.",
     });
   }
 });

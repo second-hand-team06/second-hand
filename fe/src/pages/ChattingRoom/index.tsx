@@ -4,6 +4,7 @@ import { useUserContext } from '@context/userContext';
 import useFetch, { REQUEST_METHOD } from '@hooks/useFetch';
 
 import { REQUEST_URL, ICON_NAME } from '@constants/index';
+import { formatMoney } from '@utils/index';
 
 import Icon from '@components/common/Icon';
 import * as S from './style';
@@ -54,6 +55,13 @@ const ChattingRoom = () => {
         <S.SenderName>{data?.participants.find(({ id }) => id !== user?.id)?.name}</S.SenderName>
         <Icon name={ICON_NAME.ELLIPSIS} />
       </S.Header>
+      <S.Product>
+        <S.ProductPhotoUrl src={data?.product.photoUrl} alt="product-thumbnail" />
+        <S.TitleAndPrice>
+          <S.ProductTitle>{data?.product.title}</S.ProductTitle>
+          <S.ProductPrice>{formatMoney(data?.product.price ?? 0)}</S.ProductPrice>
+        </S.TitleAndPrice>
+      </S.Product>
     </>
   );
 };

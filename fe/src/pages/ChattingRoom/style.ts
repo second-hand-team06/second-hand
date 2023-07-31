@@ -31,4 +31,52 @@ const SenderName = styled.span`
   color: ${({ theme }) => theme.colors.neutral.text.strong};
 `;
 
-export { Header, BackButton, SenderName };
+const Product = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 16px;
+
+  border-bottom: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
+
+  color: ${({ theme }) => theme.colors.neutral.text.strong};
+`;
+
+const ProductPhotoUrl = styled.img`
+  width: 48px;
+  height: 48px;
+
+  border: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
+  border-radius: 8px;
+`;
+
+const ProductTitle = styled.span`
+  font-size: ${({ theme }) => theme.fonts.subhead.fontSize};
+  font-weight: ${({ theme }) => theme.fonts.subhead.fontWeight};
+  line-height: ${({ theme }) => theme.fonts.subhead.lineHeight};
+`;
+
+const ProductPrice = styled.span`
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 510;
+  line-height: 22px;
+`;
+
+const TitleAndPrice = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+`;
+
+export {
+  Header,
+  BackButton,
+  SenderName,
+  Product,
+  ProductPhotoUrl,
+  ProductTitle,
+  ProductPrice,
+  TitleAndPrice,
+};

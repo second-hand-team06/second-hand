@@ -27,105 +27,26 @@ interface Region {
   name: string;
 }
 
-interface regionData {
+interface RegionData {
   regions: Region[];
 }
 
 const NewProduct = () => {
-  const token = localStorage.getItem('Token');
-  const options: RequestInit = {
-    method: REQUEST_METHOD.GET,
-    headers: token ? { Authorization: `Bearer ${token}` } : {},
-  };
-
-  const { responseState: getRegionState, data: regionData } = useFetch<regionData>({
-    url: REQUEST_URL.USER_REGIONS,
-    options,
-  });
-
-  console.log(regionData?.regions[0].name.split(' ')[2]);
-  const [isOpenCategory, setIsOpenCategory] = useState(false);
+  // post 보낼 data state 정리
+  const [images, setImages] = useState<File[]>([]);
+  const [title, setTitle] = useState('');
   const [category, setCategory] = useState({
     id: 0,
     name: '',
   });
-
-  const categoryToggleClickHandler = () => {
-    setIsOpenCategory((prev) => !prev);
-  };
-
-  const categorySelectClickHandler = ({ id, name }: Category) => {
-    setCategory({
-      id,
-      name,
-    });
-  };
-
-  const navigate = useNavigate();
-
-  const [title, setTitle] = useState('');
+  const [price, setPrice] = useState('');
   const [content, setContent] = useState('');
   // const [region, setRegion] = useState('');
-  const [price, setPrice] = useState('');
-  const [images, setImages] = useState<File[]>([]);
-
-  const { responseState, fetchData, data } = useFetch<UseFetchProps>({
-    url: REQUEST_URL.POSTS,
-    options: {
-      method: REQUEST_METHOD.POST,
-      headers: { Authorization: `Bearer ${localStorage.getItem('Token')}` },
-    },
-    skip: true,
-  });
-
-  const submitHandler = async () => {
-    const formData = new FormData();
-
-    formData.append('title', title);
-    formData.append('regionId', `${1}`);
-    formData.append('categoryId', category.id.toString());
-    formData.append('price', price);
-    formData.append('badgeId', `${1}`);
-    formData.append('content', content);
-
-    if (images.length > 0) {
-      for (let i = 0; i < images.length; i++) {
-        formData.append('photos', images[i]);
-      }
-    }
-
-    if (responseState === 'IDLE') {
-      await fetchData(formData);
-    }
-
-    if (responseState === 'SUCCESS') {
-      navigate(`${PATH.PRODUCT_DETAIL}/${data?.id}`, { state: { beforePage: PATH.NEW_PRODUCT } });
-    }
-
-    if (responseState === 'ERROR') {
-      alert('상품 상태 수정에 실패했습니다.');
-      return;
-    }
-  };
-
-  const titleChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setTitle(value);
-  };
-
-  const priceChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setPrice(value);
-  };
-
-  const contentChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    const { value } = e.target;
-    setContent(value);
-  };
+  
+  const [isOpenCategory, setIsOpenCategory] = useState(false);
 
   const imageUploadHandler = (selectedFiles: FileList) => {
     const selectedFilesArray = Array.from(selectedFiles);
-
     const imagesArray: File[] = selectedFilesArray.map((file: File) => {
       return file;
     });
@@ -135,54 +56,135 @@ const NewProduct = () => {
 
   const deleteImageHandler = (image: File) => {
     setImages((previousImages) => previousImages.filter((img) => img !== image));
-  };
 
-  return (
-    <>
-      {isOpenCategory && (
-        <ModalPortal>
-          <CategoryList
+    const titleChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+      const { value } = e.target;
+      setTitle(value);
+    };
+
+    const categoryToggleClickHandler = () => {
+      setIsOpenCategory((prev) => !prev);
+    };
+
+    const categorySelectClickHandler = ({ id, name }: Category) => {
+      setCategory({
+        id,
+        name,
+      });
+    };
+
+    const priceChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+      const { value } = e.target;
+      setPrice(value);
+    };
+
+    const contentChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+      const { value } = e.target;
+      setContent(value);
+    };
+
+    // fetch 처리 (동네 데이터 get)
+    const token = localStorage.getItem('Token');
+
+    const { responseState: getRegionState, data: regionData } = useFetch<RegionData>({
+      url: REQUEST_URL.USER_REGIONS,
+      options: {
+        method: REQUEST_METHOD.GET,
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      },
+    });
+
+    const currentRegion = regionData?.regions[0].name.split(' ')[2];
+
+    const {
+      responseState: postSubmitState,
+      fetchData,
+      data: submitData,
+    } = useFetch<UseFetchProps>({
+      url: REQUEST_URL.POSTS,
+      options: {
+        method: REQUEST_METHOD.POST,
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      },
+      skip: true,
+    });
+
+    const submitHandler = async () => {
+      const navigate = useNavigate();
+      const formData = new FormData();
+
+      formData.append('title', title);
+      formData.append('regionId', `${1}`);
+      formData.append('categoryId', category.id.toString());
+      formData.append('price', price);
+      formData.append('badgeId', `${1}`);
+      formData.append('content', content);
+
+      if (images.length > 0) {
+        for (let i = 0; i < images.length; i++) {
+          formData.append('photos', images[i]);
+        }
+      }
+
+      if (postSubmitState === 'IDLE') {
+        await fetchData(formData);
+      }
+
+      if (postSubmitState === 'SUCCESS') {
+        navigate(`${PATH.PRODUCT_DETAIL}/${submitData?.id}`, { state: { beforePage: PATH.NEW_PRODUCT } });
+      }
+
+      if (postSubmitState === 'ERROR') {
+        alert('상품 등록에 실패했습니다.');
+        return;
+      }
+    };
+
+    return (
+      <>
+        {isOpenCategory && (
+          <ModalPortal>
+            <CategoryList
+              category={category}
+              onCategoryToggleClick={categoryToggleClickHandler}
+              onCategorySelectClick={categorySelectClickHandler}
+            />
+          </ModalPortal>
+        )}
+        <S.Header>
+          <Link to={PATH.HOME}>
+            <S.CloseButton>닫기</S.CloseButton>
+          </Link>
+          <span>내 물건 팔기</span>
+          <S.CompleteButton onClick={submitHandler}>완료</S.CompleteButton>
+        </S.Header>
+        <S.LayoutContent>
+          <ImageInput onChange={imageUploadHandler} onDelete={deleteImageHandler} images={images} />
+          <TitleInput
+            title={title}
             category={category}
+            onChange={titleChangeHandler}
             onCategoryToggleClick={categoryToggleClickHandler}
             onCategorySelectClick={categorySelectClickHandler}
           />
-        </ModalPortal>
-      )}
-      <S.Header>
-        <Link to={PATH.HOME}>
-          <S.CloseButton>닫기</S.CloseButton>
-        </Link>
-        <span>내 물건 팔기</span>
-        <S.CompleteButton onClick={submitHandler}>완료</S.CompleteButton>
-      </S.Header>
-      <S.LayoutContent>
-        <ImageInput onChange={imageUploadHandler} onDelete={deleteImageHandler} images={images} />
-        <TitleInput
-          title={title}
-          category={category}
-          onChange={titleChangeHandler}
-          onCategoryToggleClick={categoryToggleClickHandler}
-          onCategorySelectClick={categorySelectClickHandler}
-        />
-        <S.TextInput onChange={priceChangeHandler} placeholder="₩ 가격 (선택사항)" />
-        <S.TextArea
-          onChange={contentChangeHandler}
-          placeholder={`${
-            getRegionState === 'SUCCESS' ? regionData?.regions[0].name.split(' ')[2] : ''
-          }에 올릴 게시물 내용을 작성해주세요.(판매금지 물품은 게시가 제한될 수 있어요.)`}
-        />
-      </S.LayoutContent>
-      <S.TabBar>
-        <S.RegionSettingButton>
-          <Icon name={ICON_NAME.REGION_SETTING} fill="black" />
-          <span>{getRegionState === 'SUCCESS' ? regionData?.regions[0].name.split(' ')[2] : ''}</span>
-        </S.RegionSettingButton>
-        <S.Keyboard>
-          <Icon name={ICON_NAME.KEYBOARD} fill="black" />
-        </S.Keyboard>
-      </S.TabBar>
-    </>
-  );
+          <S.TextInput onChange={priceChangeHandler} placeholder="₩ 가격 (선택사항)" />
+          <S.TextArea
+            onChange={contentChangeHandler}
+            placeholder={`${currentRegion}에 올릴 게시물 내용을 작성해주세요.(판매금지 물품은 게시가 제한될 수 있어요.)`}
+          />
+        </S.LayoutContent>
+        <S.TabBar>
+          <S.RegionSettingButton>
+            <Icon name={ICON_NAME.REGION_SETTING} fill="black" />
+            <span>{getRegionState === 'SUCCESS' ? regionData?.regions[0].name.split(' ')[2] : ''}</span>
+          </S.RegionSettingButton>
+          <S.Keyboard>
+            <Icon name={ICON_NAME.KEYBOARD} fill="black" />
+          </S.Keyboard>
+        </S.TabBar>
+      </>
+    );
+  };
 };
 
 export default NewProduct;

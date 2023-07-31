@@ -70,6 +70,49 @@ const TitleAndPrice = styled.div`
   gap: 4px;
 `;
 
+const ToolBar = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  position: fixed;
+  bottom: 0;
+
+  width: 100%;
+  height: 83px;
+  padding: 4px 16px;
+
+  background-color: ${({ theme }) => theme.colors.neutral.background.weak};
+  border-top: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
+`;
+
+const Input = styled.input`
+  width: 100%;
+  height: 36px;
+  padding: 4px 12px;
+
+  background-color: ${({ theme }) => theme.colors.neutral.background.default};
+  border: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
+  border-radius: 18px;
+
+  font-size: ${({ theme }) => theme.fonts.body.regular.fontSize};
+  font-weight: ${({ theme }) => theme.fonts.body.regular.fontWeight};
+  line-height: ${({ theme }) => theme.fonts.body.regular.lineHeight};
+  color: ${({ theme }) => theme.colors.neutral.text.weak};
+`;
+
+const SendMessageButton = styled.button`
+  width: 28px;
+  height: 28px;
+
+  background-color: ${({ theme }) => theme.colors.accent.background.primary};
+  border-radius: 50%;
+
+  & > svg {
+    fill: ${({ theme }) => theme.colors.accent.text.default};
+  }
+`;
+
 export {
   Header,
   BackButton,
@@ -79,4 +122,7 @@ export {
   ProductTitle,
   ProductPrice,
   TitleAndPrice,
+  ToolBar,
+  Input,
+  SendMessageButton,
 };

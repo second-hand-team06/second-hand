@@ -62,6 +62,12 @@ const ChattingRoom = () => {
           <S.ProductPrice>{formatMoney(data?.product.price ?? 0)}</S.ProductPrice>
         </S.TitleAndPrice>
       </S.Product>
+      <S.ToolBar>
+        <S.Input type="text" placeholder="내용을 입력하세요" />
+        <S.SendMessageButton>
+          <Icon name={ICON_NAME.ARROW_UP} />
+        </S.SendMessageButton>
+      </S.ToolBar>
     </>
   );
 };

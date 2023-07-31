@@ -18,10 +18,6 @@ export interface Category {
   name: string;
 }
 
-interface UseFetchProps {
-  id: number;
-}
-
 interface Region {
   id: number;
   name: string;
@@ -29,6 +25,10 @@ interface Region {
 
 interface RegionData {
   regions: Region[];
+}
+
+interface Product {
+  id: number;
 }
 
 const NewProduct = () => {
@@ -99,8 +99,8 @@ const NewProduct = () => {
     const {
       responseState: postSubmitState,
       fetchData,
-      data: submitData,
-    } = useFetch<UseFetchProps>({
+      data: productData,
+    } = useFetch<Product>({
       url: REQUEST_URL.POSTS,
       options: {
         method: REQUEST_METHOD.POST,
@@ -131,7 +131,7 @@ const NewProduct = () => {
       }
 
       if (postSubmitState === 'SUCCESS') {
-        navigate(`${PATH.PRODUCT_DETAIL}/${submitData?.id}`, { state: { beforePage: PATH.NEW_PRODUCT } });
+        navigate(`${PATH.PRODUCT_DETAIL}/${productData?.id}`, { state: { beforePage: PATH.NEW_PRODUCT } });
       }
 
       if (postSubmitState === 'ERROR') {

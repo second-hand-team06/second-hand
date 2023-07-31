@@ -54,7 +54,7 @@ const NewProduct = () => {
     setImages((previousImages) => [...previousImages, ...imagesArray]);
   };
 
-  const deleteImageHandler = (image: File) => {
+  const imageDeleteHandler = (image: File) => {
     setImages((previousImages) => previousImages.filter((img) => img !== image));
 
     const titleChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -159,7 +159,7 @@ const NewProduct = () => {
           <S.CompleteButton onClick={submitHandler}>완료</S.CompleteButton>
         </S.Header>
         <S.LayoutContent>
-          <ImageInput onChange={imageUploadHandler} onDelete={deleteImageHandler} images={images} />
+          <ImageInput onChange={imageUploadHandler} onDelete={imageDeleteHandler} images={images} />
           <TitleInput
             title={title}
             category={category}

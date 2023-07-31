@@ -5,6 +5,9 @@ import Message from '.';
 const messageMeta: Meta<typeof Message> = {
   title: 'common/Message',
   component: Message,
+  argTypes: {
+    type: { options: ['you', 'me'], control: { type: 'radio' } },
+  },
 };
 
 export default messageMeta;

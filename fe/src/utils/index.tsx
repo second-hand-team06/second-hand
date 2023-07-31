@@ -86,4 +86,4 @@ class CustomError extends Error {
   }
 }
 
-export { getTextWithTimeStamp, formatMoney, getRegion, getUserInfo, CustomError };
+export { getTimeStamp, getTextWithTimeStamp, formatMoney, getRegion, getUserInfo, CustomError };

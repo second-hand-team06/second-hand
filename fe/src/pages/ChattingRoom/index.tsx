@@ -28,8 +28,8 @@ interface ChatRoomData {
     id: number;
     title: string;
     price: number;
-
     photoUrl: string;
+    state: '광고' | '예약 중' | '판매 중' | '판매 완료';
   };
   unreadCount: number;
   lastMessage: Message;
@@ -57,10 +57,13 @@ const ChattingRoom = () => {
       </S.Header>
       <S.Product>
         <S.ProductPhotoUrl src={data?.product.photoUrl} alt="product-thumbnail" />
-        <S.TitleAndPrice>
-          <S.ProductTitle>{data?.product.title}</S.ProductTitle>
+        <S.ProductInfo>
+          <S.StateAndTitle>
+            <S.ProductState>{data?.product.state}</S.ProductState>
+            <S.ProductTitle>{data?.product.title}</S.ProductTitle>
+          </S.StateAndTitle>
           <S.ProductPrice>{formatMoney(data?.product.price ?? 0)}</S.ProductPrice>
-        </S.TitleAndPrice>
+        </S.ProductInfo>
       </S.Product>
       <S.ToolBar>
         <S.Input type="text" placeholder="내용을 입력하세요" />

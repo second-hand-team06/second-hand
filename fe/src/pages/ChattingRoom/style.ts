@@ -53,10 +53,22 @@ const ProductPhotoUrl = styled.img`
   object-fit: cover;
 `;
 
+const ProductState = styled.span`
+  font-size: ${({ theme }) => theme.fonts.body.bold.fontSize};
+  font-weight: ${({ theme }) => theme.fonts.body.bold.fontWeight};
+  line-height: ${({ theme }) => theme.fonts.body.bold.lineHeight};
+`;
+
 const ProductTitle = styled.span`
   font-size: ${({ theme }) => theme.fonts.subhead.fontSize};
   font-weight: ${({ theme }) => theme.fonts.subhead.fontWeight};
   line-height: ${({ theme }) => theme.fonts.subhead.lineHeight};
+`;
+
+const StateAndTitle = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 4px;
 `;
 
 const ProductPrice = styled.span`
@@ -66,7 +78,7 @@ const ProductPrice = styled.span`
   line-height: 22px;
 `;
 
-const TitleAndPrice = styled.div`
+const ProductInfo = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -121,9 +133,11 @@ export {
   SenderName,
   Product,
   ProductPhotoUrl,
+  ProductState,
   ProductTitle,
+  StateAndTitle,
   ProductPrice,
-  TitleAndPrice,
+  ProductInfo,
   ToolBar,
   Input,
   SendMessageButton,

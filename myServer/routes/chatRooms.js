@@ -227,6 +227,7 @@ router.post("/", async (req, res) => {
         title: product.title,
         price: product.price,
         photo_url: product.photoUrl,
+        state: product.state,
       },
       last_message: null,
     });

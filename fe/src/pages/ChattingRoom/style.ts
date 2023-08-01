@@ -49,6 +49,8 @@ const ProductPhotoUrl = styled.img`
 
   border: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
   border-radius: 8px;
+
+  object-fit: cover;
 `;
 
 const ProductTitle = styled.span`

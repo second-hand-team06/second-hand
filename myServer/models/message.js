@@ -6,8 +6,8 @@ const {
 
 const messageSchema = new Schema(
   {
-    room_id: { type: ObjectId, required: true, unique: true },
-    sender_id: { type: Number, required: true, unique: true },
+    room_id: { type: ObjectId, required: true },
+    sender_id: { type: Number, required: true },
     content: { type: String, required: true },
   },
   { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } }

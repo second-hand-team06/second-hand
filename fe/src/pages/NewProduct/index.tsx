@@ -93,7 +93,7 @@ const NewProduct = () => {
     },
   });
 
-  const currentRegion = regionData?.regions[0].name.split(' ')[2];
+  const currentRegion = getRegionState === 'SUCCESS' ? regionData?.regions[0].name.split(' ')[2] : '';
 
   const {
     responseState: postSubmitState,
@@ -175,7 +175,7 @@ const NewProduct = () => {
       <S.TabBar>
         <S.RegionSettingButton>
           <Icon name={ICON_NAME.REGION_SETTING} fill="black" />
-          <span>{getRegionState === 'SUCCESS' ? regionData?.regions[0].name.split(' ')[2] : ''}</span>
+          <span>{currentRegion}</span>
         </S.RegionSettingButton>
         <S.Keyboard>
           <Icon name={ICON_NAME.KEYBOARD} fill="black" />

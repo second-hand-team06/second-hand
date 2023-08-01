@@ -44,7 +44,7 @@ const NewProduct = () => {
 
   const [isOpenCategory, setIsOpenCategory] = useState(false);
 
-  const imageUploadHandler = (selectedFiles: FileList) => {
+  const handleImageUpload = (selectedFiles: FileList) => {
     const selectedFilesArray = Array.from(selectedFiles);
     const imagesArray: File[] = selectedFilesArray.map((file: File) => {
       return file;
@@ -53,27 +53,27 @@ const NewProduct = () => {
     setImages((previousImages) => [...previousImages, ...imagesArray]);
   };
 
-  const imageDeleteHandler = (image: File) => {
+  const handleImageDelete = (image: File) => {
     setImages((previousImages) => previousImages.filter((img) => img !== image));
   };
 
-  const titleChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setTitle(value);
   };
 
-  const categoryToggleClickHandler = () => {
+  const handleCategoryToggleClick = () => {
     setIsOpenCategory((prev) => !prev);
   };
 
-  const categorySelectClickHandler = ({ id, name }: Category) => {
+  const handleCategorySelectClick = ({ id, name }: Category) => {
     setCategory({
       id,
       name,
     });
   };
 
-  const priceChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  const handlePriceChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setPrice(value);
   };
@@ -108,7 +108,7 @@ const NewProduct = () => {
     skip: true,
   });
 
-  const submitHandler = async () => {
+  const handleSubmitClick = async () => {
     const navigate = useNavigate();
     const formData = new FormData();
 
@@ -145,8 +145,8 @@ const NewProduct = () => {
         <ModalPortal>
           <CategoryList
             category={category}
-            onCategoryToggleClick={categoryToggleClickHandler}
-            onCategorySelectClick={categorySelectClickHandler}
+            onCategoryToggleClick={handleCategoryToggleClick}
+            onCategorySelectClick={handleCategorySelectClick}
           />
         </ModalPortal>
       )}
@@ -155,18 +155,18 @@ const NewProduct = () => {
           <S.CloseButton>닫기</S.CloseButton>
         </Link>
         <span>내 물건 팔기</span>
-        <S.CompleteButton onClick={submitHandler}>완료</S.CompleteButton>
+        <S.CompleteButton onClick={handleSubmitClick}>완료</S.CompleteButton>
       </S.Header>
       <S.LayoutContent>
-        <ImageInput onChange={imageUploadHandler} onDelete={imageDeleteHandler} images={images} />
+        <ImageInput onChange={handleImageUpload} onDelete={handleImageDelete} images={images} />
         <TitleInput
           title={title}
           category={category}
-          onChange={titleChangeHandler}
-          onCategoryToggleClick={categoryToggleClickHandler}
-          onCategorySelectClick={categorySelectClickHandler}
+          onChange={handleTitleChange}
+          onCategoryToggleClick={handleCategoryToggleClick}
+          onCategorySelectClick={handleCategorySelectClick}
         />
-        <S.TextInput onChange={priceChangeHandler} placeholder="₩ 가격 (선택사항)" />
+        <S.TextInput onChange={handlePriceChange} placeholder="₩ 가격 (선택사항)" />
         <S.TextArea
           onChange={contentChangeHandler}
           placeholder={`${currentRegion}에 올릴 게시물 내용을 작성해주세요.(판매금지 물품은 게시가 제한될 수 있어요.)`}

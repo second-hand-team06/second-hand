@@ -62,6 +62,7 @@ const CategoryItem = styled.li`
 
   &.active {
     color: ${PALETTE.ORANGE};
+  }
 `;
 
 export { CategoryList, Header, HeaderTitle, CloseButton, EmptyTag, CategoryListLayout, CategoryItem };

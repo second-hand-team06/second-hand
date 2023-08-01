@@ -32,7 +32,6 @@ interface Product {
 }
 
 const NewProduct = () => {
-  // post 보낼 data state 정리
   const [images, setImages] = useState<File[]>([]);
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState({
@@ -42,7 +41,7 @@ const NewProduct = () => {
   const [price, setPrice] = useState('');
   const [content, setContent] = useState('');
   // const [region, setRegion] = useState('');
-  
+
   const [isOpenCategory, setIsOpenCategory] = useState(false);
 
   const imageUploadHandler = (selectedFiles: FileList) => {
@@ -56,135 +55,134 @@ const NewProduct = () => {
 
   const imageDeleteHandler = (image: File) => {
     setImages((previousImages) => previousImages.filter((img) => img !== image));
+  };
 
-    const titleChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-      const { value } = e.target;
-      setTitle(value);
-    };
+  const titleChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setTitle(value);
+  };
 
-    const categoryToggleClickHandler = () => {
-      setIsOpenCategory((prev) => !prev);
-    };
+  const categoryToggleClickHandler = () => {
+    setIsOpenCategory((prev) => !prev);
+  };
 
-    const categorySelectClickHandler = ({ id, name }: Category) => {
-      setCategory({
-        id,
-        name,
-      });
-    };
-
-    const priceChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-      const { value } = e.target;
-      setPrice(value);
-    };
-
-    const contentChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-      const { value } = e.target;
-      setContent(value);
-    };
-
-    // fetch 처리 (동네 데이터 get)
-    const token = localStorage.getItem('Token');
-
-    const { responseState: getRegionState, data: regionData } = useFetch<RegionData>({
-      url: REQUEST_URL.USER_REGIONS,
-      options: {
-        method: REQUEST_METHOD.GET,
-        headers: token ? { Authorization: `Bearer ${token}` } : {},
-      },
+  const categorySelectClickHandler = ({ id, name }: Category) => {
+    setCategory({
+      id,
+      name,
     });
+  };
 
-    const currentRegion = regionData?.regions[0].name.split(' ')[2];
+  const priceChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setPrice(value);
+  };
 
-    const {
-      responseState: postSubmitState,
-      fetchData,
-      data: productData,
-    } = useFetch<Product>({
-      url: REQUEST_URL.POSTS,
-      options: {
-        method: REQUEST_METHOD.POST,
-        headers: token ? { Authorization: `Bearer ${token}` } : {},
-      },
-      skip: true,
-    });
+  const contentChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const { value } = e.target;
+    setContent(value);
+  };
 
-    const submitHandler = async () => {
-      const navigate = useNavigate();
-      const formData = new FormData();
+  const token = localStorage.getItem('Token');
 
-      formData.append('title', title);
-      formData.append('regionId', `${1}`);
-      formData.append('categoryId', category.id.toString());
-      formData.append('price', price);
-      formData.append('badgeId', `${1}`);
-      formData.append('content', content);
+  const { responseState: getRegionState, data: regionData } = useFetch<RegionData>({
+    url: REQUEST_URL.USER_REGIONS,
+    options: {
+      method: REQUEST_METHOD.GET,
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    },
+  });
 
-      if (images.length > 0) {
-        for (let i = 0; i < images.length; i++) {
-          formData.append('photos', images[i]);
-        }
+  const currentRegion = regionData?.regions[0].name.split(' ')[2];
+
+  const {
+    responseState: postSubmitState,
+    fetchData,
+    data: productData,
+  } = useFetch<Product>({
+    url: REQUEST_URL.POSTS,
+    options: {
+      method: REQUEST_METHOD.POST,
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    },
+    skip: true,
+  });
+
+  const submitHandler = async () => {
+    const navigate = useNavigate();
+    const formData = new FormData();
+
+    formData.append('title', title);
+    formData.append('regionId', `${1}`);
+    formData.append('categoryId', category.id.toString());
+    formData.append('price', price);
+    formData.append('badgeId', `${1}`);
+    formData.append('content', content);
+
+    if (images.length > 0) {
+      for (let i = 0; i < images.length; i++) {
+        formData.append('photos', images[i]);
       }
+    }
 
-      if (postSubmitState === 'IDLE') {
-        await fetchData(formData);
-      }
+    if (postSubmitState === 'IDLE') {
+      await fetchData(formData);
+    }
 
-      if (postSubmitState === 'SUCCESS') {
-        navigate(`${PATH.PRODUCT_DETAIL}/${productData?.id}`, { state: { beforePage: PATH.NEW_PRODUCT } });
-      }
+    if (postSubmitState === 'SUCCESS') {
+      navigate(`${PATH.PRODUCT_DETAIL}/${productData?.id}`, { state: { beforePage: PATH.NEW_PRODUCT } });
+    }
 
-      if (postSubmitState === 'ERROR') {
-        alert('상품 등록에 실패했습니다.');
-        return;
-      }
-    };
+    if (postSubmitState === 'ERROR') {
+      alert('상품 등록에 실패했습니다.');
+      return;
+    }
+  };
 
-    return (
-      <>
-        {isOpenCategory && (
-          <ModalPortal>
-            <CategoryList
-              category={category}
-              onCategoryToggleClick={categoryToggleClickHandler}
-              onCategorySelectClick={categorySelectClickHandler}
-            />
-          </ModalPortal>
-        )}
-        <S.Header>
-          <Link to={PATH.HOME}>
-            <S.CloseButton>닫기</S.CloseButton>
-          </Link>
-          <span>내 물건 팔기</span>
-          <S.CompleteButton onClick={submitHandler}>완료</S.CompleteButton>
-        </S.Header>
-        <S.LayoutContent>
-          <ImageInput onChange={imageUploadHandler} onDelete={imageDeleteHandler} images={images} />
-          <TitleInput
-            title={title}
+  return (
+    <>
+      {isOpenCategory && (
+        <ModalPortal>
+          <CategoryList
             category={category}
-            onChange={titleChangeHandler}
             onCategoryToggleClick={categoryToggleClickHandler}
             onCategorySelectClick={categorySelectClickHandler}
           />
-          <S.TextInput onChange={priceChangeHandler} placeholder="₩ 가격 (선택사항)" />
-          <S.TextArea
-            onChange={contentChangeHandler}
-            placeholder={`${currentRegion}에 올릴 게시물 내용을 작성해주세요.(판매금지 물품은 게시가 제한될 수 있어요.)`}
-          />
-        </S.LayoutContent>
-        <S.TabBar>
-          <S.RegionSettingButton>
-            <Icon name={ICON_NAME.REGION_SETTING} fill="black" />
-            <span>{getRegionState === 'SUCCESS' ? regionData?.regions[0].name.split(' ')[2] : ''}</span>
-          </S.RegionSettingButton>
-          <S.Keyboard>
-            <Icon name={ICON_NAME.KEYBOARD} fill="black" />
-          </S.Keyboard>
-        </S.TabBar>
-      </>
-    );
-  };
+        </ModalPortal>
+      )}
+      <S.Header>
+        <Link to={PATH.HOME}>
+          <S.CloseButton>닫기</S.CloseButton>
+        </Link>
+        <span>내 물건 팔기</span>
+        <S.CompleteButton onClick={submitHandler}>완료</S.CompleteButton>
+      </S.Header>
+      <S.LayoutContent>
+        <ImageInput onChange={imageUploadHandler} onDelete={imageDeleteHandler} images={images} />
+        <TitleInput
+          title={title}
+          category={category}
+          onChange={titleChangeHandler}
+          onCategoryToggleClick={categoryToggleClickHandler}
+          onCategorySelectClick={categorySelectClickHandler}
+        />
+        <S.TextInput onChange={priceChangeHandler} placeholder="₩ 가격 (선택사항)" />
+        <S.TextArea
+          onChange={contentChangeHandler}
+          placeholder={`${currentRegion}에 올릴 게시물 내용을 작성해주세요.(판매금지 물품은 게시가 제한될 수 있어요.)`}
+        />
+      </S.LayoutContent>
+      <S.TabBar>
+        <S.RegionSettingButton>
+          <Icon name={ICON_NAME.REGION_SETTING} fill="black" />
+          <span>{getRegionState === 'SUCCESS' ? regionData?.regions[0].name.split(' ')[2] : ''}</span>
+        </S.RegionSettingButton>
+        <S.Keyboard>
+          <Icon name={ICON_NAME.KEYBOARD} fill="black" />
+        </S.Keyboard>
+      </S.TabBar>
+    </>
+  );
 };
 
 export default NewProduct;

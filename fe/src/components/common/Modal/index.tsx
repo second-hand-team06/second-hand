@@ -8,10 +8,10 @@ interface Option {
 
 interface ModalProps {
   options: Option[];
-  closeModalHandler: () => void;
+  onModalClose: () => void;
 }
 
-const Modal = ({ options, closeModalHandler }: ModalProps) => {
+const Modal = ({ options, onModalClose }: ModalProps) => {
   return (
     <>
       <S.Modal>
@@ -22,7 +22,7 @@ const Modal = ({ options, closeModalHandler }: ModalProps) => {
             </S.Option>
           ))}
         </S.Options>
-        <S.CancelButton onClick={closeModalHandler}>취소</S.CancelButton>
+        <S.CancelButton onClick={onModalClose}>취소</S.CancelButton>
       </S.Modal>
       <S.Overlay />
     </>

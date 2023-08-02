@@ -17,7 +17,7 @@ export const ProductDetailModal: ModalStory = {
       { text: '게시글 수정', colorType: 'default', handler: () => console.log('게시글 수정') },
       { text: '삭제', colorType: 'warning', handler: () => console.log('삭제') },
     ],
-    closeModalHandler: () => console.log('모달 닫힌다~'),
+    onModalClose: () => console.log('모달 닫힌다~'),
   },
 };
 
@@ -28,7 +28,7 @@ export const ChattingDetailModal: ModalStory = {
       { text: '신고 하기', colorType: 'default', handler: () => console.log('신고 하기') },
       { text: '채팅방 나가기', colorType: 'warning', handler: () => console.log('채팅방 나가기') },
     ],
-    closeModalHandler: () => console.log('모달 닫힌다~'),
+    onModalClose: () => console.log('모달 닫힌다~'),
   },
 };
 
@@ -48,6 +48,6 @@ export const SalesModal: ModalStory = {
       },
       { text: '삭제', colorType: 'warning', handler: () => console.log('삭제') },
     ],
-    closeModalHandler: () => console.log('모달 닫힌다~'),
+    onModalClose: () => console.log('모달 닫힌다~'),
   },
 };

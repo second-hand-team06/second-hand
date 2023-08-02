@@ -78,7 +78,7 @@ const ProductDetailHeader = ({ postId, isSeller }: ProductDetailHeaderProps) => 
               { text: '게시글 수정', colorType: 'default', handler: () => console.log('게시글 수정') },
               { text: '삭제', colorType: 'warning', handler: openPopup },
             ]}
-            closeModalHandler={() => setIsModalOpen(false)}
+            onModalClose={() => setIsModalOpen(false)}
           />
         </ModalPortal>
       )}

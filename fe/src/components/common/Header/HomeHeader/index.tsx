@@ -75,7 +75,7 @@ const HomeHeader = ({ regions, changeUserRegions }: HomeHeaderProps) => {
         }
         selectedValue={getRegion(selectedRegion.name)}
         options={regionOptions}
-        clickOptionHandler={clickRegionHandler}
+        onOptionClick={clickRegionHandler}
       />
 
       <Link to={PATH.CATEGORY}>

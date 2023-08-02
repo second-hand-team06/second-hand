@@ -10,10 +10,10 @@ interface DropdownProps {
   DropdownButton: React.ReactNode;
   selectedValue: string;
   options: Option[];
-  clickOptionHandler: (event: React.MouseEvent<HTMLDivElement>) => void;
+  onOptionClick: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-const Dropdown = ({ DropdownButton, selectedValue, options, clickOptionHandler }: DropdownProps) => {
+const Dropdown = ({ DropdownButton, selectedValue, options, onOptionClick }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -23,7 +23,7 @@ const Dropdown = ({ DropdownButton, selectedValue, options, clickOptionHandler }
   };
 
   const clickDropdownHandler = (e: React.MouseEvent<HTMLDivElement>) => {
-    clickOptionHandler(e);
+    onOptionClick(e);
     setIsOpen(false);
   };
 

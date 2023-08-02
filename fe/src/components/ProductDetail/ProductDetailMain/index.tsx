@@ -129,7 +129,7 @@ const ProductDetailMain = ({
                 }
                 selectedValue={productState}
                 options={badgeOptions}
-                clickOptionHandler={clickProductStateHandler}
+                onOptionClick={clickProductStateHandler}
               />
             </S.DropdownLayout>
           )}

@@ -72,7 +72,7 @@ const ProductDetailMain = ({
     skip: true,
   });
 
-  const getBadgeOptions = async () => {
+  const handleDropdownToggleBtnClick = async () => {
     await getBadgesData();
   };
 
@@ -85,7 +85,7 @@ const ProductDetailMain = ({
     }));
   }, [badgesData]);
 
-  const clickProductStateHandler = async ({ target }: React.MouseEvent<HTMLDivElement>) => {
+  const handleProductStateClick = async ({ target }: React.MouseEvent<HTMLDivElement>) => {
     if (!(target instanceof HTMLDivElement)) return;
 
     const clickedProductState = target.textContent;
@@ -122,14 +122,14 @@ const ProductDetailMain = ({
             <S.DropdownLayout>
               <Dropdown
                 DropdownButton={
-                  <S.DropdownToggleButton onClick={getBadgeOptions}>
+                  <S.DropdownToggleButton onClick={handleDropdownToggleBtnClick}>
                     <span>{productState}</span>
                     <Icon name={ICON_NAME.CHEVRON_DOWN} />
                   </S.DropdownToggleButton>
                 }
                 selectedValue={productState}
                 options={badgeOptions}
-                onOptionClick={clickProductStateHandler}
+                onOptionClick={handleProductStateClick}
               />
             </S.DropdownLayout>
           )}

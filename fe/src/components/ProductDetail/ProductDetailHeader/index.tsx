@@ -31,7 +31,7 @@ const ProductDetailHeader = ({ postId, isSeller }: ProductDetailHeaderProps) => 
     skip: true,
   });
 
-  const deleteProduct = () => {
+  const handleDeletePostBtnClick = () => {
     deletePost();
 
     if (deletePostState === 'ERROR') {
@@ -44,7 +44,7 @@ const ProductDetailHeader = ({ postId, isSeller }: ProductDetailHeaderProps) => 
 
   const openPopup = () => setIsPopupOpen(true);
 
-  const goBackHandler = () => {
+  const handleGoBackBtnClick = () => {
     if (location.state?.beforePage === PATH.NEW_PRODUCT) {
       navigate('/');
       return;
@@ -55,7 +55,7 @@ const ProductDetailHeader = ({ postId, isSeller }: ProductDetailHeaderProps) => 
 
   return (
     <S.Header>
-      <button onClick={goBackHandler}>
+      <button onClick={handleGoBackBtnClick}>
         <Icon name={ICON_NAME.CHEVRON_LEFT} />
       </button>
       {isSeller && (
@@ -67,7 +67,7 @@ const ProductDetailHeader = ({ postId, isSeller }: ProductDetailHeaderProps) => 
         <ModalPortal>
           <Popup text="정말로 해당 게시물을 삭제할 것입니까?">
             <S.ClosePopupButton onClick={() => setIsPopupOpen(false)}>아니오</S.ClosePopupButton>
-            <S.DeletePostButton onClick={deleteProduct}>예</S.DeletePostButton>
+            <S.DeletePostButton onClick={handleDeletePostBtnClick}>예</S.DeletePostButton>
           </Popup>
         </ModalPortal>
       )}

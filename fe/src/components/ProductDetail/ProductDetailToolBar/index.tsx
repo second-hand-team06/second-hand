@@ -52,7 +52,7 @@ const ProductDetailToolBar = ({
       )}
 
       {showAlertMessage && (
-        <ToastMessage message="채팅한 이웃이 없습니다." closeHandler={() => setShowAlertMessage(false)} />
+        <ToastMessage message="채팅한 이웃이 없습니다." onClose={() => setShowAlertMessage(false)} />
       )}
     </S.ToolBar>
   );

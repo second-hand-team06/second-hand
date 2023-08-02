@@ -14,7 +14,7 @@ interface ToolBarProps {
   isSeller: boolean;
   chatCount: number;
   isInterested: boolean;
-  updateIsInterestedHandler: () => void;
+  onInterestedToggleClick: () => void;
 }
 
 const ProductDetailToolBar = ({
@@ -22,14 +22,14 @@ const ProductDetailToolBar = ({
   isSeller,
   chatCount,
   isInterested,
-  updateIsInterestedHandler,
+  onInterestedToggleClick,
 }: ToolBarProps) => {
   const [showAlertMessage, setShowAlertMessage] = useState(false);
 
   return (
     <S.ToolBar>
       <S.LikeAndPrice>
-        <button onClick={updateIsInterestedHandler}>
+        <button onClick={onInterestedToggleClick}>
           <Icon name={isInterested ? ICON_NAME.FULL_LIKE : ICON_NAME.LIKE} />
         </button>
         <span>{formatMoney(price ?? 0)}</span>

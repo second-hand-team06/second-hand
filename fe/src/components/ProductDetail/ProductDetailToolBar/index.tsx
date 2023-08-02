@@ -42,7 +42,7 @@ const ProductDetailToolBar = ({
       </S.LikeAndPrice>
 
       {isSeller ? (
-        <S.ChattingListButton buttonType="rectangle" buttonState="active" clickHandler={openAlertMessage}>
+        <S.ChattingListButton buttonType="rectangle" buttonState="active" onClick={openAlertMessage}>
           {`대화 중인 채팅방${chatCount > 0 ? ` (${chatCount})` : ''}`}
         </S.ChattingListButton>
       ) : (

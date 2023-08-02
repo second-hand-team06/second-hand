@@ -38,7 +38,7 @@ const Home = () => {
     },
   });
 
-  const goToTopHandler = () => {
+  const handleGoToTopBtnClick = () => {
     listRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -64,7 +64,7 @@ const Home = () => {
 
       <TabBar activeTab="home" />
 
-      <S.GoToTopButton onClick={goToTopHandler}>
+      <S.GoToTopButton onClick={handleGoToTopBtnClick}>
         <Icon name={ICON_NAME.ARROW_UP} />
       </S.GoToTopButton>
 

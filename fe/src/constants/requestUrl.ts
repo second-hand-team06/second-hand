@@ -9,8 +9,8 @@ const REQUEST_URL = {
   BADGES: `${BASE_URL}/posts/badges`,
   CATEGORY: `${BASE_URL}/categories`,
   CATEGORY_RECOMMENDS: `${BASE_URL}/categories/recommended`,
-  CHATTING: `${BASE_URL}/chattings`,
   OAUTH: `${BASE_URL}/oauth`,
+  CHAT_ROOMS: `http://localhost:4000/chat-rooms`,
 } as const;
 
 export { REQUEST_URL };

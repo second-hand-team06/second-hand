@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 
 interface UseIntersectionObserverProps {
-  intersectHandler: () => void;
+  intersect: () => void;
   root?: null;
   rootMargin?: string;
   threshold?: number;
 }
 
 const useIntersectionObserver = ({
-  intersectHandler,
+  intersect,
   root = null,
   rootMargin = '0px',
   threshold = 0,
@@ -18,7 +18,7 @@ const useIntersectionObserver = ({
   const callback: IntersectionObserverCallback = ([entry]) => {
     if (!entry.isIntersecting) return;
 
-    intersectHandler();
+    intersect();
   };
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const useIntersectionObserver = ({
     observer.observe(target);
 
     return () => observer.disconnect();
-  }, [target, intersectHandler, root, rootMargin, threshold]);
+  }, [target, intersect, root, rootMargin, threshold]);
 
   return { setTarget };
 };

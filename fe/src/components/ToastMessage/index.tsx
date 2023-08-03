@@ -5,13 +5,13 @@ import * as S from './style';
 
 interface ToastMessageProps {
   message: string;
-  closeHandler: () => void;
+  onClose: () => void;
 }
 
-const ToastMessage = ({ message, closeHandler }: ToastMessageProps) => {
+const ToastMessage = ({ message, onClose }: ToastMessageProps) => {
   useEffect(() => {
     const timerId = setTimeout(() => {
-      closeHandler();
+      onClose();
     }, 2000);
 
     return () => {

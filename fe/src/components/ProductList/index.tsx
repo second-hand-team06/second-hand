@@ -67,7 +67,7 @@ const ProductList = ({ regionId, categoryId }: ProductListProps) => {
     getData: ({ page }) => getProductList({ page, regionId, categoryId }),
   });
 
-  const { setTarget } = useIntersectionObserver({ intersectHandler: () => loadItems() });
+  const { setTarget } = useIntersectionObserver({ intersect: () => loadItems() });
 
   if (error) throw error;
 

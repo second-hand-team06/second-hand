@@ -5,12 +5,12 @@ interface ButtonProps {
   buttonType: 'circle' | 'rectangle' | 'category';
   buttonState?: 'default' | 'active';
   children: React.ReactNode;
-  clickHandler?: () => void;
+  onClick?: () => void;
 }
 
-const Button = ({ className, buttonType, buttonState = 'default', children, clickHandler }: ButtonProps) => {
+const Button = ({ className, buttonType, buttonState = 'default', children, onClick }: ButtonProps) => {
   return (
-    <S.Button className={className} buttontype={buttonType} buttonstate={buttonState} onClick={clickHandler}>
+    <S.Button className={className} buttontype={buttonType} buttonstate={buttonState} onClick={onClick}>
       {children}
     </S.Button>
   );

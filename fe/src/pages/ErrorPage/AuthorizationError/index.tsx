@@ -14,15 +14,17 @@ const AuthorizationError = ({ resetErrorBoundary }: AuthErrorProps) => {
   const { logout } = useUserContext();
   const navigate = useNavigate();
 
-  const goToLoginPageHandler = () => {
-    logout();
-    resetErrorBoundary();
-    navigate(PATH.MY_ACCOUNT);
-  };
-
   return (
     <Popup text="다시 로그인해주세요.">
-      <S.LoginPageButton onClick={goToLoginPageHandler}>로그인 페이지로 이동</S.LoginPageButton>
+      <S.LoginPageButton
+        onClick={() => {
+          logout();
+          resetErrorBoundary();
+          navigate(PATH.MY_ACCOUNT);
+        }}
+      >
+        로그인 페이지로 이동
+      </S.LoginPageButton>
     </Popup>
   );
 };

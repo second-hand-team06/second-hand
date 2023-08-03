@@ -14,7 +14,7 @@ interface ToolBarProps {
   isSeller: boolean;
   chatCount: number;
   isInterested: boolean;
-  updateIsInterestedHandler: () => void;
+  onInterestedToggleClick: () => void;
 }
 
 const ProductDetailToolBar = ({
@@ -22,27 +22,27 @@ const ProductDetailToolBar = ({
   isSeller,
   chatCount,
   isInterested,
-  updateIsInterestedHandler,
+  onInterestedToggleClick,
 }: ToolBarProps) => {
   const [showAlertMessage, setShowAlertMessage] = useState(false);
-
-  const openAlertMessage = () => {
-    if (isSeller && chatCount === 0) setShowAlertMessage(true);
-  };
-
-  const closeAlertMessage = () => setShowAlertMessage(false);
 
   return (
     <S.ToolBar>
       <S.LikeAndPrice>
-        <button onClick={updateIsInterestedHandler}>
+        <button onClick={onInterestedToggleClick}>
           <Icon name={isInterested ? ICON_NAME.FULL_LIKE : ICON_NAME.LIKE} />
         </button>
         <span>{formatMoney(price ?? 0)}</span>
       </S.LikeAndPrice>
 
       {isSeller ? (
-        <S.ChattingListButton buttonType="rectangle" buttonState="active" clickHandler={openAlertMessage}>
+        <S.ChattingListButton
+          buttonType="rectangle"
+          buttonState="active"
+          onClick={() => {
+            if (isSeller && chatCount === 0) setShowAlertMessage(true);
+          }}
+        >
           {`대화 중인 채팅방${chatCount > 0 ? ` (${chatCount})` : ''}`}
         </S.ChattingListButton>
       ) : (
@@ -52,7 +52,7 @@ const ProductDetailToolBar = ({
       )}
 
       {showAlertMessage && (
-        <ToastMessage message="채팅한 이웃이 없습니다." closeHandler={closeAlertMessage} />
+        <ToastMessage message="채팅한 이웃이 없습니다." onClose={() => setShowAlertMessage(false)} />
       )}
     </S.ToolBar>
   );

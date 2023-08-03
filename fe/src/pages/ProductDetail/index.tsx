@@ -94,7 +94,7 @@ const ProductDetail = () => {
     setInterestCount(interestCount - 1);
   };
 
-  const updateIsInterestedHandler = () => {
+  const handleInterestedToggleClick = () => {
     if (!isInterested) {
       registerInterested();
       return;
@@ -117,7 +117,7 @@ const ProductDetail = () => {
           <ProductDetailMain {...productData} interestCount={interestCount} />
           <ProductDetailToolBar
             isInterested={isInterested}
-            updateIsInterestedHandler={updateIsInterestedHandler}
+            onInterestedToggleClick={handleInterestedToggleClick}
             {...productData}
           />
         </>

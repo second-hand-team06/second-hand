@@ -18,67 +18,98 @@ export interface Category {
   name: string;
 }
 
-interface UseFetchProps {
-  id: number;
-}
-
 interface Region {
   id: number;
   name: string;
 }
 
-interface regionData {
+interface RegionData {
   regions: Region[];
 }
 
+interface Product {
+  id: number;
+}
+
 const NewProduct = () => {
-  const token = localStorage.getItem('Token');
-  const options: RequestInit = {
-    method: REQUEST_METHOD.GET,
-    headers: token ? { Authorization: `Bearer ${token}` } : {},
-  };
-
-  const { responseState: getRegionState, data: regionData } = useFetch<regionData>({
-    url: REQUEST_URL.USER_REGIONS,
-    options,
-  });
-
-  console.log(regionData?.regions[0].name.split(' ')[2]);
-  const [isOpenCategory, setIsOpenCategory] = useState(false);
+  const [images, setImages] = useState<File[]>([]);
+  const [title, setTitle] = useState('');
   const [category, setCategory] = useState({
     id: 0,
     name: '',
   });
+  const [price, setPrice] = useState('');
+  const [content, setContent] = useState('');
+  // const [region, setRegion] = useState('');
 
-  const categoryToggleClickHandler = () => {
+  const [isOpenCategory, setIsOpenCategory] = useState(false);
+
+  const handleImageUpload = (selectedFiles: FileList) => {
+    const selectedFilesArray = Array.from(selectedFiles);
+    const imagesArray: File[] = selectedFilesArray.map((file: File) => {
+      return file;
+    });
+
+    setImages((previousImages) => [...previousImages, ...imagesArray]);
+  };
+
+  const handleImageDelete = (image: File) => {
+    setImages((previousImages) => previousImages.filter((img) => img !== image));
+  };
+
+  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setTitle(value);
+  };
+
+  const handleCategoryToggleClick = () => {
     setIsOpenCategory((prev) => !prev);
   };
 
-  const categorySelectClickHandler = ({ id, name }: Category) => {
+  const handleCategorySelectClick = ({ id, name }: Category) => {
     setCategory({
       id,
       name,
     });
   };
 
-  const navigate = useNavigate();
+  const handlePriceChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setPrice(value);
+  };
 
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  // const [region, setRegion] = useState('');
-  const [price, setPrice] = useState('');
-  const [images, setImages] = useState<File[]>([]);
+  const contentChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const { value } = e.target;
+    setContent(value);
+  };
 
-  const { responseState, fetchData, data } = useFetch<UseFetchProps>({
+  const token = localStorage.getItem('Token');
+
+  const { responseState: getRegionState, data: regionData } = useFetch<RegionData>({
+    url: REQUEST_URL.USER_REGIONS,
+    options: {
+      method: REQUEST_METHOD.GET,
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    },
+  });
+
+  const currentRegion = getRegionState === 'SUCCESS' ? regionData?.regions[0].name.split(' ')[2] : '';
+
+  const {
+    responseState: postSubmitState,
+    fetchData,
+    data: productData,
+  } = useFetch<Product>({
     url: REQUEST_URL.POSTS,
     options: {
       method: REQUEST_METHOD.POST,
-      headers: { Authorization: `Bearer ${localStorage.getItem('Token')}` },
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
     },
     skip: true,
   });
 
-  const submitHandler = async () => {
+  const handleSubmitClick = async () => {
+    const navigate = useNavigate();
     const formData = new FormData();
 
     formData.append('title', title);
@@ -94,47 +125,18 @@ const NewProduct = () => {
       }
     }
 
-    if (responseState === 'IDLE') {
+    if (postSubmitState === 'IDLE') {
       await fetchData(formData);
     }
 
-    if (responseState === 'SUCCESS') {
-      navigate(`${PATH.PRODUCT_DETAIL}/${data?.id}`, { state: { beforePage: PATH.NEW_PRODUCT } });
+    if (postSubmitState === 'SUCCESS') {
+      navigate(`${PATH.PRODUCT_DETAIL}/${productData?.id}`, { state: { beforePage: PATH.NEW_PRODUCT } });
     }
 
-    if (responseState === 'ERROR') {
-      alert('상품 상태 수정에 실패했습니다.');
+    if (postSubmitState === 'ERROR') {
+      alert('상품 등록에 실패했습니다.');
       return;
     }
-  };
-
-  const titleChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setTitle(value);
-  };
-
-  const priceChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setPrice(value);
-  };
-
-  const contentChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    const { value } = e.target;
-    setContent(value);
-  };
-
-  const imageUploadHandler = (selectedFiles: FileList) => {
-    const selectedFilesArray = Array.from(selectedFiles);
-
-    const imagesArray: File[] = selectedFilesArray.map((file: File) => {
-      return file;
-    });
-
-    setImages((previousImages) => [...previousImages, ...imagesArray]);
-  };
-
-  const deleteImageHandler = (image: File) => {
-    setImages((previousImages) => previousImages.filter((img) => img !== image));
   };
 
   return (
@@ -143,8 +145,8 @@ const NewProduct = () => {
         <ModalPortal>
           <CategoryList
             category={category}
-            onCategoryToggleClick={categoryToggleClickHandler}
-            onCategorySelectClick={categorySelectClickHandler}
+            onCategoryToggleClick={handleCategoryToggleClick}
+            onCategorySelectClick={handleCategorySelectClick}
           />
         </ModalPortal>
       )}
@@ -153,29 +155,27 @@ const NewProduct = () => {
           <S.CloseButton>닫기</S.CloseButton>
         </Link>
         <span>내 물건 팔기</span>
-        <S.CompleteButton onClick={submitHandler}>완료</S.CompleteButton>
+        <S.CompleteButton onClick={handleSubmitClick}>완료</S.CompleteButton>
       </S.Header>
       <S.LayoutContent>
-        <ImageInput onChange={imageUploadHandler} onDelete={deleteImageHandler} images={images} />
+        <ImageInput onChange={handleImageUpload} onDelete={handleImageDelete} images={images} />
         <TitleInput
           title={title}
           category={category}
-          onChange={titleChangeHandler}
-          onCategoryToggleClick={categoryToggleClickHandler}
-          onCategorySelectClick={categorySelectClickHandler}
+          onChange={handleTitleChange}
+          onCategoryToggleClick={handleCategoryToggleClick}
+          onCategorySelectClick={handleCategorySelectClick}
         />
-        <S.TextInput onChange={priceChangeHandler} placeholder="₩ 가격 (선택사항)" />
+        <S.TextInput onChange={handlePriceChange} placeholder="₩ 가격 (선택사항)" />
         <S.TextArea
           onChange={contentChangeHandler}
-          placeholder={`${
-            getRegionState === 'SUCCESS' ? regionData?.regions[0].name.split(' ')[2] : ''
-          }에 올릴 게시물 내용을 작성해주세요.(판매금지 물품은 게시가 제한될 수 있어요.)`}
+          placeholder={`${currentRegion}에 올릴 게시물 내용을 작성해주세요.(판매금지 물품은 게시가 제한될 수 있어요.)`}
         />
       </S.LayoutContent>
       <S.TabBar>
         <S.RegionSettingButton>
           <Icon name={ICON_NAME.REGION_SETTING} fill="black" />
-          <span>{getRegionState === 'SUCCESS' ? regionData?.regions[0].name.split(' ')[2] : ''}</span>
+          <span>{currentRegion}</span>
         </S.RegionSettingButton>
         <S.Keyboard>
           <Icon name={ICON_NAME.KEYBOARD} fill="black" />

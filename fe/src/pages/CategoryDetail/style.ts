@@ -1,5 +1,11 @@
 import styled from 'styled-components';
 
+const Layout = styled.div`
+  max-width: 393px;
+  height: 853px;
+  position: relative;
+`;
+
 const Header = styled.header`
   display: flex;
   justify-content: space-between;
@@ -58,4 +64,4 @@ const GoToTopButton = styled.button`
   }
 `;
 
-export { Header, BackButton, HeaderTitle, EmptyTag, ProductListLayout, GoToTopButton };
+export { Layout, Header, BackButton, HeaderTitle, EmptyTag, ProductListLayout, GoToTopButton };

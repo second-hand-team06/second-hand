@@ -37,7 +37,7 @@ const RegionSetting = () => {
   const validateSelectedRegion = useCallback((idx: number) => idx === 0, []);
 
   return (
-    <>
+    <S.Layout>
       <S.Header>
         <Link to={PATH.HOME}>
           <S.CloseButton>닫기</S.CloseButton>
@@ -67,7 +67,7 @@ const RegionSetting = () => {
           <Icon name={ICON_NAME.PLUS} />
         </Button>
       </S.RegionButtonsLayout>
-    </>
+    </S.Layout>
   );
 };
 

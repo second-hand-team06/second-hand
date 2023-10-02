@@ -2,6 +2,12 @@ import styled from 'styled-components';
 
 import Button from '@components/common/Button';
 
+const Layout = styled.div`
+  max-width: 393px;
+  height: 853px;
+  position: relative;
+`;
+
 const GoToTopButton = styled.button`
   position: fixed;
   bottom: 176px;
@@ -32,4 +38,4 @@ const ProductListLayout = styled.div`
   overflow-y: scroll;
 `;
 
-export { GoToTopButton, NewProductButton, ProductListLayout };
+export { Layout, GoToTopButton, NewProductButton, ProductListLayout };

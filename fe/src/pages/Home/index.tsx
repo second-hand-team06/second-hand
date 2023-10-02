@@ -52,7 +52,7 @@ const Home = () => {
   if (responseState === RESPONSE_STATE.ERROR) throw error;
 
   return (
-    <>
+    <S.Layout>
       {userRegions.length > 0 && (
         <>
           <Header type="home" regions={userRegions} changeUserRegions={setUserRegions} />
@@ -73,7 +73,7 @@ const Home = () => {
           <Icon name={ICON_NAME.PLUS} />
         </S.NewProductButton>
       </Link>
-    </>
+    </S.Layout>
   );
 };
 

@@ -2,6 +2,12 @@ import styled, { css } from 'styled-components';
 
 import Button from '@components/common/Button';
 
+const Layout = styled.div`
+  max-width: 393px;
+  height: 853px;
+  position: relative;
+`;
+
 const Header = styled.header`
   display: flex;
   justify-content: space-between;
@@ -186,6 +192,7 @@ const ChattingDetailButton = styled(Button)`
 `;
 
 export {
+  Layout,
   Header,
   Product,
   ProductInfo,

@@ -31,7 +31,7 @@ const Category = () => {
   });
 
   return (
-    <>
+    <S.Layout>
       <S.Header>
         <Link to={PATH.HOME}>
           <S.BackButton>
@@ -58,7 +58,7 @@ const Category = () => {
           ))}
         </S.CategoryList>
       )}
-    </>
+    </S.Layout>
   );
 };
 

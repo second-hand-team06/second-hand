@@ -1,5 +1,11 @@
 import styled from 'styled-components';
 
+const Layout = styled.div`
+  max-width: 393px;
+  height: 853px;
+  position: relative;
+`;
+
 const Header = styled.header`
   display: flex;
   justify-content: space-between;
@@ -57,4 +63,4 @@ const RegionButtonsLayout = styled.div`
   padding: 0 20px;
 `;
 
-export { Header, HeaderTitle, CloseButton, EmptyTag, RegionCountLimitMessage, RegionButtonsLayout };
+export { Layout, Header, HeaderTitle, CloseButton, EmptyTag, RegionCountLimitMessage, RegionButtonsLayout };

@@ -140,7 +140,7 @@ const NewProduct = () => {
   };
 
   return (
-    <>
+    <S.Layout>
       {isOpenCategory && (
         <ModalPortal>
           <CategoryList
@@ -181,7 +181,7 @@ const NewProduct = () => {
           <Icon name={ICON_NAME.KEYBOARD} fill="black" />
         </S.Keyboard>
       </S.TabBar>
-    </>
+    </S.Layout>
   );
 };
 

@@ -40,7 +40,7 @@ const CategoryDetail = () => {
   };
 
   return (
-    <>
+    <S.Layout>
       <S.Header>
         <Link to={PATH.CATEGORY}>
           <S.BackButton>
@@ -58,7 +58,7 @@ const CategoryDetail = () => {
       <S.GoToTopButton onClick={goToTopHandler}>
         <Icon name={ICON_NAME.ARROW_UP} />
       </S.GoToTopButton>
-    </>
+    </S.Layout>
   );
 };
 

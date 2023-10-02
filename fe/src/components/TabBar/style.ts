@@ -33,6 +33,7 @@ const TabBar = styled.nav`
   bottom: 0;
 
   width: 100%;
+  max-width: 393px;
   height: 83px;
   padding: 16px;
 

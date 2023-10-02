@@ -8,6 +8,7 @@ const HomeHeader = styled.header`
   top: 0;
 
   width: 100%;
+  max-width: 393px;
   height: 44px;
   padding: 11px 16px;
 

@@ -1,5 +1,11 @@
 import styled from 'styled-components';
 
+const Layout = styled.div`
+  max-width: 393px;
+  height: 853px;
+  position: relative;
+`;
+
 const Header = styled.header`
   display: flex;
   justify-content: space-between;
@@ -71,4 +77,4 @@ const CategoryList = styled.section`
   padding: 40px;
 `;
 
-export { Header, BackButton, HeaderTitle, EmptyTag, CategoryImg, CategoryItem, CategoryList };
+export { Layout, Header, BackButton, HeaderTitle, EmptyTag, CategoryImg, CategoryItem, CategoryList };

@@ -1,5 +1,11 @@
 import styled from 'styled-components';
 
+const Layout = styled.div`
+  max-width: 393px;
+  height: 853px;
+  position: relative;
+`;
+
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
@@ -79,6 +85,7 @@ const TextArea = styled.textarea`
 const Keyboard = styled.div``;
 
 export {
+  Layout,
   Header,
   CloseButton,
   CompleteButton,

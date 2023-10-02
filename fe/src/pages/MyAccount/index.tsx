@@ -23,7 +23,7 @@ const MyAccount = () => {
   };
 
   return (
-    <>
+    <S.Layout>
       <S.Header>내 계정</S.Header>
       {isLoggedIn ? (
         <S.MyAccountMain isloggedin={isLoggedIn ? 1 : 0}>
@@ -39,7 +39,7 @@ const MyAccount = () => {
         </S.MyAccountMain>
       )}
       <TabBar activeTab="myAccount" />
-    </>
+    </S.Layout>
   );
 };
 

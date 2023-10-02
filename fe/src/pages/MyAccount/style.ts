@@ -2,6 +2,12 @@ import styled from 'styled-components';
 
 import { PALETTE } from '@styles/color';
 
+const Layout = styled.div`
+  max-width: 393px;
+  height: 853px;
+  position: relative;
+`;
+
 const Header = styled.header`
   display: flex;
   justify-content: center;
@@ -78,4 +84,4 @@ const MyAccountMain = styled.main<{ isloggedin: number }>`
   box-sizing: border-box;
 `;
 
-export { Header, LoginButton, LogoutButton, UserImg, UserLoginId, UserInfo, MyAccountMain };
+export { Layout, Header, LoginButton, LogoutButton, UserImg, UserLoginId, UserInfo, MyAccountMain };

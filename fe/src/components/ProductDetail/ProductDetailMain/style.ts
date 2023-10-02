@@ -26,8 +26,8 @@ const ProductImgList = styled.div`
 `;
 
 const ProductImg = styled.img`
-  min-width: 100vw;
-  height: 500px;
+  width: 393px;
+  height: 491px;
 
   object-fit: cover;
 `;

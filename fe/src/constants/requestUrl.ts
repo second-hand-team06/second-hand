@@ -1,4 +1,4 @@
-const BASE_URL = 'https://api.carrot-market.store';
+const BASE_URL = 'http://15.164.155.100:8080';
 
 const REQUEST_URL = {
   REGIONS: `${BASE_URL}/regions`,

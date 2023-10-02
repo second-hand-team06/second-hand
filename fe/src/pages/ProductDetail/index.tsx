@@ -9,6 +9,8 @@ import ProductDetailHeader from '@components/ProductDetail/ProductDetailHeader';
 import ProductDetailMain from '@components/ProductDetail/ProductDetailMain';
 import ProductDetailToolBar from '@components/ProductDetail/ProductDetailToolBar';
 
+import * as S from './style'
+
 interface PostDetailData {
   id: number;
   sellerId: number;
@@ -109,7 +111,7 @@ const ProductDetail = () => {
   }, [productData]);
 
   return (
-    <>
+    <S.Layout>
       {getProductState === 'LOADING' && <></>}
       {getProductState === 'SUCCESS' && productData && (
         <>
@@ -122,7 +124,7 @@ const ProductDetail = () => {
           />
         </>
       )}
-    </>
+    </S.Layout>
   );
 };
 

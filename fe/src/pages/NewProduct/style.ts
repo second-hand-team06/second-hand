@@ -1,21 +1,14 @@
 import styled from 'styled-components';
 
-const Layout = styled.div`
-  max-width: 393px;
-  height: 853px;
-  position: relative;
-`;
-
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   width: 100%;
-  height: 44px;
+  height: 48px;
   padding: 16px;
 
-  background-color: ${({ theme }) => theme.colors.neutral.background.blur};
   border-bottom: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
 
   font-size: ${({ theme }) => theme.fonts.body.bold.fontSize};
@@ -46,7 +39,7 @@ const TabBar = styled.div`
   bottom: 0;
 
   width: 100%;
-  height: 83px;
+  height: 65px;
   padding: 16px;
 
   background-color: ${({ theme }) => theme.colors.neutral.background.weak};
@@ -85,7 +78,6 @@ const TextArea = styled.textarea`
 const Keyboard = styled.div``;
 
 export {
-  Layout,
   Header,
   CloseButton,
   CompleteButton,

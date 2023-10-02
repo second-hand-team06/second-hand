@@ -1,18 +1,12 @@
 import styled from 'styled-components';
 
-const Layout = styled.div`
-  max-width: 393px;
-  height: 853px;
-  position: relative;
-`;
-
 const Header = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 45px;
 
-  height: 44px;
+  height: 48px;
   padding: 0 9px;
 
   border-bottom: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
@@ -43,7 +37,7 @@ const EmptyTag = styled.div`
 `;
 
 const ProductListLayout = styled.div`
-  height: calc(100vh - 44px);
+  height: calc(100vh - 48px);
   overflow-y: scroll;
 `;
 
@@ -64,4 +58,4 @@ const GoToTopButton = styled.button`
   }
 `;
 
-export { Layout, Header, BackButton, HeaderTitle, EmptyTag, ProductListLayout, GoToTopButton };
+export { Header, BackButton, HeaderTitle, EmptyTag, ProductListLayout, GoToTopButton };

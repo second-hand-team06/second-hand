@@ -83,7 +83,7 @@ const ProductListItem = styled.div`
   gap: 15px;
 
   width: 100%;
-  height: 150px;
+  height: 151px;
   padding: 15px 0px;
 
   border-bottom: 1px solid ${({ theme }) => theme.colors.neutral.border.default};

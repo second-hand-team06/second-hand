@@ -12,6 +12,7 @@ import TitleInput from '@components/TitleInput';
 import CategoryList from '@components/CategoryList';
 import ModalPortal from '@components/ModalPortal';
 import * as S from './style';
+import Layout from '@components/common/Layout';
 
 export interface Category {
   id: number;
@@ -140,7 +141,7 @@ const NewProduct = () => {
   };
 
   return (
-    <S.Layout>
+    <Layout>
       {isOpenCategory && (
         <ModalPortal>
           <CategoryList
@@ -181,7 +182,7 @@ const NewProduct = () => {
           <Icon name={ICON_NAME.KEYBOARD} fill="black" />
         </S.Keyboard>
       </S.TabBar>
-    </S.Layout>
+    </Layout>
   );
 };
 

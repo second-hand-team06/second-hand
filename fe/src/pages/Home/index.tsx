@@ -10,6 +10,7 @@ import Header from '@components/common/Header';
 import ProductList from '@components/ProductList';
 import TabBar from '@components/TabBar';
 import * as S from './style';
+import Layout from '@components/common/Layout';
 
 interface Region {
   id: number;
@@ -52,7 +53,7 @@ const Home = () => {
   if (responseState === RESPONSE_STATE.ERROR) throw error;
 
   return (
-    <S.Layout>
+    <Layout>
       {userRegions.length > 0 && (
         <>
           <Header type="home" regions={userRegions} changeUserRegions={setUserRegions} />
@@ -73,7 +74,7 @@ const Home = () => {
           <Icon name={ICON_NAME.PLUS} />
         </S.NewProductButton>
       </Link>
-    </S.Layout>
+    </Layout>
   );
 };
 

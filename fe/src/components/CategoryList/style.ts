@@ -17,7 +17,7 @@ const Header = styled.div`
   align-items: center;
 
   width: 100%;
-  height: 44px;
+  height: 48px;
   padding: 16px;
 
   background-color: ${({ theme }) => theme.colors.neutral.background.blur};

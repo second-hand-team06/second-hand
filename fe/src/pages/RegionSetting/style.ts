@@ -1,17 +1,12 @@
 import styled from 'styled-components';
 
-const Layout = styled.div`
-  max-width: 393px;
-  height: 853px;
-  position: relative;
-`;
 
 const Header = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  height: 44px;
+  height: 48px;
   padding: 0 9px;
 
   border-bottom: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
@@ -63,4 +58,4 @@ const RegionButtonsLayout = styled.div`
   padding: 0 20px;
 `;
 
-export { Layout, Header, HeaderTitle, CloseButton, EmptyTag, RegionCountLimitMessage, RegionButtonsLayout };
+export {  Header, HeaderTitle, CloseButton, EmptyTag, RegionCountLimitMessage, RegionButtonsLayout };

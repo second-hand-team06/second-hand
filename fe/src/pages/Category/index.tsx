@@ -6,6 +6,7 @@ import useFetch, { REQUEST_METHOD, RESPONSE_STATE } from '@hooks/useFetch';
 
 import Icon from '@components/common/Icon';
 import * as S from './style';
+import Layout from '@components/common/Layout';
 
 interface Category {
   id: number;
@@ -31,7 +32,7 @@ const Category = () => {
   });
 
   return (
-    <S.Layout>
+    <Layout>
       <S.Header>
         <Link to={PATH.HOME}>
           <S.BackButton>
@@ -58,7 +59,7 @@ const Category = () => {
           ))}
         </S.CategoryList>
       )}
-    </S.Layout>
+    </Layout>
   );
 };
 

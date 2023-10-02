@@ -10,7 +10,7 @@ const ToolBar = styled.div`
   bottom: 0;
 
   width: 100%;
-  max-width: 393px;
+  max-width: 440px;
   height: 83px;
   padding: 16px;
 

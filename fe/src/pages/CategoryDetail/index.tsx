@@ -8,6 +8,7 @@ import useFetch, { REQUEST_METHOD } from '@hooks/useFetch';
 import Icon from '@components/common/Icon';
 import ProductList from '@components/ProductList';
 import * as S from './style';
+import Layout from '@components/common/Layout';
 
 interface Region {
   id: number;
@@ -40,7 +41,7 @@ const CategoryDetail = () => {
   };
 
   return (
-    <S.Layout>
+    <Layout>
       <S.Header>
         <Link to={PATH.CATEGORY}>
           <S.BackButton>
@@ -58,7 +59,7 @@ const CategoryDetail = () => {
       <S.GoToTopButton onClick={goToTopHandler}>
         <Icon name={ICON_NAME.ARROW_UP} />
       </S.GoToTopButton>
-    </S.Layout>
+    </Layout>
   );
 };
 

@@ -5,7 +5,7 @@ const Header = styled.header`
   justify-content: space-between;
   align-items: center;
 
-  height: 44px;
+  height: 48px;
   padding: 0 9px;
 
   border-bottom: 1px solid ${({ theme }) => theme.colors.neutral.border.default};

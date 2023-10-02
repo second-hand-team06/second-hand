@@ -2,19 +2,13 @@ import styled from 'styled-components';
 
 import { PALETTE } from '@styles/color';
 
-const Layout = styled.div`
-  max-width: 393px;
-  height: 853px;
-  position: relative;
-`;
-
 const Header = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
 
   width: 100%;
-  height: 44px;
+  height: 48px;
 
   border-bottom: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
 
@@ -78,10 +72,10 @@ const MyAccountMain = styled.main<{ isloggedin: number }>`
   justify-content: ${({ isloggedin }) => (isloggedin ? 'space-between' : 'center')};
   align-items: center;
 
-  height: calc(100vh - 44px - 83px);
+  height: calc(100vh - 48px - 83px);
   padding: 100px 16px;
 
   box-sizing: border-box;
 `;
 
-export { Layout, Header, LoginButton, LogoutButton, UserImg, UserLoginId, UserInfo, MyAccountMain };
+export { Header, LoginButton, LogoutButton, UserImg, UserLoginId, UserInfo, MyAccountMain };

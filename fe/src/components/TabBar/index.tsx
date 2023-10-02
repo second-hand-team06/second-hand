@@ -14,7 +14,7 @@ const TabBar = ({ activeTab }: TabBarProps) => {
     <S.TabBar>
       <Link to={PATH.HOME}>
         <S.Tab name="home" activetab={activeTab}>
-          <Icon name={ICON_NAME.HOME} size={20} />
+          <Icon name={ICON_NAME.HOME} size={22} />
           <span>홈</span>
         </S.Tab>
       </Link>

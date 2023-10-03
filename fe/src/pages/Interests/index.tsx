@@ -1,11 +1,12 @@
 import TabBar from '@components/TabBar';
+import Layout from '@components/common/Layout';
 
 const Interests = () => {
   return (
-    <div>
+    <Layout>
       <span>Interests</span>
       <TabBar activeTab="interests" />
-    </div>
+    </Layout>
   );
 };
 

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { PALETTE } from '@styles/color';
 
 import Button from '@components/common/Button';
 
@@ -9,24 +10,31 @@ const Layout = styled.div`
 `;
 
 const GoToTopButton = styled.button`
-  position: fixed;
+  position: absolute;
+  justify-content: center;
+
   bottom: 176px;
-  right: 30px;
+  right: 24px;
 
-  width: 45px;
-  height: 45px;
+  width: 56px;
+  height: 56px;
+  padding: 10px;
 
-  background-color: ${({ theme }) => theme.colors.neutral.background.default};
-  border: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
-  border-radius: 8px;
+  border-radius: 56px;
+  background-color: #e5e5e5;
+
+  &: hover {
+    background-color: ${({ theme }) => theme.colors.accent.background.primary};
+  };
 
   & > svg {
-    fill: ${({ theme }) => theme.colors.neutral.text.strong};
-  }
+    fill: ${({ theme }) => theme.colors.accent.text.default};
+  };
 `;
 
 const NewProductButton = styled(Button)`
-  position: fixed;
+  position: absolute;
+
   bottom: 107px;
   right: 24px;
 `;

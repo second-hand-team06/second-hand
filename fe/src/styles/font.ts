@@ -2,14 +2,15 @@ const FONT = {
   WEIGHT: {
     REGULAR: '400',
     SEMIBOLD: '590',
+    BOLD: '700'
   },
 };
 
 const fonts = {
   largeTitle: {
-    fontSize: '32px',
-    fontWeight: `${FONT.WEIGHT.REGULAR}`,
-    lineHeight: '41px',
+    fontSize: '47px',
+    fontWeight: `${FONT.WEIGHT.BOLD}`,
+    lineHeight: '57px',
   },
   title1: {
     fontSize: '28px',

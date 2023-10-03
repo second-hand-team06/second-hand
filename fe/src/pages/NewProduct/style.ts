@@ -42,11 +42,9 @@ const TabBar = styled.div`
   height: 65px;
   padding: 16px;
 
-  background-color: ${({ theme }) => theme.colors.neutral.background.weak};
   border-top: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
 `;
 
-// todo: 동네 설정, 키보드 아이콘 색상 설정
 const RegionSettingButton = styled.button`
   display: flex;
   align-items: center;

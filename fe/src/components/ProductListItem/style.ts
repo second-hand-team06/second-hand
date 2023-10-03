@@ -60,13 +60,18 @@ const ChatAndLike = styled.div`
   justify-content: flex-end;
   gap: 4px;
 
-  color: ${({ theme }) => theme.colors.neutral.text.default};
+  color: ${({ theme }) => theme.colors.neutral.text.weak};
+  font-size: ${({ theme }) => theme.fonts.footnote.fontSize};
 `;
 
 const IconTextBox = styled.div`
   display: flex;
   align-items: center;
   gap: 4px;
+
+  & > svg {
+    fill: ${({ theme }) => theme.colors.neutral.text.weak};
+  }
 `;
 
 const ItemInformation = styled.div`
@@ -75,7 +80,8 @@ const ItemInformation = styled.div`
   justify-content: space-between;
   gap: 4px;
 
-  height: 68px;
+  height: 120px;
+  padding: 0 8px 0 0;
 `;
 
 const ProductListItem = styled.div`
@@ -95,6 +101,14 @@ const CustomLink = styled(Link)`
   max-width: 300px;
 `;
 
+const TextBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  height: 70px;
+`;
+
 export {
   Img,
   Title,
@@ -107,4 +121,5 @@ export {
   ItemInformation,
   ProductListItem,
   CustomLink,
+  TextBox,
 };

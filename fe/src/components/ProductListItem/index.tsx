@@ -42,26 +42,30 @@ const ProductListItem = ({
       {photoUrl && <S.Img src={photoUrl} alt={title} />}
       <S.CustomLink to={`${PATH.PRODUCT_DETAIL}/${id}`}>
         <S.ItemInformation>
-          <S.Title>{title}</S.Title>
-          <S.LocationAndTime>{getTextWithTimeStamp({ text: region.name, time: postedAt })}</S.LocationAndTime>
-          <S.StateAndPrice>
-            {badge.state !== '판매 중' && (
-              <S.StateBadge fontcolor={badge.fontColor} backgroundcolor={badge.backgroundColor}>
-                {badge.state}
-              </S.StateBadge>
-            )}
-            {price && <S.Price>{formatMoney(price)}</S.Price>}
-          </S.StateAndPrice>
+          <S.TextBox>
+            <S.Title>{title}</S.Title>
+            <S.LocationAndTime>
+              {getTextWithTimeStamp({ text: region.name, time: postedAt })}
+            </S.LocationAndTime>
+            <S.StateAndPrice>
+              {badge.state !== '판매 중' && (
+                <S.StateBadge fontcolor={badge.fontColor} backgroundcolor={badge.backgroundColor}>
+                  {badge.state}
+                </S.StateBadge>
+              )}
+              {price && <S.Price>{formatMoney(price)}</S.Price>}
+            </S.StateAndPrice>
+          </S.TextBox>
           <S.ChatAndLike>
             {chattingCount > 0 && (
               <S.IconTextBox>
-                <Icon name={ICON_NAME.MESSAGE} />
+                <Icon name={ICON_NAME.MESSAGE} size={16} />
                 <span>{chattingCount}</span>
               </S.IconTextBox>
             )}
             {interestCount > 0 && (
               <S.IconTextBox>
-                <Icon name={interested ? ICON_NAME.FULL_LIKE : ICON_NAME.LIKE} />
+                <Icon name={interested ? ICON_NAME.FULL_LIKE : ICON_NAME.LIKE} size={16} />
                 <span>{interestCount}</span>
               </S.IconTextBox>
             )}

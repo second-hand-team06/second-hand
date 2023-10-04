@@ -1,11 +1,12 @@
 import TabBar from '@components/TabBar';
+import Layout from '@components/common/Layout';
 
 const Sales = () => {
   return (
-    <div>
+    <Layout>
       <span>Sales</span>
       <TabBar activeTab="sales" />
-    </div>
+    </Layout>
   );
 };
 

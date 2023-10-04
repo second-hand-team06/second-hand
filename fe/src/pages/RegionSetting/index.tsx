@@ -9,6 +9,7 @@ import useFetch, { REQUEST_METHOD } from '@hooks/useFetch';
 import Icon from '@components/common/Icon';
 import Button from '@components/common/Button';
 import * as S from './style';
+import Layout from '@components/common/Layout';
 
 interface Region {
   id: number;
@@ -37,7 +38,7 @@ const RegionSetting = () => {
   const validateSelectedRegion = useCallback((idx: number) => idx === 0, []);
 
   return (
-    <>
+    <Layout>
       <S.Header>
         <Link to={PATH.HOME}>
           <S.CloseButton>닫기</S.CloseButton>
@@ -67,7 +68,7 @@ const RegionSetting = () => {
           <Icon name={ICON_NAME.PLUS} />
         </Button>
       </S.RegionButtonsLayout>
-    </>
+    </Layout>
   );
 };
 

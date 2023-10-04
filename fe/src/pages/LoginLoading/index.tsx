@@ -9,6 +9,7 @@ import { useUserContext } from '@context/userContext';
 import Loading from '@components/Loading';
 import TabBar from '@components/TabBar';
 import * as S from './style';
+import Layout from '@components/common/Layout';
 
 interface TokenData {
   token: string;
@@ -43,10 +44,12 @@ const LoginLoading = () => {
   }, [responseState, data]);
 
   return (
-    <S.LoadingLayout>
-      <Loading text="로그인 중입니다." />
-      <TabBar activeTab="myAccount" />
-    </S.LoadingLayout>
+    <Layout>
+      <S.LoadingLayout>
+        <Loading text="로그인 중입니다." />
+        <TabBar activeTab="myAccount" />
+      </S.LoadingLayout>
+    </Layout>
   );
 };
 

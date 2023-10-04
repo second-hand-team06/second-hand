@@ -6,10 +6,9 @@ const Header = styled.div`
   align-items: center;
 
   width: 100%;
-  height: 44px;
+  height: 48px;
   padding: 16px;
 
-  background-color: ${({ theme }) => theme.colors.neutral.background.blur};
   border-bottom: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
 
   font-size: ${({ theme }) => theme.fonts.body.bold.fontSize};
@@ -40,14 +39,12 @@ const TabBar = styled.div`
   bottom: 0;
 
   width: 100%;
-  height: 83px;
+  height: 65px;
   padding: 16px;
 
-  background-color: ${({ theme }) => theme.colors.neutral.background.weak};
   border-top: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
 `;
 
-// todo: 동네 설정, 키보드 아이콘 색상 설정
 const RegionSettingButton = styled.button`
   display: flex;
   align-items: center;

@@ -1,35 +1,59 @@
 import styled from 'styled-components';
+import { PALETTE } from '@styles/color';
 
 import Button from '@components/common/Button';
 
+const Layout = styled.div`
+  max-width: 393px;
+  height: 853px;
+  position: relative;
+`;
+
 const GoToTopButton = styled.button`
-  position: fixed;
+  position: absolute;
+  justify-content: center;
+
   bottom: 176px;
-  right: 30px;
+  right: 24px;
 
-  width: 45px;
-  height: 45px;
+  width: 56px;
+  height: 56px;
+  padding: 10px;
 
-  background-color: ${({ theme }) => theme.colors.neutral.background.default};
-  border: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
-  border-radius: 8px;
+  border-radius: 56px;
+  background-color: #e5e5e5;
+
+  &: hover {
+    background-color: ${({ theme }) => theme.colors.accent.background.primary};
+  };
 
   & > svg {
-    fill: ${({ theme }) => theme.colors.neutral.text.strong};
-  }
+    fill: ${({ theme }) => theme.colors.accent.text.default};
+  };
 `;
 
 const NewProductButton = styled(Button)`
-  position: fixed;
+  position: absolute;
+
   bottom: 107px;
   right: 24px;
 `;
 
 const ProductListLayout = styled.div`
-  margin-top: 44px;
-  margin-bottom: 83px;
-  height: calc(100vh - 44px - 83px);
+  margin-bottom: 65px;
+  height: calc(100vh - 48px - 65px);
   overflow-y: scroll;
+
+  background-color: ${({ theme }) => theme.colors.neutral.background.default};
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.colors.accent.background.primary};
+    border-radius: 12px;
+  }
 `;
 
-export { GoToTopButton, NewProductButton, ProductListLayout };
+export { Layout, GoToTopButton, NewProductButton, ProductListLayout };

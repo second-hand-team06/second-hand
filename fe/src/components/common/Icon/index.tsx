@@ -27,6 +27,7 @@ export type IconName = (typeof ICON_NAME)[keyof typeof ICON_NAME];
 interface IconProps {
   name: IconName;
   fill?: string;
+  size?: number;
 }
 
 const ICONS: Record<string, React.FunctionComponent<React.SVGProps<SVGSVGElement>>> = {
@@ -51,11 +52,11 @@ const ICONS: Record<string, React.FunctionComponent<React.SVGProps<SVGSVGElement
   [ICON_NAME.REGION_SETTING]: RegionSetting,
 };
 
-const Icon = ({ name, fill }: IconProps) => {
+const Icon = ({ name, fill, size = 24 }: IconProps) => {
   const IconComponent = ICONS[name];
 
   if (IconComponent) {
-    return <IconComponent fill={fill} />;
+    return <IconComponent fill={fill} width={size} height={size} />;
   }
 
   return null;

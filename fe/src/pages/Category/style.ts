@@ -6,7 +6,7 @@ const Header = styled.header`
   align-items: center;
   gap: 45px;
 
-  height: 44px;
+  height: 48px;
   padding: 0 9px;
 
   border-bottom: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
@@ -67,8 +67,9 @@ const CategoryList = styled.section`
   grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
   justify-items: center;
   gap: 27px;
-
   padding: 40px;
+  
+  background-color: ${({ theme }) => theme.colors.neutral.background.default};
 `;
 
 export { Header, BackButton, HeaderTitle, EmptyTag, CategoryImg, CategoryItem, CategoryList };

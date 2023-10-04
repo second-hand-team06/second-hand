@@ -4,7 +4,7 @@ import Button from '@components/common/Button';
 
 const Product = styled.section`
   width: 440px;
-  height: calc(100vh - 83px);
+  height: calc(100vh - 65px);
 `;
 
 const ProductInfo = styled.div`
@@ -56,13 +56,13 @@ const DropdownToggleButton = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  width: 120px;
+  width: 105px;
   height: 32px;
   padding: 0px 16px;
   border: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
   border-radius: 8px;
 
-  font-size: ${({ theme }) => theme.fonts.caption1.fontSize};
+  font-size: ${({ theme }) => theme.fonts.footnote.fontSize};
   font-weight: ${({ theme }) => theme.fonts.caption1.fontWeight};
   line-height: ${({ theme }) => theme.fonts.caption1.lineHeight};
   color: ${({ theme }) => theme.colors.neutral.text.strong};

@@ -124,7 +124,7 @@ const ProductDetailMain = ({
                 DropdownButton={
                   <S.DropdownToggleButton onClick={handleDropdownToggleBtnClick}>
                     <span>{productState}</span>
-                    <Icon name={ICON_NAME.CHEVRON_DOWN} />
+                    <Icon name={ICON_NAME.CHEVRON_DOWN} size={14} />
                   </S.DropdownToggleButton>
                 }
                 selectedValue={productState}

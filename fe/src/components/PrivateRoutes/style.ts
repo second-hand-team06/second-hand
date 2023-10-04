@@ -5,7 +5,7 @@ const buttonStyles = css`
 
   width: 100%;
   height: 52px;
-  padding: 16px 20px;
+  padding: 16px 10px;
 
   border-radius: 8px;
 

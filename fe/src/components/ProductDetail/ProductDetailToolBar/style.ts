@@ -11,7 +11,7 @@ const ToolBar = styled.div`
 
   width: 100%;
   max-width: 440px;
-  height: 83px;
+  height: 65px;
   padding: 16px;
 
   background-color: ${({ theme }) => theme.colors.neutral.background.weak};
@@ -31,6 +31,7 @@ const LikeAndPrice = styled.div`
 
 const ChattingListButton = styled(Button)`
   width: fit-content;
+  height: 45px;
 `;
 
 const ChattingDetailButton = styled(Button)`

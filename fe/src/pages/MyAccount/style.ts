@@ -72,7 +72,7 @@ const MyAccountMain = styled.main<{ isloggedin: number }>`
   justify-content: ${({ isloggedin }) => (isloggedin ? 'space-between' : 'center')};
   align-items: center;
 
-  height: calc(100vh - 48px - 83px);
+  height: calc(100vh - 48px - 65px);
   padding: 100px 16px;
 
   box-sizing: border-box;

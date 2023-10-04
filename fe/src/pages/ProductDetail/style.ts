@@ -15,7 +15,7 @@ const Header = styled.header`
 const Product = styled.section`
   overflow-y: scroll;
 
-  height: calc(100vh - 83px);
+  height: calc(100vh - 65px);
 `;
 
 const ProductInfo = styled.div`
@@ -159,7 +159,7 @@ const ToolBar = styled.div`
   bottom: 0;
 
   width: 100%;
-  height: 83px;
+  height: 65px;
   padding: 16px;
 
   background-color: ${({ theme }) => theme.colors.neutral.background.weak};

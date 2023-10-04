@@ -29,7 +29,10 @@ const Layout = ({ children }: LayoutProps) => {
           </S.Description>
         </S.TitleBox>
       </S.TitleLayout>
-      <S.MobileView>{children}</S.MobileView>
+      <S.MobileView>
+        <div id="modal-root"></div>
+        {children}
+      </S.MobileView>
     </S.Layout>
   );
 };

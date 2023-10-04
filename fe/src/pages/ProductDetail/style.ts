@@ -15,7 +15,7 @@ const Header = styled.header`
 const Product = styled.section`
   overflow-y: scroll;
 
-  height: calc(100vh - 83px);
+  height: calc(100vh - 65px);
 `;
 
 const ProductInfo = styled.div`
@@ -36,7 +36,7 @@ const ProductImgList = styled.div`
 `;
 
 const ProductImg = styled.img`
-  min-width: 100vw;
+  width: 440px;
   height: 500px;
 
   object-fit: cover;
@@ -159,7 +159,7 @@ const ToolBar = styled.div`
   bottom: 0;
 
   width: 100%;
-  height: 83px;
+  height: 65px;
   padding: 16px;
 
   background-color: ${({ theme }) => theme.colors.neutral.background.weak};
@@ -185,6 +185,11 @@ const ChattingDetailButton = styled(Button)`
   width: fit-content;
 `;
 
+const ProductDetailLayout = styled.div`
+  position: relative;
+  min-width: 440px;
+`;
+
 export {
   Header,
   Product,
@@ -205,4 +210,5 @@ export {
   LikeAndPrice,
   ChattingListButton,
   ChattingDetailButton,
+  ProductDetailLayout,
 };

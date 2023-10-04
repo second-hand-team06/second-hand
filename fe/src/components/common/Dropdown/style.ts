@@ -4,12 +4,12 @@ const Option = styled.div<{ selectedvalue?: string; value?: string }>`
   display: flex;
   align-items: center;
 
-  height: 45px;
+  height: 40px;
   padding: 0 10px;
 
-  font-size: ${({ theme }) => theme.fonts.callout.fontSize};
+  font-size: ${({ theme }) => theme.fonts.subhead.fontSize};
   font-weight: ${({ selectedvalue, value }) => (value && selectedvalue === value ? 590 : 400)};
-  line-height: ${({ theme }) => theme.fonts.callout.lineHeight};
+  line-height: ${({ theme }) => theme.fonts.subhead.lineHeight};
 
   cursor: pointer;
 `;
@@ -22,15 +22,15 @@ const MenuBorderStyles = css`
 
 const Dropdown = styled.div`
   position: absolute;
-  top: calc(100% + 4px);
+  top: calc(100% + 6px);
   left: 0;
 
-  width: 240px;
+  width: 200px;
 
   background-color: ${({ theme }) => theme.colors.system.background.default};
-  border: 1px solid ${({ theme }) => theme.colors.neutral.border.strong};
-  border-radius: 12px;
-
+  border: 1px solid  ${({ theme }) => theme.colors.neutral.border.default};
+  border-radius: 10px;
+  
   ${MenuBorderStyles}
 `;
 

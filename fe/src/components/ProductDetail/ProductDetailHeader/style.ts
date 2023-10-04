@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 const ClosePopupButton = styled.button`
   width: 100%;
-  max-width: 200px;
   padding: 8px 0;
 
   border: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
@@ -13,7 +12,6 @@ const ClosePopupButton = styled.button`
 
 const DeletePostButton = styled.button`
   width: 100%;
-  max-width: 200px;
   padding: 8px 0;
 
   border: 1px solid ${({ theme }) => theme.colors.neutral.border.default};
@@ -26,12 +24,14 @@ const Header = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: fixed;
+  position: absolute;
 
   width: 100%;
   max-width: 440px;
   height: 48px;
   padding: 16px;
+
+  left: 0;
 `;
 
 export { ClosePopupButton, DeletePostButton, Header };

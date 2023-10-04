@@ -6,7 +6,7 @@ const Popup = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 16px;
-  position: fixed;
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

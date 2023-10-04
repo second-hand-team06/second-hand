@@ -3,8 +3,7 @@ import styled from 'styled-components';
 import Button from '@components/common/Button';
 
 const Product = styled.section`
-  overflow-y: scroll;
-
+  width: 440px;
   height: calc(100vh - 83px);
 `;
 
@@ -26,7 +25,7 @@ const ProductImgList = styled.div`
 `;
 
 const ProductImg = styled.img`
-  width: 393px;
+  width: 440px;
   height: 491px;
 
   object-fit: cover;

@@ -36,7 +36,7 @@ const ProductImgList = styled.div`
 `;
 
 const ProductImg = styled.img`
-  min-width: 100vw;
+  width: 440px;
   height: 500px;
 
   object-fit: cover;
@@ -185,6 +185,11 @@ const ChattingDetailButton = styled(Button)`
   width: fit-content;
 `;
 
+const ProductDetailLayout = styled.div`
+  position: relative;
+  min-width: 440px;
+`;
+
 export {
   Header,
   Product,
@@ -205,4 +210,5 @@ export {
   LikeAndPrice,
   ChattingListButton,
   ChattingDetailButton,
+  ProductDetailLayout,
 };

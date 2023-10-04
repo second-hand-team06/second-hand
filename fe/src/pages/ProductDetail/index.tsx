@@ -9,7 +9,7 @@ import ProductDetailHeader from '@components/ProductDetail/ProductDetailHeader';
 import ProductDetailMain from '@components/ProductDetail/ProductDetailMain';
 import ProductDetailToolBar from '@components/ProductDetail/ProductDetailToolBar';
 
-import * as S from './style'
+import * as S from './style';
 import Layout from '@components/common/Layout';
 
 interface PostDetailData {
@@ -115,15 +115,16 @@ const ProductDetail = () => {
     <Layout>
       {getProductState === 'LOADING' && <></>}
       {getProductState === 'SUCCESS' && productData && (
-        <>
+        <S.ProductDetailLayout>
           <ProductDetailHeader postId={productData.id} isSeller={productData.isSeller} />
+
           <ProductDetailMain {...productData} interestCount={interestCount} />
           <ProductDetailToolBar
             isInterested={isInterested}
             onInterestedToggleClick={handleInterestedToggleClick}
             {...productData}
           />
-        </>
+        </S.ProductDetailLayout>
       )}
     </Layout>
   );

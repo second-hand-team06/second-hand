@@ -1,5 +1,4 @@
 import * as S from './style';
-import Layout from '../Layout';
 
 interface PopupProps {
   text: string;

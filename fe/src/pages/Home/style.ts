@@ -1,13 +1,6 @@
 import styled from 'styled-components';
-import { PALETTE } from '@styles/color';
 
 import Button from '@components/common/Button';
-
-const Layout = styled.div`
-  max-width: 393px;
-  height: 853px;
-  position: relative;
-`;
 
 const GoToTopButton = styled.button`
   position: absolute;
@@ -25,11 +18,11 @@ const GoToTopButton = styled.button`
 
   &: hover {
     background-color: ${({ theme }) => theme.colors.accent.background.primary};
-  };
+  }
 
   & > svg {
     fill: ${({ theme }) => theme.colors.accent.text.default};
-  };
+  }
 `;
 
 const NewProductButton = styled(Button)`
@@ -56,4 +49,4 @@ const ProductListLayout = styled.div`
   }
 `;
 
-export { Layout, GoToTopButton, NewProductButton, ProductListLayout };
+export { GoToTopButton, NewProductButton, ProductListLayout };

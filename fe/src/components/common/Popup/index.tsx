@@ -8,13 +8,13 @@ interface PopupProps {
 
 const Popup = ({ text, children }: PopupProps) => {
   return (
-    <Layout>
+    <>
       <S.Popup>
         <span>{text}</span>
         <S.ButtonsLayout>{children}</S.ButtonsLayout>
       </S.Popup>
       <S.Overlay />
-    </Layout>
+    </>
   );
 };
 
